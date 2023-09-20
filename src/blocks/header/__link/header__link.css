@@ -1,0 +1,7 @@
+.header__link{
+  margin-right: 44px;
+  text-decoration: none;
+  color: var(--text-color);
+  line-height: 20px;
+  letter-spacing: .2px;
+}
