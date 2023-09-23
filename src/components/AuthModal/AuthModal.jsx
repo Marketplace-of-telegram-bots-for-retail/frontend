@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
-const AuthModal = ({ isLogin, onClose }) => {
-  const [userType, setUserType] = useState('Покупатель'); // 'Покупатель' or 'Продавец'
+const AuthModal = ({ onClose }) => {
+  const [isLogin, setIsLogin] = useState(true); // добавьте это состояние в AuthModal
+  const [userType, setUserType] = useState('Покупатель');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -20,7 +21,7 @@ const AuthModal = ({ isLogin, onClose }) => {
       formData.confirmPassword = confirmPassword;
     }
 
-    // Отправляем formData на сервер для аутентификации или регистрации.
+    // Отправить formData на сервер
   };
 
   return (
@@ -37,7 +38,7 @@ const AuthModal = ({ isLogin, onClose }) => {
       <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
       {!isLogin && <input type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Повторите пароль" />}
       <label htmlFor="rememberMe">
-        <input id="rememberMe" type="checkbox" checked={rememberMe} onChange={() => setRememberMe((prev) => !prev)} />
+        <input id="rememberMe" type="checkbox" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} />
         Запомнить меня
       </label>
       <button type="submit" onClick={handleSubmit}>{isLogin ? 'Войти' : 'Зарегистрироваться'}</button>
@@ -47,14 +48,15 @@ const AuthModal = ({ isLogin, onClose }) => {
           <span>
             Нет аккаунта?
             {' '}
-            <Link to="/signup" onClick={() => onClose()}>Зарегистрироваться</Link>
+            <button type='submit' onClick={() => setIsLogin(false)}>Зарегистрироваться</button>
           </span>
         </div>
       ) : (
         <div>
           <span>
             Есть аккаунт?
-            <Link to="/signin" onClick={() => onClose()}>Войти</Link>
+            {' '}
+            <button type='submit' onClick={() => setIsLogin(true)}>Войти</button>
           </span>
         </div>
       )}
