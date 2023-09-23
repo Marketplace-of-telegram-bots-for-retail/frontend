@@ -1,7 +1,8 @@
 import React from 'react';
-import Categories from './Categories';
-import Cards from './Cards';
-import Prices from './Prices';
+import Categories from '../Categories/Categories';
+import Cards from '../Cards/Cards';
+import Prices from '../Prices/Prices';
+import './Content.css';
 
 const Content = () => {
   return (

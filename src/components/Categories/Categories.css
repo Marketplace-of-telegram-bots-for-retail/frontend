@@ -1,0 +1,5 @@
+@import url(../../blocks/categories/categories.css);
+@import url(../../blocks/categories/__title/categories__title.css);
+@import url(../../blocks/categories/__input/categories__input.css);
+@import url(../../blocks/categories/__label/categories__label.css);
+@import url(../../blocks/categories/__input-container/categories__input-container.css);

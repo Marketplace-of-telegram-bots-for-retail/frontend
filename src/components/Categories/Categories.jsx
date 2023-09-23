@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React from 'react';
-import { CATEGORIES_INPUT } from '../utils/constants';
+import { CATEGORIES_INPUT } from '../../utils/constants';
+import './Categories.css';
 
 const Categories = () => {
   return (
