@@ -1,11 +1,12 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { ARR_NAV } from '../utils/constants';
-import Logo from '../images/Logo.png';
-import Stripes from '../images/ic_menu-catalog-24.svg';
-import searchButton from '../images/01 align center.svg';
-import basket from '../images/Button-menu-icon.png';
-import favourites from '../images/Button-menu-favorites.png';
+import { ARR_NAV } from '../../utils/constants';
+import './Header.css';
+import Logo from '../../images/Logo.png';
+import Stripes from '../../images/ic_menu-catalog-24.svg';
+import searchButton from '../../images/01 align center.svg';
+import basket from '../../images/Button-menu-icon.png';
+import favourites from '../../images/Button-menu-favorites.png';
 
 const Header = () => {
   return (

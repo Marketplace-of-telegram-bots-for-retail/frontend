@@ -1,8 +1,9 @@
 import React from 'react';
-import Header from './Header';
-import Poster from './Poster';
-import Title from './Title';
-import Content from './Content';
+import Header from '../Header/Header';
+import Poster from '../Poster/Poster';
+import Title from '../Title/Title';
+import Content from '../Content/Content';
+import './App.css';
 
 const App = () => {
   return (
