@@ -1,0 +1,10 @@
+.header__search-button{
+  background-color: var(--accent-purple);
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 0rem 0.5rem 0.5rem 0rem;
+  border:none;
+  outline: none;
+  padding: 0.97rem 1.5rem;
+}

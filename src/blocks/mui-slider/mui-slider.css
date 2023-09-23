@@ -1,0 +1,7 @@
+.MuiSlider-rail {
+  color: var(--secondary-purple-light);
+}
+
+.MuiSlider-colorPrimary {
+  color: var(--gradient-primary);
+}

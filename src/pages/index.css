@@ -1,7 +1,7 @@
 /*page*/
 @import url(../blocks/page/page.css);
-/*normilize*/
-@import url(../vendor/normalize.css);
+/* normilize */
+@import url(../vendor/normalize.css); 
 /*fonts*/
 @import url(../vendor/fonts.css);
 /*container*/
@@ -12,3 +12,31 @@
 @import url(../blocks/header/header.css);
 @import url(../blocks/header/__nav/header__nav.css);
 @import url(../blocks/header/__link/header__link.css);
+@import url(../blocks/header/__link-seller/header__link-seller.css);
+@import url(../blocks/header/__basis/header__basis.css);
+@import url(../blocks/header/__logo/header__logo.css);
+@import url(../blocks/header/__catalog/header__catalog.css);
+@import url(../blocks/header/__catalog-text/header__catalog-text.css);
+@import url(../blocks/header/__catalog-container/header__catalog-container.css);
+@import url(../blocks/header/__input/header__input.css);
+@import url(../blocks/header/__search-button/header__search-button.css);
+@import url(../blocks/header/__search-icon/header__search-icon.css);
+@import url(../blocks/header/__basket-button/header__basket-button.css);
+@import url(../blocks/header/__favourite-button/header__favourite-button.css);
+@import url(../blocks/header/__enter-button/header__enter-button.css);
+/*poster*/
+@import url(../blocks/poster/poster.css);
+/*title*/
+@import url(../blocks/title/title.css);
+/*content*/
+@import url(../blocks/content/content.css);
+/*categories*/
+@import url(../blocks/categories/categories.css);
+@import url(../blocks/categories/__title/categories__title.css);
+@import url(../blocks/categories/__input/categories__input.css);
+@import url(../blocks/categories/__label/categories__label.css);
+@import url(../blocks/categories/__input-container/categories__input-container.css);
+/*prices*/
+@import url(../blocks/prices/__box/prices__box.css);
+/*mui-slider*/
+@import url(../blocks/mui-slider/mui-slider.css);

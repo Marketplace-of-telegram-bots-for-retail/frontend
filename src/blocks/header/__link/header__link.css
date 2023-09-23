@@ -1,7 +1,8 @@
 .header__link{
-  margin-right: 44px;
+  margin-right: 43px;
   text-decoration: none;
   color: var(--text-color);
-  line-height: 20px;
-  letter-spacing: .2px;
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: var(--letter-space);
 }

@@ -1,3 +1,12 @@
 :root {
-  --text-color: rgba(126, 126, 126, 1);
+  --text-color: #7E7E7E;
+  --secondary-purple-light: #DACDFF;
+  --s-indent: 1.62rem;
+  --gradient-primary: linear-gradient(270deg, #7916E1 0%, #680BE0 47.92%, #5500DE 100%);
+  --primary-white: #FDFDFD;
+  --letter-space: .5px;
+  --input-text: #CCCCCC;
+  --accent-purple: #680BE0;
+  --primary-black: #1E1E1E;
+  --secondary-accent-blue-dark: #5500DE;
 }

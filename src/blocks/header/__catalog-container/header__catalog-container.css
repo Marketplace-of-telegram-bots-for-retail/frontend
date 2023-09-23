@@ -1,0 +1,6 @@
+.header__catalog-container{
+  padding: 0.88rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

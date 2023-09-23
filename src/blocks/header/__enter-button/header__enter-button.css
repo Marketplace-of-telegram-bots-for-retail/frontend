@@ -1,0 +1,12 @@
+.header__enter-button{
+  all:unset;
+  background-color: var(--accent-purple);
+  color: var(--primary-white);
+  font-size: 1.25rem;
+  letter-spacing: var(--letter-space);
+  font-weight: 500;
+  line-height: 1.5rem;
+  padding: 0.88rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
