@@ -1,0 +1,12 @@
+.header__input {
+  font-size: 1.25rem;
+  letter-spacing: var(--letter-space);
+  padding: 0.88rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--accent-purple);
+  width: 29.3rem;
+}
+
+.header__input::placeholder {
+  color: var(--input-text);
+}

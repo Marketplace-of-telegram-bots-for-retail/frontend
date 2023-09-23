@@ -1,0 +1,8 @@
+.title{
+  letter-spacing: var(--letter-space);
+  font-size: 2.5rem;
+  font-weight: 700;
+  padding-top: 1.15rem;
+  padding-left: var(--s-indent);
+  padding-bottom: 3.8rem;
+}

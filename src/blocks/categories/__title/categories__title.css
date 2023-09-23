@@ -1,0 +1,8 @@
+.categories__title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--primary-black);
+  margin: 0;
+  letter-spacing: var(--letter-space);
+  margin-bottom: 1.95rem;
+}

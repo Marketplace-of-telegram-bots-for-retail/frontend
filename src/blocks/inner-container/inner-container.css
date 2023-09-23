@@ -1,0 +1,9 @@
+
+.inner-container{
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  width: 100%;
+  border: solid 1px black;
+  height: 100%;
+}
