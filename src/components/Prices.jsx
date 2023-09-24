@@ -43,6 +43,8 @@ const Prices = () => {
           value={value}
           onChange={handleChange}
           valueLabelDisplay='auto'
+          min={0}
+          max={5000}
         />
       </Box>
       <p>{value[0]}</p>
