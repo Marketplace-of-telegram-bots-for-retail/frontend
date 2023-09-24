@@ -88,6 +88,14 @@
   box-sizing: border-box;
 }
 
+.modal__eye-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;  
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 .modal__input {
   all: unset;
   margin: 0;
@@ -136,8 +144,10 @@
 .modal__remember-icon {
   all: unset;
   cursor: pointer;
-  height: 16px;
-  width: 16px;
+  height: 17px;
+  width: 17px;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 
 .modal__remember-icon_blank {

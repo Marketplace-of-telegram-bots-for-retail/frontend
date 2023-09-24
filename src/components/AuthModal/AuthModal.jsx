@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Close } from '../../images/close-icon.svg';
+import { ReactComponent as Eye } from '../../images/eye.svg';
 import './AuthModal.css';
 
 const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
@@ -12,6 +13,7 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
   const [emailError, setEmailError] = useState('');
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
 
   // Validation
 
@@ -94,10 +96,16 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
             {emailError && <span className="modal__error-message">{emailError}</span>}
           </label>
           <label htmlFor='password' className='modal__label'>
+            <Eye
+              className='modal__eye-icon'
+              onMouseDown={() => setShowPassword(true)}
+              onMouseUp={() => setShowPassword(false)}
+              onMouseLeave={() => setShowPassword(false)}
+            />
             <input
               id='password'
               className={`modal__input ${passwordError ? 'modal__input_error' : 'modal__input_valid'}`}
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => {
                 const val = e.target.value;
