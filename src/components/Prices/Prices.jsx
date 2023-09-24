@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
 import { styled } from '@mui/material/styles';
+import './Prices.css';
 
 const Prices = () => {
   const [value, setValue] = useState([20, 37]);
