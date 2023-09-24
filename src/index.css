@@ -5,6 +5,10 @@
 /*fonts*/
 @import url(./vendor/fonts.css);
 
+* {
+  box-sizing: border-box;
+}
+
   /* Перенес, закоментил */
 /*container*/
 /* @import url(../blocks/container/container.css); */
