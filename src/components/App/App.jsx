@@ -23,7 +23,7 @@ const App = () => {
             <Title />
             <Content />
           </main>
-          { showAuthButtons && <AuthButtons />}
+          { showAuthButtons && <AuthButtons setShowAuthButtons={setShowAuthButtons} />}
         </div>
       </div>
     </Router>

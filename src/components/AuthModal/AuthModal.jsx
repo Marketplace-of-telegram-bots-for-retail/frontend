@@ -9,6 +9,36 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [emailError, setEmailError] = useState('');
+  const [passwordError, setPasswordError] = useState('');
+  const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  // Validation
+
+  const validateEmail = (email) => {
+    email = email.trim();
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (email.length < 7 || email.length > 129) return 'Invalid length for email.';
+    if (!emailRegex.test(email)) return 'Email format is invalid.';
+    if (email.split('@').length > 2) return "Email must contain only one '@' symbol.";
+    return '';
+  };
+
+  const validatePassword = (pass) => {
+    pass = pass.trim();
+    const passRegex = /^[a-zA-Z0-9!#$%.]*$/;
+    if (pass.length < 8 || pass.length > 40) return 'Invalid length for password.';
+    if (pass === email) return 'Email and password cannot be the same.';
+    if (!(/[a-zA-Z]/.test(pass) && /[0-9]/.test(pass))) return 'Password must contain both numbers and letters.';
+    if (!passRegex.test(pass)) return 'Invalid password format.';
+    return '';
+  };
+
+  const validateConfirmPassword = (confirmPass) => {
+    confirmPass = confirmPass.trim();
+    if (confirmPass !== password) return 'Passwords do not match.';
+    return validatePassword(confirmPass);
+  };
 
   const handleSubmit = () => {
     const formData = {
@@ -47,9 +77,56 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
               Продавец
             </button>
           </div>
-          <input className='modal__input' type="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Электронная почта" />
-          <input className='modal__input' type="password" value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Пароль" />
-          {!isLogin && <input className='modal__input' type="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} placeholder="Повторите пароль" />}
+          <label htmlFor='email' className='modal__label'>
+            <input
+              id='email'
+              className={`modal__input ${emailError ? 'modal__input_error' : 'modal__input_valid'}`}
+              type="email"
+              value={email}
+              onChange={(e) => {
+                const val = e.target.value;
+                setEmail(val);
+                setEmailError(validateEmail(val));
+              }}
+              onBlur={() => setEmail(email.trim())}
+              placeholder="Электронная почта"
+            />
+            {emailError && <span className="modal__error-message">{emailError}</span>}
+          </label>
+          <label htmlFor='password' className='modal__label'>
+            <input
+              id='password'
+              className={`modal__input ${passwordError ? 'modal__input_error' : 'modal__input_valid'}`}
+              type="password"
+              value={password}
+              onChange={(e) => {
+                const val = e.target.value;
+                setPassword(val);
+                setPasswordError(validatePassword(val));
+              }}
+              onBlur={() => setPassword(password.trim())}
+              placeholder="Пароль"
+            />
+            {passwordError && <span className="modal__error-message">{passwordError}</span>}
+          </label>
+          {!isLogin && (
+          <label htmlFor='confirmPassword' className='modal__label'>
+            <input
+              id='confirmPassword'
+              className={`modal__input ${confirmPasswordError ? 'modal__input_error' : 'modal__input_valid'}`}
+              type="password"
+              value={confirmPassword}
+              onChange={(e) => {
+                const val = e.target.value;
+                setConfirmPassword(val);
+                setConfirmPasswordError(validateConfirmPassword(val));
+              }}
+              onBlur={() => setConfirmPassword(confirmPassword.trim())}
+              placeholder="Повторите пароль"
+            />
+            {confirmPasswordError && <span className="modal__error-message">{confirmPasswordError}</span>}
+            </label>
+          )}
           <div className='modal__remember-checkbox'>
             <button type='button' className={`modal__remember-icon ${rememberMe ? 'modal__remember-icon_checked' : 'modal__remember-icon_blank'}`} onClick={() => setRememberMe(!rememberMe)} />
             <span className='modal__span'>Запомнить меня</span>

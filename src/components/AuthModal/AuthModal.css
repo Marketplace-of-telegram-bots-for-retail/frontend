@@ -80,6 +80,14 @@
   width: 100%;
 }
 
+.modal__label {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: block;
+  box-sizing: border-box;
+}
+
 .modal__input {
   all: unset;
   margin: 0;
@@ -91,10 +99,30 @@
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 120% */
+  width: 100%;
 }
 
 .modal__input::placeholder {
   color: #9FA1A5;
+}
+
+.modal__input_error {
+  color: var(--Error, #FF2455);
+}
+
+.modal__input_valid {
+  color: var(--Secondary-Accent-Blue-Dark, #5500DE);
+}
+
+.modal__error-message {
+  position: absolute;
+  bottom: -20px;
+  left: 0;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 142.857% */
+  color: var(--Error, #FF2455);
 }
 
 .modal__remember-checkbox {
@@ -135,6 +163,7 @@
 
 .modal__span_link {
   color: var(--Primary-Accent-Purple, #680BE0);
+  cursor: pointer;
 }
 
 .modal__submit-btn {
