@@ -1,0 +1,5 @@
+.product__price-block {
+    display: flex;
+    flex-direction: column;
+    gap: 86px;
+}

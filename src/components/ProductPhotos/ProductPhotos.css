@@ -1,0 +1,36 @@
+.product-photos {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.product-photos__photos {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.product-photos__photo-small {
+    width: 188px;
+    height: 145px;
+    margin: 0;
+    padding: 0;
+    background: lightgray 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 16px;
+}
+
+.product-photos__photo-big {
+    width: 604px;
+    height: 464px;
+    margin: 0;
+    padding: 0;
+    background: lightgray 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 16px;
+}
