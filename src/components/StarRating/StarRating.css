@@ -1,0 +1,33 @@
+.star-rating {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: center;
+    margin: 0;
+    padding: 0;
+    align-items: center;
+}
+
+.star-rating__input {
+    display: none;
+}
+
+.star-rating__label {
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    color: #CCCCCC;
+    text-align: center;
+}
+
+.star-rating__label::before {
+    content: '★';
+}
+
+.star-rating__input:checked ~ .star-rating__label {
+    color: gold;
+}
+
+.star-rating__label:hover,
+.star-rating__label:hover ~ .star-rating__label {
+    color: gold;
+}
