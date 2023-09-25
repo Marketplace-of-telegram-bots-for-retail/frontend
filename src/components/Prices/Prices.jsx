@@ -1,53 +1,78 @@
-import React, { useState } from 'react';
+/* eslint-disable prefer-destructuring */
+/* eslint-disable no-restricted-globals */
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { styled } from '@mui/material/styles';
+import { collecPricesInfo } from '../../store/priceFormSubmitSlice';
 import './Prices.css';
 
 const Prices = () => {
-  const [value, setValue] = useState([20, 37]);
+  const [value, setValue] = React.useState([0, 0]);
+  const dispatch = useDispatch();
 
-  const handleChange = (event, newValue) => {
+  const handleChangeSlider = (event, newValue) => {
     setValue(newValue);
+    dispatch(collecPricesInfo(newValue));
   };
-  const PriceSlider = styled(Slider)({
-    color: '#680BE0',
-    height: 4,
-    '& .MuiSlider-track': {
-      border: 'none',
-    },
-    '& .MuiSlider-thumb': {
-      height: 14,
-      width: 14,
-      backgroundColor: 'linear-gradient(270deg, #7916E1 0%, #680BE0 47.92%, #5500DE 100%)',
-      border: '2px solid linear-gradient(270deg, #7916E1 0%, #680BE0 47.92%, #5500DE 100%)',
-      '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible': {
-        boxShadow: 'inherit',
-      },
-      '&:before': {
-        display: 'none',
-      },
-    },
-    '& .MuiSlider-valueLabel': {
-      display: 'none',
+  const handleChange = (e, index) => {
+    let inputValue = Number(e.target.value);
+    if (isNaN(inputValue)) {
+      inputValue = 0;
+      console.log('check');
     }
-  });
-  console.log(value);
+    if (!isNaN(inputValue)) {
+      const numericValue = parseInt(inputValue, 10);
+      if (numericValue >= 0 && numericValue <= 5000) {
+        const updatedValue = [...value];
+        updatedValue[index] = numericValue;
+        setValue(updatedValue);
+        if (index === 0 && updatedValue[1] < updatedValue[0]) {
+          updatedValue[1] = updatedValue[0];
+        } else if (index === 1 && updatedValue[0] > updatedValue[1]) {
+          updatedValue[0] = updatedValue[1];
+        }
+      }
+    } else {
+      inputValue = 0;
+    }
+  };
   return (
     <>
-      <section className='categories' style={{ marginTop: '3rem' }}>
+      <section style={{ marginTop: '2rem', marginLeft: 'var(  --s-indent)' }}>
         <h3 className='categories__title'>Цена</h3>
       </section>
       <Box className='prices__box' sx={{ width: 290 }}>
-        <PriceSlider
-          getAriaLabel={() => 'Temperature range'}
+        <Slider
           value={value}
-          onChange={handleChange}
-          valueLabelDisplay='auto'
+          onChange={handleChangeSlider}
+          valueLabelDisplay='off'
+          max={5000}
+          min={0}
+          classes={{
+            root: 'custom-slider-root',
+            thumb: 'custom-slider-thumb',
+            rail: 'custom-slider-rail',
+            track: 'custom-slider-track',
+          }}
         />
       </Box>
-      <p>{value[0]}</p>
-      <p>{value[1]}</p>
+      <div className='prices__input-container'>
+        <input
+          placeholder='от 0'
+          className='prices__input'
+          type='text'
+          value={!Number(value[0]) ? '' : value[0]}
+          onChange={(e) => handleChange(e, 0)}
+        />
+        <input
+          placeholder='до 5000'
+          className='prices__input'
+          type='text'
+          value={!Number(value[1]) ? '' : value[1]}
+          onChange={(e) => handleChange(e, 1)}
+        />
+      </div>
     </>
   );
 };

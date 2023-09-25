@@ -8,7 +8,7 @@ import searchButton from '../../images/01 align center.svg';
 import basket from '../../images/Button-menu-icon.png';
 import favourites from '../../images/Button-menu-favorites.png';
 
-const Header = () => {
+const Header = ({ showAuthButtons, setShowAuthButtons }) => {
   return (
     <section className='header'>
       <nav className='header__nav'>
@@ -48,7 +48,9 @@ const Header = () => {
         </div>
         <img className='header__basket-button' src={basket} alt='корзина' />
         <img className='header__favourite-button' src={favourites} alt='избранное' />
-        <button className='header__enter-button' type='button'>Войти</button>
+        <button className='header__enter-button' type='button' onClick={() => setShowAuthButtons(!showAuthButtons)}>
+          Войти
+        </button>
       </article>
     </section>
   );
