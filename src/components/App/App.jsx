@@ -5,6 +5,7 @@ import Title from '../Title/Title';
 import Content from '../Content/Content';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import './App.css';
+import Product from '../Product/Product';
 
 const App = () => {
   const [showAuthButtons, setShowAuthButtons] = useState(false);
@@ -21,7 +22,10 @@ const App = () => {
           <Title />
           <Content />
         </main>
-        { showAuthButtons && <AuthButtons setShowAuthButtons={setShowAuthButtons} />}
+        {showAuthButtons && (
+          <AuthButtons setShowAuthButtons={setShowAuthButtons} />
+        )}
+        <Product />
       </div>
     </div>
   );

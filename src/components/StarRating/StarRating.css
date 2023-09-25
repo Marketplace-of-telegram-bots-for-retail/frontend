@@ -17,14 +17,12 @@
     cursor: pointer;
     color: #CCCCCC;
     text-align: center;
+    background-image: url('../../images/ic_rating-20.svg');
 }
 
-.star-rating__label::before {
-    content: '★';
-}
 
 .star-rating__input:checked ~ .star-rating__label {
-    color: gold;
+    background-image: url('../../images/ic_rating-20 gold.png');
 }
 
 .star-rating__label:hover,
