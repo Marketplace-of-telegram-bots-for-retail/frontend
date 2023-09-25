@@ -2,3 +2,5 @@
 
 /*mui-slider*/
 @import url(../../blocks/mui-slider/mui-slider.css);
+@import url(../../blocks/prices/__input-container/prices__input-container.css);
+@import url(../../blocks//prices/__input/prices__input.css);
