@@ -1,0 +1,104 @@
+.card {
+  max-width: 292px;
+  max-height: 516px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+}
+
+.card__cover {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 16px;
+  width: 292px;
+  height: 224px;
+  background: #d9d9d9;
+}
+
+.card__like_on {
+}
+
+.card__title {
+  margin: 12px 0;
+  padding: 0;
+  overflow: hidden;
+  color: var(--Primary-Black, #1e1e1e);
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* Headline 3 */
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 133.333% */
+}
+
+
+.card__about {
+  margin: 12px 0;
+  padding: 0;
+  color: var(--Primary-Black, #1e1e1e);
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* Body 16 Regular */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+}
+
+.card__price {
+  display: flex;
+  width: 292px;
+  margin: 8px 0 16px;
+  padding: 0;
+  align-items: center;
+  gap: 10px;
+  color: var(--Primary-Black, #1e1e1e);
+
+  /* Headline 2 */
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.card__button_large {
+  display: flex;
+  width: 292px;
+  height: 52px;
+  padding: 14px 16px;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: none;
+  background: var(
+    --Primary-Accent-Gradient,
+    linear-gradient(270deg, #7916e1 0%, #680be0 47.92%, #5500de 100%)
+  );
+  color: var(--Primary-White, #fdfdfd);
+  text-align: center;
+  /* Buttons 20 Medium */
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 120% */
+}
+
+.card__button_large:hover {
+  background: var(--Secondary-Accent-Blue-Dark, #5500de);
+}
+
+.card__button_large:disabled {
+  background: var(--Secondary-Purple-Light, #dacdff);
+}
