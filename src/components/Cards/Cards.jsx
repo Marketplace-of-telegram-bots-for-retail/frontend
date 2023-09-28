@@ -11,8 +11,9 @@ const Cards = () => {
     price: 1000,
   };
   const onLike = () => {
-    return console.log('клик по лайку');
+    console.log(`Like => Click!`);
   };
+
   return (
     <div>
       <Card key={card._id} card={card} onLike={onLike} />

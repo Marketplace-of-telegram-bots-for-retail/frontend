@@ -5,6 +5,7 @@
   flex-direction: column;
   margin: 0;
   padding: 0;
+  position: relative;
 }
 
 .card__cover {
@@ -16,7 +17,29 @@
   background: #d9d9d9;
 }
 
-.card__like_on {
+.card__like {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background: center no-repeat url(../../images/ic_heart-24.svg);
+  background-size: 24px 24px;
+  opacity: 1;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+.card__like:hover {
+  opacity: 0.8;
+  transition: opacity 0.5s;
+}
+
+.card__like_active {
+  background: center no-repeat url(../../images/ic_heart-solid-24.svg);
 }
 
 .card__title {
@@ -36,7 +59,6 @@
   font-weight: 600;
   line-height: 24px; /* 133.333% */
 }
-
 
 .card__about {
   margin: 12px 0;
