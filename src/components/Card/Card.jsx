@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import './Card.css';
 import defaultCover from '../../images/default-cover.svg';
 import { Rating } from '../Rating/Rating';
@@ -6,9 +7,13 @@ import { Rating } from '../Rating/Rating';
 export const Card = ({ card, onLike }) => {
   const [isLiked, setLiked] = useState(false);
 
-  const handleClick = () => {
+  const handleLikeClick = () => {
     setLiked(!isLiked);
     onLike();
+  };
+
+  const handleCardClick = () => {
+    console.log('img => Click!');
   };
 
   const cardLikeButtonClassName = `card__like ${
@@ -20,16 +25,17 @@ export const Card = ({ card, onLike }) => {
       <button
         type='button'
         className={cardLikeButtonClassName}
-        onClick={handleClick}
+        onClick={handleLikeClick}
       ></button>
-      <img
-        className='card__cover'
-        src={card?.img || defaultCover}
-        alt='обложка'
-        onClick={() => {
-          console.log('img => Click!');
-        }}
-      />
+      <Link to={`${card._id}`}>
+        <img
+          className='card__cover'
+          src={card?.img || defaultCover}
+          alt='обложка'
+          onClick={() => handleCardClick()}
+        />
+      </Link>
+
       <p className='card__title'>
         {card?.name || 'Название бота, которое может занимать 2 строки'}
       </p>
