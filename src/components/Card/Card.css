@@ -15,6 +15,11 @@
   width: 292px;
   height: 224px;
   background: #d9d9d9;
+  cursor: pointer;
+}
+
+.card__cover:hover {
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
 }
 
 .card__like {
@@ -43,7 +48,7 @@
 }
 
 .card__title {
-  margin: 12px 0;
+  margin: 12px 0 8px;
   padding: 0;
   overflow: hidden;
   color: var(--Primary-Black, #1e1e1e);
@@ -93,7 +98,7 @@
   line-height: normal;
 }
 
-.card__button_large {
+.card__button_large_solid {
   display: flex;
   width: 292px;
   height: 52px;
@@ -104,10 +109,8 @@
   flex-shrink: 0;
   border-radius: 8px;
   border: none;
-  background: var(
-    --Primary-Accent-Gradient,
-    linear-gradient(270deg, #7916e1 0%, #680be0 47.92%, #5500de 100%)
-  );
+  border-radius: 8px;
+  background: rgba(114, 110, 250, 1);
   color: var(--Primary-White, #fdfdfd);
   text-align: center;
   /* Buttons 20 Medium */
@@ -115,12 +118,13 @@
   font-style: normal;
   font-weight: 500;
   line-height: 24px; /* 120% */
+  cursor: pointer;
 }
 
-.card__button_large:hover {
-  background: var(--Secondary-Accent-Blue-Dark, #5500de);
+.card__button_large_solid:hover {
+  background: rgba(53, 45, 242, 1);
 }
 
-.card__button_large:disabled {
-  background: var(--Secondary-Purple-Light, #dacdff);
+.card__button_large_solid:disabled {
+  background: rgba(178, 176, 255, 1);
 }

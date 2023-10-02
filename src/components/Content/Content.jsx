@@ -1,8 +1,8 @@
 import React from 'react';
 import Categories from '../Categories/Categories';
-import Cards from '../Cards/Cards';
 import Prices from '../Prices/Prices';
 import './Content.css';
+import { Showcase } from '../Showcase/Showcase';
 
 const Content = () => {
   return (
@@ -11,7 +11,7 @@ const Content = () => {
         <Categories />
         <Prices />
       </div>
-      <Cards />
+      <Showcase />
     </section>
   );
 };
