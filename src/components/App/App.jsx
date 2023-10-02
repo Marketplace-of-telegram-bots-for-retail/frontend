@@ -78,6 +78,12 @@ const App = () => {
             <div>вставить компонент AboutUs</div>
           )}
         />
+        <Route
+          path='/favorites'
+          element={(
+            <div>вставить компонент Favorites</div>
+          )}
+        />
       </Route>
     </Routes>
   );
