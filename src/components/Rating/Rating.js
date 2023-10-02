@@ -27,15 +27,15 @@ export const Rating = ({ ratingCard }) => {
   };
 
   return (
-    <div className='card__star-rating star-rating'>
-      <div className='star-rating__stars'>
+    <div className='card__rating rating'>
+      <div className='rating__stars'>
         {[...Array(5)].map((star, index) => {
           index += 1;
           return (
             <button
               type='button'
               key={index}
-              className={`star-rating__star star-rating__star${
+              className={`rating__star rating__star${
                 index <= (hover || rating) ? '_on' : '_off'
               }`}
               onClick={() => {
@@ -48,7 +48,7 @@ export const Rating = ({ ratingCard }) => {
           );
         })}
       </div>
-      <span className='star-rating__feedback'>{feedback(ratingCard[1])}</span>
+      <span className='rating__feedback'>{feedback(ratingCard[1])}</span>
     </div>
   );
 };

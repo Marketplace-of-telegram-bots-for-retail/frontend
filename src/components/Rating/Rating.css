@@ -1,17 +1,17 @@
-.star-rating {
+.rating {
   display: flex;
   gap: 8px;
   flex-direction: row;
 }
 
-.star-rating__stars {
+.rating__stars {
   display: flex;
-  flex-direction: row; 
+  flex-direction: row;
   flex-wrap: nowrap;
   margin: 0;
   padding: 0;
 }
-.star-rating__star {
+.rating__star {
   margin: 0;
   padding: 0;
   height: 20px;
@@ -20,21 +20,20 @@
   background-size: 20px 20px;
 }
 
-.star-rating__star_on {
+.rating__star_on {
   background: center no-repeat url(../../images/ic_rating-20-on.svg);
 }
 
-.star-rating__star_off {
+.rating__star_off {
   background: center no-repeat url(../../images/ic_rating-20.svg);
 }
 
-.star-rating__feedback {
+.rating__feedback {
   color: var(--Primary-Black, #1e1e1e);
-  /* Caption 14 */
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 142.857% */
+  line-height: 20px;
   margin: 0;
   padding: 0;
 }
