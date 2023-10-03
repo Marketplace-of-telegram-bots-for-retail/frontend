@@ -1,15 +1,22 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, NavLink } from 'react-router-dom';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
-import Logo from '../../images/Logo.png';
-import Stripes from '../../images/ic_menu-catalog-24.svg';
 import searchButton from '../../images/01 align center.svg';
-import basket from '../../images/Button-menu-icon.png';
 // import favourites from '../../images/Button-menu-favorites.png';
 
 const Header = ({ showAuthButtons, setShowAuthButtons }) => {
+  // Временные
+  const user = {
+    name: 'Валерка',
+  };
+
+  const [isLogin, setLogin] = useState(false);
+  const handleLogin = () => {
+    setLogin(!isLogin);
+    setShowAuthButtons(!showAuthButtons);
+  };
   return (
     <section className='header'>
       <nav className='header__nav'>
@@ -26,40 +33,58 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
         })}
       </nav>
       <article className='header__basis'>
-        <img className='header__logo' src={Logo} alt='лого' />
-        <button className='header__catalog' type='button'>
-          <div className='header__catalog-container'>
-            <img src={Stripes} alt='полоски' />
+        <div className='header__navbar'>
+          <NavLink className='header__logo' to='/'></NavLink>
+          <button className='header__button-medium' type='button'>
+            <span className='header__catalog-icon'></span>
             <span className='header__catalog-text'>Каталог</span>
-          </div>
-        </button>
-        <div style={{ position: 'relative', marginRight: '3rem' }}>
-          <input
-            className='header__input'
-            type='text'
-            placeholder='Искать бота'
-          ></input>
-          <button className='header__search-button' type='button'>
-            <img
-              className='header__search-icon'
-              src={searchButton}
-              alt='кнопка поиска'
-            />
           </button>
+          <div style={{ position: 'relative', marginRight: '3rem' }}>
+            <input
+              className='header__input'
+              type='text'
+              placeholder='Искать бота'
+            ></input>
+            <button className='header__search-button' type='button'>
+              <img
+                className='header__search-icon'
+                src={searchButton}
+                alt='кнопка поиска'
+              />
+            </button>
+          </div>
         </div>
-        <img className='header__basket-button' src={basket} alt='корзина' />
-        <Link to='/favorites' className='header__button-menu-icon'>
-          <span className='header__favourite-button'></span>
-          <span className='header__badge-counter'>10</span>
-          Избранное
-        </Link>
-        <button
-          className='header__enter-button'
-          type='button'
-          onClick={() => setShowAuthButtons(!showAuthButtons)}
-        >
-          Войти
-        </button>
+        <div className='header__navbar'>
+          <Link to='/cart' className='header__menu-button-icon'>
+            <span className='header__button-icon header__button-icon_cart'></span>
+            <span className='header__badge-counter'>2</span>
+            Корзина
+          </Link>
+          <Link to='/favorites' className='header__menu-button-icon'>
+            <span className='header__button-icon header__button-icon_favorite'></span>
+            <span className='header__badge-counter'>10</span>
+            Избранное
+          </Link>
+          {!isLogin ? (
+            <button
+              className='header__button-small header__button-small_border'
+              type='button'
+              onClick={() => handleLogin()}
+            >
+              Войти
+            </button>
+          ) : (
+            <Link
+              to='/profile'
+              className='header__menu-button-icon '
+              onClick={() => handleLogin()}
+            >
+              <span className='header__button-icon header__button-icon_profile'></span>
+              {/* <span className='header__badge-counter'></span> */}
+              {user.name}
+            </Link>
+          )}
+        </div>
       </article>
     </section>
   );

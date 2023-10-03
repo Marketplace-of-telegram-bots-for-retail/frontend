@@ -1,13 +1,23 @@
 :root {
-  --text-color: #7E7E7E;
-  --secondary-purple-light: #DACDFF;
+  --text-color: #7e7e7e;
   --s-indent: 1.62rem;
-  --gradient-primary: linear-gradient(270deg, #7916E1 0%, #680BE0 47.92%, #5500DE 100%);
-  --primary-white: #FDFDFD;
-  --letter-space: .5px;
-  --input-text: #CCCCCC;
-  --accent-purple: #680BE0;
-  --primary-black: #1E1E1E;
-  --secondary-accent-blue-dark: #5500DE;
-  --gray-medium: #7E7E7E;
+  --gradient-primary: linear-gradient(
+    270deg,
+    #7916e1 0%,
+    #680be0 47.92%,
+    #5500de 100%
+  );
+  --primary-white: #fdfdfd;
+  --letter-space: 0.5px;
+  --input-text: #cccccc;
+  --accent-purple: #680be0;
+  --primary-black: #1e1e1e;
+  --primary-accent: #726efa;
+  --secondary-accent-blue-dark: #352df2;
+  --secondary-purple-light: #b2b0ff;
+  --gray-medium: #7e7e7e;
+  --gray-dark: #737373;
+  --gray-additional: #9fa1a5;
+  --accent-orange: #ff8f6e;
+  --primary-accent-magenta: #ea248a;
 }
