@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
 import Logo from '../../images/Logo.png';
@@ -47,8 +48,18 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
           </button>
         </div>
         <img className='header__basket-button' src={basket} alt='корзина' />
-        <img className='header__favourite-button' src={favourites} alt='избранное' />
-        <button className='header__enter-button' type='button' onClick={() => setShowAuthButtons(!showAuthButtons)}>
+        <Link to='/favorites'>
+          <img
+            className='header__favourite-button'
+            src={favourites}
+            alt='избранное'
+          />
+        </Link>
+        <button
+          className='header__enter-button'
+          type='button'
+          onClick={() => setShowAuthButtons(!showAuthButtons)}
+        >
           Войти
         </button>
       </article>
