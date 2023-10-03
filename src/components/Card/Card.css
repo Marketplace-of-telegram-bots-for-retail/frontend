@@ -1,0 +1,130 @@
+.card {
+  max-width: 292px;
+  max-height: 516px;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.card__cover {
+  border: none;
+  box-sizing: border-box;
+  border-radius: 16px;
+  width: 292px;
+  height: 224px;
+  background: #d9d9d9;
+  cursor: pointer;
+}
+
+.card__cover:hover {
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+}
+
+.card__like {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  height: 24px;
+  width: 24px;
+  border: none;
+  background: center no-repeat url(../../images/ic_heart-24.svg);
+  background-size: 24px 24px;
+  opacity: 1;
+  cursor: pointer;
+  transition: opacity 0.5s;
+}
+.card__like:hover {
+  opacity: 0.8;
+  transition: opacity 0.5s;
+}
+
+.card__like_active {
+  background: center no-repeat url(../../images/ic_heart-solid-24.svg);
+}
+
+.card__title {
+  margin: 12px 0 8px;
+  padding: 0;
+  overflow: hidden;
+  color: var(--Primary-Black, #1e1e1e);
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* Headline 3 */
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 133.333% */
+}
+
+.card__about {
+  margin: 12px 0;
+  padding: 0;
+  color: var(--Primary-Black, #1e1e1e);
+  text-overflow: ellipsis;
+  white-space: pre-wrap;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  /* Body 16 Regular */
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; /* 125% */
+}
+
+.card__price {
+  display: flex;
+  width: 292px;
+  margin: 8px 0 16px;
+  padding: 0;
+  align-items: center;
+  gap: 10px;
+  color: var(--Primary-Black, #1e1e1e);
+
+  /* Headline 2 */
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+
+.card__button_large_solid {
+  display: flex;
+  width: 292px;
+  height: 52px;
+  padding: 14px 16px;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: none;
+  border-radius: 8px;
+  background: rgba(114, 110, 250, 1);
+  color: var(--Primary-White, #fdfdfd);
+  text-align: center;
+  /* Buttons 20 Medium */
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px; /* 120% */
+  cursor: pointer;
+}
+
+.card__button_large_solid:hover {
+  background: rgba(53, 45, 242, 1);
+}
+
+.card__button_large_solid:disabled {
+  background: rgba(178, 176, 255, 1);
+}
