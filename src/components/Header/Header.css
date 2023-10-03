@@ -1,5 +1,5 @@
 /*header*/
-@import url(../../blocks/header/header.css);
+/* @import url(../../blocks/header/header.css);
 @import url(../../blocks/header/__nav/header__nav.css);
 @import url(../../blocks/header/__link/header__link.css);
 @import url(../../blocks/header/__link-seller/header__link-seller.css);
@@ -13,4 +13,158 @@
 @import url(../../blocks/header/__search-icon/header__search-icon.css);
 @import url(../../blocks/header/__basket-button/header__basket-button.css);
 @import url(../../blocks/header/__favourite-button/header__favourite-button.css);
-@import url(../../blocks/header/__enter-button/header__enter-button.css);
+@import url(../../blocks/header/__enter-button/header__enter-button.css); */
+
+.header__nav {
+  margin-top: 1rem;
+  margin-left: 232px;
+  margin-bottom: 1rem;
+}
+
+.header__link {
+  margin-right: 43px;
+  text-decoration: none;
+  color: var(--text-color);
+  font-size: 1rem;
+  font-weight: 500;
+  letter-spacing: var(--letter-space);
+}
+
+.header__link-seller {
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  border-radius: 0.5rem;
+  background-color: var(--secondary-purple-light);
+}
+
+.header__basis {
+  display: flex;
+  margin-left: var(--s-indent);
+  margin-right: var(--s-indent);
+  padding-bottom: 2rem;
+}
+
+.header__logo {
+  margin-right: 1.23rem;
+}
+
+.header__catalog {
+  background: var(--gradient-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  margin-right: 1.23rem;
+}
+
+.header__catalog-text {
+  color: var(--primary-white);
+  font-size: 1.25rem;
+  font-weight: 500;
+  margin-left: 0.5rem;
+  letter-spacing: var(--letter-space);
+}
+
+.header__catalog-container {
+  padding: 0.88rem 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header__input {
+  font-size: 1.25rem;
+  letter-spacing: var(--letter-space);
+  padding: 0.88rem 1rem;
+  border-radius: 0.5rem;
+  border: 2px solid var(--accent-purple);
+  width: 29.3rem;
+}
+
+.header__input::placeholder {
+  color: var(--input-text);
+}
+
+.header__search-button {
+  background-color: var(--accent-purple);
+  position: absolute;
+  right: 0;
+  top: 0;
+  border-radius: 0rem 0.5rem 0.5rem 0rem;
+  border: none;
+  outline: none;
+  padding: 0.97rem 1.5rem;
+}
+
+.header__search-icon {
+  transform: translateY(+12%);
+}
+
+.header__basket-button {
+  margin-right: 1.23rem;
+  cursor: pointer;
+}
+
+.header__enter-button {
+  all: unset;
+  background-color: var(--accent-purple);
+  color: var(--primary-white);
+  font-size: 1.25rem;
+  letter-spacing: var(--letter-space);
+  font-weight: 500;
+  line-height: 1.5rem;
+  padding: 0.88rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+.header__button-menu-icon {
+  position: relative;
+  display: flex;
+  width: 88px;
+  height: 52px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  text-decoration: none;
+  overflow: hidden;
+  color: var(--Primary-Black, #1e1e1e);
+  text-align: center;
+  text-overflow: ellipsis;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.header__favourite-button {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  width: 28px;
+  height: 28px;
+  background: center no-repeat url(../../images/ic_heart-28.svg);
+}
+.header__badge-counter {
+  position: absolute;
+  top: 0;
+  right: 2px;
+  display: flex;
+  width: 24px;
+  height: 24px;
+  padding: 4px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  background: var(--Accent-Orange, #ff8f6e);
+  color: var(--Primary-White, #fdfdfd);
+  text-align: center;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 20px;
+}

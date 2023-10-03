@@ -7,7 +7,7 @@ import Logo from '../../images/Logo.png';
 import Stripes from '../../images/ic_menu-catalog-24.svg';
 import searchButton from '../../images/01 align center.svg';
 import basket from '../../images/Button-menu-icon.png';
-import favourites from '../../images/Button-menu-favorites.png';
+// import favourites from '../../images/Button-menu-favorites.png';
 
 const Header = ({ showAuthButtons, setShowAuthButtons }) => {
   return (
@@ -48,12 +48,10 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
           </button>
         </div>
         <img className='header__basket-button' src={basket} alt='корзина' />
-        <Link to='/favorites'>
-          <img
-            className='header__favourite-button'
-            src={favourites}
-            alt='избранное'
-          />
+        <Link to='/favorites' className='header__button-menu-icon'>
+          <span className='header__favourite-button'></span>
+          <span className='header__badge-counter'>10</span>
+          Избранное
         </Link>
         <button
           className='header__enter-button'
