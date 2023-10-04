@@ -27,7 +27,7 @@ export const Card = ({ card, onLike }) => {
         className={cardLikeButtonClassName}
         onClick={handleLikeClick}
       ></button>
-      <Link to={`${card._id}`}>
+      <Link to={`/${card._id}`}>
         <img
           className='card__cover'
           src={card?.img || defaultCover}

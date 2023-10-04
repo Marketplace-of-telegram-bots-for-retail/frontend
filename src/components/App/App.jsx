@@ -7,6 +7,7 @@ import Content from '../Content/Content';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import './App.css';
 import Product from '../Product/Product';
+import { Favorites } from '../Favorites/Favorites';
 
 const App = () => {
   const [showAuthButtons, setShowAuthButtons] = useState(false);
@@ -81,7 +82,7 @@ const App = () => {
         <Route
           path='/favorites'
           element={(
-            <div>вставить компонент Favorites</div>
+            <Favorites />
           )}
         />
       </Route>

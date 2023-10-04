@@ -8,7 +8,7 @@ export const Cards = ({ cards }) => {
   };
 
   return (
-    <div className='showcase__cards'>
+    <div className='content__cards'>
       {cards.map((card) => {
         return <Card key={card._id} card={card} onLike={onLike} />;
       })}

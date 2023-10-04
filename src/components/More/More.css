@@ -1,6 +1,7 @@
 .movies__more {
+  margin: 48px auto;
   display: flex;
-  width: 100%;
+  width: 292px;
   height: 52px;
   padding: 14px 16px;
   justify-content: center;
