@@ -3,14 +3,21 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
-import searchButton from '../../images/01 align center.svg';
-// import favourites from '../../images/Button-menu-favorites.png';
+import logo from '../../images/logo-botmarket 1.svg';
+import { useForm } from '../../hooks/useForm';
 
 const Header = ({ showAuthButtons, setShowAuthButtons }) => {
+  const { values, handleChange } = useForm();
+
   // Временные
   const user = {
     name: 'Валерка',
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log('handleSubmit =>', values.search);
+  };
+  const isPreloader = false;
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
@@ -22,48 +29,52 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
       <nav className='header__nav'>
         {ARR_NAV.map((link, i) => {
           return (
-            <a
-              key={i}
-              href='#'
-              className={`header__link ${i === 4 && 'header__link-seller'}`}
-            >
-              {link}
-            </a>
+            <NavLink key={i} to={link.path} className="header__link">
+              {link.labelName}
+            </NavLink>
           );
         })}
       </nav>
       <article className='header__basis'>
         <div className='header__navbar'>
-          <NavLink className='header__logo' to='/'></NavLink>
+          <NavLink className='header__logo' to='/'>
+            <img src={logo} alt='логотип' />
+          </NavLink>
           <button className='header__button-medium' type='button'>
             <span className='header__catalog-icon'></span>
             <span className='header__catalog-text'>Каталог</span>
           </button>
-          <div style={{ position: 'relative', marginRight: '3rem' }}>
+          <form className='header__search-form' onSubmit={handleSubmit}>
             <input
-              className='header__input'
-              type='text'
+              type='search'
+              className='header__search-input'
               placeholder='Искать бота'
+              value={values?.search || ''}
+              name='search'
+              required
+              onChange={handleChange}
+              disabled={isPreloader}
             ></input>
-            <button className='header__search-button' type='button'>
-              <img
-                className='header__search-icon'
-                src={searchButton}
-                alt='кнопка поиска'
-              />
+            <button
+              className='header__search-button'
+              type='submit'
+              placeholder='Искать'
+              disabled={isPreloader}
+            >
+              <span className='header__search-icon'></span>
             </button>
-          </div>
+          </form>
         </div>
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
             <span className='header__badge-counter'>2</span>
-            Корзина
+            <span className='header__button-text'>Корзина</span>
           </Link>
           <Link to='/favorites' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_favorite'></span>
             <span className='header__badge-counter'>10</span>
-            Избранное
+            <span className='header__button-text'>Избранное</span>
           </Link>
           {!isLogin ? (
             <button
@@ -80,8 +91,7 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
               onClick={() => handleLogin()}
             >
               <span className='header__button-icon header__button-icon_profile'></span>
-              {/* <span className='header__badge-counter'></span> */}
-              {user.name}
+              <span className='header__button-text'>{user.name}</span>
             </Link>
           )}
         </div>
