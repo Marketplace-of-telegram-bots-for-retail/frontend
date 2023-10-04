@@ -7,85 +7,70 @@ import Content from '../Content/Content';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import './App.css';
 import Product from '../Product/Product';
+import Footer from '../Footer/Footer';
+import AftPoster from '../AftPoster/AftPoster';
+import Basket from '../Basket/Basket';
 
 const App = () => {
   const [showAuthButtons, setShowAuthButtons] = useState(false);
 
   return (
-    <Routes>
-      {/* 1 Уровень вложенности */}
-      <Route
-        path='/'
-        element={(
-          // переписать, изменить вложенность по БЭМ
-          <div className='container'>
-            <div className='inner-container'>
-              <Header
-                showAuthButtons={showAuthButtons}
-                setShowAuthButtons={setShowAuthButtons}
-              />
-              <Outlet />
-              {showAuthButtons && (
-                <AuthButtons setShowAuthButtons={setShowAuthButtons} />
-              )}
-            </div>
-          </div>
-        )}
-      >
-        {/* 2 Уровень вложенности */}
-        <Route
-          index
-          element={(
-            // переписать в отдельный компонент Main
-            <main>
-              <Poster />
-              <Title />
-              <Content />
-            </main>
-          )}
-        />
-        <Route
-          path='/:_id'
-          element={(<Product />)}
-        />
-        <Route
-          path='/cart'
-          element={(
-            <div>вставить компонент Cart</div>
-          )}
-        />
-        <Route
-          path='*'
-          element={(
-            <div>вставить компонент NotFound</div>
-          )}
-        />
-        <Route
-          path='/profile'
-          element={(
-            <div>вставить компонент Profile</div>
-          )}
-        />
-        <Route
-          path='/contacts'
-          element={(
-            <div>вставить компонент Contact</div>
-          )}
-        />
-        <Route
-          path='/about-us'
-          element={(
-            <div>вставить компонент AboutUs</div>
-          )}
-        />
-        <Route
-          path='/favorites'
-          element={(
-            <div>вставить компонент Favorites</div>
-          )}
-        />
-      </Route>
-    </Routes>
+    <div className='container'>
+      <div className='inner-container'>
+        <Routes>
+          {/* 1 Уровень вложенности */}
+          <Route
+            path='/'
+            element={
+              <>
+                <Header
+                  showAuthButtons={showAuthButtons}
+                  setShowAuthButtons={setShowAuthButtons}
+                />
+                <Outlet />
+                <Footer />
+                {showAuthButtons && (
+                  <AuthButtons setShowAuthButtons={setShowAuthButtons} />
+                )}
+              </>
+            }
+          >
+            {/* 2 Уровень вложенности */}
+            <Route
+              index
+              element={
+                <main>
+                  <Poster />
+                  <Title />
+                  <Content />
+                  <AftPoster />
+                </main>
+              }
+            />
+            <Route path='/:_id' element={<Product />} />
+            <Route path='/cart' element={<div>вставить компонент Cart</div>} />
+            <Route path='*' element={<div>вставить компонент NotFound</div>} />
+            <Route
+              path='/profile'
+              element={<div>вставить компонент Profile</div>}
+            />
+            <Route
+              path='/contacts'
+              element={<div>вставить компонент Contact</div>}
+            />
+            <Route
+              path='/about-us'
+              element={<div>вставить компонент AboutUs</div>}
+            />
+            <Route
+              path='/favorites'
+              element={<div>вставить компонент Favorites</div>}
+            />
+            <Route path='/basket' element={<Basket />} />
+          </Route>
+        </Routes>
+      </div>
+    </div>
   );
 };
 

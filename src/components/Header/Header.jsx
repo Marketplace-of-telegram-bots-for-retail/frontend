@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
 import Logo from '../../images/Logo.png';
@@ -9,6 +10,10 @@ import basket from '../../images/Button-menu-icon.png';
 import favourites from '../../images/Button-menu-favorites.png';
 
 const Header = ({ showAuthButtons, setShowAuthButtons }) => {
+  const navigate = useNavigate();
+  const handleNavigate = () => {
+    navigate('/basket');
+  };
   return (
     <section className='header'>
       <nav className='header__nav'>
@@ -46,9 +51,22 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
             />
           </button>
         </div>
-        <img className='header__basket-button' src={basket} alt='корзина' />
-        <img className='header__favourite-button' src={favourites} alt='избранное' />
-        <button className='header__enter-button' type='button' onClick={() => setShowAuthButtons(!showAuthButtons)}>
+        <img
+          className='header__basket-button'
+          src={basket}
+          alt='корзина'
+          onClick={handleNavigate}
+        />
+        <img
+          className='header__favourite-button'
+          src={favourites}
+          alt='избранное'
+        />
+        <button
+          className='header__enter-button'
+          type='button'
+          onClick={() => setShowAuthButtons(!showAuthButtons)}
+        >
           Войти
         </button>
       </article>
