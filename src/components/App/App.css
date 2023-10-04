@@ -1,4 +1,25 @@
-/*container*/
+/* 
 @import url(../../blocks/container/container.css);
-/*inner-container*/
-@import url(../../blocks/inner-container/inner-container.css);
+@import url(../../blocks/inner-container/inner-container.css); */
+
+.container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  justify-content: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.inner-container{
+  display: flex;
+  flex-direction: column;
+  max-width: 1280px;
+  width: 100%;
+  border: solid 1px black;
+  height: 100%;
+  position: relative;
+}

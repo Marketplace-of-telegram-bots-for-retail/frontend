@@ -12,3 +12,12 @@ export const CATEGORIES_INPUT = [
   { checkbox: 'checkbox3', labelName: 'Улучшение обслуживания' },
   { checkbox: 'checkbox4', labelName: 'Персонализация акций' },
 ];
+
+export const FOOTER_LINKS = [
+  'О маркетплейсе',
+  'Возврат',
+  'Контакты',
+  'Политика конфиденциальности',
+  'FAQ',
+  'Команда разработчиков',
+];

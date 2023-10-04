@@ -16,6 +16,9 @@ const Content = () => {
       <form type='submit' className='content__form' onSubmit={handleSubmit}>
         <Categories />
         <Prices />
+        <button type='submit' className='content__submit-button'>
+          Применить
+        </button>
       </form>
       <Showcase />
     </section>
