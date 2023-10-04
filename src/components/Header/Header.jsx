@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ARR_NAV } from '../../utils/constants';
@@ -8,7 +7,6 @@ import { useForm } from '../../hooks/useForm';
 
 const Header = ({ showAuthButtons, setShowAuthButtons }) => {
   const { values, handleChange } = useForm();
-
   // Временные
   const user = {
     name: 'Валерка',
@@ -29,7 +27,7 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
       <nav className='header__nav'>
         {ARR_NAV.map((link, i) => {
           return (
-            <NavLink key={i} to={link.path} className="header__link">
+            <NavLink key={i} to={link.path} className='header__link'>
               {link.labelName}
             </NavLink>
           );
