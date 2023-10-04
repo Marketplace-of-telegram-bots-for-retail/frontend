@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
 import './Footer.css';
-import Logo from '../../images/Logo.png';
+import Logo from '../../images/logo-botmarket 1.svg';
 import { FOOTER_LINKS } from '../../utils/constants';
 
 const Footer = () => {

@@ -270,6 +270,7 @@
   width: 50.75rem;
   height: 0.0625rem;
   background-color: var(--gray-light);
+  border-bottom: 1px var(--gray-light);
   margin-left: var(--s-indent);
   margin-top: 2rem;
 }

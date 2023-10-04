@@ -19,6 +19,7 @@
   text-decoration: none;
   cursor: pointer;
   line-height: 1.5rem;
+  white-space: nowrap;
 }
 
 .footer__logo {
@@ -31,4 +32,6 @@
   margin-left: 11rem;
   color: var(--primary-white);
   line-height: 1.5rem;
+  white-space: nowrap;
+
 }
