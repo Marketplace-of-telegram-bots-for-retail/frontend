@@ -7,7 +7,6 @@ export const Rating = ({ ratingCard }) => {
 
   function getNoun(number, one, two, five) {
     const space = ' ';
-    console.log(number, one, two, five);
     let n = Math.abs(number);
     n %= 100;
     if (n >= 5 && n <= 20) {

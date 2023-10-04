@@ -1,0 +1,37 @@
+.footer {
+  margin-top: 2.19rem;
+  width: 100%;
+  display: flex;
+  background-color: var(--gray-dark);
+  padding: 2.75rem var(--s-indent)
+}
+
+.footer__container {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: 12rem;
+  row-gap: 0.75rem;
+}
+
+.footer__link {
+  color: var(--primary-white);
+  font-weight: 500;
+  text-decoration: none;
+  cursor: pointer;
+  line-height: 1.5rem;
+  white-space: nowrap;
+}
+
+.footer__logo {
+  height: fit-content;
+  margin-right: 7.75rem;
+}
+
+.footer__copyright {
+  margin: 0;
+  margin-left: 11rem;
+  color: var(--primary-white);
+  line-height: 1.5rem;
+  white-space: nowrap;
+
+}

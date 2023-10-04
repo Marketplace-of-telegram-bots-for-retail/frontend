@@ -1,0 +1,10 @@
+.aft-poster {
+  margin-top: 3.75rem;
+  margin-right: var(--s-indent);
+  width: 57.25rem;
+  height: 15.8125rem;
+  flex-shrink: 0;
+  background-color: #F4F4F4;
+  border-radius: 1rem;
+  margin-left: auto;
+}
