@@ -1,9 +1,9 @@
 export const ARR_NAV = [
-  'О маркетплейсе',
-  'Контакты',
-  'FAQ',
-  'Возврат',
-  'Войти как продавец',
+  { labelName: 'О маркетплейсе', path: '/about' },
+  { labelName: 'Контакты', path: '/contacts' },
+  { labelName: 'FAQ', path: '/faq' },
+  { labelName: 'Возврат', path: '/return' },
+  { labelName: 'Стать продавцом', path: '/salesman' },
 ];
 
 export const CATEGORIES_INPUT = [
