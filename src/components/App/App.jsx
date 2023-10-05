@@ -51,16 +51,48 @@ const App = () => {
             />
             <Route path='/:_id' element={<Product />} />
             <Route path='*' element={<ErrorPage pageNotFound />} />
-            <Route path='/profile' element={<ErrorPage />} />
-            <Route path='/contacts' element={<ErrorPage />} />
-            <Route path='/about' element={<ErrorPage />} />
             <Route path='/favorites' element={<Favorites />} />
             <Route path='/basket' element={<Basket />} />
-            <Route path='/developers' element={<ErrorPage />} />
-            <Route path='/privacy-policy' element={<ErrorPage />} />
-            <Route path='/salesman' element={<ErrorPage />} />
-            <Route path='/return' element={<ErrorPage />} />
-            <Route path='/faq' element={<ErrorPage />} />
+            <Route
+              path='/profile'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/contacts'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/about'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/developers'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/privacy-policy'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/salesman'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/return'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/faq'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
           </Route>
         </Routes>
       </div>
