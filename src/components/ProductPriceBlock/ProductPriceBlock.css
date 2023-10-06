@@ -1,5 +1,30 @@
 .product__price-block {
     display: flex;
     flex-direction: column;
-    gap: 86px;
+    gap: 28px;
+}
+
+.price-block__information {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    ;
+}
+
+.price-block__icon {
+    width: 24px;
+    height: 24px;
+}
+
+.price-block__text {
+    max-width: 254px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    color: var(--primary-black);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    letter-spacing: 0.34px;
 }
