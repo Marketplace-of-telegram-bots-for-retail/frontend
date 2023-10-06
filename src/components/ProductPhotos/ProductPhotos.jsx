@@ -15,7 +15,11 @@ const ProductPhotos = () => {
         <li>
           <img className="product-photos__photo-small" src={photo} alt='фото товара' />
         </li>
+        <li>
+          <img className="product-photos__photo-small" src={photo} alt='фото товара' />
+        </li>
       </ul>
+      <button className='product-photos__button-scroll' type='button'></button>
       <img className="product-photos__photo-big" src={photo} alt='фото товара' />
     </div>
   );

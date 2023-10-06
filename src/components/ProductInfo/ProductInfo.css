@@ -2,25 +2,8 @@
     display: flex;
     flex-direction: row;
     height: 30px;
-    margin: 12px 0 10px;
-    gap: 16px;
-}
-
-.product__good-category {
-    display: flex;
-    height: 30px;
-    margin: 0;
-    padding: 0 12px;
-    align-items: center;
-    border-radius: 8px;
-    border: 1px solid #DACDFF;
-    background: #FDFDFD;
-    color: #7E7E7E;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0.1px;
+    margin: 13px 0 26px;
+    gap: 15px;
 }
 
 .product__good-raiting {
@@ -29,35 +12,55 @@
     flex-direction: row;
     gap: 8px;
     align-items: center;
+    cursor: pointer;
 }
 
 .product__good-rewiew {
     margin: 0;
     padding: 0;
-    color: #7E7E7E;
-    font-size: 14px;
+    color: var(--gray-dark);
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
+    font-weight: 500;
+    line-height: normal;
     letter-spacing: 0.2px;
+    cursor: pointer;
+}
+
+.product__good-rewiew:hover {
+    color: var(--secondary-accent-blue-dark);
 }
 
 .product__good-like {
     width: 20px;
     height: 20px;
-    background: url(../../images/ic_heart-24.svg);
+    background: url(../../images/ic_heart-24_blue.svg);
     background-repeat: no-repeat;
     background-position: center;
     border: none;
+    cursor: pointer;
+}
+
+.product__good-like:hover {
+    background: url(../../images/ic_heart-24-hover.svg);
+}
+
+.product__good-like_active {
+    background: url(../../images/ic_heart-solid-24-magenta.svg);
 }
 
 .product__good-add {
     margin: 0;
     padding: 0;
-    color: #7E7E7E;
-    font-size: 14px;
+    color: var(--gray-dark);
+    font-size: 16px;
     font-style: normal;
-    font-weight: 400;
-    line-height: 20px;
-    letter-spacing: 0.5px;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+}
+
+.product__good-add:hover {
+    color: var(--secondary-accent-blue-dark);
 }
