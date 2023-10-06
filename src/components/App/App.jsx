@@ -10,6 +10,8 @@ import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import AftPoster from '../AftPoster/AftPoster';
 import Basket from '../Basket/Basket';
+import { ErrorPage } from '../ErrorPage/ErrorPage';
+import { Favorites } from '../Favorites/Favorites';
 
 const App = () => {
   const [showAuthButtons, setShowAuthButtons] = useState(false);
@@ -48,25 +50,49 @@ const App = () => {
               }
             />
             <Route path='/:_id' element={<Product />} />
-            <Route path='/cart' element={<div>вставить компонент Cart</div>} />
-            <Route path='*' element={<div>вставить компонент NotFound</div>} />
+            <Route path='*' element={<ErrorPage pageNotFound />} />
+            <Route path='/favorites' element={<Favorites />} />
+            <Route path='/basket' element={<Basket />} />
             <Route
               path='/profile'
-              element={<div>вставить компонент Profile</div>}
+              // стоит заглушка
+              element={<ErrorPage />}
             />
             <Route
               path='/contacts'
-              element={<div>вставить компонент Contact</div>}
+              // стоит заглушка
+              element={<ErrorPage />}
             />
             <Route
-              path='/about-us'
-              element={<div>вставить компонент AboutUs</div>}
+              path='/about'
+              // стоит заглушка
+              element={<ErrorPage />}
             />
             <Route
-              path='/favorites'
-              element={<div>вставить компонент Favorites</div>}
+              path='/developers'
+              // стоит заглушка
+              element={<ErrorPage />}
             />
-            <Route path='/basket' element={<Basket />} />
+            <Route
+              path='/privacy-policy'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/salesman'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/return'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
+            <Route
+              path='/faq'
+              // стоит заглушка
+              element={<ErrorPage />}
+            />
           </Route>
         </Routes>
       </div>
