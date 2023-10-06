@@ -3,7 +3,7 @@
   width: 100%;
   display: flex;
   background-color: var(--gray-dark);
-  padding: 2.75rem var(--s-indent)
+  padding: 2.75rem var(--s-indent);
 }
 
 .footer__container {
@@ -33,5 +33,4 @@
   color: var(--primary-white);
   line-height: 1.5rem;
   white-space: nowrap;
-
 }

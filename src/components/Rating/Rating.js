@@ -19,6 +19,10 @@ export const Rating = ({ ratingCard }) => {
     if (n >= 2 && n <= 4) {
       return number + space + two;
     }
+    if (n === null || n === 0) {
+      const notRating = 'Нет';
+      return notRating + space + five;
+    }
     return number + space + five;
   }
   const feedback = (number) => {
