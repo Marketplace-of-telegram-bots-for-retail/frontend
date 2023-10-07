@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
-import Poster from '../Poster/Poster';
-import Title from '../Title/Title';
-import Content from '../Content/Content';
+// import Poster from '../Poster/Poster';
+// import Title from '../Title/Title';
+// import Content from '../Content/Content';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import './App.css';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
-import AftPoster from '../AftPoster/AftPoster';
+// import AftPoster from '../AftPoster/AftPoster';
 import Basket from '../Basket/Basket';
+import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
 
@@ -40,14 +41,13 @@ const App = () => {
             {/* 2 Уровень вложенности */}
             <Route
               index
-              element={
-                <main>
-                  <Poster />
-                  <Title />
-                  <Content />
-                  <AftPoster />
-                </main>
-              }
+              element={<PrivacyPolicy />}
+                // <main>
+                //   <Poster />
+                //   <Title />
+                //   <Content />
+                //   <AftPoster />
+                // </main>
             />
             <Route path='/:_id' element={<Product />} />
             <Route path='*' element={<ErrorPage pageNotFound />} />
@@ -75,8 +75,7 @@ const App = () => {
             />
             <Route
               path='/privacy-policy'
-              // стоит заглушка
-              element={<ErrorPage />}
+              element={<PrivacyPolicy />}
             />
             <Route
               path='/salesman'

@@ -1,0 +1,22 @@
+.privacy-policy__paragraphs-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.privacy-policy__paragraphs-title {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 700;
+}
+
+.privacy-policy__paragraphs-text {
+    margin: 0;
+    font-size: 1.25em;
+    line-height: 1.75em;
+    font-weight: 400;
+    text-align: justify;
+}

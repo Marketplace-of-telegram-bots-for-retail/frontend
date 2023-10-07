@@ -1,0 +1,16 @@
+.privacy-policy {
+    display: flex;
+    margin: 0 var(--s-indent);
+    flex-direction: column;
+    gap: 20px;
+}
+
+.privacy-policy__title {
+    font-size: 2.5em;
+    margin: 0 0 28px;
+}
+
+.privacy-policy__subtitle {
+    font-size: 1.5em;
+    margin: 0;
+}
