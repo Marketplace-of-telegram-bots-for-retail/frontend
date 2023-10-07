@@ -1,0 +1,57 @@
+.popup {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background: rgba(0, 0, 0, 0.5);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    visibility: hidden;
+    opacity: 0;
+    transition: visability 0.2s, opacity 0.2s ease-in;
+    z-index: 3;
+}
+
+.popup_opened {
+    visibility: visible;
+    opacity: 1;
+}
+
+.popup__modal-img {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+}
+
+.popup__close {
+    width: 32px;
+    height: 32px;
+    align-self: flex-end;
+    padding: 0;
+    background-color: rgba(0, 0, 0, 0);
+    background-image: url(../../images/arcticons_photo-and-picture-resizer.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    border: none;
+}
+
+.popup__close:hover {
+    opacity: 0.6;
+    cursor: pointer;
+}
+
+.popup__container-img {
+    margin: 8px 40px 0;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border-radius: 0px;
+}
+
+.popup__place-image {
+    max-width: 75vw;
+    max-height: 75vh;
+    overflow: hidden;
+}

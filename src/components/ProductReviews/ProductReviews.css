@@ -1,6 +1,8 @@
 .product__rewiews {
     display: flex;
     flex-direction: column;
+    max-width: 896px;
+    width: 100%;
     margin-bottom: 54px;
 }
 

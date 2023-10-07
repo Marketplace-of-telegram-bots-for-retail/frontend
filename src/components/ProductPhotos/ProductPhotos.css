@@ -26,6 +26,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 16px;
+    cursor: pointer;
 }
 
 .product-photos__photo-small_active {
@@ -48,6 +49,7 @@
 }
 
 .product-photos__photo-big {
+    position: relative;
     width: 708px;
     height: 544px;
     margin: 0;
@@ -56,4 +58,18 @@
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 16px;
+    cursor: pointer;
+}
+
+.product-photos__photo-icon {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    margin: 0 20px 20px 0;
+    width: 28px;
+    height: 28px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    cursor: pointer;
 }
