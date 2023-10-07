@@ -14,7 +14,7 @@
   font-family: 'Poppins', sans-serif;
 }
 
-.inner-container{
+.inner-container {
   display: flex;
   flex-direction: column;
   max-width: 1280px;
@@ -22,4 +22,27 @@
   border: solid 1px black;
   height: 100%;
   position: relative;
+}
+
+.button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--primary-accent);
+  min-width: 188px;
+  text-align: center;
+}
+
+.button_color_transparent {
+  border: 2px solid var(--primary-accent);
+}
+
+.button_color_blue {
+  background-color: var(--primary-accent);
+  color: var(--primary-white);
 }
