@@ -6,10 +6,14 @@ import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
 
 const ProductDetail = () => {
-  const [isShown, setIsShown] = useState(false);
+  const [state, setState] = useState('description');
 
-  function handleSectionClick() {
-    setIsShown((current) => !current);
+  function handleDescClick() {
+    setState('description');
+  }
+
+  function handleReviewClick() {
+    setState('review');
   }
 
   return (
@@ -20,10 +24,11 @@ const ProductDetail = () => {
         <h2 className='product__good-heading'>Лучший продавец ботов</h2>
       </div>
       <div className='product__good-items'>
-        <h3 className='product__good-item product__good-item_active' onClick={handleSectionClick}>Описание</h3>
-        <h3 className='product__good-item' onClick={handleSectionClick}>Отзывы (0)</h3>
+        <h3 className={`product__good-item ${state === 'description' ? 'product__good-item_active' : 'product__good-item product'}`} onClick={handleDescClick}>Описание</h3>
+        <h3 className={`product__good-item ${state === 'review' ? 'product__good-item_active' : 'product__good-item product'}`} onClick={handleReviewClick}>Отзывы (0)</h3>
       </div>
-      {isShown ? <ProductReviews /> : <ProductDescription />}
+      {state === 'description' && <ProductDescription />}
+      {state === 'review' && <ProductReviews />}
     </div>
   );
 };
