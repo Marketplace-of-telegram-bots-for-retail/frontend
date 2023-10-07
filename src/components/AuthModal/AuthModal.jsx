@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ReactComponent as Close } from '../../images/close-icon.svg';
-import { ReactComponent as Eye } from '../../images/eye.svg';
+import { ReactComponent as Eye } from '../../images/eye1.svg';
+import AuthInput from '../AuthInput/AuthInput';
 import './AuthModal.css';
 
 const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
@@ -42,12 +43,13 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
     return validatePassword(confirmPass);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault();
     const formData = {
       userType,
       email,
       password,
-      rememberMe
+      rememberMe,
     };
 
     if (!isLogin) {
@@ -60,30 +62,39 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
   return (
     <div className='modal__container'>
       <div className='modal__content'>
-        <h2 className='modal__title'>{isLogin ? 'Войти' : 'Регистрация'}</h2>
+        <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2>
         <Close className='modal__close' onClick={onClose} />
-        <div className='modal__inputs'>
-          <div className='modal__user-type-box'>
-            <button
-              className={`modal__user-type-btn ${userType === 'Покупатель' ? 'modal__user-type-btn_active' : 'modal__user-type-btn_inactive'}`}
-              type="button"
-              onClick={() => setUserType('Покупатель')}
-            >
-              Покупатель
-            </button>
-            <button
-              className={`modal__user-type-btn ${userType === 'Продавец' ? 'modal__user-type-btn_active' : 'modal__user-type-btn_inactive'}`}
-              type="button"
-              onClick={() => setUserType('Продавец')}
-            >
-              Продавец
-            </button>
-          </div>
-          <label htmlFor='email' className='modal__label'>
-            <input
+        <form className='modal__form'>
+          <div className='modal__inputs'>
+            <div className='modal__user-type-box'>
+              <button
+                className={`modal__user-type-btn ${
+                  userType === 'Покупатель'
+                    ? 'modal__user-type-btn_active'
+                    : 'modal__user-type-btn_inactive'
+                }`}
+                type='button'
+                onClick={() => setUserType('Покупатель')}
+              >
+                Покупатель
+              </button>
+              <button
+                className={`modal__user-type-btn ${
+                  userType === 'Продавец'
+                    ? 'modal__user-type-btn_active'
+                    : 'modal__user-type-btn_inactive'
+                }`}
+                type='button'
+                onClick={() => setUserType('Продавец')}
+              >
+                Продавец
+              </button>
+            </div>
+            <AuthInput
+              htmlFor='email'
               id='email'
-              className={`modal__input ${emailError ? 'modal__input_error' : 'modal__input_valid'}`}
-              type="email"
+              type='email'
+              error={emailError}
               value={email}
               onChange={(e) => {
                 const val = e.target.value;
@@ -91,21 +102,13 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
                 setEmailError(validateEmail(val));
               }}
               onBlur={() => setEmail(email.trim())}
-              placeholder="Электронная почта"
+              inputName='Почта'
             />
-            {emailError && <span className="modal__error-message">{emailError}</span>}
-          </label>
-          <label htmlFor='password' className='modal__label'>
-            <Eye
-              className='modal__eye-icon'
-              onMouseDown={() => setShowPassword(true)}
-              onMouseUp={() => setShowPassword(false)}
-              onMouseLeave={() => setShowPassword(false)}
-            />
-            <input
+            <AuthInput
+              htmlFor='password'
               id='password'
-              className={`modal__input ${passwordError ? 'modal__input_error' : 'modal__input_valid'}`}
               type={showPassword ? 'text' : 'password'}
+              error={passwordError}
               value={password}
               onChange={(e) => {
                 const val = e.target.value;
@@ -113,54 +116,84 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
                 setPasswordError(validatePassword(val));
               }}
               onBlur={() => setPassword(password.trim())}
-              placeholder="Пароль"
-            />
-            {passwordError && <span className="modal__error-message">{passwordError}</span>}
-          </label>
-          {!isLogin && (
-          <label htmlFor='confirmPassword' className='modal__label'>
-            <input
-              id='confirmPassword'
-              className={`modal__input ${confirmPasswordError ? 'modal__input_error' : 'modal__input_valid'}`}
-              type="password"
-              value={confirmPassword}
-              onChange={(e) => {
-                const val = e.target.value;
-                setConfirmPassword(val);
-                setConfirmPasswordError(validateConfirmPassword(val));
-              }}
-              onBlur={() => setConfirmPassword(confirmPassword.trim())}
-              placeholder="Повторите пароль"
-            />
-            {confirmPasswordError && <span className="modal__error-message">{confirmPasswordError}</span>}
-            </label>
-          )}
-          <div className='modal__remember-checkbox'>
-            <button type='button' className={`modal__remember-icon ${rememberMe ? 'modal__remember-icon_checked' : 'modal__remember-icon_blank'}`} onClick={() => setRememberMe(!rememberMe)} />
-            <span className='modal__span'>Запомнить меня</span>
+              inputName='Пароль'
+            >
+              <Eye
+                className='modal__eye-icon'
+                onMouseDown={() => setShowPassword(true)}
+                onMouseUp={() => setShowPassword(false)}
+                onMouseLeave={() => setShowPassword(false)}
+              />
+            </AuthInput>
+            {!isLogin && (
+              <AuthInput
+                htmlFor='confirmPassword'
+                id='confirmPassword'
+                type='password'
+                error={confirmPasswordError}
+                value={confirmPassword}
+                onChange={(e) => {
+                  const val = e.target.value;
+                  setConfirmPassword(val);
+                  setConfirmPasswordError(validateConfirmPassword(val));
+                }}
+                onBlur={() => setConfirmPassword(confirmPassword.trim())}
+                inputName='Повторите пароль'
+              />
+            )}
+            <div className='modal__remember-checkbox'>
+              <button
+                type='button'
+                className={`modal__remember-icon ${
+                  rememberMe
+                    ? 'modal__remember-icon_checked'
+                    : 'modal__remember-icon_blank'
+                }`}
+                onClick={() => setRememberMe(!rememberMe)}
+              />
+              <span className='modal__span'>Запомнить меня</span>
+            </div>
           </div>
-        </div>
-        <button className='modal__submit-btn' type="submit" onClick={handleSubmit}>{isLogin ? 'Войти' : 'Зарегистрироваться'}</button>
-        {isLogin ? (
-          <>
-            <Link className='modal__span' to="/reset-password">Забыли пароль?</Link>
+          <button
+            className='modal__submit-btn'
+            type='submit'
+            onClick={handleSubmit}
+          >
+            {isLogin ? 'Войти' : 'Зарегистрироваться'}
+          </button>
+          {isLogin ? (
+            <>
+              <Link className='modal__span modal__span_type_reset-password' to='/reset-password'>
+                Забыли пароль?
+              </Link>
+              <div className='modal__toggle-form'>
+                <span className='modal__span'>
+                  Нет аккаунта?
+                  {' '}
+                  <span
+                    className='modal__span modal__span_link'
+                    onClick={() => setIsLogin(false)}
+                  >
+                    Зарегистрироваться
+                  </span>
+                </span>
+              </div>
+            </>
+          ) : (
             <div className='modal__toggle-form'>
               <span className='modal__span'>
-                Нет аккаунта?
+                Есть аккаунт?
                 {' '}
-                <span className='modal__span modal__span_link' onClick={() => setIsLogin(false)}>Зарегистрироваться</span>
+                <span
+                  className='modal__span modal__span_link'
+                  onClick={() => setIsLogin(true)}
+                >
+                  Войти
+                </span>
               </span>
             </div>
-          </>
-        ) : (
-          <div className='modal__toggle-form'>
-            <span className='modal__span'>
-              Есть аккаунт?
-              {' '}
-              <span className='modal__span modal__span_link' onClick={() => setIsLogin(true)}>Войти</span>
-            </span>
-          </div>
-        )}
+          )}
+        </form>
       </div>
     </div>
   );

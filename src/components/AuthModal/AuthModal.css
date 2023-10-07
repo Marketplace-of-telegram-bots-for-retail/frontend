@@ -16,13 +16,19 @@
   width: 80%;
   max-width: 600px;
   background-color: white;
-  padding: 36px 105px 63px;
-  border-radius: 8px;
+  padding: 36px 105px 106px;
+  border-radius: 16px;
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
   display: flex;
   flex-direction: column;
   align-items: center;
   box-sizing: border-box;
+}
+
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
 .modal__close {
@@ -35,7 +41,7 @@
 }
 
 .modal__title {
-  color: var(--Primary-Black, #1E1E1E);
+  color: var(--Primary-Black, #1e1e1e);
   text-align: center;
   font-size: 24px;
   font-style: normal;
@@ -51,32 +57,32 @@
   align-items: center;
   justify-content: center;
   width: 100%;
+  gap: 20px;
 }
 
 .modal__user-type-btn {
   all: unset;
   width: 100%;
   padding: 0 0 12px;
-  border-bottom: 2px solid var(--Secondary-Purple-Light, #DACDFF);
+  border-bottom: 2px solid var(--Secondary-Purple-Light, #dacdff);
   cursor: pointer;
 
-  color: var(--Gray-Additional, #9FA1A5);
+  color: var(--Gray-Additional, #9fa1a5);
   text-align: center;
   font-size: 20px;
-  font-style: normal;
   font-weight: 500;
   line-height: 24px;
 }
 
 .modal__user-type-btn_active {
-  border-bottom-color: var(--Primary-Accent-Purple, #680BE0);
-  color: var(--Primary-Black, #1E1E1E);
+  border-bottom-color: var(--secondary-accent-blue-dark);
+  color: var(--secondary-accent-blue-dark);
 }
 
 .modal__inputs {
   display: flex;
   flex-direction: column;
-  gap: 52px;
+  gap: 44px;
   width: 100%;
 }
 
@@ -84,53 +90,61 @@
   position: relative;
   margin: 0;
   padding: 0;
-  display: block;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
   box-sizing: border-box;
 }
 
 .modal__eye-icon {
   position: absolute;
-  right: 10px;
-  top: 50%;  
-  transform: translateY(-50%);
+  right: 12px;
+  top: 50%;
   cursor: pointer;
 }
 
 .modal__input {
   all: unset;
   margin: 0;
-  padding: 0 0 3px;
-  border-bottom: 2px solid #000;
-  color: var(--Primary-Black, #1E1E1E);
+  padding: 8px 12px;
+  color: var(--Primary-Black, #1e1e1e);
+  border-radius: 8px;
+  border: 1px solid var(--gray-additional);
   text-align: left;
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 120% */
-  width: 100%;
 }
 
 .modal__input::placeholder {
-  color: #9FA1A5;
+  color: #9fa1a5;
+}
+
+.modal__input-name {
+  color: #1d2433;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 .modal__input_error {
-  color: var(--Error, #FF2455);
+  color: var(--Error, #ff2455);
 }
 
 .modal__input_valid {
-  color: var(--Secondary-Accent-Blue-Dark, #5500DE);
+  color: var(--Secondary-Accent-Blue-Dark, #5500de);
 }
 
 .modal__error-message {
   position: absolute;
-  bottom: -20px;
+  bottom: -24px;
   left: 0;
-  font-size: 14px;
+  font-size: 12px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px; /* 142.857% */
-  color: var(--Error, #FF2455);
+  color: var(--Error, #ff2455);
+  padding-bottom: 4px;
 }
 
 .modal__remember-checkbox {
@@ -162,7 +176,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  color: #777;
+  color: var(--primary-black);
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -171,15 +185,20 @@
   text-align: left;
 }
 
+.modal__span_type_reset-password {
+  color: var(--primary-accent);
+}
+
 .modal__span_link {
-  color: var(--Primary-Accent-Purple, #680BE0);
+  color: var(--primary-accent);
   cursor: pointer;
 }
 
 .modal__submit-btn {
   all: unset;
   border-radius: 8px;
-  background: var(--Primary-Accent-Gradient, linear-gradient(270deg, #7916E1 0%, #680BE0 47.92%, #5500DE 100%));
+  border-radius: 8px;
+  background: var(--primary-accent);
   display: flex;
   width: 100%;
   height: 52px;
@@ -187,18 +206,17 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  color: var(--Primary-White, #FDFDFD);
+  color: var(--Primary-White, #fdfdfd);
   text-align: center;
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 24px; /* 120% */
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px; 
   box-sizing: border-box;
-  margin: 24px 0;
+  margin: 32px 0 24px;
 }
 
 .modal__toggle-form {
   width: 100%;
   display: inline;
-  margin-top: 64px;
+  margin-top: 32px;
 }
