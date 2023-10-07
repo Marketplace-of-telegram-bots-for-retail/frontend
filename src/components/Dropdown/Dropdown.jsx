@@ -10,13 +10,20 @@ export const Dropdown = ({ handleSort }) => {
     console.log('onClick => setOpen(!open)'); // удалить
   };
 
+  // const dropdownList = [
+  //   { title: 'По популярности', value: 'popular' },
+  //   { title: 'По рейтингу', value: 'rate' },
+  //   { title: 'По возрастанию цены', value: 'priceup' },
+  //   { title: 'По убыванию цены', value: 'pricedown' },
+  //   { title: 'По скидке', value: 'sale' },
+  //   { title: 'По новинкам', value: 'newly' },
+  // ];
+
   const dropdownList = [
-    { title: 'По популярности', value: 'popular' },
-    { title: 'По рейтингу', value: 'rate' },
-    { title: 'По возрастанию цены', value: 'priceup' },
-    { title: 'По убыванию цены', value: 'pricedown' },
-    { title: 'По скидке', value: 'sale' },
-    { title: 'По новинкам', value: 'newly' },
+    { title: 'Сначала новые', value: '-created' },
+    { title: 'По дате создания', value: 'created' },
+    { title: 'По возрастанию цены', value: 'price' },
+    { title: 'По убыванию цены', value: '-price' },
   ];
 
   const dropdownListClick = (index) => {
