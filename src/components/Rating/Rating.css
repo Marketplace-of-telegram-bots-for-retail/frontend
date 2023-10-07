@@ -1,6 +1,6 @@
 .rating {
   display: flex;
-  gap: 8px;
+  gap: 0.5rem;
   flex-direction: row;
 }
 
@@ -14,10 +14,10 @@
 .rating__star {
   margin: 0;
   padding: 0;
-  height: 20px;
-  width: 20px;
+  height: 1.25rem;
+  width: 1.25rem;
   border: none;
-  background-size: 20px 20px;
+  background-size: 1.25rem 1.25rem;
 }
 
 .rating__star_on {
@@ -29,11 +29,11 @@
 }
 
 .rating__feedback {
-  color: var(--Primary-Black, #1e1e1e);
-  font-size: 14px;
+  color: var(--primary-black);
+  font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px;
+  line-height: 1.25rem;
   margin: 0;
   padding: 0;
 }

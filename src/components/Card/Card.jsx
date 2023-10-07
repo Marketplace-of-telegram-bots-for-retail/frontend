@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Card.css';
-import defaultCover from '../../images/default-cover.svg';
 import { Rating } from '../Rating/Rating';
 
 export const Card = ({ card, onLike }) => {
@@ -20,6 +19,14 @@ export const Card = ({ card, onLike }) => {
     isLiked ? 'card__like_active' : ''
   }`;
 
+  const colorsPreview = [
+    '#FAAE1A80',
+    '#FF8F6EB2',
+    '#75B2F380',
+    '#00B78B99',
+    '#D9D9D9',
+  ];
+
   return (
     <div className='card'>
       <button
@@ -27,21 +34,22 @@ export const Card = ({ card, onLike }) => {
         className={cardLikeButtonClassName}
         onClick={handleLikeClick}
       ></button>
-      <Link to={`/${card._id}`}>
-        <img
-          className='card__cover'
-          src={card?.img || defaultCover}
-          alt='обложка'
-          onClick={() => handleCardClick()}
-        />
+      <Link
+        to={`${card.id}`}
+        className='card__preview'
+        onClick={() => handleCardClick()}
+        style={{ backgroundColor: colorsPreview[card?.category[0]?.id] }}
+      >
+        <p className='card__preview-text'>
+          {card?.category[0]?.name || 'Без категории'}
+        </p>
       </Link>
-
       <p className='card__title'>
         {card?.name || 'Название бота, которое может занимать 2 строки'}
       </p>
       <Rating ratingCard={card?.rating} />
       <p className='card__about'>
-        {card?.about ||
+        {card?.description ||
           'Описание бота, которое может занимать 3 строки. Описание бота, которое может занимать 3 строки.'}
       </p>
       <p className='card__price'>{`${card?.price} ₽`}</p>
