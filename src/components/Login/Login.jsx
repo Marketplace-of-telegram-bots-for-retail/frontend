@@ -1,14 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { ReactComponent as Close } from '../../images/close-icon.svg';
-import { ReactComponent as Eye } from '../../images/eye1.svg';
 import AuthForm from '../AuthForm/AuthForm';
 import AuthInput from '../AuthInput/AuthInput';
-import Login from '../Login/Login';
-import Register from '../Register/Register';
-import './AuthModal.css';
+import { ReactComponent as Eye } from '../../images/eye1.svg';
 
-const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
+const Login = (props) => {
   const [userType, setUserType] = useState('Покупатель');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -18,8 +13,6 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
   const [passwordError, setPasswordError] = useState('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
-  // Validation
 
   const validateEmail = (email) => {
     email = email.trim();
@@ -65,49 +58,52 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
 
     // Отправить formData на сервер
   };
-
   return (
-    <div className='modal__container'>
-      <div className='modal__content'>
-        <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2>
-        <Close className='modal__close' onClick={onClose} />
-        {isLogin ? <Login isLogin={isLogin} /> : <Register isLogin={isLogin} />}
-        {isLogin ? (
-          <>
-            <Link
-              className='modal__span modal__span_type_reset-password'
-              to='/reset-password'
-            >
-              Забыли пароль?
-            </Link>
-            <div className='modal__toggle-form'>
-              <span className='modal__span'>
-                Нет аккаунта?{' '}
-                <span
-                  className='modal__span modal__span_link'
-                  onClick={() => setIsLogin(false)}
-                >
-                  Зарегистрироваться
-                </span>
-              </span>
-            </div>
-          </>
-        ) : (
-          <div className='modal__toggle-form'>
-            <span className='modal__span'>
-              Есть аккаунт?{' '}
-              <span
-                className='modal__span modal__span_link'
-                onClick={() => setIsLogin(true)}
-              >
-                Войти
-              </span>
-            </span>
-          </div>
-        )}
-      </div>
-    </div>
+    <AuthForm
+      userType={userType}
+      setUserType={setUserType}
+      rememberMe={rememberMe}
+      setRememberMe={setRememberMe}
+      handleSubmit={handleSubmit}
+      isLogin={props.isLogin}
+    >
+      <AuthInput
+        htmlFor='email'
+        id='email'
+        type='email'
+        error={emailError}
+        value={email}
+        onChange={(e) => {
+          const val = e.target.value;
+          setEmail(val);
+          setEmailError(validateEmail(val));
+        }}
+        onBlur={() => setEmail(email.trim())}
+        inputName='Почта'
+      />
+      <AuthInput
+        htmlFor='password'
+        id='password'
+        type={showPassword ? 'text' : 'password'}
+        error={passwordError}
+        value={password}
+        onChange={(e) => {
+          const val = e.target.value;
+          setPassword(val);
+          setPasswordError(validatePassword(val));
+        }}
+        onBlur={() => setPassword(password.trim())}
+        inputName='Пароль'
+      >
+        <Eye
+          className='modal__eye-icon'
+          onMouseDown={() => setShowPassword(true)}
+          onMouseUp={() => setShowPassword(false)}
+          onMouseLeave={() => setShowPassword(false)}
+        />
+      </AuthInput>
+    </AuthForm>
   );
 };
 
-export default AuthModal;
+export default Login;
