@@ -10,6 +10,7 @@ import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import AftPoster from '../AftPoster/AftPoster';
 import Basket from '../Basket/Basket';
+import Profile from '../Profile/Profile';
 
 const App = () => {
   const [showAuthButtons, setShowAuthButtons] = useState(false);
@@ -50,10 +51,7 @@ const App = () => {
             <Route path='/:_id' element={<Product />} />
             <Route path='/cart' element={<div>вставить компонент Cart</div>} />
             <Route path='*' element={<div>вставить компонент NotFound</div>} />
-            <Route
-              path='/profile'
-              element={<div>вставить компонент Profile</div>}
-            />
+            <Route path='/profile' element={<Profile />} />
             <Route
               path='/contacts'
               element={<div>вставить компонент Contact</div>}
