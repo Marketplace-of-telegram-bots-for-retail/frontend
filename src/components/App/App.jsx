@@ -3,12 +3,11 @@ import { Outlet, Route, Routes } from 'react-router-dom';
 import Header from '../Header/Header';
 import Poster from '../Poster/Poster';
 import Title from '../Title/Title';
-import Content from '../Content/Content';
+import { Content } from '../Content/Content';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import './App.css';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
-import AftPoster from '../AftPoster/AftPoster';
 import Basket from '../Basket/Basket';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
@@ -45,7 +44,6 @@ const App = () => {
                   <Poster />
                   <Title />
                   <Content />
-                  <AftPoster />
                 </main>
               }
             />

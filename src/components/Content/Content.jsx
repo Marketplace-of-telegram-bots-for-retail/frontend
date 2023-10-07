@@ -5,7 +5,7 @@ import Prices from '../Prices/Prices';
 import './Content.css';
 import { Showcase } from '../Showcase/Showcase';
 
-const Content = () => {
+export const Content = () => {
   const formState = useSelector((state) => state.priceFormSubmit);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -24,5 +24,3 @@ const Content = () => {
     </section>
   );
 };
-
-export default Content;

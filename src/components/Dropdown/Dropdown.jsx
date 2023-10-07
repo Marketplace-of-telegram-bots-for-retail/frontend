@@ -24,7 +24,7 @@ export const Dropdown = ({ handleSort }) => {
   };
 
   return (
-    <div className='dropdown'>
+    <div className='showcase__dropdown dropdown'>
       <button
         className='dropdown__button'
         type='button'
