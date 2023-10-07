@@ -1,9 +1,12 @@
 import React from 'react';
 import './AftPoster.css';
 
-export const AftPoster = () => {
+export const AftPoster = ({ onClick }) => {
   return (
-    <article className='content__aft-poster aft-poster'>
+    <article
+      className='content__aft-poster aft-poster'
+      onClick={() => onClick()}
+    >
       <div className='aft-poster__wrapper'>
         <h3 className='aft-poster__title'>Не нашлось нужного бота?</h3>
         <p className='aft-poster__text'>

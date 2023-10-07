@@ -10,13 +10,18 @@ export const Showcase = () => {
   const handleSort = (value) => {
     console.log('Выбрать сортировку', value);
   };
-
+  const onClickMore = (valie) => {
+    console.log('Click => More', valie);
+  };
+  const onClickAftPoster = () => {
+    console.log('Click => AftPoster');
+  };
   return (
     <div className='content__showcase showcase'>
       <Dropdown handleSort={handleSort} />
       <Cards cards={cards} />
-      <More />
-      <AftPoster />
+      <More onClick={(valie) => onClickMore(valie)} />
+      <AftPoster onClick={() => onClickAftPoster()} />
     </div>
   );
 };
