@@ -9,6 +9,7 @@ import './App.css';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import Basket from '../Basket/Basket';
+import Profile from '../Profile/Profile';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
@@ -52,11 +53,8 @@ const App = () => {
             <Route path='*' element={<ErrorPage pageNotFound />} />
             <Route path='/favorites' element={<Favorites />} />
             <Route path='/basket' element={<Basket />} />
-            <Route
-              path='/profile'
-              // стоит заглушка
-              element={<ErrorPage />}
-            />
+            <Route path='/profile' element={<Profile />} />
+
             <Route
               path='/contacts'
               // стоит заглушка
