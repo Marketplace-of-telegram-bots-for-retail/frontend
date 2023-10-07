@@ -1,0 +1,27 @@
+.privacy-policy {
+    display: flex;
+    margin: 0 var(--s-indent);
+    flex-direction: column;
+    gap: 20px;
+}
+
+.privacy-policy__title {
+    font-size: 2.5em;
+    margin: 0 0 28px;
+}
+
+.privacy-policy__subtitle {
+    font-size: 1.5em;
+    margin: 0;
+}
+
+.privacy-policy__buttons-container {
+    display: flex;
+    justify-content: end;
+    gap: 20px;
+    margin: 32px 0 48px;
+}
+
+.privacy-policy__link {
+    text-decoration: none;
+}

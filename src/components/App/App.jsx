@@ -9,6 +9,7 @@ import './App.css';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import Basket from '../Basket/Basket';
+import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
 
@@ -71,11 +72,7 @@ const App = () => {
               // стоит заглушка
               element={<ErrorPage />}
             />
-            <Route
-              path='/privacy-policy'
-              // стоит заглушка
-              element={<ErrorPage />}
-            />
+            <Route path='/privacy-policy' element={<PrivacyPolicy />} />
             <Route
               path='/salesman'
               // стоит заглушка

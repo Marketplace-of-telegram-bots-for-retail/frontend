@@ -21,3 +21,5 @@ export const FOOTER_LINKS = [
   'FAQ',
   'Команда разработчиков',
 ];
+
+export const PRIVACY_POLICY_URL = 'https://botmarketplace.ru';
