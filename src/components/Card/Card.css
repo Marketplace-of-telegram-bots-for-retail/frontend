@@ -1,11 +1,20 @@
 .card {
-  max-width: 18.25rem;
-  max-height: 30rem;
+  width: 18.25rem;
+  height: 30rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+.card__wrapper {
   display: flex;
   flex-direction: column;
   margin: 0;
   padding: 0;
-  position: relative;
+  width: 100%;
 }
 
 .card__preview {
@@ -68,7 +77,6 @@
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
-
 .card__preview:hover {
   box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.2s;
@@ -94,14 +102,13 @@
   opacity: 0.8;
   transition: opacity 0.5s;
 }
-
 .card__like_active {
   background: center no-repeat url(../../images/ic_heart-solid-24.svg);
 }
 
 .card__title {
   width: 18.25rem;
-  height: 3rem;
+  max-height: 3rem;
   margin: 0.5rem 0 0.25rem;
   padding: 0;
   overflow: hidden;
@@ -115,12 +122,12 @@
   font-size: 1rem;
   font-style: normal;
   font-weight: 600;
-  line-height: 1.375rem; 
+  line-height: 1.375rem;
 }
 
 .card__about {
   margin: 0.5rem 0;
-  height: 3.75rem;
+  max-height: 3.75rem;
   padding: 0;
   color: var(--primary-black);
   text-overflow: ellipsis;

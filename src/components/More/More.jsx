@@ -3,17 +3,27 @@ import './More.css';
 
 export const More = ({ onClick }) => {
   return (
-    <div>
-      <div></div>
+    <div className='showcase__more more'>
       <button
         type='button'
-        className='movies__more'
+        className='more__button more__button_previous'
         onClick={() => {
           onClick();
           console.log('more => Click!');
         }}
       >
-        Еще
+        {'Предыдущая страница <<'}
+      </button>
+      <span className='more__page-number'></span>
+      <button
+        type='button'
+        className='more__button more__button_next'
+        onClick={() => {
+          onClick();
+          console.log('more => Click!');
+        }}
+      >
+        {'>> Следущая страница'}
       </button>
     </div>
   );

@@ -1,10 +1,99 @@
+.content__aft-poster {
+  margin: 2.25rem 0;
+}
 .aft-poster {
-  margin-top: 3.75rem;
-  margin-right: var(--s-indent);
   width: 57.25rem;
-  height: 15.8125rem;
-  flex-shrink: 0;
-  background-color: #F4F4F4;
+  height: 15.75rem;
+  background: none;
   border-radius: 1rem;
-  margin-left: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  cursor: pointer;
+  border-radius: 2rem;
+}
+.aft-poster:hover {
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s;
+}
+.aft-poster__wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 37.6875rem;
+  height: 11.25rem;
+  background: no-repeat url('../../images/frame-291.svg');
+  background-size: 37.6875rem 11.25rem;
+  padding: 2.19rem 0 0 4.81rem;
+  margin: 1.56rem 2.13rem 2.92rem 0;
+}
+
+.aft-poster__title {
+  color: var(--primary-black);
+  font-size: 1.5rem;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 2.25rem;
+  margin: 0 0 0.19rem;
+  padding: 0;
+}
+
+.aft-poster__text {
+  color: var(--primary-black);
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  margin: 0;
+  padding: 0;
+}
+
+.aft-poster__link-wrapper {
+  width: 15.875rem;
+  min-height: 2.56rem;
+  margin: 0.75rem 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 1.8125rem;
+  align-items: flex-end;
+}
+
+.aft-poster__text-link {
+  color: var(--secondary-accent-blue-dark);
+  font-family: 'Caveat';
+  font-size: 1.75rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 2.5rem;
+  letter-spacing: -0.035rem;
+  margin: 0;
+  padding: 0;
+  align-self: flex-start;
+}
+.aft-poster__icon-link {
+  width: 2.25rem;
+  height: 2.25rem;
+  margin: 0;
+  padding: 0;
+  background: center no-repeat url('../../images/guidance_up-arrow.svg');
+  background-size: 2.25rem 2.25rem;
+}
+
+.aft-poster__bot-icon {
+  margin: 0;
+  padding: 0;
+  background: center no-repeat url('../../images/vecteezy_3d.png');
+  margin-bottom: 1.12rem;
+}
+.aft-poster__bot-icon_big {
+  width: 7.3125rem;
+  height: 10rem;
+  background-size: 7.3125rem 10rem;
+  margin-right: 1rem;
+}
+.aft-poster__bot-icon_small {
+  width: 5.4375rem;
+  height: 7.4375rem;
+  background-size: 5.4375rem 7.4375rem;
 }
