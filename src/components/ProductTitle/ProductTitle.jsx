@@ -1,11 +1,11 @@
 import React from 'react';
 import './ProductTitle.css';
 
-const ProductTitle = () => {
+const ProductTitle = ({ card }) => {
   return (
     <div className='product__title-info'>
-      <h1 className='product__title'>Наименование бота в 1 строку Наименование бота в 1 строку...</h1>
-      <p className='product__article'>Артикул: 000001</p>
+      <h1 className='product__title'>{card.name}</h1>
+      <p className='product__article'>{card.article}</p>
     </div>
   );
 };

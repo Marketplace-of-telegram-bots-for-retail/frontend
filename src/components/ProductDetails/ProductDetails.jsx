@@ -3,11 +3,11 @@ import './ProductDetails.css';
 import ProductDetail from '../ProductDetail/ProductDetail';
 import ProductPriceBlock from '../ProductPriceBlock/ProductPriceBlock';
 
-const ProductDetails = () => {
+const ProductDetails = ({ card, onCardClick }) => {
   return (
     <div className='product__good-details'>
-      <ProductDetail />
-      <ProductPriceBlock />
+      <ProductDetail card={card} onCardClick={onCardClick} />
+      <ProductPriceBlock card={card} />
     </div>
   );
 };

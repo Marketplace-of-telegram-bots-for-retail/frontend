@@ -1,9 +1,8 @@
 import React from 'react';
 import './ProductDescription.css';
 import dash from '../../images/ic_minus-24.svg';
-import video from '../../images/video.jpg';
 
-const ProductDescription = () => {
+const ProductDescription = ({ card }) => {
   return (
     <div className='product__description'>
       <p className="product__description-text">Веб-приложение в Телеграмме выглядит как сайт (интернет-магазин) и позволяет совершать покупки.</p>
@@ -31,8 +30,8 @@ const ProductDescription = () => {
       </ul>
       <div className='product__description-videos'>
         <h2 className='product__description-heading'>Видеообзор</h2>
-        <a href='http' target="_blank" rel="noreferrer">
-          <img className="product__description-video" src={video} alt='видеообзор' />
+        <a href={card.video} target="_blank" rel="noreferrer">
+          <img className="product__description-video" src={card.image_1} alt={card.name} />
         </a>
       </div>
     </div>
