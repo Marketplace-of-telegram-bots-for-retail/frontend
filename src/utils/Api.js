@@ -144,7 +144,6 @@ class Api {
 
 const config = {
   baseUrl: 'https://botmarketplace.ru/api',
-  credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
