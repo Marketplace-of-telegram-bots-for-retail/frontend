@@ -220,3 +220,7 @@
   display: inline;
   margin-top: 32px;
 }
+
+.modal__span_type_auth-link {
+  margin-left: 8px;
+}
