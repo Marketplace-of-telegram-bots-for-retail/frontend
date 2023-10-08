@@ -5,6 +5,8 @@ import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 import './Profile.css';
 import { profileNavigation } from '../../utils/constants';
+import { ReactComponent as ClosedEye } from '../../images/eye.svg';
+import { ReactComponent as OpenedEye } from '../../images/open_eye.svg';
 
 // Компонент профиля пользователя
 const Profile = () => {
@@ -22,9 +24,10 @@ const Profile = () => {
 
   // Состояние для управления видимостью паролей
   const [isPasswordVisible, setIsPasswordVisible] = useState({
-    oldPassword: false,
-    newPassword: false,
-    confirmNewPassword: false,
+    password: false,
+    current_assword: false,
+    new_password: false,
+    confirm_new_password: false,
   });
 
   // Функция для переключения видимости пароля
@@ -93,6 +96,7 @@ const Profile = () => {
     <div className='profile'>
       <h2 className='profile__title'>Личный кабинет</h2>
       <div className='profile__container'>
+        {/* Навигация */}
         <nav className='profile__navigation'>
           <ul>
             {profileNavigation.map((block, i) => (
@@ -174,9 +178,13 @@ const Profile = () => {
                     />
                     <button
                       type='button'
-                      onClick={() => togglePasswordVisibility(field)}
+                      onClick={() => togglePasswordVisibility(field.key)}
                     >
-                      {isPasswordVisible[field] ? 'Скрыть' : 'Показать'}
+                      {isPasswordVisible[field.key] ? (
+                        <OpenedEye />
+                      ) : (
+                        <ClosedEye />
+                      )}
                     </button>
                   </label>
                 </li>
@@ -189,13 +197,15 @@ const Profile = () => {
                     type={isPasswordVisible.password ? 'text' : 'password'}
                     value={userData.password}
                     id='password'
-                    readOnly
+                    onChange={(e) =>
+                      handleInputChange('password', e.target.value)
+                    }
                   />
                   <button
                     type='button'
                     onClick={() => togglePasswordVisibility('password')}
                   >
-                    {isPasswordVisible.password ? 'Скрыть' : 'Показать'}
+                    {isPasswordVisible.password ? <OpenedEye /> : <ClosedEye />}
                   </button>
                 </label>
               </li>
