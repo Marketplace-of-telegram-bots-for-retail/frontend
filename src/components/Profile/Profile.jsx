@@ -16,6 +16,12 @@ const Profile = () => {
   // Локальное состояние для хранения данных пользователя во время редактирования
   const [userData, setUserData] = useState(user);
 
+  // Локальное состояние для хранения паролей во время редактирования
+  const [passwordData, setPasswordData] = useState({
+    current_password: '',
+    new_password: '',
+  });
+
   // Переключатель режима редактирования
   const [isEditing, setIsEditing] = useState(false);
 
@@ -25,7 +31,7 @@ const Profile = () => {
   // Состояние для управления видимостью паролей
   const [isPasswordVisible, setIsPasswordVisible] = useState({
     password: false,
-    current_assword: false,
+    current_password: false,
     new_password: false,
     confirm_new_password: false,
   });
@@ -39,18 +45,35 @@ const Profile = () => {
   };
 
   // Обработчик изменений в полях ввода
-  const handleInputChange = (fieldKey, newValue) => {
-    setUserData((prevUser) => ({
-      ...prevUser,
-      [fieldKey]: newValue,
-    }));
+  const handleInputChange = (fieldKey, newValue, isPassword = false) => {
+    if (isPassword) {
+      setPasswordData((prevData) => ({
+        ...prevData,
+        [fieldKey]: newValue,
+      }));
+    } else {
+      setUserData((prevUser) => ({
+        ...prevUser,
+        [fieldKey]: newValue,
+      }));
+    }
   };
 
   // Функция для сохранения обновленных данных пользователя
   const handleSave = () => {
+    // Проверяю, был ли изменен пароль
+    if (passwordData.current_password && passwordData.new_password) {
+      // Отправляю passwordData на сервер
+      // ...
+    }
+
     // Здесь можно отправить запрос на сервер для обновления данных пользователя
     // После успешного ответа обновляем данные пользователя в контексте
     setUser(userData);
+    setIsEditing(false);
+
+    console.log(user);
+    console.log(passwordData);
   };
 
   // Хук для навигации
@@ -89,7 +112,7 @@ const Profile = () => {
   const passwordInputs = [
     { label: 'Старый пароль', key: 'current_password' },
     { label: 'Новый пароль', key: 'new_password' },
-    { label: 'Новый пароль еще раз', key: 'confirme_new_password' },
+    { label: 'Новый пароль еще раз', key: 'confirm_new_password' },
   ];
 
   return (
@@ -143,7 +166,7 @@ const Profile = () => {
                     onChange={(e) =>
                       handleInputChange(field.key, e.target.value)
                     }
-                    disabled={isEditing ? 'false' : 'true'}
+                    disabled={!isEditing}
                   />
                   {(field.key === 'first_name' || field.key === 'last_name') &&
                     isEditing && <span>Только кириллица</span>}
@@ -174,7 +197,7 @@ const Profile = () => {
                       value={user[field.key]}
                       id={field.key}
                       onChange={(e) =>
-                        handleInputChange(field.key, e.target.value)
+                        handleInputChange(field.key, e.target.value, true)
                       }
                     />
                     <button
@@ -201,7 +224,7 @@ const Profile = () => {
                     onChange={(e) =>
                       handleInputChange('password', e.target.value)
                     }
-                    disabled={isEditing ? 'false' : 'true'}
+                    disabled={!isEditing}
                   />
                   <button
                     type='button'
