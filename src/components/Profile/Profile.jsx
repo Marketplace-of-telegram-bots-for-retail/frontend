@@ -1,78 +1,59 @@
-import React, { useContext, useCallback, useState } from 'react';
-import { Link } from 'react-router-dom';
+/* eslint-disable react/jsx-curly-newline */
+// Импорты необходимых библиотек и компонентов
+import React, { useContext, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
 import { UserContext } from '../../context/userContext';
 import './Profile.css';
+import { profileNavigation } from '../../utils/constants';
 
-const profileNavigation = [
-  {
-    title: 'Заказы',
-    links: [
-      {
-        name: 'Моя корзина',
-        link: '/cart',
-      },
-      {
-        name: 'Мои заказы',
-        link: '/orders',
-      },
-      {
-        name: 'Мои возвраты',
-        link: '/returns',
-      },
-    ],
-  },
-  {
-    title: 'Оплата',
-    links: [
-      {
-        name: 'Способы оплаты',
-        link: '/payment',
-      },
-      {
-        name: 'Мои промокоды',
-        link: '/promo',
-      },
-    ],
-  },
-  {
-    title: 'Отзывы',
-    links: [
-      {
-        name: 'Мои отзывы',
-        link: '/reviews',
-      },
-    ],
-  },
-  {
-    title: 'Помощь',
-    links: [
-      {
-        name: 'Связаться с нами',
-        link: '/contact',
-      },
-    ],
-  },
-];
-
+// Компонент профиля пользователя
 const Profile = () => {
+  // Получение текущего пользователя и функции setUser из контекста
   const { user, setUser } = useContext(UserContext);
 
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  // Локальное состояние для хранения данных пользователя во время редактирования
+  const [userData, setUserData] = useState(user);
 
-  const togglePasswordVisibility = () => {
-    setIsPasswordVisible((prevIsPasswordVisible) => !prevIsPasswordVisible);
+  // Переключатель режима редактирования
+  const [isEditing, setIsEditing] = useState(false);
+
+  // Переключатель для отображения всплывающего окна редактирования фотографии
+  const [isEditingPhoto, setIsEditingPhoto] = useState(false);
+
+  // Состояние для управления видимостью паролей
+  const [isPasswordVisible, setIsPasswordVisible] = useState({
+    oldPassword: false,
+    newPassword: false,
+    confirmNewPassword: false,
+  });
+
+  // Функция для переключения видимости пароля
+  const togglePasswordVisibility = (field) => {
+    setIsPasswordVisible((prevState) => ({
+      ...prevState,
+      [field]: !prevState[field],
+    }));
   };
 
-  const handleInputChange = useCallback(
-    (field, newValue) => {
-      setUser((prevUser) => ({
-        ...prevUser,
-        [field]: newValue,
-      }));
-    },
-    [setUser]
-  );
+  // Обработчик изменений в полях ввода
+  const handleInputChange = (fieldKey, newValue) => {
+    setUserData((prevUser) => ({
+      ...prevUser,
+      [fieldKey]: newValue,
+    }));
+  };
 
+  // Функция для сохранения обновленных данных пользователя
+  const handleSave = () => {
+    // Здесь можно отправить запрос на сервер для обновления данных пользователя
+    // После успешного ответа обновляем данные пользователя в контексте
+    setUser(userData);
+  };
+
+  // Хук для навигации
+  const navigate = useNavigate();
+
+  // Массив объектов с данными для полей ввода профиля
   const profileInputs = [
     {
       label: 'Логин',
@@ -82,12 +63,12 @@ const Profile = () => {
     {
       label: 'Имя',
       type: 'text',
-      key: 'name',
+      key: 'first_name',
     },
     {
       label: 'Фамилия',
       type: 'text',
-      key: 'surname',
+      key: 'last_name',
     },
     {
       label: 'Телефон',
@@ -99,11 +80,13 @@ const Profile = () => {
       type: 'email',
       key: 'email',
     },
-    {
-      label: 'Пароль',
-      type: 'password',
-      key: 'password',
-    },
+  ];
+
+  // Массив объектов с данными для полей ввода пароля
+  const passwordInputs = [
+    { label: 'Старый пароль', key: 'current_password' },
+    { label: 'Новый пароль', key: 'new_password' },
+    { label: 'Новый пароль еще раз', key: 'confirme_new_password' },
   ];
 
   return (
@@ -131,34 +114,118 @@ const Profile = () => {
         </nav>
 
         <div className='profile__content'>
-          <img src={user.photo} alt='avatar' />
+          <div
+            className='profile__avatar'
+            onMouseEnter={() => isEditing && setIsEditingPhoto(true)}
+            onMouseLeave={() => setIsEditingPhoto(false)}
+          >
+            <img src={user.photo} alt='avatar' />
+            {isEditing && isEditingPhoto && (
+              <div className='profile__avatar-popup'>
+                <button type='button'>Добавить фото</button>
+                <button type='button'>Удалить фото</button>
+              </div>
+            )}
+          </div>
           <ul>
-            {profileInputs.map((input) => (
-              <li key={input.key}>
-                <label htmlFor={input.label}>
-                  {input.label}
+            {profileInputs.map((field) => (
+              <li key={field.key}>
+                <label htmlFor={field.label}>
+                  {field.label}
                   <input
-                    type={
-                      input.key === 'password' && isPasswordVisible
-                        ? 'text'
-                        : input.type
-                    }
-                    value={user[input.key]}
-                    id={input.label}
-                    onChange={
-                      (e) => handleInputChange(input.key, e.target.value)
-                      // eslint-disable-next-line react/jsx-curly-newline
+                    type='text'
+                    value={userData[field.key]}
+                    id={field.key}
+                    onChange={(e) =>
+                      handleInputChange(field.key, e.target.value)
                     }
                   />
-                  {input.key === 'password' && (
-                    <button type='button' onClick={togglePasswordVisibility}>
-                      {isPasswordVisible ? 'Скрыть' : 'Показать'}
-                    </button>
+                  {(field.key === 'first_name' || field.key === 'last_name') &&
+                    isEditing && <span>Только кириллица</span>}
+                  {field.key === 'phone' && isEditing && (
+                    <Link to='/'>Подтвердить телефон</Link>
                   )}
                 </label>
               </li>
             ))}
+            {isEditing ? (
+              passwordInputs.map((field) => (
+                <li key={field.key}>
+                  <label htmlFor={field.key}>
+                    {field.label}
+                    {field.key === 'new_password' && (
+                      <span>
+                        Не менее 8 символов. Может содержать только латинские
+                        буквы, цифры, знаки.
+                      </span>
+                    )}
+                    <input
+                      type={isPasswordVisible[field.key] ? 'text' : 'password'}
+                      placeholder={
+                        field.key === 'current_password'
+                          ? 'введите текущий пароль'
+                          : ''
+                      }
+                      value={user[field.key]}
+                      id={field.key}
+                      onChange={(e) =>
+                        handleInputChange(field.key, e.target.value)
+                      }
+                    />
+                    <button
+                      type='button'
+                      onClick={() => togglePasswordVisibility(field)}
+                    >
+                      {isPasswordVisible[field] ? 'Скрыть' : 'Показать'}
+                    </button>
+                  </label>
+                </li>
+              ))
+            ) : (
+              <li>
+                <label htmlFor='password'>
+                  Пароль
+                  <input
+                    type={isPasswordVisible.password ? 'text' : 'password'}
+                    value={userData.password}
+                    id='password'
+                    readOnly
+                  />
+                  <button
+                    type='button'
+                    onClick={() => togglePasswordVisibility('password')}
+                  >
+                    {isPasswordVisible.password ? 'Скрыть' : 'Показать'}
+                  </button>
+                </label>
+              </li>
+            )}
           </ul>
+          {isEditing ? (
+            <>
+              <button type='button' onClick={() => setIsEditing(false)}>
+                Отменить
+              </button>
+              <button type='button' onClick={handleSave}>
+                Сохранить
+              </button>
+            </>
+          ) : (
+            <div>
+              <button
+                type='button'
+                onClick={() => {
+                  setUser({});
+                  navigate('/');
+                }}
+              >
+                Выйти из профиля
+              </button>
+              <button type='button' onClick={() => setIsEditing(true)}>
+                Редактировать профиль
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>
