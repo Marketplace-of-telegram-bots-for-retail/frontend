@@ -19,7 +19,8 @@ export const ErrorPage = ({ pageNotFound, botNotFound }) => {
     } else if (botNotFound === true) {
       setParams({ ...params.bot });
     } else setParams({ ...params.tools });
-  }, [pageNotFound, botNotFound, params.bot, params.err404, params.tools]);
+  }, [pageNotFound, botNotFound]);
+
   return (
     <section className='content__error-page error-page'>
       <img className='error-page__icon' src={isParams?.image} alt='иконка' />
