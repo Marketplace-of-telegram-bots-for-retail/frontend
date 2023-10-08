@@ -21,6 +21,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  cursor: pointer;
 }
 
 .dropdown__button-icon {
@@ -65,6 +66,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
+  cursor: pointer;
 }
 .dropdown__item:last-child {
   border-bottom: none;

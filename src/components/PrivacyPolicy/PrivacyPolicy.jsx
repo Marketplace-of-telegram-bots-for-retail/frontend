@@ -15,8 +15,12 @@ const PrivacyPolicy = () => {
       </h2>
       <PrivacyPolicyText policy={privacyPolicy} />
       <div className='privacy-policy__buttons-container'>
-        <button className="button button_color_transparent" type="button">Распечатать</button>
-        <Link to={-1} className="button button_color_blue privacy-policy__link">Назад</Link>
+        <button className='button button_color_transparent' type='button'>
+          Распечатать
+        </button>
+        <Link to={-1} className='button button_color_blue privacy-policy__link'>
+          Назад
+        </Link>
       </div>
     </section>
   );

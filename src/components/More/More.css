@@ -17,6 +17,7 @@
   margin: 0;
   padding: 0;
   text-decoration: none;
+  cursor: pointer;
 }
 .more__button_back {
   grid-column: 1;
