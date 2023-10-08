@@ -8,8 +8,8 @@ const UserProvider = ({ children }) => {
   const [user, setUser] = useState({
     photo: avatar,
     login: 'username',
-    name: 'Иван',
-    surname: 'Иванов',
+    first_name: 'Иван',
+    last_name: 'Иванов',
     phone: '+79260000000',
     email: 'ivanov21@mail.ru',
     password: 'password',
