@@ -143,6 +143,7 @@ const Profile = () => {
                     onChange={(e) =>
                       handleInputChange(field.key, e.target.value)
                     }
+                    disabled={isEditing ? 'false' : 'true'}
                   />
                   {(field.key === 'first_name' || field.key === 'last_name') &&
                     isEditing && <span>Только кириллица</span>}
@@ -200,6 +201,7 @@ const Profile = () => {
                     onChange={(e) =>
                       handleInputChange('password', e.target.value)
                     }
+                    disabled={isEditing ? 'false' : 'true'}
                   />
                   <button
                     type='button'
