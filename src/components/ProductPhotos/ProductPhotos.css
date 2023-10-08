@@ -13,7 +13,7 @@
     margin: 0;
     padding: 0;
     list-style: none;
-    overflow: hidden;
+    overflow-y: scroll;
 }
 
 .product-photos__photo-small {
@@ -26,6 +26,7 @@
     background-repeat: no-repeat;
     background-size: cover;
     border-radius: 16px;
+    flex-shrink: 0;
     cursor: pointer;
 }
 
