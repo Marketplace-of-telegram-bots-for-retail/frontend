@@ -30,6 +30,7 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
             rememberMe={rememberMe}
             setRememberMe={setRememberMe}
             onToggleFormClick={() => setIsLogin(true)}
+            onClose={onClose}
           />
         )}
       </div>
