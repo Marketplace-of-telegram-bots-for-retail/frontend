@@ -4,7 +4,7 @@ import avatar from '../images/Avatar.png';
 
 const UserContext = React.createContext(null);
 
-const UserProvider = ({ children }) => {
+const UserProvider = ({ values, children }) => {
   const [user, setUser] = useState({
     photo: avatar,
     login: 'username',
@@ -17,7 +17,11 @@ const UserProvider = ({ children }) => {
 
   const value = useMemo(() => ({ user, setUser }), [user]);
 
-  return <UserContext.Provider value={value}>{children}</UserContext.Provider>;
+  return (
+    <UserContext.Provider value={values || value}>
+      {children}
+    </UserContext.Provider>
+  );
 };
 
 export { UserProvider, UserContext };

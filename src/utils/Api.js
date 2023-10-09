@@ -6,17 +6,18 @@ class Api {
   }
 
   // Проверяем ответ сервера
-  _checkResponse = (res) => {
-    res.ok ? res.json() : Promise.reject(`Ошибка: ${res.status}`);
+  _checkResponse = async (res) => {
+    res.ok ? await res.json() : Promise.reject(res.status);
   };
 
   // Делаем запрос на сервер
   _makeRequest = async (url, method, body, token) => {
     if (token !== undefined) {
-      this._headers.Authorization = `Bearer ${token}`;
+      this._headers.Authorization = `Token ${token}`;
     }
 
     const config = {
+      // mode: 'no-cors',
       method,
       headers: this._headers,
     };
@@ -26,7 +27,8 @@ class Api {
     }
 
     const res = await fetch(`${this._baseUrl}${url}`, config);
-    return this._checkResponse(res);
+    // return this._checkResponse(res);
+    return res.json();
   };
 
   // Авторизация. Получить токен
