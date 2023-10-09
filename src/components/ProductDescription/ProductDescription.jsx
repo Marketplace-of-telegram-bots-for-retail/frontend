@@ -1,6 +1,7 @@
 import React from 'react';
 import './ProductDescription.css';
 import dash from '../../images/ic_minus-24.svg';
+import testVideo from '../../images/video.jpg';
 
 const ProductDescription = ({ card }) => {
   return (
@@ -30,9 +31,7 @@ const ProductDescription = ({ card }) => {
       </ul>
       <div className='product__description-videos'>
         <h2 className='product__description-heading'>Видеообзор</h2>
-        <a href={card.video} target="_blank" rel="noreferrer">
-          <img className="product__description-video" src={card.image_1} alt={card.name} />
-        </a>
+        <iframe className='product__description-link' title='product-video' src={card.video || testVideo} frameBorder='0' allowFullScreen></iframe>
       </div>
     </div>
   );

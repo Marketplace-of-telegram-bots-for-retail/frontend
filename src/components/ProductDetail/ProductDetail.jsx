@@ -5,7 +5,7 @@ import award from '../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
 
-const ProductDetail = ({ card, onCardClick }) => {
+const ProductDetail = ({ card, handleFullScreenClick }) => {
   const [state, setState] = useState('description');
 
   function handleDescClick() {
@@ -18,7 +18,7 @@ const ProductDetail = ({ card, onCardClick }) => {
 
   return (
     <div className='product__good-detail'>
-      <ProductPhotos card={card} onCardClick={onCardClick} />
+      <ProductPhotos card={card} handleFullScreenClick={handleFullScreenClick} />
       <div className='product__good-award'>
         <img className='product__good-prize' src={award} alt='награда' />
         <h2 className='product__good-heading'>Лучший продавец ботов</h2>

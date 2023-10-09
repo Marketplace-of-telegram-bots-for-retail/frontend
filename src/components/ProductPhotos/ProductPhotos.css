@@ -39,14 +39,26 @@
     height: 49px;
     margin: 0;
     position: absolute;
+    border: none;
+    cursor: pointer;
+}
+
+.product-photos__button-scroll_type_up {
+    top: 0;
+    background: url(../../images/ep_arrow-up.svg);
+    background-repeat: no-repeat;
+    background-position: top 80% center;
+    background-color: rgba(0, 0, 0, 0.30);
+    border-radius: 0 0 16px 16px;
+}
+
+.product-photos__button-scroll_type_down {
     bottom: 0;
     background: url(../../images/ep_arrow-down.svg);
     background-repeat: no-repeat;
     background-position: top 80% center;
     background-color: rgba(0, 0, 0, 0.30);
     border-radius: 16px 16px 0 0;
-    border: none;
-    cursor: pointer;
 }
 
 .product-photos__photo-big {
