@@ -57,8 +57,7 @@ const App = () => {
     setPreloader(true);
     try {
       const prodacts = await api.getProducts();
-      // const prodacts = productsResponse;
-      console.log(prodacts);
+      console.log('getProducts => res', prodacts);
       localStorage.setItem('searchProdacts', JSON.stringify(productsResponse));
       setSearchProdacts(() => checkLocalStorage('searchProdacts'));
     } catch (err) {
@@ -75,14 +74,14 @@ const App = () => {
   const cbTokenCheck = useCallback(async () => {
     setPreloader(true);
     try {
-      setLoading(true);
       const jwt = localStorage.getItem('jwt');
       if (!jwt) {
         throw new Error('Ошибка, нет токена');
       }
       const userAccaunt = await api.getUserMe(jwt);
+      console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userAccaunt);
       if (userAccaunt) {
-        setCurrentUser(userAccaunt.data);
+        setCurrentUser(userAccaunt);
         setAuthorized(true);
       }
     } catch (err) {
@@ -100,16 +99,24 @@ const App = () => {
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
-      res.token && localStorage.setItem('jwt', res.token);
+      res.auth_token && localStorage.setItem('jwt', res.auth_token);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
-      console.log(res);
+      // console.log(res.auth_token);
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
     } finally {
       setPreloader(false);
     }
   };
+
+  // Временно
+  useEffect(() => {
+    cbLogIn({
+      email: 'user-test@user-test.com',
+      password: 'Qwe123Asd456',
+    });
+  }, []);
 
   return (
     <UserProvider values={currentUser}>
