@@ -77,6 +77,7 @@ const Register = (props) => {
             (registerStep === 2 && handleSubmit)
           }
           isLogin={props.isLogin}
+          registerStep={registerStep}
         >
           {registerStep === 1 && (
             <>
@@ -193,7 +194,6 @@ const Register = (props) => {
       ) : (
         <RegisterSuccessMessage handleClose={props.onClose} />
       )}
-      ;
       {registerStep !== 3 && (
         <ToggleAuthForm
           isLogin={props.isLogin}
