@@ -7,12 +7,18 @@ class Api {
 
   // Проверяем ответ сервера
   _checkResponse = (res) => {
-    // console.log('_checkResponse', res);
-    return res.ok ? res.json() : Promise.reject(res.status);
+    if (res.status === 204) {
+      return res;
+    }
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(res.status);
   };
 
   // Делаем запрос на сервер
-  _makeRequest = async (url, method, body, token, params) => {
+  _makeRequest = async (url, method, body, params) => {
+    const token = localStorage.getItem('jwt');
     if (token !== undefined) {
       this._headers.Authorization = `Token ${token}`;
       console.log('_makeRequest => token !== undefined ', token);
@@ -36,6 +42,21 @@ class Api {
 
   // Use this endpoint to logout user (remove user authentication token).
   postLogOut = () => this._makeRequest('/auth/token/logout/', 'POST');
+
+  // Создать пользователя
+  postUser = (data) => this._makeRequest('/users/', 'POST', data);
+
+  // Получить данные пользователя
+  getUserMe = () => this._makeRequest('/users/me/', 'GET');
+
+  // Изменить пользователя
+  putUserMe = (data) => this._makeRequest('/users/me/', 'PUT', data);
+
+  // Изменить одно поле пользователя
+  patchUserMe = (data) => this._makeRequest('/users/me/', 'PATCH', data);
+
+  // Удалить пользователя
+  deletetUserMe = () => this._makeRequest('/users/me/', 'DELETE');
 
   // Вьюсет для отображения корзины.
   getCart = () => this._makeRequest('/cart/', 'GET');
@@ -62,8 +83,8 @@ class Api {
   deleteOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'DELETE');
 
   // Вьюсет для модели продуктов.
-  getProducts = (params, token) =>
-    this._makeRequest('/products/', 'GET', undefined, token, params);
+  getProducts = (params) =>
+    this._makeRequest('/products/', 'GET', undefined, params);
 
   // Вьюсет для модели продуктов.
   postProduct = () => this._makeRequest('/products/', 'POST');
@@ -128,22 +149,6 @@ class Api {
       `/products/${product_id}/reviews/${review_id}/`,
       'DELETE'
     );
-
-  // Создать пользователя
-  postUser = (data) => this._makeRequest('/users/', 'POST', data);
-
-  // Получить данные пользователя
-  getUserMe = (token) =>
-    this._makeRequest('/users/me/', 'GET', undefined, token);
-
-  // Изменить пользователя
-  putUserMe = (data) => this._makeRequest('/users/me/', 'PUT', data);
-
-  // Изменить одно поле пользователя
-  patchUserMe = (data) => this._makeRequest('/users/me/', 'PATCH', data);
-
-  // Удалить пользователя
-  deletetUserMe = () => this._makeRequest('/users/me/', 'DELETE');
 }
 
 const config = {

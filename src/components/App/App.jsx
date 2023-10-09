@@ -16,7 +16,7 @@ import { Content } from '../Content/Content';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
-import Basket from '../Basket/Basket';
+import Cart from '../Cart/Cart';
 import Profile from '../Profile/Profile';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
@@ -60,12 +60,12 @@ const App = () => {
         if (!jwt) {
           throw new Error('Ошибка, нет токена');
         }
-        const prodacts = await api.getProducts(
-          `?is_favorited=True${params || ''}`,
-          jwt
+        const data = await api.getProducts(`?is_favorited=True${params || ''}`);
+        console.log('getProducts => res', data.results);
+        localStorage.setItem(
+          'myFavoritesProducts',
+          JSON.stringify(data.results)
         );
-        console.log('getProducts => res', prodacts);
-        localStorage.setItem('myFavoritesProducts', JSON.stringify(prodacts));
         setMyFavoritesProducts(() => checkLocalStorage('myFavoritesProducts'));
       } catch (err) {
         console.log('getProdacts => err', err); // Консоль
@@ -76,6 +76,48 @@ const App = () => {
     [checkLocalStorage]
   );
 
+  // обработчик лайков и дизлайков
+  const cbLike = async (card) => {
+    setPreloader(true);
+    let isLiked;
+    const isMy = card.is_favorited;
+    console.log('cbLike => isMy =>', isMy);
+    try {
+      if (!isMy) {
+        // Добавляем карточку
+        const myFavoritesProduct = await api.postProductFavorite(card.id);
+        console.log(myFavoritesProduct);
+        isLiked = true;
+        // setSearchProdacts((state) => {
+        //   return state.map((c) => {
+        //     return c.id === card.id ? { ...c, is_favorited: true } : c;
+        //   });
+        // });
+      } else {
+        // Удаляем карточку
+        const resultDelete = await api.deleteProductFavorite(card.id);
+        console.log('cbLike => Снять лайк', resultDelete); // Консоль
+        isLiked = false;
+        // setSearchProdacts((state) => {
+        //   return state.map((c) => {
+        //     return c.id === card.id ? { ...c, is_favorited: false } : c;
+        //   });
+        // });
+      }
+      setSearchProdacts((state) => {
+        return state.map((c) => {
+          return c.id === card.id ? { ...c, is_favorited: isLiked } : c;
+        });
+      });
+      // вернуть информацию в отображаемую карточку
+      console.log(searchProdacts);
+      return isLiked;
+    } catch (err) {
+      console.log('cbCardLike => err', err); // Консоль
+    } finally {
+      setPreloader(false);
+    }
+  };
   const getProducts = useCallback(
     async (params) => {
       setPreloader(true);
@@ -84,9 +126,9 @@ const App = () => {
         if (!jwt) {
           throw new Error('Ошибка, нет токена');
         }
-        const prodacts = await api.getProducts(params, jwt || undefined);
-        console.log('getProducts => res', prodacts);
-        localStorage.setItem('searchProdacts', JSON.stringify(prodacts));
+        const data = await api.getProducts(params, jwt || undefined);
+        console.log('getProducts => res', data.results);
+        localStorage.setItem('searchProdacts', JSON.stringify(data.results));
         setSearchProdacts(() => checkLocalStorage('searchProdacts'));
       } catch (err) {
         console.log('getProdacts => err', err); // Консоль
@@ -132,6 +174,8 @@ const App = () => {
       res.auth_token && localStorage.setItem('jwt', res.auth_token);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
+      // Загрузить избранные
+      getFavoritesProducts();
       // console.log(res.auth_token);
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
@@ -183,7 +227,7 @@ const App = () => {
                   <main>
                     <Poster />
                     <Title />
-                    <Content productPage={searchProdacts} />
+                    <Content cards={searchProdacts} onLike={cbLike} />
                   </main>
                 }
               />
@@ -193,7 +237,7 @@ const App = () => {
                 path='/favorites'
                 element={<Favorites cards={myFavoritesProducts} />}
               />
-              <Route path='/basket' element={<Basket />} />
+              <Route path='/cart' element={<Cart />} />
               <Route path='/profile' element={<Profile />} />
 
               <Route
