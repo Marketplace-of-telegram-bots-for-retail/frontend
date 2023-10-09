@@ -64,7 +64,7 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
           </form>
         </div>
         <div className='header__navbar'>
-          <Link to='/basket' className='header__menu-button-icon'>
+          <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
             <span className='header__badge-counter'>2</span>
             <span className='header__button-text'>Корзина</span>

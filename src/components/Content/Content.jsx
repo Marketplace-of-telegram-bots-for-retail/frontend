@@ -5,7 +5,7 @@ import Prices from '../Prices/Prices';
 import './Content.css';
 import { Showcase } from '../Showcase/Showcase';
 
-export const Content = () => {
+export const Content = ({ cards, onLike }) => {
   const formState = useSelector((state) => state.priceFormSubmit);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,7 +20,7 @@ export const Content = () => {
           Применить
         </button>
       </form>
-      <Showcase />
+      <Showcase cards={cards} onLike={onLike} />
     </section>
   );
 };

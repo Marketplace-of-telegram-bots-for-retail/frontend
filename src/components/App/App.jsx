@@ -16,14 +16,13 @@ import { Content } from '../Content/Content';
 import AuthButtons from '../AuthButtons/AuthButtons';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
-import Basket from '../Basket/Basket';
+import Cart from '../Cart/Cart';
 import Profile from '../Profile/Profile';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
 import { Preloader } from '../Preloader/Preloader';
 // Temp
-import productsResponse from '../../temp/response-products.json';
 import { UserProvider } from '../../context/userContext';
 
 const App = () => {
@@ -49,23 +48,96 @@ const App = () => {
     checkLocalStorage('searchProdacts');
   });
 
-  // const [myFavoriteProdacts, setMyFavoriteProdacts] = useState(() =>
-  //   checkLocalStorage('myFavoriteProdacts')
-  // );
+  const [myFavoritesProducts, setMyFavoritesProducts] = useState(() =>
+    checkLocalStorage('myFavoritesProducts')
+  );
 
-  const getProducts = useCallback(async () => {
+  const getFavoritesProducts = useCallback(
+    async (params) => {
+      setPreloader(true);
+      try {
+        const jwt = localStorage.getItem('jwt');
+        if (!jwt) {
+          throw new Error('Ошибка, нет токена');
+        }
+        const data = await api.getProducts(`?is_favorited=True${params || ''}`);
+        console.log('getProducts => res', data.results);
+        localStorage.setItem(
+          'myFavoritesProducts',
+          JSON.stringify(data.results)
+        );
+        setMyFavoritesProducts(() => checkLocalStorage('myFavoritesProducts'));
+      } catch (err) {
+        console.log('getProdacts => err', err); // Консоль
+      } finally {
+        setPreloader(false);
+      }
+    },
+    [checkLocalStorage]
+  );
+
+  // обработчик лайков и дизлайков
+  const cbLike = async (card) => {
     setPreloader(true);
+    let isLiked;
+    const isMy = card.is_favorited;
+    console.log('cbLike => isMy =>', isMy);
     try {
-      const prodacts = await api.getProducts();
-      console.log('getProducts => res', prodacts);
-      localStorage.setItem('searchProdacts', JSON.stringify(productsResponse));
-      setSearchProdacts(() => checkLocalStorage('searchProdacts'));
+      if (!isMy) {
+        // Добавляем карточку
+        const myFavoritesProduct = await api.postProductFavorite(card.id);
+        console.log(myFavoritesProduct);
+        isLiked = true;
+        // setSearchProdacts((state) => {
+        //   return state.map((c) => {
+        //     return c.id === card.id ? { ...c, is_favorited: true } : c;
+        //   });
+        // });
+      } else {
+        // Удаляем карточку
+        const resultDelete = await api.deleteProductFavorite(card.id);
+        console.log('cbLike => Снять лайк', resultDelete); // Консоль
+        isLiked = false;
+        // setSearchProdacts((state) => {
+        //   return state.map((c) => {
+        //     return c.id === card.id ? { ...c, is_favorited: false } : c;
+        //   });
+        // });
+      }
+      setSearchProdacts((state) => {
+        return state.map((c) => {
+          return c.id === card.id ? { ...c, is_favorited: isLiked } : c;
+        });
+      });
+      // вернуть информацию в отображаемую карточку
+      console.log(searchProdacts);
+      return isLiked;
     } catch (err) {
-      console.log('getProdacts => err', err); // Консоль
+      console.log('cbCardLike => err', err); // Консоль
     } finally {
       setPreloader(false);
     }
-  }, [checkLocalStorage]);
+  };
+  const getProducts = useCallback(
+    async (params) => {
+      setPreloader(true);
+      try {
+        const jwt = localStorage.getItem('jwt');
+        if (!jwt) {
+          throw new Error('Ошибка, нет токена');
+        }
+        const data = await api.getProducts(params, jwt || undefined);
+        console.log('getProducts => res', data.results);
+        localStorage.setItem('searchProdacts', JSON.stringify(data.results));
+        setSearchProdacts(() => checkLocalStorage('searchProdacts'));
+      } catch (err) {
+        console.log('getProdacts => err', err); // Консоль
+      } finally {
+        setPreloader(false);
+      }
+    },
+    [checkLocalStorage]
+  );
 
   useEffect(() => {
     getProducts();
@@ -102,6 +174,8 @@ const App = () => {
       res.auth_token && localStorage.setItem('jwt', res.auth_token);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
+      // Загрузить избранные
+      getFavoritesProducts();
       // console.log(res.auth_token);
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
@@ -132,6 +206,7 @@ const App = () => {
                   <Header
                     showAuthButtons={showAuthButtons}
                     setShowAuthButtons={setShowAuthButtons}
+                    onClickMyFavorites={() => getFavoritesProducts()}
                   />
                   <Outlet />
                   <Footer />
@@ -152,14 +227,17 @@ const App = () => {
                   <main>
                     <Poster />
                     <Title />
-                    <Content productPage={searchProdacts} />
+                    <Content cards={searchProdacts} onLike={cbLike} />
                   </main>
                 }
               />
               <Route path='/:_id' element={<Product />} />
               <Route path='*' element={<ErrorPage pageNotFound />} />
-              <Route path='/favorites' element={<Favorites />} />
-              <Route path='/basket' element={<Basket />} />
+              <Route
+                path='/favorites'
+                element={<Favorites cards={myFavoritesProducts} />}
+              />
+              <Route path='/cart' element={<Cart />} />
               <Route path='/profile' element={<Profile />} />
 
               <Route

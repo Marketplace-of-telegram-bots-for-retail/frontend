@@ -4,13 +4,12 @@ import './Card.css';
 import { Rating } from '../Rating/Rating';
 
 export const Card = ({ card, onLike }) => {
-  const [isLiked, setLiked] = useState(false);
+  const [isLiked, setLiked] = useState(card.is_favorited);
 
-  const handleLikeClick = () => {
-    setLiked(!isLiked);
-    onLike();
+  const handleLikeClick = async () => {
+    const liked = await onLike(card);
+    setLiked(liked);
   };
-
   const handleCardClick = () => {
     console.log('img => Click!');
   };
