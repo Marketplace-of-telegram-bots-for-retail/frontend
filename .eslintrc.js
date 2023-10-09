@@ -54,7 +54,7 @@ module.exports = {
     'function-paren-newline': 'off',
     'implicit-arrow-linebreak': 'off',
     'consistent-return': 'off',
-    'camelcase': 'off',
+    camelcase: 'off',
     'quote-props': 'off',
     'react/no-unknown-property': 'off',
     'no-useless-escape': 'off',
