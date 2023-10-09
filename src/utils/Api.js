@@ -12,12 +12,12 @@ class Api {
   };
 
   // Делаем запрос на сервер
-  _makeRequest = async (url, method, body, token) => {
+  _makeRequest = async (url, method, body, token, params) => {
     if (token !== undefined) {
       this._headers.Authorization = `Token ${token}`;
       console.log('_makeRequest => token !== undefined ', token);
     }
-
+    const parameters = params || '';
     const config = {
       method,
       headers: this._headers,
@@ -27,7 +27,7 @@ class Api {
       config.body = JSON.stringify(body);
     }
 
-    const res = await fetch(`${this._baseUrl}${url}`, config);
+    const res = await fetch(`${this._baseUrl}${url}${parameters}`, config);
     return this._checkResponse(res);
   };
 
@@ -62,7 +62,8 @@ class Api {
   deleteOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'DELETE');
 
   // Вьюсет для модели продуктов.
-  getProducts = () => this._makeRequest('/products/', 'GET');
+  getProducts = (params, token) =>
+    this._makeRequest('/products/', 'GET', undefined, token, params);
 
   // Вьюсет для модели продуктов.
   postProduct = () => this._makeRequest('/products/', 'POST');

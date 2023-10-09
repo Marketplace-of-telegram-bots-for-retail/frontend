@@ -9,7 +9,7 @@ export const Cards = ({ cards }) => {
 
   return (
     <div className='content__cards cards'>
-      {cards.map((card) => {
+      {cards?.map((card) => {
         return <Card key={card.id} card={card} onLike={onLike} />;
       })}
     </div>

@@ -23,7 +23,6 @@ import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
 import { Preloader } from '../Preloader/Preloader';
 // Temp
-import productsResponse from '../../temp/response-products.json';
 import { UserProvider } from '../../context/userContext';
 
 const App = () => {
@@ -49,23 +48,54 @@ const App = () => {
     checkLocalStorage('searchProdacts');
   });
 
-  // const [myFavoriteProdacts, setMyFavoriteProdacts] = useState(() =>
-  //   checkLocalStorage('myFavoriteProdacts')
-  // );
+  const [myFavoritesProducts, setMyFavoritesProducts] = useState(() =>
+    checkLocalStorage('myFavoritesProducts')
+  );
 
-  const getProducts = useCallback(async () => {
-    setPreloader(true);
-    try {
-      const prodacts = await api.getProducts();
-      console.log('getProducts => res', prodacts);
-      localStorage.setItem('searchProdacts', JSON.stringify(productsResponse));
-      setSearchProdacts(() => checkLocalStorage('searchProdacts'));
-    } catch (err) {
-      console.log('getProdacts => err', err); // Консоль
-    } finally {
-      setPreloader(false);
-    }
-  }, [checkLocalStorage]);
+  const getFavoritesProducts = useCallback(
+    async (params) => {
+      setPreloader(true);
+      try {
+        const jwt = localStorage.getItem('jwt');
+        if (!jwt) {
+          throw new Error('Ошибка, нет токена');
+        }
+        const prodacts = await api.getProducts(
+          `?is_favorited=True${params || ''}`,
+          jwt
+        );
+        console.log('getProducts => res', prodacts);
+        localStorage.setItem('myFavoritesProducts', JSON.stringify(prodacts));
+        setMyFavoritesProducts(() => checkLocalStorage('myFavoritesProducts'));
+      } catch (err) {
+        console.log('getProdacts => err', err); // Консоль
+      } finally {
+        setPreloader(false);
+      }
+    },
+    [checkLocalStorage]
+  );
+
+  const getProducts = useCallback(
+    async (params) => {
+      setPreloader(true);
+      try {
+        const jwt = localStorage.getItem('jwt');
+        if (!jwt) {
+          throw new Error('Ошибка, нет токена');
+        }
+        const prodacts = await api.getProducts(params, jwt || undefined);
+        console.log('getProducts => res', prodacts);
+        localStorage.setItem('searchProdacts', JSON.stringify(prodacts));
+        setSearchProdacts(() => checkLocalStorage('searchProdacts'));
+      } catch (err) {
+        console.log('getProdacts => err', err); // Консоль
+      } finally {
+        setPreloader(false);
+      }
+    },
+    [checkLocalStorage]
+  );
 
   useEffect(() => {
     getProducts();
@@ -132,6 +162,7 @@ const App = () => {
                   <Header
                     showAuthButtons={showAuthButtons}
                     setShowAuthButtons={setShowAuthButtons}
+                    onClickMyFavorites={() => getFavoritesProducts()}
                   />
                   <Outlet />
                   <Footer />
@@ -158,7 +189,10 @@ const App = () => {
               />
               <Route path='/:_id' element={<Product />} />
               <Route path='*' element={<ErrorPage pageNotFound />} />
-              <Route path='/favorites' element={<Favorites />} />
+              <Route
+                path='/favorites'
+                element={<Favorites cards={myFavoritesProducts} />}
+              />
               <Route path='/basket' element={<Basket />} />
               <Route path='/profile' element={<Profile />} />
 

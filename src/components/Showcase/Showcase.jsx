@@ -4,9 +4,9 @@ import { Dropdown } from '../Dropdown/Dropdown';
 import { Cards } from '../Cards/Cards';
 import { More } from '../More/More';
 import { AftPoster } from '../AftPoster/AftPoster';
-import { cards } from '../../temp/cards';
 
-export const Showcase = () => {
+export const Showcase = ({ productPage }) => {
+  console.log('Showcase => productPage', productPage);
   const handleSort = (value) => {
     console.log('Выбрать сортировку', value);
   };
@@ -19,7 +19,7 @@ export const Showcase = () => {
   return (
     <div className='content__showcase showcase'>
       <Dropdown handleSort={handleSort} />
-      <Cards cards={cards} />
+      {productPage && <Cards cards={productPage.results} />}
       <More onClick={(valie) => onClickMore(valie)} />
       <AftPoster onClick={() => onClickAftPoster()} />
     </div>
