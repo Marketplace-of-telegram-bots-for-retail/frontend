@@ -10,7 +10,7 @@ const AuthModal = ({ onClose, isLogin, setIsLogin }) => {
 
   return (
     <div className='modal__container'>
-      <div className='modal__content'>
+      <div className={`modal__content ${!isLogin ? 'modal__content_type_register' : ''}`}>
         <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2>
         <Close className='modal__close' onClick={onClose} />
         {isLogin ? (

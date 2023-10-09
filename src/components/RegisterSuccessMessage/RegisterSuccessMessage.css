@@ -3,19 +3,26 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
+  margin-top: 56px;
+  min-width: 396px;
 }
 
 .modal__success-message-link {
   text-decoration: none;
   margin-top: 48px;
+  margin-bottom: 82px;
 }
 
 .modal__success-message-title {
   margin: 24px 0 16px;
 }
 
+.modal__success-message-image {
+  max-height: 172px;
+}
+
 .modal__success-message-caption {
-  margin: 0;
+  margin: 0 auto;
   max-width: 245px;
   font-size: 16px;
   font-weight: 400;

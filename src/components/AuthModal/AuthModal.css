@@ -26,6 +26,10 @@
   box-sizing: border-box;
 }
 
+.modal__content_type_register {
+  min-height: 828px;
+}
+
 .modal__form {
   display: flex;
   flex-direction: column;
@@ -189,6 +193,11 @@
 
 .modal__span_type_reset-password {
   color: var(--primary-accent);
+}
+
+.modal__span_type_policy {
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .modal__span_link {
