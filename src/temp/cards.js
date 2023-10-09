@@ -162,7 +162,7 @@ export const cards = [
     image_2: null,
     image_3: null,
     image_4: null,
-    video: 'https://youtu.be/dQw4w9WgXcQ?si=S6_UGWk9D41fDgAf',
+    video: 'https://www.youtube.com/embed/dQw4w9WgXcQ',
     article: 'e99fb4e1-5239-445a-88d8-d6d9c8d75ce5',
     price: 2000,
     rating: [4.5, 2],
