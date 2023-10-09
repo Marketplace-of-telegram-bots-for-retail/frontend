@@ -45,9 +45,9 @@ const App = () => {
   }, []);
 
   // проверяем localStorage на наличие карточек и сохраняем в соответсвующий стейт
-  const [searchProdacts, setSearchProdacts] = useState(() =>
-    checkLocalStorage('searchProdacts')
-  );
+  const [searchProdacts, setSearchProdacts] = useState(() => {
+    checkLocalStorage('searchProdacts');
+  });
 
   // const [myFavoriteProdacts, setMyFavoriteProdacts] = useState(() =>
   //   checkLocalStorage('myFavoriteProdacts')
@@ -56,10 +56,10 @@ const App = () => {
   const getProducts = useCallback(async () => {
     setPreloader(true);
     try {
-      // const prodacts = await api.getProducts();
-      const prodacts = productsResponse;
+      const prodacts = await api.getProducts();
+      // const prodacts = productsResponse;
       console.log(prodacts);
-      localStorage.setItem('searchProdacts', JSON.stringify(prodacts));
+      localStorage.setItem('searchProdacts', JSON.stringify(productsResponse));
       setSearchProdacts(() => checkLocalStorage('searchProdacts'));
     } catch (err) {
       console.log('getProdacts => err', err); // Консоль

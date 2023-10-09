@@ -6,8 +6,9 @@ class Api {
   }
 
   // Проверяем ответ сервера
-  _checkResponse = async (res) => {
-    res.ok ? await res.json() : Promise.reject(res.status);
+  _checkResponse = (res) => {
+    console.log('_checkResponse', res);
+    return res.ok ? res.json() : Promise.reject(res.status);
   };
 
   // Делаем запрос на сервер
@@ -19,6 +20,7 @@ class Api {
     const config = {
       // mode: 'no-cors',
       method,
+      // credentials: this._credentials,
       headers: this._headers,
     };
 
@@ -27,8 +29,13 @@ class Api {
     }
 
     const res = await fetch(`${this._baseUrl}${url}`, config);
-    // return this._checkResponse(res);
-    return res.json();
+    // const res = await fetch(`http://botmarketplace.ru/api/products/`, config);
+    // const res2 = await fetch(
+    //   `https://api.nomoreparties.co/beatfilm-movies/`,
+    //   config
+    // );
+    console.log('_makeRequest', res2);
+    return this._checkResponse(res);
   };
 
   // Авторизация. Получить токен
@@ -132,7 +139,7 @@ class Api {
   postUser = (data) => this._makeRequest('/users/', 'POST', data);
 
   // Получить данные пользователя
-  getUserMe = () => this._makeRequest('/users/me/', 'GET');
+  getUserMe = (token) => this._makeRequest('/users/me/', 'GET', undefined, token);
 
   // Изменить пользователя
   putUserMe = (data) => this._makeRequest('/users/me/', 'PUT', data);
@@ -146,6 +153,7 @@ class Api {
 
 const config = {
   baseUrl: 'https://botmarketplace.ru/api',
+  // credentials: 'include',
   headers: {
     'Content-Type': 'application/json',
   },
