@@ -5,7 +5,13 @@ import './Header.css';
 import logo from '../../images/logo-botmarket 1.svg';
 import { useForm } from '../../hooks/useForm';
 
-const Header = ({ showAuthButtons, setShowAuthButtons }) => {
+const Header = ({
+  showAuthButtons,
+  setShowAuthButtons,
+  favoritesPage,
+  cartPage,
+}) => {
+  console.log(cartPage);
   const { values, handleChange } = useForm();
   // Временные
   const user = {
@@ -66,12 +72,18 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
-            <span className='header__badge-counter'>2</span>
+            {(cartPage && cartPage?.count !== 0) ? (
+              <span className='header__badge-counter'>1</span>
+            ) : null}
             <span className='header__button-text'>Корзина</span>
           </Link>
           <Link to='/favorites' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_favorite'></span>
-            <span className='header__badge-counter'>10</span>
+            {favoritesPage && favoritesPage?.count !== 0 ? (
+              <span className='header__badge-counter'>
+                {favoritesPage?.count}
+              </span>
+            ) : null}
             <span className='header__button-text'>Избранное</span>
           </Link>
           {!isLogin ? (
