@@ -22,7 +22,12 @@
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   box-sizing: border-box;
+}
+
+.modal__content_type_register {
+  min-height: 828px;
 }
 
 .modal__form {
@@ -58,6 +63,7 @@
   justify-content: center;
   width: 100%;
   gap: 20px;
+  margin-bottom: 32px;
 }
 
 .modal__user-type-btn {
@@ -187,6 +193,11 @@
 
 .modal__span_type_reset-password {
   color: var(--primary-accent);
+}
+
+.modal__span_type_policy {
+  font-size: 14px;
+  line-height: 20px;
 }
 
 .modal__span_link {
