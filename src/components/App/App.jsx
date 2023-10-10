@@ -233,7 +233,9 @@ const App = () => {
               <Route path='*' element={<ErrorPage pageNotFound />} />
               <Route
                 path='/favorites'
-                element={<Favorites cards={currentFavorites} />}
+                element={
+                  <Favorites favoritesPage={currentFavorites} onLike={cbLike} />
+                }
               />
               <Route path='/cart' element={<Cart />} />
               <Route path='/profile' element={<Profile />} />
