@@ -133,14 +133,12 @@ const App = () => {
     setPreloader(true);
     let isLiked;
     const isMy = card.is_favorited;
-    // console.log('cbLike => isMy =>', isMy);
+    console.log('cbLike => isMy =>', isMy);
     try {
       if (!isMy) {
         // Добавляем карточку
         const myFavoritesProduct = await api.postProductFavorite(card.id);
-        console.log('cbLike => Добавить в избранное', resultDelete); // Консоль
-
-        console.log(myFavoritesProduct);
+        console.log('cbLike => Добавить в избранное', myFavoritesProduct); // Консоль
         isLiked = true;
       } else {
         // Удаляем карточку
