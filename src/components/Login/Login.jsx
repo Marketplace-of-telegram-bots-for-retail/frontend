@@ -20,9 +20,10 @@ const Login = (props) => {
       userType,
       email,
       password,
+      rememberMe,
     };
     console.log(formData);
-    props.cbLogIn(formData, rememberMe);
+    props.cbLogIn(formData);
     props.setAuthorized(true);
     props.handleClose();
 
