@@ -40,7 +40,7 @@ export const Dropdown = ({ handleSort }) => {
         aria-haspopup='true'
         aria-expanded='false'
         onClick={() => handleOpen()}
-        onSubmit={handleSort(dropdownList[dropdown].value)}
+        onSubmit={() => handleSort(dropdownList[dropdown].value)}
       >
         {dropdownList[dropdown].title}
         <span className='dropdown__button-icon'></span>

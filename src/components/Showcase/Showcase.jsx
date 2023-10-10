@@ -5,8 +5,7 @@ import { Cards } from '../Cards/Cards';
 import { More } from '../More/More';
 import { AftPoster } from '../AftPoster/AftPoster';
 
-export const Showcase = ({ cards, onLike }) => {
-  console.log('Showcase => productPage', cards);
+export const Showcase = ({ productsPage, onLike }) => {
   const handleSort = (value) => {
     console.log('Выбрать сортировку', value);
   };
@@ -19,7 +18,9 @@ export const Showcase = ({ cards, onLike }) => {
   return (
     <div className='content__showcase showcase'>
       <Dropdown handleSort={handleSort} />
-      {cards && <Cards cards={cards} onLike={onLike} />}
+      {productsPage?.results && (
+        <Cards cards={productsPage.results} onLike={onLike} />
+      )}
       <More onClick={(valie) => onClickMore(valie)} />
       <AftPoster onClick={() => onClickAftPoster()} />
     </div>
