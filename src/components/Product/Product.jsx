@@ -1,15 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './Product.css';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import ProductTitle from '../ProductTitle/ProductTitle';
 import ProductInfo from '../ProductInfo/ProductInfo';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import PopupImage from '../PopupImage/PopupImage';
-import { cards } from '../../temp/cards';
+import { api } from '../../utils/Api';
 
 const Product = () => {
-  const card = cards.find((x) => x.id === 1);
+  const params = useParams();
+  const id = params._id;
+  const [card, setCard] = useState({});
+  console.log(id);
   const [showProductPopup, setShowProductPopup] = useState(false);
+
+  useEffect(() => {
+    api.getProductId(id)
+      .then((res) => {
+        setCard(res);
+      })
+      .catch(console.error);
+  }, []);
 
   function handleFullScreenClick() {
     setShowProductPopup(true);
