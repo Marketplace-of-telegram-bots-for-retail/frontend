@@ -40,16 +40,15 @@ const App = () => {
     if (item) {
       return item;
     }
-    return [];
+    return {};
   }, []);
 
   // проверяем localStorage на наличие карточек и сохраняем в соответсвующий стейт
-  const [searchProdacts, setSearchProdacts] = useState(() => {
-    checkLocalStorage('searchProdacts');
+  const [currentProdacts, setProdacts] = useState(() => {
+    checkLocalStorage('currentProdacts');
   });
-
-  const [myFavoritesProducts, setMyFavoritesProducts] = useState(() =>
-    checkLocalStorage('myFavoritesProducts')
+  const [currentFavorites, setFavorites] = useState(() =>
+    checkLocalStorage('currentFavorites')
   );
 
   const getFavoritesProducts = useCallback(
@@ -61,12 +60,13 @@ const App = () => {
           throw new Error('Ошибка, нет токена');
         }
         const data = await api.getProducts(`?is_favorited=True${params || ''}`);
-        console.log('getProducts => res', data.results);
+        console.log('getFavoritesProducts => data', data);
         localStorage.setItem(
-          'myFavoritesProducts',
-          JSON.stringify(data.results)
+          'currentFavorites',
+          // JSON.stringify(data.results)
+          JSON.stringify(data)
         );
-        setMyFavoritesProducts(() => checkLocalStorage('myFavoritesProducts'));
+        setFavorites(() => checkLocalStorage('currentFavorites'));
       } catch (err) {
         console.log('getProdacts => err', err); // Консоль
       } finally {
@@ -75,6 +75,58 @@ const App = () => {
     },
     [checkLocalStorage]
   );
+
+  // Чекнуть токен, произвести загрузку данных пользователя, избранных (корзина не добавлена)
+  const cbTokenCheck = useCallback(async () => {
+    setPreloader(true);
+    try {
+      const jwt = localStorage.getItem('jwt');
+      if (!jwt) {
+        throw new Error('Ошибка, нет токена');
+      }
+      const userAccaunt = await api.getUserMe();
+      // console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userAccaunt);
+      if (userAccaunt) {
+        setCurrentUser(userAccaunt);
+        setAuthorized(true);
+        // Загрузить избранные
+        getFavoritesProducts();
+      }
+    } catch (err) {
+      console.log('cbTokenCheck => getUserMe =>', err); // Консоль
+      setAuthorized(false);
+    } finally {
+      setPreloader(false);
+    }
+  }, [getFavoritesProducts]);
+
+  // Выполнить первичную проверку по токену и загрузить данные
+  useEffect(() => {
+    cbTokenCheck();
+  }, []);
+
+  const getProducts = useCallback(
+    async (params) => {
+      setPreloader(true);
+      try {
+        const data = await api.getProducts(params);
+        console.log('getProducts => data', data);
+        // localStorage.setItem('currentProdacts', JSON.stringify(data.results));
+        localStorage.setItem('currentProdacts', JSON.stringify(data));
+        setProdacts(() => checkLocalStorage('currentProdacts'));
+      } catch (err) {
+        console.log('getProdacts => err', err); // Консоль
+      } finally {
+        setPreloader(false);
+      }
+    },
+    [checkLocalStorage]
+  );
+
+  // Выполнить первичную загрузку карточек
+  useEffect(() => {
+    getProducts();
+  }, []);
 
   // обработчик лайков и дизлайков
   const cbLike = async (card) => {
@@ -86,31 +138,26 @@ const App = () => {
       if (!isMy) {
         // Добавляем карточку
         const myFavoritesProduct = await api.postProductFavorite(card.id);
-        console.log(myFavoritesProduct);
+        console.log('cbLike => Добавить в избранное', myFavoritesProduct); // Консоль
         isLiked = true;
-        // setSearchProdacts((state) => {
-        //   return state.map((c) => {
-        //     return c.id === card.id ? { ...c, is_favorited: true } : c;
-        //   });
-        // });
       } else {
         // Удаляем карточку
         const resultDelete = await api.deleteProductFavorite(card.id);
-        console.log('cbLike => Снять лайк', resultDelete); // Консоль
+        console.log('cbLike => Удалить из избранного', resultDelete); // Консоль
         isLiked = false;
-        // setSearchProdacts((state) => {
-        //   return state.map((c) => {
-        //     return c.id === card.id ? { ...c, is_favorited: false } : c;
-        //   });
-        // });
       }
-      setSearchProdacts((state) => {
-        return state.map((c) => {
-          return c.id === card.id ? { ...c, is_favorited: isLiked } : c;
-        });
+      // Обновить стейт isProduckts
+      setProdacts((state) => {
+        return {
+          ...state,
+          results: state.results.map((c) => {
+            return c.id === card.id ? { ...c, is_favorited: isLiked } : c;
+          }),
+        };
       });
-      // вернуть информацию в отображаемую карточку
-      console.log(searchProdacts);
+      // обновить стейт избранные выполнив загрузку
+      getFavoritesProducts();
+      // вернуть значение в карточку для ихсенения состояния иконки
       return isLiked;
     } catch (err) {
       console.log('cbCardLike => err', err); // Консоль
@@ -118,65 +165,16 @@ const App = () => {
       setPreloader(false);
     }
   };
-  const getProducts = useCallback(
-    async (params) => {
-      setPreloader(true);
-      try {
-        const jwt = localStorage.getItem('jwt');
-        if (!jwt) {
-          throw new Error('Ошибка, нет токена');
-        }
-        const data = await api.getProducts(params, jwt || undefined);
-        console.log('getProducts => res', data.results);
-        localStorage.setItem('searchProdacts', JSON.stringify(data.results));
-        setSearchProdacts(() => checkLocalStorage('searchProdacts'));
-      } catch (err) {
-        console.log('getProdacts => err', err); // Консоль
-      } finally {
-        setPreloader(false);
-      }
-    },
-    [checkLocalStorage]
-  );
 
-  useEffect(() => {
-    getProducts();
-  }, [getProducts]);
-
-  const cbTokenCheck = useCallback(async () => {
-    setPreloader(true);
-    try {
-      const jwt = localStorage.getItem('jwt');
-      if (!jwt) {
-        throw new Error('Ошибка, нет токена');
-      }
-      const userAccaunt = await api.getUserMe(jwt);
-      console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userAccaunt);
-      if (userAccaunt) {
-        setCurrentUser(userAccaunt);
-        setAuthorized(true);
-      }
-    } catch (err) {
-      console.log('cbTokenCheck => getUserMe =>', err); // Консоль
-      setAuthorized(false);
-    } finally {
-      setPreloader(false);
-    }
-  }, []);
-  useEffect(() => {
-    cbTokenCheck();
-  }, [cbTokenCheck]);
-
+  // Авторизация
   const cbLogIn = async (data) => {
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
+      // console.log(res);
       res.auth_token && localStorage.setItem('jwt', res.auth_token);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
-      // Загрузить избранные
-      getFavoritesProducts();
-      // console.log(res.auth_token);
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
     } finally {
@@ -184,7 +182,7 @@ const App = () => {
     }
   };
 
-  // Временно
+  // Временно автоматический вход
   useEffect(() => {
     cbLogIn({
       email: 'user-test@user-test.com',
@@ -227,7 +225,7 @@ const App = () => {
                   <main>
                     <Poster />
                     <Title />
-                    <Content cards={searchProdacts} onLike={cbLike} />
+                    <Content productsPage={currentProdacts} onLike={cbLike} />
                   </main>
                 }
               />
@@ -235,7 +233,7 @@ const App = () => {
               <Route path='*' element={<ErrorPage pageNotFound />} />
               <Route
                 path='/favorites'
-                element={<Favorites cards={myFavoritesProducts} />}
+                element={<Favorites cards={currentFavorites} />}
               />
               <Route path='/cart' element={<Cart />} />
               <Route path='/profile' element={<Profile />} />

@@ -7,21 +7,21 @@ class Api {
 
   // Проверяем ответ сервера
   _checkResponse = (res) => {
-    if (res.status === 204) {
-      return res;
-    }
     if (res.ok) {
+      if (res.status === 204) {
+        return res;
+      }
       return res.json();
     }
-    return Promise.reject(res.status);
+    return Promise.reject(res);
   };
 
   // Делаем запрос на сервер
   _makeRequest = async (url, method, body, params) => {
     const token = localStorage.getItem('jwt');
-    if (token !== undefined) {
+    // console.log('_makeRequest=>', token);
+    if (token) {
       this._headers.Authorization = `Token ${token}`;
-      console.log('_makeRequest => token !== undefined ', token);
     }
     const parameters = params || '';
     const config = {
