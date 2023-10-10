@@ -35,10 +35,11 @@ export const Card = ({ card, onLike }) => {
           onClick={handleLikeClick}
         ></button>
         <Link
-          to={`${card.id}`}
+          to={`/products/${card.id}`}
           className='card__preview'
           onClick={() => handleCardClick()}
           style={{ backgroundColor: colorsPreview[card?.category[0]?.id] }}
+          state={card}
         >
           <p className='card__preview-text'>
             {card?.category[0]?.name || 'Без категории'}
