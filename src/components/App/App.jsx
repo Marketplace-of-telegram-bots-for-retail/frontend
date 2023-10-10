@@ -204,7 +204,9 @@ const App = () => {
                   <Header
                     showAuthButtons={showAuthButtons}
                     setShowAuthButtons={setShowAuthButtons}
-                    onClickMyFavorites={() => getFavoritesProducts()}
+                    // onClickMyFavorites={() => getFavoritesProducts()}
+                    favoritesPage={currentFavorites}
+                    cartPage={undefined}
                     isAuthorized={isAuthorized}
                   />
                   <Outlet />
