@@ -5,7 +5,7 @@ import './Header.css';
 import logo from '../../images/logo-botmarket 1.svg';
 import { useForm } from '../../hooks/useForm';
 
-const Header = ({ showAuthButtons, setShowAuthButtons }) => {
+const Header = ({ showAuthButtons, setShowAuthButtons, isAuthorized }) => {
   const { values, handleChange } = useForm();
   // Временные
   const user = {
@@ -74,7 +74,7 @@ const Header = ({ showAuthButtons, setShowAuthButtons }) => {
             <span className='header__badge-counter'>10</span>
             <span className='header__button-text'>Избранное</span>
           </Link>
-          {!isLogin ? (
+          {!isAuthorized ? (
             <button
               className='header__button-small header__button-small_border'
               type='button'

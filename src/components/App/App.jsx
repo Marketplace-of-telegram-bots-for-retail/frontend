@@ -205,6 +205,7 @@ const App = () => {
                     showAuthButtons={showAuthButtons}
                     setShowAuthButtons={setShowAuthButtons}
                     onClickMyFavorites={() => getFavoritesProducts()}
+                    isAuthorized={isAuthorized}
                   />
                   <Outlet />
                   <Footer />
@@ -212,6 +213,7 @@ const App = () => {
                     <AuthButtons
                       setShowAuthButtons={setShowAuthButtons}
                       cbLogIn={cbLogIn}
+                      setAuthorized={setAuthorized}
                       isAuthorized={isAuthorized}
                     />
                   )}
