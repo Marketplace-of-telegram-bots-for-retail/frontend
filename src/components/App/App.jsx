@@ -167,12 +167,12 @@ const App = () => {
   };
 
   // Авторизация
-  const cbLogIn = async (data, rememberMe) => {
+  const cbLogIn = async (data) => {
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
       // console.log(res);
-      rememberMe && res.auth_token && localStorage.setItem('jwt', res.auth_token);
+      res.auth_token && localStorage.setItem('jwt', res.auth_token);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
     } catch (err) {
