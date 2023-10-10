@@ -10,6 +10,7 @@ const Header = ({
   setShowAuthButtons,
   favoritesPage,
   cartPage,
+  isAuthorized
 }) => {
   console.log(cartPage);
   const { values, handleChange } = useForm();
@@ -86,7 +87,7 @@ const Header = ({
             ) : null}
             <span className='header__button-text'>Избранное</span>
           </Link>
-          {!isLogin ? (
+          {!isAuthorized ? (
             <button
               className='header__button-small header__button-small_border'
               type='button'
