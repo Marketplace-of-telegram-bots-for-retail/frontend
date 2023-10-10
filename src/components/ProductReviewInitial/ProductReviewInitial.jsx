@@ -10,7 +10,7 @@ const ProductReviewInitial = () => {
   }
 
   function handleSendClick() {
-
+    console.log('click send rewiew');
   }
 
   return (
