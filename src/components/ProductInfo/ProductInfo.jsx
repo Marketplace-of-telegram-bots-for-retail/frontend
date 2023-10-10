@@ -11,7 +11,7 @@ const ProductInfo = () => {
       </div>
       <div className='product__good-raiting'>
         <button className='product__good-like' type='submit'></button>
-        <p className='product__good-add'>Добавить в избранное</p>
+        <p className='product__good-add'>В избранное</p>
       </div>
     </div>
   );
