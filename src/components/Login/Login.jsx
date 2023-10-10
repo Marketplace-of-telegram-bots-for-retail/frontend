@@ -20,9 +20,10 @@ const Login = (props) => {
       userType,
       email,
       password,
-      rememberMe,
     };
     console.log(formData);
+    props.cbLogIn(formData, rememberMe);
+    props.handleClose();
 
     // if (!isLogin) {
     //   formData.confirmPassword = confirmPassword;

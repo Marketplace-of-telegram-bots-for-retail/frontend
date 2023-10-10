@@ -167,12 +167,12 @@ const App = () => {
   };
 
   // Авторизация
-  const cbLogIn = async (data) => {
+  const cbLogIn = async (data, rememberMe) => {
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
       // console.log(res);
-      res.auth_token && localStorage.setItem('jwt', res.auth_token);
+      rememberMe && res.auth_token && localStorage.setItem('jwt', res.auth_token);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
     } catch (err) {
@@ -183,12 +183,12 @@ const App = () => {
   };
 
   // Временно автоматический вход
-  useEffect(() => {
-    cbLogIn({
-      email: 'user-test@user-test.com',
-      password: 'Qwe123Asd456',
-    });
-  }, []);
+  // useEffect(() => {
+  //   cbLogIn({
+  //     email: 'user-test@user-test.com',
+  //     password: 'Qwe123Asd456',
+  //   });
+  // }, []);
 
   return (
     <UserProvider values={currentUser}>
