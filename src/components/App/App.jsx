@@ -229,7 +229,7 @@ const App = () => {
                   </main>
                 }
               />
-              <Route path='/:_id' element={<Product />} />
+              <Route path='/products/:id' element={<Product />} />
               <Route path='*' element={<ErrorPage pageNotFound />} />
               <Route
                 path='/favorites'
