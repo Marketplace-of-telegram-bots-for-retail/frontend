@@ -6,7 +6,7 @@ const AuthInput = ({ children, ...props }) => {
       {children}
       <span className='modal__input-name'>{props.inputName}</span>
       <input
-        id={props.id}
+        name={props.name}
         className={`modal__input ${
           props.error ? 'modal__input_error' : 'modal__input_valid'
         }`}
