@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import AuthInput from '../AuthInput/AuthInput';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
@@ -11,6 +11,8 @@ const Register = (props) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
   const { values, handleChange, errors } = useFormWithValidation();
+
+  useEffect(() => {}, [values, errors]);
 
   const handleStepOne = (e) => {
     e.preventDefault();
@@ -109,7 +111,9 @@ const Register = (props) => {
                 onChange={handleChange}
                 // onBlur={() => setPhone(phone.trim())}
                 inputName='Телефон'
-              ></AuthInput>
+              >
+                <span className='modal__phone-span'>+7</span>
+              </AuthInput>
               <AuthInput
                 htmlFor='password'
                 name='password'

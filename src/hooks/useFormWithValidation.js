@@ -46,6 +46,14 @@ export const useFormWithValidation = () => {
     return '';
   };
 
+  const _isValidPhone = (phone) => {
+    phone = phone.trim();
+    const phoneRegex = /\d$/;
+    if (!phoneRegex.test(phone)) return 'Only digits';
+    if (phone.length !== 10) return 'Invalid length of phone number';
+    return '';
+  };
+
   const _validateConfirmPassword = (confirmPass, password) => {
     confirmPass = confirmPass.trim();
     if (confirmPass !== password) return 'Passwords do not match.';
@@ -74,7 +82,7 @@ export const useFormWithValidation = () => {
     }
 
     if (name === 'phone') {
-      e.target.setCustomValidity(_isValidName(value));
+      e.target.setCustomValidity(_isValidPhone(value));
     }
 
     setValues({ ...values, [name]: value });

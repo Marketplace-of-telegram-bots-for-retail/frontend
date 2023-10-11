@@ -9,7 +9,7 @@ const AuthInput = ({ children, ...props }) => {
         name={props.name}
         className={`modal__input ${
           props.error ? 'modal__input_error' : 'modal__input_valid'
-        }`}
+        } ${props.name === 'phone' ? 'modal__input_type_phone' : ''}`}
         type={props.type}
         value={props.value}
         onChange={props.onChange}
