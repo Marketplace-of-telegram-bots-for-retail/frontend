@@ -11,14 +11,19 @@
   --letter-space: 0.5px;
   --input-text: #cccccc;
   --accent-purple: #680be0;
+  --accent-orange: #ff8f6e;
   --primary-black: #1e1e1e;
   --primary-accent: #726efa;
+  --primary-accent-magenta: #ea248a;
   --secondary-accent-blue-dark: #352df2;
   --secondary-purple-light: #b2b0ff;
+  --gray-light: #8e8e8e;
   --gray-medium: #7e7e7e;
   --gray-dark: #737373;
   --gray-additional: #9fa1a5;
-  --accent-orange: #ff8f6e;
-  --primary-accent-magenta: #ea248a;
-  --gray-light: #8E8E8E;
+  --Card-Peach: #ffb19a;
+  --Card-Yellow: #fcd78c;
+  --Card-Green: #66d4b9;
+  --Card-Blue: #bad8f9;
+  --Card-Gray: #dddcdf;
 }

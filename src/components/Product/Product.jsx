@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import './Product.css';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import ProductTitle from '../ProductTitle/ProductTitle';
@@ -8,23 +8,21 @@ import ProductDetails from '../ProductDetails/ProductDetails';
 import PopupImage from '../PopupImage/PopupImage';
 import { api } from '../../utils/Api';
 
-const Product = () => {
-  const { id } = useParams(); // Поправил...
-  // const id = params; // Поправил...
+const Product = ({ onLike }) => {
+  const { id } = useParams();
   const [card, setCard] = useState({});
   console.log(id);
   const [showProductPopup, setShowProductPopup] = useState(false);
-  const location = useLocation();// Вот так прокидывается стейтом карточка
-  console.log(location.state); // Тут вывел ее в консоль
 
   useEffect(() => {
+    // заменить на входящий пропсом cb
     api
       .getProductId(id)
       .then((res) => {
         setCard(res);
       })
       .catch(console.error);
-  }, []);
+  }, [id, onLike]);
 
   function handleFullScreenClick() {
     setShowProductPopup(true);
@@ -38,7 +36,7 @@ const Product = () => {
     <section className='product'>
       <BreadCrumbs card={card} />
       <ProductTitle card={card} />
-      <ProductInfo card={card} />
+      <ProductInfo card={card} onLike={onLike} />
       <ProductDetails
         card={card}
         showProductPopup={showProductPopup}
