@@ -22,7 +22,7 @@
 
 
 .star-rating__input:checked ~ .star-rating__label {
-    background-image: url('../../images/ic_rating-20 gold.png');
+    background-image: url('../../images/ic_rating-20-on.svg');
 }
 
 .star-rating__label:hover,
