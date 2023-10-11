@@ -85,7 +85,7 @@ const App = () => {
         throw new Error('Ошибка, нет токена');
       }
       const userAccaunt = await api.getUserMe();
-      // console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userAccaunt);
+      console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userAccaunt);
       if (userAccaunt) {
         setCurrentUser(userAccaunt);
         setAuthorized(true);
@@ -233,7 +233,10 @@ const App = () => {
                   </main>
                 }
               />
-              <Route path='/products/:id' element={<Product />} />
+              <Route
+                path='/products/:id'
+                element={<Product onLike={cbLike} />}
+              />
               <Route path='*' element={<ErrorPage pageNotFound />} />
               <Route
                 path='/favorites'
