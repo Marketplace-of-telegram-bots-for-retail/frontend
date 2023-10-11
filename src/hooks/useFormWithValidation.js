@@ -62,27 +62,26 @@ export const useFormWithValidation = () => {
   };
 
   const handleChange = (e) => {
-    const { value, name, validationMessage } = e.target;
+    const { value, name } = e.target;
+    let { validationMessage } = e.target;
     if (name === 'email') {
-      e.target.setCustomValidity(_isValidEmail(value));
+      validationMessage = _isValidEmail(value);
     }
 
     if (name === 'password') {
-      e.target.setCustomValidity(_isValidPassword(value, values.email));
+      validationMessage = _isValidPassword(value, values.email);
     }
 
     if (name === 'confirmPassword') {
-      e.target.setCustomValidity(
-        _validateConfirmPassword(value, values.password)
-      );
+      validationMessage = _validateConfirmPassword(value, values.password);
     }
 
     if (name === 'name' || name === 'surname') {
-      e.target.setCustomValidity(_isValidName(value));
+      validationMessage = _isValidName(value);
     }
 
     if (name === 'phone') {
-      e.target.setCustomValidity(_isValidPhone(value));
+      validationMessage = _isValidPhone(value);
     }
 
     setValues({ ...values, [name]: value });
