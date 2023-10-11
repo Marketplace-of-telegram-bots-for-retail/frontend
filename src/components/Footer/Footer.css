@@ -25,6 +25,8 @@
 .footer__logo {
   height: fit-content;
   margin-right: 7.75rem;
+  width: 11.75rem;
+  height: 3.25rem;
 }
 
 .footer__copyright {

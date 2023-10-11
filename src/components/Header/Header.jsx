@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
-import logo from '../../images/logo-botmarket 1.svg';
+import logo from '../../images/logo-color.png';
 import { useForm } from '../../hooks/useForm';
 
 const Header = ({
