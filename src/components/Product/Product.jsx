@@ -22,7 +22,7 @@ const Product = ({ onLike }) => {
         setCard(res);
       })
       .catch(console.error);
-  }, [id, onLike]);
+  }, [id]);
 
   function handleFullScreenClick() {
     setShowProductPopup(true);
