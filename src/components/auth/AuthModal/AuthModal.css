@@ -45,6 +45,15 @@
   cursor: pointer;
 }
 
+.modal__back {
+  position: absolute;
+  top: 42px;
+  left: 42px;
+  height: 24px;
+  width: 24px;
+  cursor: pointer;
+}
+
 .modal__title {
   color: var(--Primary-Black, #1e1e1e);
   text-align: center;

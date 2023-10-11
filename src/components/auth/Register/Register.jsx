@@ -30,8 +30,6 @@ const Register = (props) => {
   const [phone, setPhone] = useState('');
   const [phoneError, setPhoneError] = useState('');
 
-  const [registerStep, setRegisterStep] = useState(1);
-
   const handleStepOne = (e) => {
     e.preventDefault();
     const { userType, rememberMe } = props;
@@ -45,7 +43,7 @@ const Register = (props) => {
         email,
       })
     );
-    setRegisterStep(2);
+    props.setRegisterStep(2);
   };
 
   const handleSubmit = (e) => {
@@ -56,7 +54,7 @@ const Register = (props) => {
     formData.confirmPassword = confirmPassword;
     console.log(formData);
     localStorage.removeItem('registerFormData');
-    setRegisterStep(3);
+    props.setRegisterStep(3);
 
     // if (!isLogin) {
     //   formData.confirmPassword = confirmPassword;
@@ -66,20 +64,20 @@ const Register = (props) => {
   };
   return (
     <>
-      {registerStep === 1 || registerStep === 2 ? (
+      {props.registerStep === 1 || props.registerStep === 2 ? (
         <AuthForm
           userType={props.userType}
           setUserType={props.setUserType}
           rememberMe={props.rememberMe}
           setRememberMe={props.setRememberMe}
           handleSubmit={
-            (registerStep === 1 && handleStepOne) ||
-            (registerStep === 2 && handleSubmit)
+            (props.registerStep === 1 && handleStepOne) ||
+            (props.registerStep === 2 && handleSubmit)
           }
           isLogin={props.isLogin}
-          registerStep={registerStep}
+          registerStep={props.registerStep}
         >
-          {registerStep === 1 && (
+          {props.registerStep === 1 && (
             <>
               <AuthInput
                 htmlFor='name'
@@ -128,7 +126,7 @@ const Register = (props) => {
               />
             </>
           )}
-          {registerStep === 2 && (
+          {props.registerStep === 2 && (
             <>
               <AuthInput
                 htmlFor='phone'
@@ -194,7 +192,7 @@ const Register = (props) => {
       ) : (
         <RegisterSuccessMessage handleClose={props.onClose} />
       )}
-      {registerStep !== 3 && (
+      {props.registerStep !== 3 && (
         <ToggleAuthForm
           isLogin={props.isLogin}
           onClick={props.onToggleFormClick}
