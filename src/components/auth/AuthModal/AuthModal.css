@@ -171,11 +171,11 @@
 }
 
 .modal__remember-icon_blank {
-  background-image: url(../../images/blank.svg);
+  background-image: url(../../../images/blank.svg);
 }
 
 .modal__remember-icon_checked {
-  background-image: url(../../images/checked.svg);
+  background-image: url(../../../images/checked.svg);
 }
 
 .modal__span {

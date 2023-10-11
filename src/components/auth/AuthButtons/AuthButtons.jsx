@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
-import { ReactComponent as Triangle } from '../../images/triangle.svg';
+import { ReactComponent as Triangle } from '../../../images/triangle.svg';
 
 const AuthButtons = ({ cbLogIn, setAuthorized, isAuthorized }) => {
   const [showModal, setShowModal] = useState(false);

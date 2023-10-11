@@ -13,7 +13,7 @@ import Header from '../Header/Header';
 import Poster from '../Poster/Poster';
 import Title from '../Title/Title';
 import { Content } from '../Content/Content';
-import AuthButtons from '../AuthButtons/AuthButtons';
+import AuthButtons from '../auth/AuthButtons/AuthButtons';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import Cart from '../Cart/Cart';

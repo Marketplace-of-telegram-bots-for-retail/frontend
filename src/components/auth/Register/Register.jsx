@@ -2,14 +2,14 @@ import React, { useState } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
 import AuthInput from '../AuthInput/AuthInput';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
-import { ReactComponent as Eye } from '../../images/eye1.svg';
+import { ReactComponent as Eye } from '../../../images/eye1.svg';
 import RegisterSuccessMessage from '../RegisterSuccessMessage/RegisterSuccessMessage';
 import {
   validateEmail,
   validatePassword,
   validateConfirmPassword,
   validateName,
-} from '../../utils/validation';
+} from '../../../utils/validation';
 
 const Register = (props) => {
   const [email, setEmail] = useState('');
