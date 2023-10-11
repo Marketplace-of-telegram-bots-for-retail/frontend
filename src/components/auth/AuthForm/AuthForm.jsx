@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import UserTypeBox from '../UserTypeBox/UserTypeBox';
 
@@ -45,7 +46,10 @@ const AuthForm = ({ children, ...props }) => {
                   onClick={() => props.setRememberMe(!props.rememberMe)}
                 />
                 <span className='modal__span modal__span_type_policy'>
-                  Согласен с Политикой Конфиденциальности
+                  Согласен с
+                  <Link to="/privacy-policy" target="_blank" className='modal__span modal__span_link modal__span_type_policy-link'>
+                    Политикой Конфиденциальности
+                  </Link>
                 </span>
               </div>
             )
