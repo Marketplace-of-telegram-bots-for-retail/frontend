@@ -2,8 +2,8 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import AuthInput from '../AuthInput/AuthInput';
-import { ReactComponent as Eye } from '../../images/eye1.svg';
-import { validateEmail, validatePassword } from '../../utils/validation';
+import { ReactComponent as Eye } from '../../../images/eye1.svg';
+import { validateEmail, validatePassword } from '../../../utils/validation';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 
 const Login = (props) => {

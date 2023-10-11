@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ReactComponent as Close } from '../../images/close-icon.svg';
+import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './AuthModal.css';
