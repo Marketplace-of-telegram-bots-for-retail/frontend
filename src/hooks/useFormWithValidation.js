@@ -84,6 +84,7 @@ export const useFormWithValidation = () => {
       validationMessage = _isValidPhone(value);
     }
 
+    e.target.setCustomValidity(validationMessage);
     setValues({ ...values, [name]: value });
     setErrors({ ...errors, [name]: validationMessage });
     setOnblur({ ...isOnBlur, [name]: true });

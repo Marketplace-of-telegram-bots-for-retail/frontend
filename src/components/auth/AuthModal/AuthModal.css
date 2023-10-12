@@ -237,7 +237,6 @@
 .modal__submit-btn {
   all: unset;
   border-radius: 8px;
-  border-radius: 8px;
   background: var(--primary-accent);
   display: flex;
   width: 100%;
@@ -253,6 +252,10 @@
   line-height: 22px;
   box-sizing: border-box;
   margin: 32px 0 24px;
+}
+
+.modal__submit-btn:disabled {
+  background: var(--secondary-purple-light);
 }
 
 .modal__toggle-form {

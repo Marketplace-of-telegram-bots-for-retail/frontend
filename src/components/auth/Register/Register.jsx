@@ -10,33 +10,30 @@ const Register = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
 
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleStepOne = (e) => {
     e.preventDefault();
-    if (isValid) {
-      const { userType, rememberMe } = props;
-      const { name, surname, email } = values;
-      localStorage.setItem(
-        'registerFormData',
-        JSON.stringify({
-          userType,
-          rememberMe,
-          name,
-          surname,
-          email,
-        })
-      );
-      props.setRegisterStep(2);
-    } else {
-      console.log('error');
-    }
+    const { userType, rememberMe } = props;
+    const { name, surname, email } = values;
+    localStorage.setItem(
+      'registerFormData',
+      JSON.stringify({
+        userType,
+        rememberMe,
+        name,
+        surname,
+        email,
+      })
+    );
+    props.setRegisterStep(2);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isValid) {
+    if (isCheckboxChecked) {
       const formData = JSON.parse(localStorage.getItem('registerFormData'));
       const { phone, password, confirmPassword } = values;
       formData.phone = phone;
@@ -46,7 +43,7 @@ const Register = (props) => {
       localStorage.removeItem('registerFormData');
       props.setRegisterStep(3);
     } else {
-      console.log('error');
+      setErrorMessage('Необходимо согласиться с Политикой Конфиденциальности');
     }
 
     // if (!isLogin) {
@@ -66,9 +63,11 @@ const Register = (props) => {
             (props.registerStep === 2 && handleSubmit)
           }
           isLogin={props.isLogin}
+          isValid={isValid}
           registerStep={props.registerStep}
           isCheckboxChecked={isCheckboxChecked}
           setIsCheckboxChecked={setIsCheckboxChecked}
+          errorMessage={errorMessage}
         >
           {props.registerStep === 1 && (
             <>

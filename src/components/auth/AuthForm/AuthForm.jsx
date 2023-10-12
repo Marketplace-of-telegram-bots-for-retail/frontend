@@ -39,6 +39,7 @@ const AuthForm = ({ children, ...props }) => {
           className='modal__submit-btn'
           type='submit'
           onClick={props.handleSubmit}
+          disabled={!props.isValid}
         >
           {props.isLogin
             ? 'Войти'
