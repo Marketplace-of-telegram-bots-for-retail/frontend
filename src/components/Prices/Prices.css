@@ -1,6 +1,50 @@
-@import url(../../blocks/prices/__box/prices__box.css);
+.prices__box {
+  margin-left: var(--s-indent);
+}
+
+.prices__input-container {
+  margin-left: var(--s-indent);
+  display: flex;
+  margin-top: 0.3rem;
+  gap: 2.4rem;
+}
+
+.prices__input {
+  padding: 0.4rem 1rem;
+  font-weight: 400;
+  line-height: 1.25rem;
+  color: var(--gray-medium);
+  width: 8rem;
+  border-radius: 7px;
+  border: 1px solid var(--gray-medium);
+}
 
 /*mui-slider*/
-@import url(../../blocks/mui-slider/mui-slider.css);
-@import url(../../blocks/prices/__input-container/prices__input-container.css);
-@import url(../../blocks//prices/__input/prices__input.css);
+
+.MuiSlider-rail {
+  color: var(--secondary-purple-light);
+}
+
+.MuiSlider-colorPrimary {
+  color: var(--gradient-primary);
+}
+
+.custom-slider-root {
+  color: var(--accent-purple);
+}
+
+.custom-slider-thumb {
+  color: var(--accent-purple);
+  height: 15px !important;
+  width: 15px !important;
+}
+
+.custom-slider-rail {
+  color: var(--secondary-purple-light);
+  height: 3px !important;
+}
+
+.custom-slider-track {
+  color: var(--accent-purple);
+  height: 2px !important;
+}
