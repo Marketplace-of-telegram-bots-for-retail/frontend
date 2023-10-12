@@ -15,8 +15,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    background: var(--primary-accent);
-    color: var(--primary-white);
+    background: var(--Primary-Accent);
+    color: var(--Primary-White);
     text-align: center;
     font-size: 18px;
     font-style: normal;
@@ -28,17 +28,17 @@
 }
 
 .product__review-open:hover {
-    background: var(--secondary-accent-blue-dark);
+    background: var(--Secondary-Accent-Blue-Dark);
 }
 
 .product__review-open:disabled {
-    background: var(--secondary-purple-light);
+    background: var(--Secondary-Purple-Light);
 }
 
 .product__review-question {
     margin: 0;
     padding: 0;
-    color: var(--primary-black);
+    color: var(--Primary-Black);
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
@@ -49,7 +49,7 @@
     margin: 0;
     padding: 0;
     background: #FFF;
-    color: var(--primary-accent);
+    color: var(--Primary-Accent);
     text-align: right;
     font-size: 16px;
     font-style: normal;
@@ -61,7 +61,7 @@
 }
 
 .product__review-show:hover {
-    color: var(--secondary-accent-blue-dark);
+    color: var(--Secondary-Accent-Blue-Dark);
 }
 
 .product__review-block {
@@ -78,8 +78,8 @@
     padding: 24px 16px;
     justify-content: center;
     border-radius: 16px;
-    border: 1px solid var(--gray-additional);
-    color: var(--gray-light);
+    border: 1px solid var(--Gray-Additional);
+    color: var(--Gray-Light);
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
@@ -95,8 +95,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    background: var(--primary-accent);
-    color: var(--primary-white);
+    background: var(--Primary-Accent);
+    color: var(--Primary-White);
     text-align: center;
     font-size: 18px;
     font-style: normal;
@@ -109,9 +109,9 @@
 }
 
 .product__review-send:hover {
-    background: var(--secondary-accent-blue-dark);
+    background: var(--Secondary-Accent-Blue-Dark);
 }
 
 .product__review-send:disabled {
-    background: var(--secondary-purple-light);
+    background: var(--Secondary-Purple-Light);
 }
