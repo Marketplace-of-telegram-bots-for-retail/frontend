@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Card.css';
 import { Rating } from '../Rating/Rating';
+import { CartButton } from '../Buttons/CartButton/CartButton';
 
 export const Card = ({ card, onLike }) => {
   const [isLiked, setLiked] = useState(card.is_favorited);
@@ -56,15 +57,7 @@ export const Card = ({ card, onLike }) => {
       </div>
       <div className='card__wrapper'>
         <p className='card__price'>{`${card?.price} ₽`}</p>
-        <button
-          className='card__button_large_solid'
-          type='button'
-          onClick={() => {
-            console.log('to cart => Click!');
-          }}
-        >
-          В корзину
-        </button>
+        <CartButton parentClass='card' />
       </div>
     </div>
   );

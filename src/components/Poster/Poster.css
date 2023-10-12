@@ -1,1 +1,6 @@
-@import url(../../blocks/poster/poster.css);
+.poster {
+  margin: 1.25rem var(--s-indent);
+  background-color: #F4F4F4;
+  height: 9.0625rem;
+  border-radius: 1rem;
+}
