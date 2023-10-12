@@ -23,17 +23,17 @@
   padding: 0;
 }
 .like-button__icon_default {
-  fill: var(--primary-accent);
+  fill: var(--Primary-Accent);
   transition: 0.25s;
 }
 .like-button__icon_active {
-  fill: var(--primary-accent-magenta);
+  fill: var(--Primary-Accent-Magenta);
   transition: 0.25s;
 }
 .like-button__title {
   margin: 0;
   padding: 0;
-  color: var(--gray-dark);
+  color: var(--Gray-Dark);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -47,11 +47,11 @@
 
 .like-button__wrapper:hover .like-button__title {
   transition: 0.25s;
-  color: var(--secondary-accent-blue-dark);
+  color: var(--Secondary-Accent-Blue-Dark);
 }
 .like-button__wrapper:hover .like-button__icon_default {
   transition: 0.25s;
-  fill: var(--secondary-accent-blue-dark);
+  fill: var(--Secondary-Accent-Blue-Dark);
 }
 .like-button__wrapper:hover .like-button__icon_active {
   transition: 0.25s;

@@ -81,8 +81,8 @@
 }
 
 .modal__user-type-btn_active {
-  border-bottom-color: var(--secondary-accent-blue-dark);
-  color: var(--secondary-accent-blue-dark);
+  border-bottom-color: var(--Secondary-Accent-Blue-Dark);
+  color: var(--Secondary-Accent-Blue-Dark);
 }
 
 .modal__inputs {
@@ -115,7 +115,7 @@
   padding: 8px 12px;
   color: var(--Primary-Black, #1e1e1e);
   border-radius: 8px;
-  border: 1px solid var(--gray-additional);
+  border: 1px solid var(--Gray-Additional);
   text-align: left;
   font-size: 20px;
   font-style: normal;
@@ -182,7 +182,7 @@
   width: 100%;
   margin: 0;
   padding: 0;
-  color: var(--primary-black);
+  color: var(--Primary-Black);
   font-size: 20px;
   font-style: normal;
   font-weight: 400;
@@ -192,7 +192,7 @@
 }
 
 .modal__span_type_reset-password {
-  color: var(--primary-accent);
+  color: var(--Primary-Accent);
 }
 
 .modal__span_type_policy {
@@ -201,7 +201,7 @@
 }
 
 .modal__span_link {
-  color: var(--primary-accent);
+  color: var(--Primary-Accent);
   cursor: pointer;
 }
 
@@ -209,7 +209,7 @@
   all: unset;
   border-radius: 8px;
   border-radius: 8px;
-  background: var(--primary-accent);
+  background: var(--Primary-Accent);
   display: flex;
   width: 100%;
   height: 52px;

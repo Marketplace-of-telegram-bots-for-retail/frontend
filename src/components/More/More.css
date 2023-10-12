@@ -10,7 +10,7 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  color: var(--primary-accent);
+  color: var(--Primary-Accent);
   align-items: center;
   background: none;
   border: none;
@@ -26,7 +26,7 @@
   grid-column: 3;
 }
 .more__button:hover {
-  color: var(--secondary-accent-blue-dark);
+  color: var(--Secondary-Accent-Blue-Dark);
 }
 
 .more__page-number {
@@ -37,6 +37,6 @@
   font-style: normal;
   font-weight: 500;
   line-height: normal;
-  color: var(--primary-black);
+  color: var(--Primary-Black);
   align-items: center;
 }

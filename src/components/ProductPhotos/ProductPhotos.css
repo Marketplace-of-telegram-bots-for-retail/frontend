@@ -31,7 +31,7 @@
 }
 
 .product-photos__photo-small_active {
-    border: 1px solid var(--secondary-purple-light);
+    border: 1px solid var(--Secondary-Purple-Light);
 }
 
 .product-photos__button-scroll {

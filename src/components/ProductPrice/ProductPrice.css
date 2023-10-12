@@ -26,8 +26,8 @@
     justify-content: center;
     align-items: center;
     border-radius: 8px;
-    background: var(--primary-accent);
-    color: var(--primary-white);
+    background: var(--Primary-Accent);
+    color: var(--Primary-White);
     text-align: center;
     font-size: 20px;
     font-style: normal;
@@ -39,9 +39,9 @@
 }
 
 .product__price-button:hover {
-    background: var(--secondary-accent-blue-dark);
+    background: var(--Secondary-Accent-Blue-Dark);
 }
 
 .product__price-button:disabled {
-    background: var(--secondary-purple-light);
+    background: var(--Secondary-Purple-Light);
 }
