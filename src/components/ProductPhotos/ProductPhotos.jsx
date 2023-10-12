@@ -62,8 +62,11 @@ const ProductPhotos = ({ card, handleFullScreenClick }) => {
       {visible === 'scroll' &&
       <button className='product-photos__button-scroll product-photos__button-scroll_type_up' type='button' onClick={handleScrollUpClick}></button>}
       <button className='product-photos__button-scroll product-photos__button-scroll_type_down' type='button' onClick={handleScrollDownClick}></button>
-      <img className='product-photos__photo-big' id='product-photos__photo-big' src={card.image_1 || testPhoto} onClick={onProductClick} alt={card.name} />
-      <img className='product-photos__photo-icon' src={icon} alt='икoнка развернуть на весь экран' />
+      <div className='product-photos__photo' onClick={onProductClick}>
+        <img className='product-photos__photo-big' id='product-photos__photo-big' src={card.image_1 || testPhoto} alt={card.name} />
+        <img className='product-photos__photo-icon' src={icon} alt='икoнка развернуть на весь экран' />
+      </div>
+
     </div>
   );
 };
