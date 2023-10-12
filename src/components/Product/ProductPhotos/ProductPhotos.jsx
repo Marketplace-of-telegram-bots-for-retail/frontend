@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './ProductPhotos.css';
-import icon from '../../images/arcticons_photo-and-picture-resizer.svg';
-import testPhoto from '../../images/Picture.jpg';
+import icon from '../../../images/arcticons_photo-and-picture-resizer.svg';
+import testPhoto from '../../../images/Picture.jpg';
 
 const ProductPhotos = ({ card, handleFullScreenClick }) => {
   const [offset, setOffset] = useState(0);

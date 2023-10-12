@@ -34,7 +34,7 @@
 .product__good-like {
     width: 20px;
     height: 20px;
-    background: url(../../images/ic_heart-24_blue.svg);
+    background: url(../../../images/ic_heart-24_blue.svg);
     background-repeat: no-repeat;
     background-position: center;
     border: none;
@@ -42,11 +42,11 @@
 }
 
 .product__good-like:hover {
-    background: url(../../images/ic_heart-24-hover.svg);
+    background: url(../../../images/ic_heart-24-hover.svg);
 }
 
 .product__good-like_active {
-    background: url(../../images/ic_heart-solid-24-magenta.svg);
+    background: url(../../../images/ic_heart-solid-24-magenta.svg);
 }
 
 .product__good-add {

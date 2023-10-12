@@ -1,18 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import './Rating.css';
-import { useLocation } from 'react-router-dom';
-
-export const Rating = ({ ratingCard, onStarClick, onReviewClick }) => {
-  console.log(onStarClick, onReviewClick);
+import { useLocation, useParams } from 'react-router-dom';
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  useEffect(() => {
-    ratingCard && setRating(ratingCard[0]);
-  }, [ratingCard]);
-
   const location = useLocation();
-  console.log(location);
+  const { id } = useParams();
 
   function getNoun(number, one, two, five) {
     const space = ' ';
@@ -68,9 +61,8 @@ export const Rating = ({ ratingCard, onStarClick, onReviewClick }) => {
           );
         })}
       </div>
-      <span className='rating__feedback' onClick={() => handleOnReviewClick()}>
-        {feedback(ratingCard?.[1])}
-      </span>
+      {location.pathname !== `/products/${id}` &&
+      <span className='rating__feedback'>{feedback(ratingCard[1])}</span>}
     </div>
   );
 };
