@@ -1,19 +1,12 @@
 import React from 'react';
 import './ProductInfo.css';
-import StarRating from '../../StarRating/StarRating';
-import { LikeButton } from '../../Buttons/LikeButton/LikeButton';
+import { LikeButton } from '../../Buttons';
+import { Rating } from '../../Rating/Rating';
 
 const ProductInfo = ({ card, onLike }) => {
   return (
     <div className='product__good-info'>
-      <div className='product__good-raiting'>
-        <StarRating ratingCard={card.rating} />
-        <p className='product__good-rewiew'>Оставить отзыв</p>
-      </div>
-      {/* <div className='product__good-raiting'>
-        <button className='product__good-like' type='submit'></button>
-        <p className='product__good-add'>В избранное</p>
-      </div> */}
+      <Rating ratingCard={card.rating} />
       <LikeButton parentClass='product' onLike={onLike} card={card} />
     </div>
   );
