@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './ProductReviewInitial.css';
-import StarRating from '../StarRating/StarRating';
+import StarRating from '../../StarRating/StarRating';
 
 const ProductReviewInitial = () => {
   const [isShown, setIsShown] = useState(false);

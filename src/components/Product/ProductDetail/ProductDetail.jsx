@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './ProductDetail.css';
 import ProductPhotos from '../ProductPhotos/ProductPhotos';
-import award from '../../images/Pixel-36.svg';
+import award from '../../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
 
-const ProductDetail = ({ card, handleFullScreenClick }) => {
+const ProductDetail = ({ card, handleFullScreenClick, reviews }) => {
   const [state, setState] = useState('description');
 
   function handleDescClick() {
@@ -25,10 +25,10 @@ const ProductDetail = ({ card, handleFullScreenClick }) => {
       </div>
       <div className='product__good-items'>
         <h3 className={`product__good-item ${state === 'description' ? 'product__good-item_active' : 'product__good-item product'}`} onClick={handleDescClick}>Описание</h3>
-        <h3 className={`product__good-item ${state === 'review' ? 'product__good-item_active' : 'product__good-item product'}`} onClick={handleReviewClick}>Отзывы (0)</h3>
+        <h3 className={`product__good-item ${state === 'review' ? 'product__good-item_active' : 'product__good-item product'}`} onClick={handleReviewClick}>{`Отзывы (${reviews.length})`}</h3>
       </div>
       {state === 'description' && <ProductDescription card={card} />}
-      {state === 'review' && <ProductReviews />}
+      {state === 'review' && <ProductReviews reviews={reviews} />}
     </div>
   );
 };
