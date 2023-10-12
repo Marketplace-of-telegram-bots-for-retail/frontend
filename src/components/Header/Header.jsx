@@ -12,7 +12,6 @@ const Header = ({
   cartPage,
   isAuthorized
 }) => {
-  console.log(cartPage);
   const { values, handleChange } = useForm();
   // Временные
   const user = {
