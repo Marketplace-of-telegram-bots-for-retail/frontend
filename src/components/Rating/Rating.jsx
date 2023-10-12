@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import './Rating.css';
 import { useLocation, useParams } from 'react-router-dom';
 
-export const Rating = ({ ratingCard }) => {
-  // Props onStarClick, onReviewClick
-  // console.log(onStarClick, onReviewClick);
+export const Rating = ({
+  ratingCard,
+  onStarClick,
+  onReviewClick,
+  starsFeedback,
+}) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const location = useLocation();
   const { id } = useParams();
   useEffect(() => {
-    ratingCard && setRating(ratingCard[0]);
-  }, [ratingCard]);
+    ratingCard ? setRating(ratingCard[0]) : setRating(starsFeedback);
+  }, [ratingCard, starsFeedback]);
 
   function getNoun(number, one, two, five) {
     const space = ' ';
@@ -44,32 +47,59 @@ export const Rating = ({ ratingCard }) => {
     console.log('=> onReviewClick()', id);
   };
 
+  const returnStarElement = (index) => {
+    return !onStarClick ? (
+      <span
+        key={index}
+        className={`rating__star rating__star${
+          index <= rating ? '_on' : '_off'
+        }`}
+      ></span>
+    ) : (
+      <button
+        type='button'
+        key={index}
+        className={`rating__star rating__star${
+          index <= (hover || rating) ? '_on' : '_off'
+        }`}
+        onClick={() => {
+          setRating(index);
+          console.log('star => Click!', index);
+          console.log('=> onStarClick()');
+        }}
+        onMouseEnter={() => setHover(index)}
+        onMouseLeave={() => setHover(rating)}
+      ></button>
+    );
+  };
+  const renderFeedback = () => {
+    if (!onReviewClick) {
+      return (
+        <span className='rating__feedback'>{feedback(ratingCard?.[1])}</span>
+      );
+    }
+    if (id) {
+      return (
+        <span
+          className='rating__feedback'
+          onClick={() => handleOnReviewClick()}
+        >
+          {feedback(ratingCard?.[1])}
+        </span>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className='card__rating rating'>
       <div className='rating__stars'>
         {[...Array(5)].map((star, index) => {
           index += 1;
-          return (
-            <button
-              type='button'
-              key={index}
-              className={`rating__star rating__star${
-                index <= (hover || rating) ? '_on' : '_off'
-              }`}
-              onClick={() => {
-                setRating(index);
-                console.log('star => Click!', index);
-                console.log('=> onStarClick()');
-              }}
-              onMouseEnter={() => setHover(index)}
-              onMouseLeave={() => setHover(rating)}
-            ></button>
-          );
+          return returnStarElement(index);
         })}
       </div>
-      <span className='rating__feedback' onClick={() => handleOnReviewClick()}>
-        {feedback(ratingCard?.[1])}
-      </span>
+      {renderFeedback()}
     </div>
   );
 };

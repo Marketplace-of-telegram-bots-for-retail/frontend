@@ -6,7 +6,15 @@ import { Rating } from '../../Rating/Rating';
 const ProductInfo = ({ card, onLike }) => {
   return (
     <div className='product__good-info'>
-      <Rating ratingCard={card.rating} />
+      <Rating
+        ratingCard={card.rating}
+        onStarClick={() => {
+          console.log('object');
+        }}
+        onReviewClick={() => {
+          console.log('object');
+        }}
+      />
       <LikeButton parentClass='product' onLike={onLike} card={card} />
     </div>
   );
