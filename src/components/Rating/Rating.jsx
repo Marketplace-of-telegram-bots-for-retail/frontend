@@ -3,7 +3,7 @@ import './Rating.css';
 import { useLocation } from 'react-router-dom';
 
 export const Rating = ({ ratingCard, onStarClick, onReviewClick }) => {
-  // console.log(onStarClick, onReviewClick);
+  console.log(onStarClick, onReviewClick);
 
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
