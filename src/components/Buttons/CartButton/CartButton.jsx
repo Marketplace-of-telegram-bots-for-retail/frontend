@@ -36,12 +36,14 @@ export const CartButton = ({ parentClass }) => {
     <>
       <button
         type='button'
-        className='cart-button__button cart-button__button_counter'
+        className={`cart-button__button cart-button__button_counter cart-button__button_counter_${
+          parentClass === 'cart' ? 'small' : 'large'
+        }`}
         onClick={() => {
           handleClickCartButton(false);
         }}
       >
-        <img alt='' src={IconMinus} />
+        <img alt='минус' src={IconMinus} />
       </button>
       <input
         name='count'
@@ -52,12 +54,14 @@ export const CartButton = ({ parentClass }) => {
       />
       <button
         type='button'
-        className='cart-button__button cart-button__button_counter'
+        className={`cart-button__button cart-button__button_counter cart-button__button_counter_${
+          parentClass === 'cart' ? 'small' : 'large'
+        }`}
         onClick={() => {
           handleClickCartButton(true);
         }}
       >
-        <img alt='' src={IconPlus} />
+        <img alt='плюс' src={IconPlus} />
       </button>
     </>
     // </form>
@@ -75,7 +79,9 @@ export const CartButton = ({ parentClass }) => {
   );
   return (
     <div
-      className={`${parentClass}__cart-button cart-button`}
+      className={`${parentClass}__cart-button cart-button ${
+        parentClass === 'cart' && 'cart-button_small'
+      }`}
       onSubmit={handleSubmit}
     >
       {isProductInTheCart ? cartButtonCounter : cartButton}

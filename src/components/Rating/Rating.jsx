@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './Rating.css';
+import { useLocation } from 'react-router-dom';
 
-export const Rating = ({ ratingCard }) => {
-  const [rating, setRating] = useState(ratingCard[0]);
+export const Rating = ({ ratingCard, onStarClick, onReviewClick }) => {
+  // console.log(onStarClick, onReviewClick);
+
+  const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
+  useEffect(() => {
+    ratingCard && setRating(ratingCard[0]);
+  }, [ratingCard]);
+
+  const location = useLocation();
+  console.log(location);
 
   function getNoun(number, one, two, five) {
     const space = ' ';
@@ -28,6 +37,13 @@ export const Rating = ({ ratingCard }) => {
   const feedback = (number) => {
     return getNoun(number, 'отзыв', 'отзыва', 'отзывов');
   };
+  const handleOnReviewClick = () => {
+    if (location === '/') {
+      return;
+    }
+    // onReviewClick();
+    console.log('=> onReviewClick()');
+  };
 
   return (
     <div className='card__rating rating'>
@@ -44,6 +60,7 @@ export const Rating = ({ ratingCard }) => {
               onClick={() => {
                 setRating(index);
                 console.log('star => Click!', index);
+                console.log('=> onStarClick()');
               }}
               onMouseEnter={() => setHover(index)}
               onMouseLeave={() => setHover(rating)}
@@ -51,7 +68,9 @@ export const Rating = ({ ratingCard }) => {
           );
         })}
       </div>
-      <span className='rating__feedback'>{feedback(ratingCard[1])}</span>
+      <span className='rating__feedback' onClick={() => handleOnReviewClick()}>
+        {feedback(ratingCard?.[1])}
+      </span>
     </div>
   );
 };
