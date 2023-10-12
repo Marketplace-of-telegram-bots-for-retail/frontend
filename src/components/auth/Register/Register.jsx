@@ -9,36 +9,45 @@ import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 const Register = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
-  const { values, handleChange, errors } = useFormWithValidation();
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
 
   const handleStepOne = (e) => {
     e.preventDefault();
-    const { userType, rememberMe } = props;
-    const { name, surname, email } = values;
-    localStorage.setItem(
-      'registerFormData',
-      JSON.stringify({
-        userType,
-        rememberMe,
-        name,
-        surname,
-        email,
-      })
-    );
-    props.setRegisterStep(2);
+    if (isValid) {
+      const { userType, rememberMe } = props;
+      const { name, surname, email } = values;
+      localStorage.setItem(
+        'registerFormData',
+        JSON.stringify({
+          userType,
+          rememberMe,
+          name,
+          surname,
+          email,
+        })
+      );
+      props.setRegisterStep(2);
+    } else {
+      console.log('error');
+    }
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const formData = JSON.parse(localStorage.getItem('registerFormData'));
-    const { phone, password, confirmPassword } = values;
-    formData.phone = phone;
-    formData.password = password;
-    formData.confirmPassword = confirmPassword;
-    console.log(formData);
-    localStorage.removeItem('registerFormData');
-    props.setRegisterStep(3);
+    if (isValid) {
+      const formData = JSON.parse(localStorage.getItem('registerFormData'));
+      const { phone, password, confirmPassword } = values;
+      formData.phone = phone;
+      formData.password = password;
+      formData.confirmPassword = confirmPassword;
+      console.log(formData);
+      localStorage.removeItem('registerFormData');
+      props.setRegisterStep(3);
+    } else {
+      console.log('error');
+    }
 
     // if (!isLogin) {
     //   formData.confirmPassword = confirmPassword;
@@ -58,6 +67,8 @@ const Register = (props) => {
           }
           isLogin={props.isLogin}
           registerStep={props.registerStep}
+          isCheckboxChecked={isCheckboxChecked}
+          setIsCheckboxChecked={setIsCheckboxChecked}
         >
           {props.registerStep === 1 && (
             <>

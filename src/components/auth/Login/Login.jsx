@@ -9,6 +9,7 @@ import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const { values, handleChange, errors } = useFormWithValidation();
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,6 +39,8 @@ const Login = (props) => {
         setRememberMe={props.setRememberMe}
         handleSubmit={handleSubmit}
         isLogin={props.isLogin}
+        isCheckboxChecked={isCheckboxChecked}
+        setIsCheckboxChecked={setIsCheckboxChecked}
       >
         <AuthInput
           htmlFor='email'
