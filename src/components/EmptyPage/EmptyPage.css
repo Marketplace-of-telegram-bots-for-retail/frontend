@@ -13,7 +13,7 @@
   margin: 1.25rem 0 0.75rem;
   justify-content: center;
   align-items: center;
-  color: var(--primary-black);
+  color: var(--Primary-Black);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 700;
@@ -22,7 +22,7 @@
 .empty-page__text {
   margin: 0;
   padding: 0;
-  color: var(--primary-black);
+  color: var(--Primary-Black);
   text-align: center;
   font-size: 1.125rem;
   font-style: normal;
@@ -47,8 +47,8 @@
   justify-content: center;
   align-items: center;
   border-radius: 0.5rem;
-  border: 2px solid var(--primary-accent);
-  color: var(--primary-accent);
+  border: 2px solid var(--Primary-Accent);
+  color: var(--Primary-Accent);
   text-align: center;
   font-size: 1.125rem;
   font-style: normal;
@@ -58,8 +58,8 @@
 }
 
 .empty-page__button-lagre:hover {
-  color: var(--secondary-accent-blue-dark);
-  border: 2px solid var(--secondary-accent-blue-dark);
+  color: var(--Secondary-Accent-Blue-Dark);
+  border: 2px solid var(--Secondary-Accent-Blue-Dark);
 }
 .empty-page__button-lagre:disabled {
   color: var(--secondary-accent-light);

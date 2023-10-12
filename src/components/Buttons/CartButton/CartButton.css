@@ -4,6 +4,9 @@
   margin: 0;
   padding: 0;
 }
+.cart-button_small {
+  height: 2.5rem;
+}
 
 .cart-button__wrapper {
   display: flex;
@@ -46,8 +49,8 @@
   border-radius: 8px;
   border: none;
   border-radius: 8px;
-  background: var(--primary-accent);
-  color: var(--primary-white);
+  background: var(--Primary-Accent);
+  color: var(--Primary-White);
   text-align: center;
   font-size: 1.125rem;
   font-style: normal;
@@ -56,15 +59,19 @@
   cursor: pointer;
   transition: all 0.2s;
 }
-.cart-button__button_counter {
+
+.cart-button__button_counter_large {
   width: 5rem;
+}
+.cart-button__button_counter_small {
+  width: 3.75rem;
 }
 
 .cart-button__button:hover {
-  background: var(--secondary-accent-blue-dark);
+  background: var(--Secondary-Accent-Blue-Dark);
   transition: all 0.2s;
 }
 
 .cart-button__button:disabled {
-  background: var(--secondary-purple-light);
+  background: var(--Secondary-Purple-Light);
 }

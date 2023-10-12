@@ -18,7 +18,7 @@
 .product__good-rewiew {
     margin: 0;
     padding: 0;
-    color: var(--gray-dark);
+    color: var(--Gray-Dark);
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -28,7 +28,7 @@
 }
 
 .product__good-rewiew:hover {
-    color: var(--secondary-accent-blue-dark);
+    color: var(--Secondary-Accent-Blue-Dark);
 }
 
 .product__good-like {
@@ -52,7 +52,7 @@
 .product__good-add {
     margin: 0;
     padding: 0;
-    color: var(--gray-dark);
+    color: var(--Gray-Dark);
     font-size: 16px;
     font-style: normal;
     font-weight: 500;
@@ -62,5 +62,5 @@
 }
 
 .product__good-add:hover {
-    color: var(--secondary-accent-blue-dark);
+    color: var(--Secondary-Accent-Blue-Dark);
 }

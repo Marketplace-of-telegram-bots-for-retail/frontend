@@ -15,11 +15,11 @@
 .scale__step {
   width: 50%;
   height: 100%;
-  border-bottom: 1px solid var(--secondary-purple-light);
+  border-bottom: 1px solid var(--Secondary-Purple-Light);
 }
 
 .scale__step_active {
-    border-bottom: 1px solid var(--primary-accent);
+    border-bottom: 1px solid var(--Primary-Accent);
 }
 
 .scale__caption-list {
@@ -43,20 +43,20 @@
   width: 16px;
   height: 16px;
   border-radius: 50%;
-  background-color: var(--secondary-purple-light);
+  background-color: var(--Secondary-Purple-Light);
 }
 
 .scale__caption-round_active {
-    background-color: var(--primary-accent);
+    background-color: var(--Primary-Accent);
 }
 
 .scale__caption-text {
     font-size: 14px;
     font-weight: 400;
     line-height: 20px;
-    color: var(--secondary-purple-light);
+    color: var(--Secondary-Purple-Light);
 }
 
 .scale__caption-text_active {
-    color: var(--primary-accent);
+    color: var(--Primary-Accent);
 }

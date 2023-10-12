@@ -7,24 +7,25 @@
     #680be0 47.92%,
     #5500de 100%
   );
-  --primary-white: #fdfdfd;
+  --Primary-White: #fdfdfd;
   --letter-space: 0.5px;
-  --input-text: #cccccc;
-  --accent-purple: #680be0;
-  --accent-orange: #ff8f6e;
-  --primary-black: #1e1e1e;
+  --Input-Text: #cccccc;
+  --Accent-Purple: #680be0;
+  --Accent-Orange: #ff8f6e;
   --Primary-Black: #1e1e1e;
-  --primary-accent: #726efa;
-  --primary-accent-magenta: #ea248a;
-  --secondary-accent-blue-dark: #352df2;
-  --secondary-purple-light: #b2b0ff;
-  --gray-light: #8e8e8e;
-  --gray-medium: #7e7e7e;
-  --gray-dark: #737373;
-  --gray-additional: #9fa1a5;
+  --Primary-Accent: #726efa;
+  --Primary-Accent-Magenta: #ea248a;
+  --Secondary-Accent-Blue-Dark: #352df2;
+  --Secondary-Purple-Light: #b2b0ff;
+  --Gray-Light: #8e8e8e;
+  --Gray-Medium: #7e7e7e;
+  --Gray-Dark: #737373;
+  --Gray-Additional: #9fa1a5;
   --Card-Peach: #ffb19a;
   --Card-Yellow: #fcd78c;
   --Card-Green: #66d4b9;
   --Card-Blue: #bad8f9;
   --Card-Gray: #dddcdf;
+  --Error: #ff2455;
+  --Rating: #f1c644;
 }

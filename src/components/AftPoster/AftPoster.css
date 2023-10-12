@@ -28,7 +28,7 @@
 }
 
 .aft-poster__title {
-  color: var(--primary-black);
+  color: var(--Primary-Black);
   font-size: 1.5rem;
   font-style: normal;
   font-weight: 700;
@@ -38,7 +38,7 @@
 }
 
 .aft-poster__text {
-  color: var(--primary-black);
+  color: var(--Primary-Black);
   font-size: 1rem;
   font-style: normal;
   font-weight: 400;
@@ -60,7 +60,7 @@
 }
 
 .aft-poster__text-link {
-  color: var(--secondary-accent-blue-dark);
+  color: var(--Secondary-Accent-Blue-Dark);
   font-family: 'Caveat';
   font-size: 1.75rem;
   font-style: normal;

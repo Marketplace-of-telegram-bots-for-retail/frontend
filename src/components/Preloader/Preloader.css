@@ -13,79 +13,51 @@
   padding: 0;
 }
 .preloader__container {
-  width: 100px;
-  height: 100px;
   position: relative;
 }
-@keyframes preloader-inside-gray {
-  0% {
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
-    transform: scale(0, 0);
-  }
-  100% {
-    -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
-  }
-}
 
-@keyframes preloader-inside-blue-dark {
-  0% {
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
-    transform: scale(0, 0);
-  }
-  30% {
-    -webkit-transform: scale(0, 0);
-    -moz-transform: scale(0, 0);
-    -ms-transform: scale(0, 0);
-    -o-transform: scale(0, 0);
-    transform: scale(0, 0);
-  }
-  100% {
-    -webkit-transform: scale(1, 1);
-    -moz-transform: scale(1, 1);
-    -ms-transform: scale(1, 1);
-    -o-transform: scale(1, 1);
-    transform: scale(1, 1);
-  }
-}
-
-.preloader__round {
-  width: 100px;
-  height: 100px;
+.preloader__outer,
+.preloader__middle,
+.preloader__inner {
+  border: 3px solid transparent;
+  border-radius: 50%;
   position: absolute;
-  top: 0;
-  left: 0;
-  background: var(--secondary-accent-blue-dark);
-  border-radius: 50px;
+  top: 50%;
+  left: 50%;
 }
 
-.preloader__round::after,
-.preloader__round::before {
-  content: '';
-  width: 100px;
-  height: 100px;
-  position: absolute;
-  top: 0;
-  left: 0;
-  border-radius: 50px;
+.preloader__outer {
+  border-top-color: var(--Primary-Accent);
+  border-right-color: var(--Primary-Accent);
+  width: 3.5em;
+  height: 3.5em;
+  margin-left: -1.75em;
+  margin-top: -1.75em;
+  animation: spin 2s linear infinite;
 }
 
-.preloader__round::after {
-  background: var(--gray-light);
-  animation: preloader-inside-gray 1s ease-in-out infinite;
+.preloader__middle {
+  border-top-color: var(--Primary-Accent);
+  border-right-color: var(--Primary-Accent);
+  width: 2.1em;
+  height: 2.1em;
+  margin-left: -1.05em;
+  margin-top: -1.05em;
+  animation: spin 1.75s linear reverse infinite;
 }
 
-.preloader__round::before {
-  z-index: 10;
-  background: var(--secondary-accent-blue-dark);
-  animation: preloader-inside-blue-dark 1s ease-in-out infinite;
+.preloader__inner {
+  border-top-color: var(--Primary-Accent);
+  border-right-color: var(--Primary-Accent);
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: -0.4em;
+  margin-top: -0.4em;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
