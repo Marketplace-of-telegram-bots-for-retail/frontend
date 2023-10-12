@@ -2,10 +2,16 @@ import React, { useEffect, useState } from 'react';
 import './Rating.css';
 import { useLocation, useParams } from 'react-router-dom';
 
+export const Rating = ({ ratingCard }) => {
+  /* пропсы onReviewClick, onStarClick */
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const location = useLocation();
   const { id } = useParams();
+
+  useEffect(() => {
+    ratingCard && setRating(ratingCard[0]);
+  }, [ratingCard]);
 
   function getNoun(number, one, two, five) {
     const space = ' ';
@@ -30,13 +36,17 @@ import { useLocation, useParams } from 'react-router-dom';
   const feedback = (number) => {
     return getNoun(number, 'отзыв', 'отзыва', 'отзывов');
   };
-  const handleOnReviewClick = () => {
-    if (location === '/') {
-      return;
-    }
-    // onReviewClick();
-    console.log('=> onReviewClick()');
-  };
+  // const handleOnReviewClick = () => {
+  //   if (location === '/') {
+  //     return;
+  //   }
+  //   // onReviewClick();
+  //   console.log('=> onReviewClick()');
+  // };
+
+  //   <span className='rating__feedback' onClick={() => handleOnReviewClick()}>
+  //   {feedback(ratingCard?.[1])}
+  // </span>
 
   return (
     <div className='card__rating rating'>
@@ -61,8 +71,10 @@ import { useLocation, useParams } from 'react-router-dom';
           );
         })}
       </div>
-      {location.pathname !== `/products/${id}` &&
-      <span className='rating__feedback'>{feedback(ratingCard[1])}</span>}
+
+      {location.pathname !== `/products/${id}` && (
+        <span className='rating__feedback'>{feedback(ratingCard[1])}</span>
+      )}
     </div>
   );
 };

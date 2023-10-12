@@ -7,7 +7,7 @@ const ProductInfo = ({ card, onLike }) => {
   return (
     <div className='product__good-info'>
       <div className='product__good-raiting'>
-        <StarRating />
+        <StarRating ratingCard={card.rating} />
         <p className='product__good-rewiew'>Оставить отзыв</p>
       </div>
       {/* <div className='product__good-raiting'>
