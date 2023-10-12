@@ -73,14 +73,14 @@ const Header = ({
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
-            {(cartPage && cartPage?.count !== 0) ? (
+            {(cartPage?.count > 0) ? (
               <span className='header__badge-counter'>1</span>
             ) : null}
             <span className='header__button-text'>Корзина</span>
           </Link>
           <Link to='/favorites' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_favorite'></span>
-            {favoritesPage && favoritesPage?.count !== 0 ? (
+            {favoritesPage.count > 0 ? (
               <span className='header__badge-counter'>
                 {favoritesPage?.count}
               </span>
