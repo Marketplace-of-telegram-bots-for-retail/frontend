@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import './Rating.css';
+import { useLocation, useParams } from 'react-router-dom';
 
 export const Rating = ({ ratingCard }) => {
   const [rating, setRating] = useState(ratingCard[0]);
   const [hover, setHover] = useState(0);
+  const location = useLocation();
+  const { id } = useParams();
 
   function getNoun(number, one, two, five) {
     const space = ' ';
@@ -51,7 +54,8 @@ export const Rating = ({ ratingCard }) => {
           );
         })}
       </div>
-      <span className='rating__feedback'>{feedback(ratingCard[1])}</span>
+      {location.pathname !== `/products/${id}` &&
+      <span className='rating__feedback'>{feedback(ratingCard[1])}</span>}
     </div>
   );
 };

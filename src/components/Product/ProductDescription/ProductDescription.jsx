@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProductDescription.css';
-import testVideo from '../../images/video.jpg';
+import testVideo from '../../../images/video.jpg';
 
 const ProductDescription = ({ card }) => {
   const { video } = card;

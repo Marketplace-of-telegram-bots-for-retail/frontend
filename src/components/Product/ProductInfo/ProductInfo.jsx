@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductInfo.css';
-import StarRating from '../StarRating/StarRating';
-import { LikeButton } from '../Buttons/LikeButton/LikeButton';
+import StarRating from '../../StarRating/StarRating';
+import { LikeButton } from '../../Buttons/LikeButton/LikeButton';
 
 const ProductInfo = ({ card, onLike }) => {
   return (
