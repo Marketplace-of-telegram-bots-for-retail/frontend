@@ -3,19 +3,18 @@ import { Link } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import AuthInput from '../AuthInput/AuthInput';
 import { ReactComponent as Eye } from '../../../images/eye1.svg';
-import { validateEmail, validatePassword } from '../../../utils/validation';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
+import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 
 const Login = (props) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [emailError, setEmailError] = useState('');
-  const [passwordError, setPasswordError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
+  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const { userType, rememberMe } = props;
+    const { email, password } = values;
     const formData = {
       userType,
       email,
@@ -30,8 +29,6 @@ const Login = (props) => {
     // if (!isLogin) {
     //   formData.confirmPassword = confirmPassword;
     // }
-
-    // Отправить formData на сервер
   };
   return (
     <>
@@ -42,33 +39,29 @@ const Login = (props) => {
         setRememberMe={props.setRememberMe}
         handleSubmit={handleSubmit}
         isLogin={props.isLogin}
+        isValid={isValid}
+        isCheckboxChecked={isCheckboxChecked}
+        setIsCheckboxChecked={setIsCheckboxChecked}
       >
         <AuthInput
           htmlFor='email'
-          id='email'
+          name='email'
           type='email'
-          error={emailError}
-          value={email}
-          onChange={(e) => {
-            const val = e.target.value;
-            setEmail(val);
-            setEmailError(validateEmail(val));
-          }}
-          onBlur={() => setEmail(email.trim())}
+          error={errors.email}
+          value={values.email ?? ''}
+          onChange={handleChange}
+          onBlur={() => console.log(123)}
           inputName='Почта'
         />
         <AuthInput
           htmlFor='password'
-          id='password'
+          name='password'
           type={showPassword ? 'text' : 'password'}
-          error={passwordError}
-          value={password}
-          onChange={(e) => {
-            const val = e.target.value;
-            setPassword(val);
-            setPasswordError(validatePassword(val, email));
-          }}
-          onBlur={() => setPassword(password.trim())}
+          error={errors.password}
+          value={values.password ?? ''}
+          onChange={handleChange}
+          // onBlur={() => setPassword(password.trim())}
+          onBlur={() => console.log(123)}
           inputName='Пароль'
         >
           <Eye

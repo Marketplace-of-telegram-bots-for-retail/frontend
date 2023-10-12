@@ -1,9 +1,9 @@
 import React from 'react';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import UserTypeBox from '../UserTypeBox/UserTypeBox';
+import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 
 const AuthForm = ({ children, ...props }) => {
-  // вынести кнопки переключения покупатель/продавец в один компонент
   return (
     <>
       {(props.isLogin || props.registerStep === 1) && (
@@ -16,38 +16,22 @@ const AuthForm = ({ children, ...props }) => {
       {!props.isLogin && (
         <RegisterStepsScale registerStep={props.registerStep} />
       )}
-      <form className='modal__form'>
+      <form className='modal__form' noValidate>
         <div className='modal__inputs'>
           {children}
           {props.isLogin ? (
-            <div className='modal__remember-checkbox'>
-              <button
-                type='button'
-                className={`modal__remember-icon ${
-                  props.rememberMe
-                    ? 'modal__remember-icon_checked'
-                    : 'modal__remember-icon_blank'
-                }`}
-                onClick={() => props.setRememberMe(!props.rememberMe)}
-              />
-              <span className='modal__span'>Запомнить меня</span>
-            </div>
+            <AuthCheckbox
+              checkboxType='remember-me'
+              isCheckboxChecked={props.isCheckboxChecked}
+              setIsCheckboxChecked={props.setIsCheckboxChecked}
+            />
           ) : (
             props.registerStep === 2 && (
-              <div className='modal__remember-checkbox'>
-                <button
-                  type='button'
-                  className={`modal__remember-icon ${
-                    props.rememberMe
-                      ? 'modal__remember-icon_checked'
-                      : 'modal__remember-icon_blank'
-                  }`}
-                  onClick={() => props.setRememberMe(!props.rememberMe)}
-                />
-                <span className='modal__span modal__span_type_policy'>
-                  Согласен с Политикой Конфиденциальности
-                </span>
-              </div>
+              <AuthCheckbox
+                checkboxType='privacy-policy'
+                isCheckboxChecked={props.isCheckboxChecked}
+                setIsCheckboxChecked={props.setIsCheckboxChecked}
+              />
             )
           )}
         </div>
@@ -55,6 +39,7 @@ const AuthForm = ({ children, ...props }) => {
           className='modal__submit-btn'
           type='submit'
           onClick={props.handleSubmit}
+          disabled={!props.isValid}
         >
           {props.isLogin
             ? 'Войти'
