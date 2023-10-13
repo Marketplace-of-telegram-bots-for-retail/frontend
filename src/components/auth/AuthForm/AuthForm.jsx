@@ -31,6 +31,8 @@ const AuthForm = ({ children, ...props }) => {
                 checkboxType='privacy-policy'
                 isCheckboxChecked={props.isCheckboxChecked}
                 setIsCheckboxChecked={props.setIsCheckboxChecked}
+                errorCheckbox={props.errorCheckbox}
+                setErrorCheckbox={props.setErrorCheckbox}
               />
             )
           )}

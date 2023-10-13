@@ -193,6 +193,10 @@
   background-image: url(../../../images/checked.svg);
 }
 
+.modal__remember-icon_error {
+  background-image: url(../../../images/error-checkbox.svg);
+}
+
 .modal__span {
   width: 100%;
   margin: 0;
