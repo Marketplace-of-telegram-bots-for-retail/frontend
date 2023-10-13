@@ -13,7 +13,7 @@ const ReviewCard = ({ review }) => {
           <span className='product__review-author'>{review.user}</span>
         </div>
         <div className='product__review-set'>
-          <span className='product__review-date'>{review.created}</span>
+          <span className='product__review-date'>{review.modified}</span>
           <Rating ratingCard={review.rating} />
         </div>
       </div>
