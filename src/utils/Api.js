@@ -34,6 +34,10 @@ class Api {
     }
 
     const res = await fetch(`${this._baseUrl}${url}${parameters}`, config);
+
+    if (url === '/auth/token/logout/') {
+      this._headers.Authorization = null;
+    }
     return this._checkResponse(res);
   };
 
