@@ -2,19 +2,19 @@
 // Импорты необходимых библиотек и компонентов
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { UserContext } from '../../context/userContext';
+import { CurrentUserContext } from '../../contexts/currentUserContext';
 import './Profile.css';
 import { profileNavigation } from '../../utils/constants';
 import { ReactComponent as ClosedEye } from '../../images/eye.svg';
 import { ReactComponent as OpenedEye } from '../../images/open_eye.svg';
+import avatar from '../../images/Avatar.png';
 
 // Компонент профиля пользователя
 const Profile = () => {
   // Получение текущего пользователя и функции setUser из контекста
-  const { user, setUser } = useContext(UserContext);
-
+  const currentUser = useContext(CurrentUserContext);
   // Локальное состояние для хранения данных пользователя во время редактирования
-  const [userData, setUserData] = useState(user);
+  const [userData, setUserData] = useState(currentUser);
 
   // Локальное состояние для хранения паролей во время редактирования
   const [passwordData, setPasswordData] = useState({
@@ -69,10 +69,10 @@ const Profile = () => {
 
     // Здесь можно отправить запрос на сервер для обновления данных пользователя
     // После успешного ответа обновляем данные пользователя в контексте
-    setUser(userData);
+    setCurrentUser(userData);
     setIsEditing(false);
 
-    console.log(user);
+    console.log(currentUser);
     console.log(passwordData);
   };
 
@@ -146,7 +146,7 @@ const Profile = () => {
             onMouseEnter={() => isEditing && setIsEditingPhoto(true)}
             onMouseLeave={() => setIsEditingPhoto(false)}
           >
-            <img src={user.photo} alt='avatar' />
+            <img src={avatar} alt='avatar' />
             {isEditing && isEditingPhoto && (
               <div className='profile__avatar-popup'>
                 <button type='button'>Добавить фото</button>
@@ -194,7 +194,7 @@ const Profile = () => {
                           ? 'введите текущий пароль'
                           : ''
                       }
-                      value={user[field.key]}
+                      value={currentUser[field.key]}
                       id={field.key}
                       onChange={(e) =>
                         handleInputChange(field.key, e.target.value, true)
@@ -250,7 +250,7 @@ const Profile = () => {
               <button
                 type='button'
                 onClick={() => {
-                  setUser({});
+                  setCurrentUser({});
                   navigate('/');
                 }}
               >

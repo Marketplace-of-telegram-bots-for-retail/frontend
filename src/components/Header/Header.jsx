@@ -1,22 +1,21 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
 import logo from '../../images/logo-color.png';
 import { useForm } from '../../hooks/useForm';
+import { CurrentUserContext } from '../../contexts/currentUserContext';
 
 const Header = ({
   showAuthButtons,
   setShowAuthButtons,
   favoritesPage,
   cartPage,
-  isAuthorized
+  isAuthorized,
 }) => {
+  const currentUser = useContext(CurrentUserContext);
   const { values, handleChange } = useForm();
   // Временные
-  const user = {
-    name: 'Валерка',
-  };
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log('handleSubmit =>', values.search);
@@ -72,7 +71,7 @@ const Header = ({
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
-            {(cartPage?.count > 0) ? (
+            {cartPage?.count > 0 ? (
               <span className='header__badge-counter'>1</span>
             ) : null}
             <span className='header__button-text'>Корзина</span>
@@ -101,7 +100,7 @@ const Header = ({
               onClick={() => handleLogin()}
             >
               <span className='header__button-icon header__button-icon_profile'></span>
-              <span className='header__button-text'>{user.name}</span>
+              <span className='header__button-text'>{currentUser.first_name}</span>
             </Link>
           )}
         </div>
