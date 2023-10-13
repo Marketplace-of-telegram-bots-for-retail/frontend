@@ -23,8 +23,8 @@ const Register = (props) => {
       JSON.stringify({
         userType,
         rememberMe,
-        name,
-        surname,
+        first_name: name,
+        last_name: surname,
         email,
       })
     );
@@ -38,8 +38,9 @@ const Register = (props) => {
       const { phone, password, confirmPassword } = values;
       formData.phone = phone;
       formData.password = password;
-      formData.confirmPassword = confirmPassword;
+      formData.re_password = confirmPassword;
       console.log(formData);
+      props.cbRegister(formData);
       localStorage.removeItem('registerFormData');
       props.setRegisterStep(3);
     } else {

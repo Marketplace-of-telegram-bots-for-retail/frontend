@@ -34,16 +34,15 @@
   margin: 0;
   width: 100%;
   border-radius: 8px;
-  border: 2px solid var(--Primary-Accent-Gradient, #7916E1);
-  background-color: white;
+  border: 2px solid var(--Primary-Accent);
+  background-color: var(--Primary-White);
   padding: 12px 14px;
   justify-content: center;
   align-items: center;
   
-  color: var(--Primary-Accent-Purple, #680BE0);
+  color: var(--Primary-Accent);
   text-align: center;
   font-size: 20px;
-  font-style: normal;
   font-weight: 500;
   line-height: 24px;
 
@@ -52,6 +51,6 @@
 }
 
 .auth-btns__btn_accent {
-  background: linear-gradient(270deg, #7916E1 0%, #680BE0 47.92%, #5500DE 100%);
-  color: white;
+  background: var(--Primary-Accent);
+  color: var(--Primary-White);
 }

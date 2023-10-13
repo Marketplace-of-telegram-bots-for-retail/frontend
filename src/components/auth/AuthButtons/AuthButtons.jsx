@@ -3,7 +3,7 @@ import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
 import { ReactComponent as Triangle } from '../../../images/triangle.svg';
 
-const AuthButtons = ({ cbLogIn, setAuthorized, isAuthorized }) => {
+const AuthButtons = ({ cbLogIn, cbRegister, setAuthorized, isAuthorized }) => {
   const [showModal, setShowModal] = useState(false);
   const [isLogin, setIsLogin] = useState(true); // true for login, false for signup
 
@@ -39,6 +39,7 @@ const AuthButtons = ({ cbLogIn, setAuthorized, isAuthorized }) => {
       setIsLogin={setIsLogin}
       onClose={() => setShowModal(false)}
       cbLogIn={cbLogIn}
+      cbRegister={cbRegister}
       setAuthorized={setAuthorized}
     />
   );

@@ -23,7 +23,8 @@ import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
 import { Preloader } from '../Preloader/Preloader';
 // Temp
-import { UserProvider } from '../../context/userContext';
+// import { UserProvider } from '../../context/userContext';
+import { CurrentUserContext } from '../../contexts/currentUserContext';
 
 const App = () => {
   // const location = useLocation();
@@ -32,7 +33,7 @@ const App = () => {
   const [showAuthButtons, setShowAuthButtons] = useState(false);
 
   const [isAuthorized, setAuthorized] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState({});
 
   // Проверить localStorage
   const checkLocalStorage = useCallback((key) => {
@@ -84,10 +85,10 @@ const App = () => {
       if (!jwt) {
         throw new Error('Ошибка, нет токена');
       }
-      const userAccaunt = await api.getUserMe();
-      console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userAccaunt);
-      if (userAccaunt) {
-        setCurrentUser(userAccaunt);
+      const userData = await api.getUserMe();
+      console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userData);
+      if (userData) {
+        setCurrentUser(userData);
         setAuthorized(true);
         // Загрузить избранные
         getFavoritesProducts();
@@ -182,6 +183,34 @@ const App = () => {
     }
   };
 
+  // Регистрация
+  const cbRegister = async (data) => {
+    setPreloader(true);
+    try {
+      await api.postUser(data);
+      cbLogIn(data);
+    } catch (err) {
+      console.log('cbRegister => err', err); // Консоль
+    } finally {
+      setPreloader(false);
+    }
+  };
+
+  // Логаут
+  const cbLogout = async () => {
+    setPreloader(true);
+    try {
+      await api.postLogOut();
+      localStorage.clear();
+      setAuthorized(false);
+      setCurrentUser({});
+    } catch (err) {
+      console.log('cbRegister => err', err); // Консоль
+    } finally {
+      setPreloader(false);
+    }
+  };
+
   // Временно автоматический вход
   // useEffect(() => {
   //   cbLogIn({
@@ -191,7 +220,7 @@ const App = () => {
   // }, []);
 
   return (
-    <UserProvider values={currentUser}>
+    <CurrentUserContext.Provider value={currentUser}>
       <div className='container'>
         <div className='inner-container'>
           {isPreloader && <Preloader />}
@@ -215,6 +244,7 @@ const App = () => {
                     <AuthButtons
                       setShowAuthButtons={setShowAuthButtons}
                       cbLogIn={cbLogIn}
+                      cbRegister={cbRegister}
                       setAuthorized={setAuthorized}
                       isAuthorized={isAuthorized}
                     />
@@ -245,7 +275,10 @@ const App = () => {
                 }
               />
               <Route path='/cart' element={<Cart />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route
+                path='/profile'
+                element={<Profile cbLogout={cbLogout} />}
+              />
 
               <Route
                 path='/contacts'
@@ -282,7 +315,7 @@ const App = () => {
           </Routes>
         </div>
       </div>
-    </UserProvider>
+    </CurrentUserContext.Provider>
   );
 };
 
