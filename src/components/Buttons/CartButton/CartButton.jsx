@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './CartButton.css';
 import IconPlus from '../../../images/ic_plus-24.svg';
 import IconMinus from '../../../images/ic_minus-24.svg';
@@ -25,11 +25,11 @@ export const CartButton = ({ parentClass }) => {
     console.log(isProductInTheCart);
   };
 
-  useEffect(() => {
-    isProductInTheCart
-      ? console.log('Отправить данные в корзину', isProductInTheCart)
-      : console.log('Удалить из корзины');
-  }, [isProductInTheCart]);
+  // useEffect(() => {
+  //   isProductInTheCart
+  //     ? console.log('Отправить данные в корзину', isProductInTheCart)
+  //     : console.log('Удалить из корзины');
+  // }, [isProductInTheCart]);
 
   const cartButtonCounter = (
     // <form action='' className='cart-button__wrapper' onSubmit={handleSubmit}>
