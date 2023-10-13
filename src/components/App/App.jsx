@@ -182,6 +182,19 @@ const App = () => {
     }
   };
 
+  // Регистрация
+  const cbRegister = async (data) => {
+    setPreloader(true);
+    try {
+      await api.postUser(data);
+      cbLogIn(data);
+    } catch (err) {
+      console.log('cbRegister => err', err); // Консоль
+    } finally {
+      setPreloader(false);
+    }
+  };
+
   // Временно автоматический вход
   // useEffect(() => {
   //   cbLogIn({
@@ -215,6 +228,7 @@ const App = () => {
                     <AuthButtons
                       setShowAuthButtons={setShowAuthButtons}
                       cbLogIn={cbLogIn}
+                      cbRegister={cbRegister}
                       setAuthorized={setAuthorized}
                       isAuthorized={isAuthorized}
                     />

@@ -50,7 +50,7 @@ export const useFormWithValidation = () => {
     phone = phone.trim();
     const phoneRegex = /\d$/;
     if (!phoneRegex.test(phone)) return 'Only digits';
-    if (phone.length !== 10) return 'Invalid length of phone number';
+    if (phone.length < 10 || phone.length > 12) return 'Invalid length of phone number';
     return '';
   };
 
