@@ -196,6 +196,21 @@ const App = () => {
     }
   };
 
+  // Логаут
+  const cbLogout = async () => {
+    setPreloader(true);
+    try {
+      await api.postLogOut();
+      localStorage.clear();
+      setAuthorized(false);
+      setCurrentUser({});
+    } catch (err) {
+      console.log('cbRegister => err', err); // Консоль
+    } finally {
+      setPreloader(false);
+    }
+  };
+
   // Временно автоматический вход
   // useEffect(() => {
   //   cbLogIn({
@@ -260,7 +275,10 @@ const App = () => {
                 }
               />
               <Route path='/cart' element={<Cart />} />
-              <Route path='/profile' element={<Profile />} />
+              <Route
+                path='/profile'
+                element={<Profile cbLogout={cbLogout} />}
+              />
 
               <Route
                 path='/contacts'

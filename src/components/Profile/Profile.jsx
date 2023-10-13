@@ -10,11 +10,12 @@ import { ReactComponent as OpenedEye } from '../../images/open_eye.svg';
 import avatar from '../../images/Avatar.png';
 
 // Компонент профиля пользователя
-const Profile = () => {
+const Profile = (props) => {
   // Получение текущего пользователя и функции setUser из контекста
   const currentUser = useContext(CurrentUserContext);
   // Локальное состояние для хранения данных пользователя во время редактирования
   const [userData, setUserData] = useState(currentUser);
+  console.log(currentUser);
 
   // Локальное состояние для хранения паролей во время редактирования
   const [passwordData, setPasswordData] = useState({
@@ -250,7 +251,7 @@ const Profile = () => {
               <button
                 type='button'
                 onClick={() => {
-                  setCurrentUser({});
+                  props.cbLogout();
                   navigate('/');
                 }}
               >
