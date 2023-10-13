@@ -120,8 +120,8 @@ const Register = (props) => {
                 onChange={handleChange}
                 // onBlur={() => setPhone(phone.trim())}
                 inputName='Телефон'
+                placeholder='+7'
               >
-                <span className='modal__phone-span'>+7</span>
               </AuthInput>
               <AuthInput
                 htmlFor='password'

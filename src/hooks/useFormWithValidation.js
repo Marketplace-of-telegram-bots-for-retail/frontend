@@ -11,13 +11,13 @@ export const useFormWithValidation = () => {
     email = email.trim();
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
     if (email.length < 7 || email.length > 129) {
-      return 'Invalid length for email.';
+      return 'Длина почты от 7 до 129 символов';
     }
     if (!emailRegex.test(email)) {
-      return 'Email format is invalid.';
+      return 'Невалидный формат почты';
     }
     if (email.split('@').length > 2) {
-      return "Email must contain only one '@' symbol.";
+      return "Почта должна содержать не более одного '@' символа";
     }
     return '';
   };
@@ -26,13 +26,13 @@ export const useFormWithValidation = () => {
     pass = pass.trim();
     const passRegex = /^[a-zA-Z0-9!#$%.]*$/;
     if (pass.length < 8 || pass.length > 40) {
-      return 'Invalid length for password.';
+      return 'Длина пароля от 8 до 40 символов';
     }
-    if (pass === email) return 'Email and password cannot be the same.';
+    if (pass === email) return 'Почта и пароль не могут быть одинаковыми';
     if (!(/[a-zA-Z]/.test(pass) && /[0-9]/.test(pass))) {
-      return 'Password must contain both numbers and letters.';
+      return 'Пароль должен содержать цифры и буквы';
     }
-    if (!passRegex.test(pass)) return 'Invalid password format.';
+    if (!passRegex.test(pass)) return 'Неверный формат пароля';
     return '';
   };
 
@@ -41,22 +41,22 @@ export const useFormWithValidation = () => {
     const nameRegex = /[а-яё]/gi;
     if (!nameRegex.test(name)) return 'Только кириллица';
     if (name.length < 1 || name.length > 50) {
-      return 'Invalid length for name.';
+      return 'Имя должно содержать не меньше 1 и не больше 50 букв';
     }
     return '';
   };
 
   const _isValidPhone = (phone) => {
     phone = phone.trim();
-    const phoneRegex = /\d$/;
-    if (!phoneRegex.test(phone)) return 'Only digits';
-    if (phone.length < 10 || phone.length > 12) return 'Invalid length of phone number';
+    const phoneRegex = /^\+7\s?[0-7|9]?[0-9]{2}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}/;
+    if (!phoneRegex.test(phone)) return 'Неверный формат номера телефона';
+    if (phone.length < 11 || phone.length > 13) return 'Длина номера телефона - от 10 до 12 цифр';
     return '';
   };
 
   const _validateConfirmPassword = (confirmPass, password) => {
     confirmPass = confirmPass.trim();
-    if (confirmPass !== password) return 'Passwords do not match.';
+    if (confirmPass !== password) return 'Пароли не совпадают';
     // return _isValidPassword(confirmPass);
     return '';
   };
