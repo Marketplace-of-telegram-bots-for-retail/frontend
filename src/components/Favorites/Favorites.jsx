@@ -6,7 +6,7 @@ import { EmptyPage } from '../EmptyPage/EmptyPage';
 export const Favorites = ({ favoritesPage, onLike }) => {
   favoritesPage;
   const [isLikeCards, setLikeCards] = useState(false);
-  console.log(favoritesPage);
+  // console.log(favoritesPage);
   useEffect(() => {
     setLikeCards(() => {
       if (favoritesPage?.count === 0) {

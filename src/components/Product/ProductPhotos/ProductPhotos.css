@@ -45,7 +45,7 @@
 
 .product-photos__button-scroll_type_up {
     top: 0;
-    background: url(../../images/ep_arrow-up.svg);
+    background: url(../../../images/ep_arrow-up.svg);
     background-repeat: no-repeat;
     background-position: top 80% center;
     background-color: rgba(0, 0, 0, 0.30);
@@ -54,7 +54,7 @@
 
 .product-photos__button-scroll_type_down {
     bottom: 0;
-    background: url(../../images/ep_arrow-down.svg);
+    background: url(../../../images/ep_arrow-down.svg);
     background-repeat: no-repeat;
     background-position: top 80% center;
     background-color: rgba(0, 0, 0, 0.30);

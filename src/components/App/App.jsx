@@ -60,7 +60,7 @@ const App = () => {
           throw new Error('Ошибка, нет токена');
         }
         const data = await api.getProducts(`?is_favorited=True${params || ''}`);
-        console.log('getFavoritesProducts => data', data);
+        // console.log('getFavoritesProducts => data', data);
         localStorage.setItem(
           'currentFavorites',
           // JSON.stringify(data.results)

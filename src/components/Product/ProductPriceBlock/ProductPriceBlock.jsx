@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductPriceBlock.css';
 import ProductPrice from '../ProductPrice/ProductPrice';
-import info from '../../images/octicon_info-24.svg';
+import info from '../../../images/octicon_info-24.svg';
 
 const ProductPriceBlock = ({ card }) => {
   return (
