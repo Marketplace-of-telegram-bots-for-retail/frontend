@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Poster.css';
 
-export const Poster = ({ onClick }) => {
-  return (
+export const Poster = () => {
+  const [isOpen, setIsOpen] = useState(true);
+  return isOpen ? (
     <article className='content__poster poster'>
       <div className='poster__wrapper'>
         <div className='poster__inner-wrapper'>
@@ -15,7 +16,11 @@ export const Poster = ({ onClick }) => {
           </p>
         </div>
         <div className='poster__images'></div>
-        <button type='button' className='poster__button' onClick={onClick}>
+        <button
+          type='button'
+          className='poster__button'
+          onClick={() => setIsOpen(false)}
+        >
           <svg
             className='poster__button-svg'
             width='24'
@@ -29,5 +34,5 @@ export const Poster = ({ onClick }) => {
         </button>
       </div>
     </article>
-  );
+  ) : null;
 };
