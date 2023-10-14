@@ -1,4 +1,5 @@
 import React from 'react';
+import './UserTypeBox.css';
 
 const UserTypeBox = (props) => {
   return (
@@ -7,7 +8,7 @@ const UserTypeBox = (props) => {
         className={`modal__user-type-btn ${
           props.userType === 'Покупатель'
             ? 'modal__user-type-btn_active'
-            : 'modal__user-type-btn_inactive'
+            : ''
         }`}
         type='button'
         onClick={() => props.setUserType('Покупатель')}
@@ -18,7 +19,7 @@ const UserTypeBox = (props) => {
         className={`modal__user-type-btn ${
           props.userType === 'Продавец'
             ? 'modal__user-type-btn_active'
-            : 'modal__user-type-btn_inactive'
+            : ''
         }`}
         type='button'
         onClick={() => props.setUserType('Продавец')}

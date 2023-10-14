@@ -1,0 +1,28 @@
+.modal__checkbox {
+  display: flex;
+  flex-direction: row;
+  gap: 7px;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.modal__icon {
+  all: unset;
+  cursor: pointer;
+  height: 17px;
+  width: 17px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.modal__icon_type_blank {
+  background-image: url(../../../images/blank.svg);
+}
+
+.modal__icon_type_checked {
+  background-image: url(../../../images/checked.svg);
+}
+
+.modal__icon_type_error {
+  background-image: url(../../../images/error-checkbox.svg);
+}

@@ -34,31 +34,32 @@ const AuthButtons = ({
 
   return !showModal ? (
     !isAuthorized && (
-      <div className='page__modal modal' onClick={(e) => handleOverlay(e)}>
-        <div className='modal__auth-btns auth-btns'>
-          <div className='auth-btns__container'>
-            <Triangle className='auth-btns__triangle' />
-            <button
-              className='auth-btns__btn auth-btns__btn_accent'
-              type='button'
-              onClick={() => {
-                setIsLogin(true);
-                setShowModal(true);
-              }}
-            >
-              Войти
-            </button>
-            <button
-              className='auth-btns__btn'
-              type='button'
-              onClick={() => {
-                setIsLogin(false);
-                setShowModal(true);
-              }}
-            >
-              Зарегистрироваться
-            </button>
-          </div>
+      <div
+        className='auth-buttons page__modal modal'
+        onClick={(e) => handleOverlay(e)}
+      >
+        <div className='auth-buttons__container'>
+          <Triangle className='auth-buttons__triangle' />
+          <button
+            className='auth-buttons__button auth-buttons__button_accent'
+            type='button'
+            onClick={() => {
+              setIsLogin(true);
+              setShowModal(true);
+            }}
+          >
+            Войти
+          </button>
+          <button
+            className='auth-buttons__button'
+            type='button'
+            onClick={() => {
+              setIsLogin(false);
+              setShowModal(true);
+            }}
+          >
+            Зарегистрироваться
+          </button>
         </div>
       </div>
     )

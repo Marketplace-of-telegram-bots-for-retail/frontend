@@ -1,6 +1,7 @@
 import React from 'react';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
+import './AuthForm.css';
 
 const AuthForm = ({ children, ...props }) => {
   return (
@@ -30,7 +31,7 @@ const AuthForm = ({ children, ...props }) => {
           )}
         </div>
         <button
-          className='modal__submit-btn'
+          className='modal__button_type_submit'
           type='submit'
           onClick={props.handleSubmit}
           disabled={!props.isValid}
