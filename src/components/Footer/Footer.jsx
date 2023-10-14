@@ -20,7 +20,11 @@ export const Footer = () => {
             );
           })}
         </div>
-        <p className='footer__copyright'>© 2023 Botmarketplace</p>
+        <p className='footer__copyright'>
+          &copy;
+          {` ${new Date().getFullYear()} `}
+          Botmarketplace
+        </p>
       </div>
     </footer>
   );
