@@ -193,6 +193,7 @@ const App = () => {
       console.log('cbRegister => err', err); // Консоль
     } finally {
       setPreloader(false);
+      localStorage.removeItem('registerFormData');
     }
   };
 
@@ -221,6 +222,7 @@ const App = () => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
+<<<<<<< HEAD
       {isPreloader && <Preloader />}
       {showAuthButtons && (
         <AuthButtons
@@ -245,6 +247,64 @@ const App = () => {
                 favoritesPage={currentFavorites}
                 cartPage={undefined}
                 isAuthorized={isAuthorized}
+=======
+      <div className='container'>
+        <div className='inner-container'>
+          {isPreloader && <Preloader />}
+          <Routes>
+            {/* 1 Уровень вложенности */}
+            <Route
+              path='/'
+              element={
+                <>
+                  <Header
+                    showAuthButtons={showAuthButtons}
+                    setShowAuthButtons={setShowAuthButtons}
+                    // onClickMyFavorites={() => getFavoritesProducts()}
+                    favoritesPage={currentFavorites}
+                    cartPage={undefined}
+                    isAuthorized={isAuthorized}
+                  />
+                  <Outlet />
+                  <Footer />
+                  {showAuthButtons && (
+                    <AuthButtons
+                      setShowAuthButtons={setShowAuthButtons}
+                      cbLogIn={cbLogIn}
+                      cbRegister={cbRegister}
+                      isAuthorized={isAuthorized}
+                    />
+                  )}
+                </>
+              }
+            >
+              {/* 2 Уровень вложенности */}
+              <Route
+                index
+                element={
+                  <main>
+                    <Poster />
+                    <Title />
+                    <Content productsPage={currentProdacts} onLike={cbLike} />
+                  </main>
+                }
+              />
+              <Route
+                path='/products/:id'
+                element={<Product onLike={cbLike} />}
+              />
+              <Route path='*' element={<ErrorPage pageNotFound />} />
+              <Route
+                path='/favorites'
+                element={
+                  <Favorites favoritesPage={currentFavorites} onLike={cbLike} />
+                }
+              />
+              <Route path='/cart' element={<Cart />} />
+              <Route
+                path='/profile'
+                element={<Profile cbLogout={cbLogout} />}
+>>>>>>> feature/auth-modal-new
               />
               <Main>
                 <Outlet />

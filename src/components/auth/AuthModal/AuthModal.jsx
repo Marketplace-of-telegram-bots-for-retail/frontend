@@ -11,9 +11,7 @@ const AuthModal = ({
   setIsLogin,
   cbLogIn,
   cbRegister,
-  setAuthorized,
 }) => {
-  const [userType, setUserType] = useState('Покупатель');
   const [rememberMe, setRememberMe] = useState(false);
   const [registerStep, setRegisterStep] = useState(1);
 
@@ -32,20 +30,15 @@ const AuthModal = ({
         {isLogin ? (
           <Login
             isLogin={isLogin}
-            userType={userType}
-            setUserType={setUserType}
             rememberMe={rememberMe}
             setRememberMe={setRememberMe}
             onToggleFormClick={() => setIsLogin(false)}
             cbLogIn={cbLogIn}
             handleClose={onClose}
-            setAuthorized={setAuthorized}
           />
         ) : (
           <Register
             isLogin={isLogin}
-            userType={userType}
-            setUserType={setUserType}
             rememberMe={rememberMe}
             setRememberMe={setRememberMe}
             onToggleFormClick={() => setIsLogin(true)}

@@ -13,7 +13,8 @@ const Register = (props) => {
   const [errorMessage, setErrorMessage] = useState('');
   const [errorCheckbox, setErrorCheckbox] = useState(false);
 
-  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const { values, onBlur, handleChange, errors, isValid } =
+    useFormWithValidation();
 
   const handleStepOne = (e) => {
     e.preventDefault();
@@ -42,23 +43,16 @@ const Register = (props) => {
       formData.re_password = confirmPassword;
       console.log(formData);
       props.cbRegister(formData);
-      localStorage.removeItem('registerFormData');
       props.setRegisterStep(3);
     } else {
       setErrorMessage('Необходимо согласиться с Политикой Конфиденциальности');
       setErrorCheckbox(true);
     }
-
-    // if (!isLogin) {
-    //   formData.confirmPassword = confirmPassword;
-    // }
   };
   return (
     <>
       {props.registerStep === 1 || props.registerStep === 2 ? (
         <AuthForm
-          userType={props.userType}
-          setUserType={props.setUserType}
           rememberMe={props.rememberMe}
           setRememberMe={props.setRememberMe}
           handleSubmit={
@@ -83,8 +77,7 @@ const Register = (props) => {
                 error={errors.name}
                 value={values.name ?? ''}
                 onChange={handleChange}
-                // onBlur={() => setName(name.trim())}
-                onBlur={() => console.log('')}
+                onBlur={onBlur}
                 inputName='Имя'
                 placeholder='Иван'
               ></AuthInput>
@@ -95,7 +88,7 @@ const Register = (props) => {
                 error={errors.surname}
                 value={values.surname ?? ''}
                 onChange={handleChange}
-                // onBlur={() => setSurname(surname.trim())}
+                onBlur={onBlur}
                 inputName='Фамилия'
                 placeholder='Иванов'
               ></AuthInput>
@@ -106,8 +99,7 @@ const Register = (props) => {
                 error={errors.email}
                 value={values.email ?? ''}
                 onChange={handleChange}
-                // onBlur={() => setEmail(email.trim())}
-                onBlur={() => console.log('')}
+                onBlur={onBlur}
                 inputName='Почта'
                 placeholder='example@mail.ru'
               />
@@ -122,11 +114,10 @@ const Register = (props) => {
                 error={errors.phone}
                 value={values.phone ?? ''}
                 onChange={handleChange}
-                // onBlur={() => setPhone(phone.trim())}
+                onBlur={onBlur}
                 inputName='Телефон'
                 placeholder='+7'
-              >
-              </AuthInput>
+              ></AuthInput>
               <AuthInput
                 htmlFor='password'
                 name='password'
@@ -134,8 +125,7 @@ const Register = (props) => {
                 error={errors.password}
                 value={values.password ?? ''}
                 onChange={handleChange}
-                // onBlur={() => setPassword(password.trim())}
-                onBlur={() => console.log('')}
+                onBlur={onBlur}
                 inputName='Пароль'
               >
                 <Eye
@@ -152,7 +142,7 @@ const Register = (props) => {
                 error={errors.confirmPassword}
                 value={values.confirmPassword ?? ''}
                 onChange={handleChange}
-                // onBlur={() => setConfirmPassword(confirmPassword.trim())}
+                onBlur={onBlur}
                 inputName='Повторите пароль'
               >
                 <Eye
