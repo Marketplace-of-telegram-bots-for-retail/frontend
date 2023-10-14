@@ -1,62 +1,41 @@
-/*page*/
-@import url(./blocks/page/page.css);
 /* normilize */
-@import url(./vendor/normalize.css); 
+@import url(./vendor/normalize.css);
 /*fonts*/
 @import url(./vendor/fonts.css);
 
-* {
-  box-sizing: border-box;
+:root {
+  --text-color: #7e7e7e;
+  --s-indent: 1.62rem;
+  --gradient-primary: linear-gradient(
+    270deg,
+    #7916e1 0%,
+    #680be0 47.92%,
+    #5500de 100%
+  );
+  --Primary-White: #fdfdfd;
+  --letter-space: 0.5px;
+  --Input-Text: #cccccc;
+  --Accent-Purple: #680be0;
+  --Accent-Orange: #ff8f6e;
+  --Primary-Black: #1e1e1e;
+  --Primary-Accent: #726efa;
+  --Primary-Accent-Magenta: #ea248a;
+  --Secondary-Accent-Blue-Dark: #352df2;
+  --Secondary-Purple-Light: #b2b0ff;
+  --Gray-Light: #8e8e8e;
+  --Gray-Medium: #7e7e7e;
+  --Gray-Dark: #737373;
+  --Gray-Additional: #9fa1a5;
+  --Card-Peach: #ffb19a;
+  --Card-Yellow: #fcd78c;
+  --Card-Green: #66d4b9;
+  --Card-Blue: #bad8f9;
+  --Card-Gray: #dddcdf;
+  --Error: #ff2455;
+  --Rating: #f1c644;
 }
 
-  /* Перенес, закоментил */
-/*container*/
-/* @import url(../blocks/container/container.css); */
-/*inner-container*/
-/* @import url(../blocks/inner-container/inner-container.css); */
-
-/*header*/
-  /* Перенес, закоментил */
-/* @import url(../blocks/header/header.css);
-@import url(../blocks/header/__nav/header__nav.css);
-@import url(../blocks/header/__link/header__link.css);
-@import url(../blocks/header/__link-seller/header__link-seller.css);
-@import url(../blocks/header/__basis/header__basis.css);
-@import url(../blocks/header/__logo/header__logo.css);
-@import url(../blocks/header/__catalog/header__catalog.css);
-@import url(../blocks/header/__catalog-text/header__catalog-text.css);
-@import url(../blocks/header/__catalog-container/header__catalog-container.css);
-@import url(../blocks/header/__input/header__input.css);
-@import url(../blocks/header/__search-button/header__search-button.css);
-@import url(../blocks/header/__search-icon/header__search-icon.css);
-@import url(../blocks/header/__cart-button/header__cart-button.css);
-@import url(../blocks/header/__favourite-button/header__favourite-button.css);
-@import url(../blocks/header/__enter-button/header__enter-button.css); */
-
-/*poster*/
-  /* Перенес, закоментил */
-/* @import url(../blocks/poster/poster.css); */
-
-/*title*/
-  /* Перенес, закоментил */
-/* @import url(../blocks/title/title.css); */
-
-/*content*/
-  /* Перенес, закоментил */
-/* @import url(../blocks/content/content.css); */
-
-/*categories*/
-  /* Перенес, закоментил */
-/* @import url(../blocks/categories/categories.css);
-@import url(../blocks/categories/__title/categories__title.css);
-@import url(../blocks/categories/__input/categories__input.css);
-@import url(../blocks/categories/__label/categories__label.css);
-@import url(../blocks/categories/__input-container/categories__input-container.css); */
-
-/*prices*/
-  /* Перенес, закоментил */
-/* @import url(../blocks/prices/__box/prices__box.css); */
-
-/*mui-slider*/
-  /* Перенес  в Prices, закоментил */
-/* @import url(./blocks/mui-slider/mui-slider.css); */
+* {
+  box-sizing: border-box;
+  outline: 1px solid pink;
+}

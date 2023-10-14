@@ -4,10 +4,10 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { collecPricesInfo } from '../../store/priceFormSubmitSlice';
-import './Prices.css';
+import { collecPricesInfo } from '../../../store/priceFormSubmitSlice';
+import './PriceSlider.css';
 
-const Prices = () => {
+export const PriceSlider = () => {
   const [value, setValue] = React.useState([0, 0]);
   const dispatch = useDispatch();
 
@@ -38,11 +38,10 @@ const Prices = () => {
     }
   };
   return (
-    <>
-      <section style={{ marginTop: '2rem', marginLeft: 'var(  --s-indent)' }}>
-        <h3 className='categories__title'>Цена</h3>
-      </section>
-      <Box className='prices__box' sx={{ width: 290 }}>
+    <div className='filters__price-slider price-slider'>
+      <h2 className='price-slider__title'>Цена</h2>
+
+      <Box className='price-slider__box'>
         <Slider
           value={value}
           onChange={handleChangeSlider}
@@ -57,24 +56,22 @@ const Prices = () => {
           }}
         />
       </Box>
-      <div className='prices__input-container'>
+      <div className='price-slider__input-wrapper'>
         <input
           placeholder='от 0'
-          className='prices__input'
+          className='price-slider__input'
           type='text'
           value={!Number(value[0]) ? '' : value[0]}
           onChange={(e) => handleChange(e, 0)}
         />
         <input
           placeholder='до 5000'
-          className='prices__input'
+          className='price-slider__input'
           type='text'
           value={!Number(value[1]) ? '' : value[1]}
           onChange={(e) => handleChange(e, 1)}
         />
       </div>
-    </>
+    </div>
   );
 };
-
-export default Prices;

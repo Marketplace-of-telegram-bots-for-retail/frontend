@@ -1,3 +1,14 @@
 .content__showcase {
-  margin-right: var(--s-indent);
+  margin: 0;
+}
+
+.showcase__wrapper {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  width: 100%;
+  gap: 40px;
+}
+
+.showcase__wrap {
+  margin: 0;
 }
