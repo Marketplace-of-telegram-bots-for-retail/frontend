@@ -7,13 +7,13 @@ import ProductInfo from './ProductInfo/ProductInfo';
 import ProductDetails from './ProductDetails/ProductDetails';
 import PopupImage from '../PopupImage/PopupImage';
 import { api } from '../../utils/Api';
-// import mainApi from '../../utils/MainApi';
 
 const Product = ({ onLike }) => {
   const { id } = useParams();
   const [card, setCard] = useState({});
   const [reviews, setReviews] = useState([]);
-  // const [review, setReview] = useState({});
+  const [review, setReview] = useState({});
+  const [ratingFeedback, setRatingFeedback] = useState('show');
   const [showProductPopup, setShowProductPopup] = useState(false);
 
   useEffect(() => {
@@ -46,21 +46,17 @@ const Product = ({ onLike }) => {
   function sendFeedback(id, data) {
     api.postProductsReview(id, data)
       .then((newReview) => {
-        // setReview(newReview);
-        setReviews(newReview);
-        console.log(newReview);
+        setReview(newReview);
+        console.log(review);
       })
       .catch(console.error);
-    console.log(data);
-    console.log(id);
-    // console.log(review);
   }
 
   return (
     <section className='product'>
       <BreadCrumbs card={card} />
       <ProductTitle card={card} />
-      <ProductInfo card={card} onLike={onLike} />
+      <ProductInfo card={card} onLike={onLike} ratingFeedback={ratingFeedback} setRatingFeedback={setRatingFeedback} />
       <ProductDetails
         card={card}
         showProductPopup={showProductPopup}
@@ -68,6 +64,8 @@ const Product = ({ onLike }) => {
         handleFullScreenClick={handleFullScreenClick}
         reviews={reviews}
         sendFeedback={sendFeedback}
+        ratingFeedback={ratingFeedback}
+        setRatingFeedback={setRatingFeedback}
       />
       {showProductPopup && <PopupImage card={card} onClose={closePopup} />}
     </section>

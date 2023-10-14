@@ -6,6 +6,15 @@
     margin-bottom: 54px;
 }
 
+.product__rewiews-none {
+    margin: 66px 0 80px;
+    color: var(--Primary-Black);
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+}
+
 .product__reviews-group {
     display: flex;
     flex-direction: column;

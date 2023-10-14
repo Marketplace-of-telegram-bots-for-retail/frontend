@@ -7,14 +7,15 @@ export const Rating = ({
   onStarClick,
   onReviewClick,
   starsFeedback,
-  setStar
+  setStar,
+  ratingFeedback
 }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const location = useLocation();
   const { id } = useParams();
   useEffect(() => {
-    ratingCard ? setRating(ratingCard[0]) : setRating(starsFeedback);
+    ratingCard ? setRating(ratingCard[0] || ratingCard) : setRating(starsFeedback);
   }, [ratingCard, starsFeedback]);
 
   function getNoun(number, one, two, five) {
@@ -101,7 +102,7 @@ export const Rating = ({
           return returnStarElement(index);
         })}
       </div>
-      {renderFeedback()}
+      {ratingFeedback !== 'without' && renderFeedback()}
     </div>
   );
 };

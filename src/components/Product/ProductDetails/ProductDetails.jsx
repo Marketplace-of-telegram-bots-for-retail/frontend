@@ -3,10 +3,24 @@ import './ProductDetails.css';
 import ProductDetail from '../ProductDetail/ProductDetail';
 import ProductPriceBlock from '../ProductPriceBlock/ProductPriceBlock';
 
-const ProductDetails = ({ card, handleFullScreenClick, reviews, sendFeedback }) => {
+const ProductDetails = ({
+  card,
+  handleFullScreenClick,
+  reviews,
+  sendFeedback,
+  ratingFeedback,
+  setRatingFeedback
+}) => {
   return (
     <div className='product__good-details'>
-      <ProductDetail card={card} handleFullScreenClick={handleFullScreenClick} reviews={reviews} sendFeedback={sendFeedback} />
+      <ProductDetail
+        card={card}
+        handleFullScreenClick={handleFullScreenClick}
+        reviews={reviews}
+        sendFeedback={sendFeedback}
+        ratingFeedback={ratingFeedback}
+        setRatingFeedback={setRatingFeedback}
+      />
       <ProductPriceBlock card={card} />
     </div>
   );
