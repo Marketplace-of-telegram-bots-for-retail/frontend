@@ -29,8 +29,6 @@ const Login = (props) => {
   return (
     <>
       <AuthForm
-        userType={props.userType}
-        setUserType={props.setUserType}
         rememberMe={props.rememberMe}
         setRememberMe={props.setRememberMe}
         handleSubmit={handleSubmit}

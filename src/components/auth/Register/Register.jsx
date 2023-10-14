@@ -53,8 +53,6 @@ const Register = (props) => {
     <>
       {props.registerStep === 1 || props.registerStep === 2 ? (
         <AuthForm
-          userType={props.userType}
-          setUserType={props.setUserType}
           rememberMe={props.rememberMe}
           setRememberMe={props.setRememberMe}
           handleSubmit={
