@@ -225,6 +225,7 @@ const App = () => {
       {showAuthButtons && (
         <AuthButtons
           setShowAuthButtons={setShowAuthButtons}
+          showAuthButtons
           cbLogIn={cbLogIn}
           cbRegister={cbRegister}
           setAuthorized={setAuthorized}
