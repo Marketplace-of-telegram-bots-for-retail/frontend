@@ -8,7 +8,8 @@ import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 
 const Login = (props) => {
   const [showPassword, setShowPassword] = useState(false);
-  const { values, handleChange, errors, isValid } = useFormWithValidation();
+  const { values, onBlur, handleChange, errors, isValid } =
+    useFormWithValidation();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   const handleSubmit = (e) => {
@@ -23,12 +24,7 @@ const Login = (props) => {
     };
     console.log(formData);
     props.cbLogIn(formData);
-    props.setAuthorized(true);
     props.handleClose();
-
-    // if (!isLogin) {
-    //   formData.confirmPassword = confirmPassword;
-    // }
   };
   return (
     <>
@@ -50,7 +46,7 @@ const Login = (props) => {
           error={errors.email}
           value={values.email ?? ''}
           onChange={handleChange}
-          onBlur={() => console.log(123)}
+          onBlur={onBlur}
           inputName='Почта'
         />
         <AuthInput
@@ -60,8 +56,7 @@ const Login = (props) => {
           error={errors.password}
           value={values.password ?? ''}
           onChange={handleChange}
-          // onBlur={() => setPassword(password.trim())}
-          onBlur={() => console.log(123)}
+          onBlur={onBlur}
           inputName='Пароль'
         >
           <Eye
