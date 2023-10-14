@@ -16,12 +16,15 @@ const ProductReviews = ({ reviews, sendFeedback }) => {
     <div className='product__rewiews'>
       <ul className='product__reviews-group'>
         {reviews.slice(0, count).map((review) => {
-          return (
-            <ReviewCard key={review.id} review={review} />
-          );
-        })}
+            return <ReviewCard key={review.id} review={review} />;
+          })}
       </ul>
-      <ProductReviewInitial reviews={reviews} count={count} sendFeedback={sendFeedback} handleShowAllReviews={handleShowAllReviews} />
+      <ProductReviewInitial
+        reviews={reviews}
+        count={count}
+        sendFeedback={sendFeedback}
+        handleShowAllReviews={handleShowAllReviews}
+      />
     </div>
   );
 };
