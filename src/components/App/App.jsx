@@ -10,18 +10,18 @@ import {
 import './App.css';
 import { api } from '../../utils/Api';
 import Header from '../Header/Header';
-import Poster from '../Poster/Poster';
-import Title from '../Title/Title';
-import { Content } from '../Content/Content';
+import { Poster } from '../Poster/Poster';
 import AuthButtons from '../auth/AuthButtons/AuthButtons';
 import Product from '../Product/Product';
-import Footer from '../Footer/Footer';
+import { Footer } from '../Footer/Footer';
 import Cart from '../Cart/Cart';
 import Profile from '../Profile/Profile';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import { ErrorPage } from '../ErrorPage/ErrorPage';
 import { Favorites } from '../Favorites/Favorites';
 import { Preloader } from '../Preloader/Preloader';
+import { Main } from '../Main/Main';
+import { Showcase } from '../Showcase/Showcase';
 // Temp
 // import { UserProvider } from '../../context/userContext';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
@@ -221,100 +221,91 @@ const App = () => {
 
   return (
     <CurrentUserContext.Provider value={currentUser}>
-      <div className='container'>
-        <div className='inner-container'>
-          {isPreloader && <Preloader />}
-          <Routes>
-            {/* 1 Уровень вложенности */}
-            <Route
-              path='/'
-              element={
-                <>
-                  <Header
-                    showAuthButtons={showAuthButtons}
-                    setShowAuthButtons={setShowAuthButtons}
-                    // onClickMyFavorites={() => getFavoritesProducts()}
-                    favoritesPage={currentFavorites}
-                    cartPage={undefined}
-                    isAuthorized={isAuthorized}
-                  />
-                  <Outlet />
-                  <Footer />
-                  {showAuthButtons && (
-                    <AuthButtons
-                      setShowAuthButtons={setShowAuthButtons}
-                      cbLogIn={cbLogIn}
-                      cbRegister={cbRegister}
-                      setAuthorized={setAuthorized}
-                      isAuthorized={isAuthorized}
-                    />
-                  )}
-                </>
-              }
-            >
-              {/* 2 Уровень вложенности */}
-              <Route
-                index
-                element={
-                  <main>
-                    <Poster />
-                    <Title />
-                    <Content productsPage={currentProdacts} onLike={cbLike} />
-                  </main>
-                }
+      {isPreloader && <Preloader />}
+      <Routes>
+        {/* 1 Уровень вложенности */}
+        <Route
+          path='/'
+          element={
+            <>
+              <Header
+                showAuthButtons={showAuthButtons}
+                setShowAuthButtons={setShowAuthButtons}
+                // onClickMyFavorites={() => getFavoritesProducts()}
+                favoritesPage={currentFavorites}
+                cartPage={undefined}
+                isAuthorized={isAuthorized}
               />
-              <Route
-                path='/products/:id'
-                element={<Product onLike={cbLike} />}
-              />
-              <Route path='*' element={<ErrorPage pageNotFound />} />
-              <Route
-                path='/favorites'
-                element={
-                  <Favorites favoritesPage={currentFavorites} onLike={cbLike} />
-                }
-              />
-              <Route path='/cart' element={<Cart />} />
-              <Route
-                path='/profile'
-                element={<Profile cbLogout={cbLogout} />}
-              />
+              <Main>
+                <Outlet />
+              </Main>
+              <Footer />
+              {showAuthButtons && (
+                <AuthButtons
+                  setShowAuthButtons={setShowAuthButtons}
+                  cbLogIn={cbLogIn}
+                  cbRegister={cbRegister}
+                  setAuthorized={setAuthorized}
+                  isAuthorized={isAuthorized}
+                />
+              )}
+            </>
+          }
+        >
+          {/* 2 Уровень вложенности */}
+          <Route
+            index
+            element={
+              <>
+                <Poster />
+                <Showcase productsPage={currentProdacts} onLike={cbLike} />
+              </>
+            }
+          />
+          <Route path='/products/:id' element={<Product onLike={cbLike} />} />
+          <Route path='*' element={<ErrorPage pageNotFound />} />
+          <Route
+            path='/favorites'
+            element={
+              <Favorites favoritesPage={currentFavorites} onLike={cbLike} />
+            }
+          />
+          <Route path='/cart' element={<Cart />} />
+          <Route path='/profile' element={<Profile cbLogout={cbLogout} />} />
 
-              <Route
-                path='/contacts'
-                // стоит заглушка
-                element={<ErrorPage />}
-              />
-              <Route
-                path='/about'
-                // стоит заглушка
-                element={<ErrorPage />}
-              />
-              <Route
-                path='/developers'
-                // стоит заглушка
-                element={<ErrorPage />}
-              />
-              <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-              <Route
-                path='/salesman'
-                // стоит заглушка
-                element={<ErrorPage />}
-              />
-              <Route
-                path='/return'
-                // стоит заглушка
-                element={<ErrorPage />}
-              />
-              <Route
-                path='/faq'
-                // стоит заглушка
-                element={<ErrorPage />}
-              />
-            </Route>
-          </Routes>
-        </div>
-      </div>
+          <Route
+            path='/contacts'
+            // стоит заглушка
+            element={<ErrorPage />}
+          />
+          <Route
+            path='/about'
+            // стоит заглушка
+            element={<ErrorPage />}
+          />
+          <Route
+            path='/developers'
+            // стоит заглушка
+            element={<ErrorPage />}
+          />
+          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route
+            path='/salesman'
+            // стоит заглушка
+            element={<ErrorPage />}
+          />
+          <Route
+            path='/return'
+            // стоит заглушка
+            element={<ErrorPage />}
+          />
+          <Route
+            path='/faq'
+            // стоит заглушка
+            element={<ErrorPage />}
+          />
+        </Route>
+      </Routes>
     </CurrentUserContext.Provider>
   );
 };

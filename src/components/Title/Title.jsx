@@ -1,8 +1,6 @@
 import React from 'react';
 import './Title.css';
 
-const Title = () => {
-  return <section className='title'>Telegram боты для ритейла</section>;
+export const Title = ({ titleText }) => {
+  return <section className='contant__title title'>{titleText}</section>;
 };
-
-export default Title;

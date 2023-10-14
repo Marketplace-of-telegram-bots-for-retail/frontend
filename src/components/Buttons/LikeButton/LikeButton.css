@@ -24,11 +24,11 @@
 }
 .like-button__icon_default {
   fill: var(--Primary-Accent);
-  transition: 0.25s;
+  transition: all 0.25s;
 }
 .like-button__icon_active {
   fill: var(--Primary-Accent-Magenta);
-  transition: 0.25s;
+  transition: all 0.25s;
 }
 .like-button__title {
   margin: 0;
@@ -42,18 +42,18 @@
   font-style: normal;
   font-weight: 400;
   line-height: 1.25rem; /* 142.857% */
-  transition: 0.25s;
+  transition: all 0.25s;
 }
 
 .like-button__wrapper:hover .like-button__title {
-  transition: 0.25s;
+  transition: all 0.25s;
   color: var(--Secondary-Accent-Blue-Dark);
 }
 .like-button__wrapper:hover .like-button__icon_default {
-  transition: 0.25s;
+  transition: all 0.25s;
   fill: var(--Secondary-Accent-Blue-Dark);
 }
 .like-button__wrapper:hover .like-button__icon_active {
-  transition: 0.25s;
+  transition: all 0.25s;
   opacity: 0.6;
 }

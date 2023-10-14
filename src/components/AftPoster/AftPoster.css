@@ -14,7 +14,7 @@
 }
 .aft-poster:hover {
   box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s;
+  transition: all 0.25s;
 }
 .aft-poster__wrapper {
   display: flex;

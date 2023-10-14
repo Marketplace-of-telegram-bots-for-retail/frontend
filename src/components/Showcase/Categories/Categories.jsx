@@ -1,11 +1,11 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { CATEGORIES_INPUT } from '../../utils/constants';
-import { collectCategoriesInfo } from '../../store/priceFormSubmitSlice';
+import { CATEGORIES_INPUT } from '../../../utils/constants';
+import { collectCategoriesInfo } from '../../../store/priceFormSubmitSlice';
 import './Categories.css';
 
-const Categories = () => {
+export const Categories = () => {
   const [categoryValues, setCategoryValues] = useState({
     checkbox1: false,
     checkbox2: false,
@@ -27,7 +27,7 @@ const Categories = () => {
     });
   };
   return (
-    <section className='categories'>
+    <div className='filters__categories categories'>
       <h2 className='categories__title'>Категории</h2>
       {CATEGORIES_INPUT.map((input, i) => {
         const { checkbox, labelName } = input;
@@ -46,8 +46,6 @@ const Categories = () => {
           </div>
         );
       })}
-    </section>
+    </div>
   );
 };
-
-export default Categories;

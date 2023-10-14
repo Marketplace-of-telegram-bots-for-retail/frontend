@@ -28,7 +28,7 @@ const Header = ({
     setShowAuthButtons(!showAuthButtons);
   };
   return (
-    <section className='header'>
+    <section className='page__header header'>
       <nav className='header__nav'>
         {ARR_NAV.map((link, i) => {
           return (
@@ -43,10 +43,10 @@ const Header = ({
           <NavLink className='header__logo' to='/'>
             <img src={logo} alt='логотип' />
           </NavLink>
-          <button className='header__button-medium' type='button'>
+          <NavLink className='header__button-medium' to='/'>
             <span className='header__catalog-icon'></span>
             <span className='header__catalog-text'>Каталог</span>
-          </button>
+          </NavLink>
           <form className='header__search-form' onSubmit={handleSubmit}>
             <input
               type='search'

@@ -1,27 +1,37 @@
-/* 
-@import url(../../blocks/container/container.css);
-@import url(../../blocks/inner-container/inner-container.css); */
-
-.container {
-  width: 100%;
+.page {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  justify-content: center;
-  font-family: 'Poppins', sans-serif;
+  /* justify-content: center; */
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  min-width: 320px;
+  height: 100vh;
 }
-
-.inner-container {
-  display: flex;
-  flex-direction: column;
+.page__header {
+  margin: 0 auto;
+  padding: 0 var(--s-indent);
   max-width: 1280px;
   width: 100%;
-  border: solid 1px black;
-  height: 100%;
-  position: relative;
+}
+.page__content {
+  margin: 0 auto;
+  padding: 0 var(--s-indent);
+  max-width: 1280px;
+  width: 100%;
+  flex: 1 0 auto;
+}
+.page__footer {
+  margin: 0 auto;
+  flex: 0 0 auto;
 }
 
 .button {
