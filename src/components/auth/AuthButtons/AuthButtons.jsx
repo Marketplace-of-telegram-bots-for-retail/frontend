@@ -6,7 +6,6 @@ import { ReactComponent as Triangle } from '../../../images/triangle.svg';
 const AuthButtons = ({
   cbLogIn,
   cbRegister,
- 
   isAuthorized,
   setShowAuthButtons,
   showAuthButtons,
