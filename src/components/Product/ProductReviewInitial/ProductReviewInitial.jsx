@@ -9,9 +9,11 @@ const ProductReviewInitial = ({ reviews, count, sendFeedback, handleShowAllRevie
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useFormWithValidation({});
+  const [star, setStar] = useState();
   const limit = count < reviews.length;
   const event = new Date().toLocaleString();
   console.log(values.text);
+  console.log(star);
 
   useEffect(() => {
     setValues('');
@@ -24,7 +26,7 @@ const ProductReviewInitial = ({ reviews, count, sendFeedback, handleShowAllRevie
   function handleSendClick(e) {
     e.preventDefault;
     console.log('click send rewiew');
-    sendFeedback(id, { modified: event, rating: 5, text: values.text });
+    sendFeedback(id, { modified: event, rating: star, text: values.text });
     setValues('');
   }
   /*
@@ -55,6 +57,7 @@ const ProductReviewInitial = ({ reviews, count, sendFeedback, handleShowAllRevie
             onStarClick={() => {
               console.log('object');
             }}
+            setStar={setStar}
           />
           <textarea className='product__review-input' value={values.text || ''} onChange={handleChange} type='text' id='feedback' name='text' placeholder='сюда можно написать отзыв' autoComplete='off' />
           <button className='product__review-send' type='submit' aria-label='Оставить отзыв'>Оставить отзыв</button>
