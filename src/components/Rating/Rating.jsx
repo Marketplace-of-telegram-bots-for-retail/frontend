@@ -7,6 +7,7 @@ export const Rating = ({
   onStarClick,
   onReviewClick,
   starsFeedback,
+  setStar
 }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
@@ -64,6 +65,7 @@ export const Rating = ({
         }`}
         onClick={() => {
           setRating(index);
+          setStar(index);
           console.log('star => Click!', index);
           console.log('=> onStarClick()');
         }}
