@@ -5,7 +5,14 @@ import award from '../../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
 
-const ProductDetail = ({ card, handleFullScreenClick, reviews, sendFeedback }) => {
+const ProductDetail = ({
+  card,
+  handleFullScreenClick,
+  reviews,
+  sendFeedback,
+  ratingFeedback,
+  setRatingFeedback
+}) => {
   const [state, setState] = useState('description');
 
   function handleDescClick() {
@@ -28,7 +35,12 @@ const ProductDetail = ({ card, handleFullScreenClick, reviews, sendFeedback }) =
         <h3 className={`product__good-item ${state === 'review' ? 'product__good-item_active' : 'product__good-item product'}`} onClick={handleReviewClick}>{`Отзывы (${reviews.length})`}</h3>
       </div>
       {state === 'description' && <ProductDescription card={card} />}
-      {state === 'review' && <ProductReviews reviews={reviews} sendFeedback={sendFeedback} />}
+      {state === 'review' && <ProductReviews
+        reviews={reviews}
+        sendFeedback={sendFeedback}
+        ratingFeedback={ratingFeedback}
+        setRatingFeedback={setRatingFeedback}
+      />}
     </div>
   );
 };

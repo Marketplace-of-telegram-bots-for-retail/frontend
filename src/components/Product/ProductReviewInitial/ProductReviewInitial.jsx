@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import './ProductReviewInitial.css';
-// import StarRating from '../../StarRating/StarRating';
 import { Rating } from '../../Rating/Rating';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 
@@ -10,19 +9,22 @@ const ProductReviewInitial = ({
   count,
   sendFeedback,
   handleShowAllReviews,
+  ratingFeedback,
+  setRatingFeedback
 }) => {
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useFormWithValidation({});
   const [star, setStar] = useState();
   const limit = count < reviews.length;
-  // const event = new Date().toLocaleString();
-  console.log(values.text);
-  console.log(star);
 
   useEffect(() => {
     setValues('');
   }, [setValues]);
+
+  useEffect(() => {
+    setRatingFeedback('without');
+  });
 
   function handleFeedbackClick() {
     setIsShown(!isShown);
@@ -30,7 +32,6 @@ const ProductReviewInitial = ({
 
   function handleSendClick(e) {
     e.preventDefault();
-    console.log('click send rewiew');
     sendFeedback(id, {
       modified: new Date().toJSON(),
       rating: star,
@@ -38,11 +39,6 @@ const ProductReviewInitial = ({
     });
     setValues('');
   }
-  /*
-  function onChange(e) {
-    setTextReview(e.target.value);
-  }
-  */
 
   function onShow() {
     handleShowAllReviews();
@@ -83,6 +79,7 @@ const ProductReviewInitial = ({
               console.log('object');
             }}
             setStar={setStar}
+            ratingFeedback={ratingFeedback}
           />
           <textarea
             className='product__review-input'
@@ -98,6 +95,7 @@ const ProductReviewInitial = ({
             className='product__review-send'
             type='submit'
             aria-label='Оставить отзыв'
+            disabled={!star}
           >
             Оставить отзыв
           </button>
