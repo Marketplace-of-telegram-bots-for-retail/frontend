@@ -193,6 +193,7 @@ const App = () => {
       console.log('cbRegister => err', err); // Консоль
     } finally {
       setPreloader(false);
+      localStorage.removeItem('registerFormData');
     }
   };
 
