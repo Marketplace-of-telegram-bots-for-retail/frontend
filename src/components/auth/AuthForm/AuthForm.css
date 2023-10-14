@@ -1,0 +1,36 @@
+.modal__form {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.modal__inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 44px;
+  width: 100%;
+}
+
+.modal__button_type_submit {
+  all: unset;
+  border-radius: 8px;
+  background: var(--Primary-Accent);
+  display: flex;
+  width: 100%;
+  height: 52px;
+  padding: 14px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: var(--Primary-White);
+  text-align: center;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  box-sizing: border-box;
+  margin: 32px 0 24px;
+}
+
+.modal__button_type_submit:disabled {
+  background: var(--Secondary-Purple-Light);
+}

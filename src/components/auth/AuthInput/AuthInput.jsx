@@ -1,4 +1,5 @@
 import React from 'react';
+import './AuthInput.css';
 
 const AuthInput = ({ children, ...props }) => {
   return (
@@ -8,8 +9,8 @@ const AuthInput = ({ children, ...props }) => {
       <input
         name={props.name}
         className={`modal__input ${
-          props.error ? 'modal__input_error' : 'modal__input_valid'
-        } ${props.name === 'phone' ? 'modal__input_type_phone' : ''}`}
+          props.error ? 'modal__input_type_error' : 'modal__input_type_valid'
+        }`}
         type={props.type}
         value={props.value}
         onChange={props.onChange}

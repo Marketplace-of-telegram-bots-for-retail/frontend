@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import './AuthCheckbox.css';
 
 const AuthCheckbox = ({
   checkboxType,
@@ -9,16 +10,16 @@ const AuthCheckbox = ({
   setErrorCheckbox,
 }) => {
   return (
-    <div className='modal__remember-checkbox'>
+    <div className='modal__checkbox'>
       <button
         type='button'
-        className={`modal__remember-icon ${
-          isCheckboxChecked ? 'modal__remember-icon_checked' : ''
+        className={`modal__icon ${
+          isCheckboxChecked ? 'modal__icon_type_checked' : ''
         }
         ${
           errorCheckbox
-            ? 'modal__remember-icon_error'
-            : 'modal__remember-icon_blank'
+            ? 'modal__icon_type_error'
+            : 'modal__icon_type_blank'
         }`}
         onClick={() => {
           errorCheckbox && setErrorCheckbox(!errorCheckbox);

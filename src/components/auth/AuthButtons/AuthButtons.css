@@ -1,18 +1,13 @@
-.auth-btns {
+.auth-buttons__container {
   position: absolute;
   top: 127px;
   right: 26px;
   margin: 0;
-  padding: 0;
-}
-
-.auth-btns__container {
-  position: relative;
   width: 372px;
   height: 184px;
   padding: 32px 40px;
   border-radius: 8px;
-  background-color: #fdfdfd;
+  background-color: var(--Primary-White);
   filter: drop-shadow(0px 6px 10px rgba(0, 0, 0, 0.1));
   display: flex;
   flex-direction: column;
@@ -23,7 +18,7 @@
   box-sizing: border-box;
 }
 
-.auth-btns__triangle {
+.auth-buttons__triangle {
   position: absolute;
   top: -17px;
   right: 16px;
@@ -31,7 +26,7 @@
   width: 20px;
 }
 
-.auth-btns__btn {
+.auth-buttons__button {
   all: unset;
   margin: 0;
   width: 100%;
@@ -52,7 +47,7 @@
   box-sizing: border-box;
 }
 
-.auth-btns__btn_accent {
+.auth-buttons__button_accent {
   background: var(--Primary-Accent);
   color: var(--Primary-White);
 }

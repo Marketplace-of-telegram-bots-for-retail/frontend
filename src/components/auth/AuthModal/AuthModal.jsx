@@ -16,16 +16,16 @@ const AuthModal = ({
   const [registerStep, setRegisterStep] = useState(1);
 
   return (
-    <div className='modal__container'>
+    <div className='modal__container modal'>
       <div
         className={`modal__content ${
           !isLogin ? 'modal__content_type_register' : ''
         }`}
       >
         <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2>
-        <Close className='modal__close' onClick={onClose} />
+        <Close className='modal__button_type_close' onClick={onClose} />
         {registerStep === 2 && (
-          <Back className='modal__back' onClick={() => setRegisterStep(1)} />
+          <Back className='modal__button_type_back' onClick={() => setRegisterStep(1)} />
         )}
         {isLogin ? (
           <Login

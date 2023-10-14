@@ -1,4 +1,5 @@
 import React from 'react';
+import './ToggleAuthForm.css';
 
 const ToggleAuthForm = ({ isLogin, onClick }) => {
   return (
