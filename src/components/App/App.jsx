@@ -222,6 +222,16 @@ const App = () => {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       {isPreloader && <Preloader />}
+      {showAuthButtons && (
+        <AuthButtons
+          setShowAuthButtons={setShowAuthButtons}
+          showAuthButtons
+          cbLogIn={cbLogIn}
+          cbRegister={cbRegister}
+          setAuthorized={setAuthorized}
+          isAuthorized={isAuthorized}
+        />
+      )}
       <Routes>
         {/* 1 Уровень вложенности */}
         <Route
@@ -240,15 +250,6 @@ const App = () => {
                 <Outlet />
               </Main>
               <Footer />
-              {showAuthButtons && (
-                <AuthButtons
-                  setShowAuthButtons={setShowAuthButtons}
-                  cbLogIn={cbLogIn}
-                  cbRegister={cbRegister}
-                  setAuthorized={setAuthorized}
-                  isAuthorized={isAuthorized}
-                />
-              )}
             </>
           }
         >
