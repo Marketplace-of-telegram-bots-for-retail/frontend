@@ -30,6 +30,7 @@ class Api {
     };
 
     if (body !== undefined) {
+      // console.log('_makeRequest => body ', body);
       config.body = JSON.stringify(body);
     }
 
@@ -121,21 +122,12 @@ class Api {
 
   // Получить отзывы.
   getProductsReviews = (product_id) =>
-    this._makeRequest(`/products/${product_id}/reviews`, 'GET');
+    this._makeRequest(`/products/${product_id}/reviews/`, 'GET');
 
   // Добавить отзыв.
   postProductsReview = (product_id, data) =>
-    this._makeRequest(`/products/${product_id}/reviews`, 'POST', data);
+    this._makeRequest(`/products/${product_id}/reviews/`, 'POST', data);
 
-  /*
-  postProductsReview1 = (product_id, data) =>
-    this._makeRequest(`/products/${product_id}/reviews`, 'POST', JSON.stringify({
-      modified: data.modified,
-      rating: data.rating,
-      text: data.text,
-    })
-    );
-    */
   // Получить отпределенный отзыв.
   getProductReviewId = (product_id, review_id) =>
     this._makeRequest(`/products/${product_id}/reviews/${review_id}/`, 'GET');
