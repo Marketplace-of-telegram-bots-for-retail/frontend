@@ -1,16 +1,40 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import './ProductReviewInitial.css';
-import StarRating from '../../StarRating/StarRating';
+// import StarRating from '../../StarRating/StarRating';
+import { Rating } from '../../Rating/Rating';
+import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 
-const ProductReviewInitial = () => {
+const ProductReviewInitial = ({ reviews, count, sendFeedback, handleShowAllReviews }) => {
   const [isShown, setIsShown] = useState(false);
+  const { id } = useParams();
+  const { values, setValues, handleChange } = useFormWithValidation({});
+  const limit = count < reviews.length;
+  const event = new Date().toLocaleString();
+  console.log(values.text);
+
+  useEffect(() => {
+    setValues('');
+  }, [setValues]);
 
   function handleFeedbackClick() {
     setIsShown(!isShown);
   }
 
-  function handleSendClick() {
+  function handleSendClick(e) {
+    e.preventDefault;
     console.log('click send rewiew');
+    sendFeedback(id, { modified: event, rating: 5, text: values.text });
+    setValues('');
+  }
+  /*
+  function onChange(e) {
+    setTextReview(e.target.value);
+  }
+  */
+
+  function onShow() {
+    handleShowAllReviews();
   }
 
   return (
@@ -22,14 +46,19 @@ const ProductReviewInitial = () => {
         {!isShown && (
           <button className='product__review-open' type='button' onClick={handleFeedbackClick} aria-label='Оставить отзыв'>Оставить отзыв</button>
         )}
-        <button className='product__review-show' type='button' aria-label='Показать все'>Показать все</button>
+        {limit && <button className='product__review-show' type='button' onClick={onShow} aria-label='Показать все'>Показать все</button>}
       </div>
       {isShown && (
-        <div className='product__review-block'>
-          <StarRating />
-          <textarea className='product__review-input' type='text' id='feedback' name='feedback' placeholder='сюда можно написать отзыв' autoComplete='off' />
-          <button className='product__review-send' type='submit' onClick={handleSendClick} aria-label='Оставить отзыв'>Оставить отзыв</button>
-        </div>
+        <form className='product__review-block' onSubmit={handleSendClick}>
+          <Rating
+            ratingCard={reviews.rating}
+            onStarClick={() => {
+              console.log('object');
+            }}
+          />
+          <textarea className='product__review-input' value={values.text || ''} onChange={handleChange} type='text' id='feedback' name='text' placeholder='сюда можно написать отзыв' autoComplete='off' />
+          <button className='product__review-send' type='submit' aria-label='Оставить отзыв'>Оставить отзыв</button>
+        </form>
       )}
     </>
   );
