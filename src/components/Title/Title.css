@@ -1,1 +1,11 @@
-@import url(../../blocks/title/title.css);
+.contant__title {
+  margin: 16px 0 48px;
+}
+.title {
+  color: var(--Primary-Black);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 0;
+}

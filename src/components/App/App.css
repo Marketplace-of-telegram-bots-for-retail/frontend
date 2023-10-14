@@ -1,27 +1,21 @@
-/* 
-@import url(../../blocks/container/container.css);
-@import url(../../blocks/inner-container/inner-container.css); */
-
-.container {
+.page {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  margin: 0 auto;
   justify-content: center;
   font-family: 'Poppins', sans-serif;
-}
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  min-width: 320px;
+  margin: 0 auto;
+  padding: 0;
 
-.inner-container {
-  display: flex;
-  flex-direction: column;
-  max-width: 1280px;
-  width: 100%;
-  border: solid 1px black;
-  height: 100%;
-  position: relative;
 }
 
 .button {

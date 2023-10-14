@@ -10,7 +10,7 @@ const Header = ({
   setShowAuthButtons,
   favoritesPage,
   cartPage,
-  isAuthorized
+  isAuthorized,
 }) => {
   const { values, handleChange } = useForm();
   // Временные
@@ -29,7 +29,7 @@ const Header = ({
     setShowAuthButtons(!showAuthButtons);
   };
   return (
-    <section className='header'>
+    <section className='page__header header'>
       <nav className='header__nav'>
         {ARR_NAV.map((link, i) => {
           return (
@@ -44,10 +44,10 @@ const Header = ({
           <NavLink className='header__logo' to='/'>
             <img src={logo} alt='логотип' />
           </NavLink>
-          <button className='header__button-medium' type='button'>
+          <NavLink className='header__button-medium' to='/'>
             <span className='header__catalog-icon'></span>
             <span className='header__catalog-text'>Каталог</span>
-          </button>
+          </NavLink>
           <form className='header__search-form' onSubmit={handleSubmit}>
             <input
               type='search'
@@ -72,7 +72,7 @@ const Header = ({
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
-            {(cartPage?.count > 0) ? (
+            {cartPage?.count > 0 ? (
               <span className='header__badge-counter'>1</span>
             ) : null}
             <span className='header__button-text'>Корзина</span>

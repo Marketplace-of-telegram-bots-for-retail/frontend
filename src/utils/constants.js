@@ -14,12 +14,12 @@ export const CATEGORIES_INPUT = [
 ];
 
 export const FOOTER_LINKS = [
-  'О маркетплейсе',
-  'Возврат',
-  'Контакты',
-  'Политика конфиденциальности',
-  'FAQ',
-  'Команда разработчиков',
+  { label: 'О маркетплейсе', link: '/about' },
+  { label: 'Возврат', link: '/return' },
+  { label: 'Контакты', link: '/contacts' },
+  { label: 'Политика конфиденциальности', link: '/privacy-policy' },
+  { label: 'FAQ', link: '/faq' },
+  { label: 'Команда разработчиков', link: '/developers' },
 ];
 
 export const PRIVACY_POLICY_URL = 'https://botmarketplace.ru';
