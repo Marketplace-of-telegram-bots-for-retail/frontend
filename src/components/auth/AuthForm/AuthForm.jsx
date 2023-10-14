@@ -1,18 +1,10 @@
 import React from 'react';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
-import UserTypeBox from '../UserTypeBox/UserTypeBox';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 
 const AuthForm = ({ children, ...props }) => {
   return (
     <>
-      {(props.isLogin || props.registerStep === 1) && (
-        <UserTypeBox
-          userType={props.userType}
-          setUserType={props.setUserType}
-        />
-      )}
-
       {!props.isLogin && (
         <RegisterStepsScale registerStep={props.registerStep} />
       )}
