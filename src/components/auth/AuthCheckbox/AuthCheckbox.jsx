@@ -5,17 +5,25 @@ const AuthCheckbox = ({
   checkboxType,
   isCheckboxChecked,
   setIsCheckboxChecked,
+  errorCheckbox,
+  setErrorCheckbox,
 }) => {
   return (
     <div className='modal__remember-checkbox'>
       <button
         type='button'
         className={`modal__remember-icon ${
-          isCheckboxChecked
-            ? 'modal__remember-icon_checked'
+          isCheckboxChecked ? 'modal__remember-icon_checked' : ''
+        }
+        ${
+          errorCheckbox
+            ? 'modal__remember-icon_error'
             : 'modal__remember-icon_blank'
         }`}
-        onClick={() => setIsCheckboxChecked(!isCheckboxChecked)}
+        onClick={() => {
+          errorCheckbox && setErrorCheckbox(!errorCheckbox);
+          setIsCheckboxChecked(!isCheckboxChecked);
+        }}
       />
       {checkboxType === 'privacy-policy' && (
         <span className='modal__span modal__span_type_policy'>

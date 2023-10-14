@@ -11,6 +11,7 @@ const Register = (props) => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+  const [errorCheckbox, setErrorCheckbox] = useState(false);
 
   const { values, handleChange, errors, isValid } = useFormWithValidation();
 
@@ -45,6 +46,7 @@ const Register = (props) => {
       props.setRegisterStep(3);
     } else {
       setErrorMessage('Необходимо согласиться с Политикой Конфиденциальности');
+      setErrorCheckbox(true);
     }
 
     // if (!isLogin) {
@@ -69,6 +71,8 @@ const Register = (props) => {
           isCheckboxChecked={isCheckboxChecked}
           setIsCheckboxChecked={setIsCheckboxChecked}
           errorMessage={errorMessage}
+          errorCheckbox={errorCheckbox}
+          setErrorCheckbox={setErrorCheckbox}
         >
           {props.registerStep === 1 && (
             <>
@@ -120,8 +124,8 @@ const Register = (props) => {
                 onChange={handleChange}
                 // onBlur={() => setPhone(phone.trim())}
                 inputName='Телефон'
+                placeholder='+7'
               >
-                <span className='modal__phone-span'>+7</span>
               </AuthInput>
               <AuthInput
                 htmlFor='password'

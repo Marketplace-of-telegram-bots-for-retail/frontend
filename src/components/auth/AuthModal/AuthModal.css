@@ -136,11 +136,6 @@
   font-style: normal;
   font-weight: 400;
   line-height: 24px; /* 120% */
-  position: relative;
-}
-
-.modal__input_type_phone {
-  padding-left: 34px;
 }
 
 .modal__input::placeholder {
@@ -196,6 +191,10 @@
 
 .modal__remember-icon_checked {
   background-image: url(../../../images/checked.svg);
+}
+
+.modal__remember-icon_error {
+  background-image: url(../../../images/error-checkbox.svg);
 }
 
 .modal__span {
