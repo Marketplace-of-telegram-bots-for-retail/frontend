@@ -15,6 +15,7 @@
   width: 100%;
   min-width: 320px;
   height: 100vh;
+  position: relative;
 }
 .page__header {
   margin: 0 auto;
@@ -32,6 +33,15 @@
 .page__footer {
   margin: 0 auto;
   flex: 0 0 auto;
+}
+.page__modal {
+  position: relative;
+  margin: 0;
+  padding: 0 var(--s-indent);
+  max-width: 1280px;
+  width: 100%;
+  z-index: 3;
+  margin: 0 auto;
 }
 
 .button {
