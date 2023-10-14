@@ -2,6 +2,8 @@
   position: absolute;
   top: 127px;
   right: 26px;
+  margin: 0;
+  padding: 0;
 }
 
 .auth-btns__container {
