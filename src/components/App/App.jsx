@@ -246,7 +246,6 @@ const App = () => {
                       setShowAuthButtons={setShowAuthButtons}
                       cbLogIn={cbLogIn}
                       cbRegister={cbRegister}
-                      setAuthorized={setAuthorized}
                       isAuthorized={isAuthorized}
                     />
                   )}
