@@ -31,7 +31,7 @@ const Categories = () => {
         )
       )
     );
-  }, [categoryValues]);
+  }, [categoryValues, dispatch]);
 
   return (
     <div className='filters__categories categories'>
