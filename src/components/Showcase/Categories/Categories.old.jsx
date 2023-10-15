@@ -1,38 +1,31 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { CATEGORY_OPTIONS } from '../../../utils/constants';
-import { collectCategories } from '../../../store/dataSearchFormSlice';
+import { collectCategoriesInfo } from '../../../redux/store/priceFormSubmitSlice';
 import './Categories.css';
 
 const Categories = () => {
   const [categoryValues, setCategoryValues] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
+    checkbox1: false,
+    checkbox2: false,
+    checkbox3: false,
+    checkbox4: false,
   });
   const dispatch = useDispatch();
-
   const handleCheckboxChange = (event) => {
     const { id, checked } = event.target;
+    dispatch(
+      collectCategoriesInfo({
+        ...categoryValues,
+        [id]: checked,
+      })
+    );
     setCategoryValues({
       ...categoryValues,
       [id]: checked,
     });
   };
-
-  // Обновляем стейт Redux
-  useEffect(() => {
-    dispatch(
-      collectCategories(
-        Object.keys(categoryValues).filter(
-          (item) => categoryValues[item] === true && item
-        )
-      )
-    );
-  }, [categoryValues]);
-
   return (
     <div className='filters__categories categories'>
       <h2 className='categories__title'>Категории</h2>
@@ -44,7 +37,7 @@ const Categories = () => {
               className='categories__input'
               type='checkbox'
               id={id}
-              checked={categoryValues[id]}
+              checked={categoryValues[id] || false}
               onChange={handleCheckboxChange}
             ></input>
             <label htmlFor={id} className='categories__label'>

@@ -1,5 +1,7 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { collecSearch } from '../../store/dataSearchFormSlice';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
 import logo from '../../images/logo-color.png';
@@ -12,15 +14,21 @@ const Header = ({
   favoritesPage,
   cartPage,
   isAuthorized,
+  onSearch,
+  isPreloader,
 }) => {
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange } = useForm();
-  // Временные
+  const dispatch = useDispatch();
+  // Обновляем стейт Redux
+  useEffect(() => {
+    dispatch(collecSearch(values?.search));
+  }, [values]);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log('handleSubmit =>', values.search);
+    onSearch();
   };
-  const isPreloader = false;
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
@@ -100,7 +108,9 @@ const Header = ({
               onClick={() => handleLogin()}
             >
               <span className='header__button-icon header__button-icon_profile'></span>
-              <span className='header__button-text'>{currentUser.first_name}</span>
+              <span className='header__button-text'>
+                {currentUser.first_name}
+              </span>
             </Link>
           )}
         </div>
