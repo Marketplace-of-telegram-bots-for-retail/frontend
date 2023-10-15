@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import './ProductInfo.css';
-import { LikeButton } from '../../Buttons';
+import { LikeButton } from '../../buttons';
 import { Rating } from '../../Rating/Rating';
 
 const ProductInfo = ({ card, onLike, ratingFeedback, setRatingFeedback }) => {

@@ -1,6 +1,6 @@
 import React from 'react';
 import './ProductPrice.css';
-import { CartButton } from '../../Buttons';
+import { CartButton } from '../../buttons';
 
 const ProductPrice = ({ card }) => {
   return (

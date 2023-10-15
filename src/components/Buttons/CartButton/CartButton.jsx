@@ -3,7 +3,7 @@ import './CartButton.css';
 import IconPlus from '../../../images/ic_plus-24.svg';
 import IconMinus from '../../../images/ic_minus-24.svg';
 
-export const CartButton = ({ parentClass }) => {
+const CartButton = ({ parentClass }) => {
   const [isProductInTheCart, setProductInTheCart] = useState(0);
   const limets = { min: 0, max: 100 };
   const handleClickCartButton = (increment) => {
@@ -88,3 +88,5 @@ export const CartButton = ({ parentClass }) => {
     </div>
   );
 };
+
+export default CartButton;

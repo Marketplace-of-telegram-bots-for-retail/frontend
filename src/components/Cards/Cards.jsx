@@ -2,7 +2,7 @@ import React from 'react';
 import Card from '../Card/Card';
 import './Cards.css';
 
-export const Cards = ({ cards, onLike }) => {
+const Cards = ({ cards, onLike }) => {
   return (
     <div className='showcase__cards cards'>
       {cards?.map((card) => {

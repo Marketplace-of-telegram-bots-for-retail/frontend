@@ -6,7 +6,7 @@ import './Footer.css';
 import { FOOTER_LINKS } from '../../utils/constants';
 import Logo from '../../images/logo-white.png';
 
-export const Footer = () => {
+const Footer = () => {
   return (
     <footer className='page__footer footer'>
       <div className='footer__container'>

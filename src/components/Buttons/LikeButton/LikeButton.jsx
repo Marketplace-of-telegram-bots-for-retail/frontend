@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './LikeButton.css';
 
-export const LikeButton = ({ parentClass, onLike, card }) => {
+const LikeButton = ({ parentClass, onLike, card }) => {
   const [isLiked, setLiked] = useState(card.is_favorited);
   const dataCard = { ...card, is_favorited: isLiked };
   const handleLikeClick = async () => {
@@ -59,3 +59,5 @@ export const LikeButton = ({ parentClass, onLike, card }) => {
     </div>
   );
 };
+
+export default LikeButton;

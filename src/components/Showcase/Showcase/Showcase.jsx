@@ -3,7 +3,7 @@ import './Showcase.css';
 import Dropdown from '../../Dropdown/Dropdown';
 import Cards from '../../Cards/Cards';
 import More from '../More/More';
-import { AftPoster } from '../../posters/';
+import { AftPoster } from '../../posters';
 import Title from '../../Title/Title';
 import Filters from '../Filters/Filters';
 

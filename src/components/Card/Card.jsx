@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Card.css';
 import { Rating } from '../Rating/Rating';
-import { CartButton } from '../Buttons';
+import { CartButton } from '../buttons';
 
 const Card = ({ card, onLike }) => {
   const [isLiked, setLiked] = useState(card.is_favorited);
