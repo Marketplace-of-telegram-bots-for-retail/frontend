@@ -23,7 +23,7 @@ const Header = ({
   // Обновляем стейт Redux
   useEffect(() => {
     dispatch(collecSearch(values?.search));
-  }, [values]);
+  }, [values, dispatch]);
 
   const handleSubmit = (event) => {
     event.preventDefault();

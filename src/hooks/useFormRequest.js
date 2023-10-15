@@ -12,18 +12,18 @@ export const useFormRequest = () => {
   const formArry = [];
 
   if (formState.search) {
-    console.log(formState.search);
+    // console.log(formState.search);
     const searchRequest = REQUEST_OPTIONS.search.concat(formState.search);
     // Консолька
-    console.log(searchRequest);
+    // console.log(searchRequest);
     // Добавить в массив
     formArry.push(searchRequest);
   }
   if (formState.sorting) {
-    console.log(formState.sorting);
+    // console.log(formState.sorting);
     const sortingRequest = REQUEST_OPTIONS.sorting.concat(formState.sorting);
     // Консолька
-    console.log(sortingRequest);
+    // console.log(sortingRequest);
     // Добавить в массив
     formArry.push(sortingRequest);
   }
@@ -31,18 +31,18 @@ export const useFormRequest = () => {
     formState.prices &&
     (formState.prices[0] !== 0 || formState.prices[1] !== 0)
   ) {
-    console.log(formState.prices);
+    // console.log(formState.prices);
     const pricesBefore = REQUEST_OPTIONS.prices.concat(formState.prices[0]);
     const pricesAfter = REQUEST_OPTIONS.prices.concat(formState.prices[1]);
     console.log(pricesBefore, pricesAfter);
     const pricesRequest = [pricesBefore, pricesAfter].join('&');
     // Консолька
-    console.log(pricesRequest);
+    // console.log(pricesRequest);
     // Добавить в массив
     formArry.push(pricesRequest);
   }
   if (formState.categories.length > 0) {
-    console.log(formState.categories);
+    // console.log(formState.categories);
     const categoriesRequest = formState.categories.map((item) =>
       REQUEST_OPTIONS.categories.concat(item)
     );
