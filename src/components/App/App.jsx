@@ -10,7 +10,7 @@ import {
 import './App.css';
 import { api } from '../../utils/Api';
 import Header from '../Header/Header';
-import Poster from '../posters/Poster/Poster';
+import { Poster } from '../posters/';
 import AuthButtons from '../auth/AuthButtons/AuthButtons';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
