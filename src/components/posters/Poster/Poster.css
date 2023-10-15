@@ -59,7 +59,7 @@
   height: 2.25rem;
   margin: 0;
   padding: 0;
-  background: center no-repeat url('../../images/guidance_up-arrow.svg');
+  background: center no-repeat url('../../../images/guidance_up-arrow.svg');
   background-size: 2.25rem 2.25rem;
 }
 
@@ -69,9 +69,10 @@
   height: 152px;
   margin: -0.625rem 0;
   padding: 0;
-  background-image: url('../../images/vecteezy_3d.png'),
-    url('../../images/vecteezy_3d.png'), url('../../images/vecteezy_3d.png'),
-    url('../../images/ellipse-30.svg');
+  background-image: url('../../../images/vecteezy_3d.png'),
+    url('../../../images/vecteezy_3d.png'),
+    url('../../../images/vecteezy_3d.png'),
+    url('../../../images/ellipse-30.svg');
   background-repeat: no-repeat;
   background-position: 67px 8px, 165px 28px, 247px 52px, 0 0;
   background-size: 90px 123px, 74px 103px, 56px 78px, cover;

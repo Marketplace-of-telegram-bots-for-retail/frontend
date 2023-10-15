@@ -21,7 +21,7 @@
   flex-direction: column;
   width: 37.6875rem;
   height: 11.25rem;
-  background: no-repeat url('../../images/frame-291.svg');
+  background: no-repeat url('../../../images/frame-291.svg');
   background-size: 37.6875rem 11.25rem;
   padding: 2.19rem 0 0 4.81rem;
   margin: 1.56rem 2.13rem 2.92rem 0;
@@ -76,14 +76,14 @@
   height: 2.25rem;
   margin: 0;
   padding: 0;
-  background: center no-repeat url('../../images/guidance_up-arrow.svg');
+  background: center no-repeat url('../../../images/guidance_up-arrow.svg');
   background-size: 2.25rem 2.25rem;
 }
 
 .aft-poster__bot-icon {
   margin: 0;
   padding: 0;
-  background: center no-repeat url('../../images/vecteezy_3d.png');
+  background: center no-repeat url('../../../images/vecteezy_3d.png');
   margin-bottom: 1.12rem;
 }
 .aft-poster__bot-icon_big {
