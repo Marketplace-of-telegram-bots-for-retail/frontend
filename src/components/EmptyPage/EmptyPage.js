@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import './EmptyPage.css';
 import HeartIcon from '../../images/heart-1.svg';
 
-export const EmptyPage = () => {
+const EmptyPage = () => {
   return (
     <section className='content__empty-page empty-page'>
       <img className='empty-page__icon' src={HeartIcon} alt='иконка' />
@@ -17,3 +17,5 @@ export const EmptyPage = () => {
     </section>
   );
 };
+
+export default EmptyPage;

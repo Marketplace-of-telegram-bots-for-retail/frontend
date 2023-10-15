@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Dropdown.css';
 
-export const Dropdown = ({ handleSort }) => {
+const Dropdown = ({ handleSort }) => {
   const [dropdown, setDropdown] = useState(0);
   const [open, setOpen] = useState(false);
 
@@ -73,3 +73,5 @@ export const Dropdown = ({ handleSort }) => {
     </div>
   );
 };
+
+export default Dropdown;

@@ -4,7 +4,7 @@ import './Card.css';
 import { Rating } from '../Rating/Rating';
 import { CartButton } from '../Buttons';
 
-export const Card = ({ card, onLike }) => {
+const Card = ({ card, onLike }) => {
   const [isLiked, setLiked] = useState(card.is_favorited);
 
   const handleLikeClick = async () => {
@@ -62,3 +62,5 @@ export const Card = ({ card, onLike }) => {
     </div>
   );
 };
+
+export default Card;
