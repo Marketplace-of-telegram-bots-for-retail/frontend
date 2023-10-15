@@ -4,11 +4,6 @@ import { REQUEST_OPTIONS } from '../utils/constants';
 export const useFormRequest = () => {
   const formState = useSelector((state) => state.dataSearchForm);
 
-  console.log(
-    'creatingFormRequest => formState, REQUEST_OPTIONS',
-    formState,
-    REQUEST_OPTIONS
-  );
   const formArry = [];
 
   if (formState.search) {
@@ -55,6 +50,6 @@ export const useFormRequest = () => {
   }
   const formRequest = ['?'].concat(formArry).join('&');
   // Консолька запроса
-  console.log(['?'].concat(formArry).join('&'));
+  // console.log(['?'].concat(formArry).join('&'));
   return { formRequest };
 };
