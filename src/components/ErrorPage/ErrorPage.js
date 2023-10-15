@@ -5,7 +5,7 @@ import ToolsIcon from '../../images/tools-icon.svg';
 import PageNotFoundIcon from '../../images/pic_404.svg';
 import MagnifyingIcon from '../../images/magnifying-glass.svg';
 
-export const ErrorPage = ({ pageNotFound, botNotFound }) => {
+const ErrorPage = ({ pageNotFound, botNotFound }) => {
   const params = {
     tools: { image: ToolsIcon, text: 'Эта страница в разработке. Скоро...' },
     err404: { image: PageNotFoundIcon, text: 'Страница не найдена' },
@@ -31,3 +31,5 @@ export const ErrorPage = ({ pageNotFound, botNotFound }) => {
     </section>
   );
 };
+
+export default ErrorPage;

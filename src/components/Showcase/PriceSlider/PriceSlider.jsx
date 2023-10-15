@@ -7,7 +7,7 @@ import Slider from '@mui/material/Slider';
 import { collecPricesInfo } from '../../../store/priceFormSubmitSlice';
 import './PriceSlider.css';
 
-export const PriceSlider = () => {
+const PriceSlider = () => {
   const [value, setValue] = React.useState([0, 0]);
   const dispatch = useDispatch();
 
@@ -75,3 +75,5 @@ export const PriceSlider = () => {
     </div>
   );
 };
+
+export default PriceSlider;

@@ -1,7 +1,7 @@
 import React from 'react';
 import './AftPoster.css';
 
-export const AftPoster = ({ onClick }) => {
+const AftPoster = ({ onClick }) => {
   return (
     <article
       className='content__aft-poster aft-poster'
@@ -22,3 +22,5 @@ export const AftPoster = ({ onClick }) => {
     </article>
   );
 };
+
+export default AftPoster;

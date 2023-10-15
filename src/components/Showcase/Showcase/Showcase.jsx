@@ -1,13 +1,13 @@
 import React from 'react';
 import './Showcase.css';
-import { Dropdown } from '../Dropdown/Dropdown';
-import { Cards } from '../Cards/Cards';
-import { More } from '../More/More';
-import { AftPoster } from '../AftPoster/AftPoster';
-import { Title } from '../Title/Title';
-import { Filters } from './Filters/Filters';
+import Dropdown from '../../Dropdown/Dropdown';
+import Cards from '../../Cards/Cards';
+import More from '../More/More';
+import { AftPoster } from '../../posters/';
+import Title from '../../Title/Title';
+import Filters from '../Filters/Filters';
 
-export const Showcase = ({ productsPage, onLike }) => {
+const Showcase = ({ productsPage, onLike }) => {
   const handleSort = (value) => {
     console.log('Выбрать сортировку', value);
   };
@@ -34,3 +34,5 @@ export const Showcase = ({ productsPage, onLike }) => {
     </section>
   );
 };
+
+export default Showcase;

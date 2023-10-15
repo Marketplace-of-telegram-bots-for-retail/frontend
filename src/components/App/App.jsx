@@ -10,18 +10,18 @@ import {
 import './App.css';
 import { api } from '../../utils/Api';
 import Header from '../Header/Header';
-import { Poster } from '../Poster/Poster';
+import { Poster } from '../posters/';
 import AuthButtons from '../auth/AuthButtons/AuthButtons';
 import Product from '../Product/Product';
-import { Footer } from '../Footer/Footer';
+import Footer from '../Footer/Footer';
 import Cart from '../Cart/Cart';
 import Profile from '../Profile/Profile';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
-import { ErrorPage } from '../ErrorPage/ErrorPage';
-import { Favorites } from '../Favorites/Favorites';
-import { Preloader } from '../Preloader/Preloader';
-import { Main } from '../Main/Main';
-import { Showcase } from '../Showcase/Showcase';
+import ErrorPage from '../ErrorPage/ErrorPage';
+import Favorites from '../Favorites/Favorites';
+import Preloader from '../Preloader/Preloader';
+import Main from '../Main/Main';
+import Showcase from '../showcase/Showcase/Showcase';
 // Temp
 // import { UserProvider } from '../../context/userContext';
 import { CurrentUserContext } from '../../contexts/currentUserContext';

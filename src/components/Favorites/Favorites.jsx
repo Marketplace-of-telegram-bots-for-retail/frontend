@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import './Favorites.css';
-import { Cards } from '../Cards/Cards';
-import { EmptyPage } from '../EmptyPage/EmptyPage';
+import Cards from '../Cards/Cards';
+import EmptyPage from '../EmptyPage/EmptyPage';
 
-export const Favorites = ({ favoritesPage, onLike }) => {
+const Favorites = ({ favoritesPage, onLike }) => {
   favoritesPage;
   const [isLikeCards, setLikeCards] = useState(false);
   // console.log(favoritesPage);
@@ -26,3 +26,5 @@ export const Favorites = ({ favoritesPage, onLike }) => {
     <EmptyPage />
   );
 };
+
+export default Favorites;

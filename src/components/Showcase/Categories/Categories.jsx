@@ -5,7 +5,7 @@ import { CATEGORIES_INPUT } from '../../../utils/constants';
 import { collectCategoriesInfo } from '../../../store/priceFormSubmitSlice';
 import './Categories.css';
 
-export const Categories = () => {
+const Categories = () => {
   const [categoryValues, setCategoryValues] = useState({
     checkbox1: false,
     checkbox2: false,
@@ -49,3 +49,5 @@ export const Categories = () => {
     </div>
   );
 };
+
+export default Categories;

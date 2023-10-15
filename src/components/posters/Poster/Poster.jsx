@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Poster.css';
 
-export const Poster = () => {
+const Poster = () => {
   const [isOpen, setIsOpen] = useState(true);
   return isOpen ? (
     <article className='content__poster poster'>
@@ -36,3 +36,5 @@ export const Poster = () => {
     </article>
   ) : null;
 };
+
+export default Poster;

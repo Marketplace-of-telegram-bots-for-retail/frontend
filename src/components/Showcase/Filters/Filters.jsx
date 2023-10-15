@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './Filters.css';
-import { Categories } from '../Categories/Categories';
-import { PriceSlider } from '../PriceSlider/PriceSlider';
+import Categories from '../Categories/Categories';
+import PriceSlider from '../PriceSlider/PriceSlider';
 
-export const Filters = () => {
+const Filters = () => {
   const formState = useSelector((state) => state.priceFormSubmit);
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -25,3 +25,5 @@ export const Filters = () => {
     </form>
   );
 };
+
+export default Filters;

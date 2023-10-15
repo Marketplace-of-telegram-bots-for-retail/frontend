@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card } from '../Card/Card';
+import Card from '../Card/Card';
 import './Cards.css';
 
 export const Cards = ({ cards, onLike }) => {
@@ -11,3 +11,5 @@ export const Cards = ({ cards, onLike }) => {
     </div>
   );
 };
+
+export default Cards;

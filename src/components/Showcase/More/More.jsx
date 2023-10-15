@@ -1,7 +1,7 @@
 import React from 'react';
 import './More.css';
 
-export const More = ({ onClick }) => {
+const More = ({ onClick }) => {
   return (
     <div className='showcase__more more'>
       <button
@@ -22,3 +22,5 @@ export const More = ({ onClick }) => {
     </div>
   );
 };
+
+export default More;
