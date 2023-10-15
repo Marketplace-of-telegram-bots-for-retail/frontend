@@ -29,7 +29,7 @@ export const useFormRequest = () => {
     // console.log(formState.prices);
     const pricesBefore = REQUEST_OPTIONS.prices.concat(formState.prices[0]);
     const pricesAfter = REQUEST_OPTIONS.prices.concat(formState.prices[1]);
-    console.log(pricesBefore, pricesAfter);
+    // console.log(pricesBefore, pricesAfter);
     const pricesRequest = [pricesBefore, pricesAfter].join('&');
     // Консолька
     // console.log(pricesRequest);
