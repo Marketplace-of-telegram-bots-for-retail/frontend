@@ -25,7 +25,7 @@ const Dropdown = ({ onSearch }) => {
   // Отправить запрос
   useEffect(() => {
     onSearch();
-  }, [dropdownState, onSearch]);
+  }, [dropdownState]);
 
   return (
     <div className='showcase__dropdown dropdown'>
