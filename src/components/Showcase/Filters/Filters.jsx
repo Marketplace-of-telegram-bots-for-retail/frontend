@@ -1,16 +1,13 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
 import './Filters.css';
 import Categories from '../Categories/Categories';
 import PriceSlider from '../PriceSlider/PriceSlider';
 
-const Filters = () => {
-  const formState = useSelector((state) => state.priceFormSubmit);
+const Filters = ({ onSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formState);
+    onSearch();
   };
-
   return (
     <form
       type='submit'

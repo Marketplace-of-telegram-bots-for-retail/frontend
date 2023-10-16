@@ -4,8 +4,9 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { collecPricesInfo } from '../../../store/priceFormSubmitSlice';
+import { collecPrices } from '../../../store/dataSearchFormSlice';
 import './PriceSlider.css';
+import { PRICE_LIMIT } from '../../../utils/constants';
 
 const PriceSlider = () => {
   const [value, setValue] = React.useState([0, 0]);
@@ -13,7 +14,7 @@ const PriceSlider = () => {
 
   const handleChangeSlider = (event, newValue) => {
     setValue(newValue);
-    dispatch(collecPricesInfo(newValue));
+    dispatch(collecPrices(newValue));
   };
   const handleChange = (e, index) => {
     let inputValue = Number(e.target.value);
@@ -23,7 +24,7 @@ const PriceSlider = () => {
     }
     if (!isNaN(inputValue)) {
       const numericValue = parseInt(inputValue, 10);
-      if (numericValue >= 0 && numericValue <= 5000) {
+      if (numericValue >= PRICE_LIMIT.min && numericValue <= PRICE_LIMIT.max) {
         const updatedValue = [...value];
         updatedValue[index] = numericValue;
         setValue(updatedValue);
@@ -46,8 +47,8 @@ const PriceSlider = () => {
           value={value}
           onChange={handleChangeSlider}
           valueLabelDisplay='off'
-          max={5000}
-          min={0}
+          max={PRICE_LIMIT.max}
+          min={PRICE_LIMIT.min}
           classes={{
             root: 'custom-slider-root',
             thumb: 'custom-slider-thumb',
@@ -58,14 +59,14 @@ const PriceSlider = () => {
       </Box>
       <div className='price-slider__input-wrapper'>
         <input
-          placeholder='от 0'
+          placeholder={`от ${PRICE_LIMIT.min}`}
           className='price-slider__input'
           type='text'
           value={!Number(value[0]) ? '' : value[0]}
           onChange={(e) => handleChange(e, 0)}
         />
         <input
-          placeholder='до 5000'
+          placeholder={`до ${PRICE_LIMIT.max}`}
           className='price-slider__input'
           type='text'
           value={!Number(value[1]) ? '' : value[1]}

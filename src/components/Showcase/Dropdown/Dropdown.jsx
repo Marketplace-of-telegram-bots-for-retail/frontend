@@ -1,34 +1,27 @@
-import React, { useState } from 'react';
+/* eslint-disable react/jsx-curly-newline */
+import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './Dropdown.css';
+import { SORTING_OPTIONS } from '../../../utils/constants';
+import { collecSorting } from '../../../store/dataSearchFormSlice';
 
-const Dropdown = ({ handleSort }) => {
+const Dropdown = () => {
   const [dropdown, setDropdown] = useState(0);
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
   const handleOpen = () => {
     setOpen(!open);
-    console.log('onClick => setOpen(!open)'); // удалить
   };
-
-  // const dropdownList = [
-  //   { title: 'По популярности', value: 'popular' },
-  //   { title: 'По рейтингу', value: 'rate' },
-  //   { title: 'По возрастанию цены', value: 'priceup' },
-  //   { title: 'По убыванию цены', value: 'pricedown' },
-  //   { title: 'По скидке', value: 'sale' },
-  //   { title: 'По новинкам', value: 'newly' },
-  // ];
-
-  const dropdownList = [
-    { title: 'Сначала новые', value: '-created' },
-    { title: 'По дате создания', value: 'created' },
-    { title: 'По возрастанию цены', value: 'price' },
-    { title: 'По убыванию цены', value: '-price' },
-  ];
 
   const dropdownListClick = (index) => {
     setDropdown(index);
   };
+
+  // Обновляем стейт Redux
+  useEffect(() => {
+    dispatch(collecSorting(SORTING_OPTIONS[dropdown].value));
+  }, [dropdown, dispatch]);
 
   return (
     <div className='showcase__dropdown dropdown'>
@@ -40,9 +33,8 @@ const Dropdown = ({ handleSort }) => {
         aria-haspopup='true'
         aria-expanded='false'
         onClick={() => handleOpen()}
-        onSubmit={() => handleSort(dropdownList[dropdown].value)}
       >
-        {dropdownList[dropdown].title}
+        {SORTING_OPTIONS[dropdown].labelName}
         <span className='dropdown__button-icon'></span>
       </button>
       {open ? (
@@ -53,8 +45,9 @@ const Dropdown = ({ handleSort }) => {
             handleOpen();
           }}
         >
-          {dropdownList.map((item, index) => {
-            const active = dropdownList[dropdown].value === item.value && true;
+          {SORTING_OPTIONS.map((item, index) => {
+            const active =
+              SORTING_OPTIONS[dropdown].value === item.value && true;
             // console.log(item); // удалить
             return (
               <li
@@ -62,8 +55,9 @@ const Dropdown = ({ handleSort }) => {
                 onClick={() => dropdownListClick(index)}
                 key={index}
                 value={item.value}
+                onSubmit={() => handleSubmit()}
               >
-                {item.title}
+                {item.labelName}
                 {active ? <span className='dropdown__item-icon'></span> : null}
               </li>
             );

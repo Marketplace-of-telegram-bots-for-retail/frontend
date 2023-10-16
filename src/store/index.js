@@ -1,8 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import priceFormSubmitReducer from './priceFormSubmitSlice';
+import dataSearchFormReducer from './dataSearchFormSlice';
 
 export default configureStore({
   reducer: {
-    priceFormSubmit: priceFormSubmitReducer,
+    dataSearchForm: dataSearchFormReducer,
   },
 });

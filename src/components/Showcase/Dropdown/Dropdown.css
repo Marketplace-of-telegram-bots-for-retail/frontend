@@ -27,13 +27,13 @@
 .dropdown__button-icon {
   width: 24px;
   height: 24px;
-  background: center no-repeat url(../../images/ic_chevron-down-24.svg);
+  background: center no-repeat url(../../../images/ic_chevron-down-24.svg);
 }
 
 .dropdown__item-icon {
   width: 24px;
   height: 24px;
-  background: center no-repeat url(../../images/ic_check-24.svg);
+  background: center no-repeat url(../../../images/ic_check-24.svg);
 }
 
 .dropdown__list {

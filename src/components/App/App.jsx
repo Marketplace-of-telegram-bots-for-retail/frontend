@@ -25,10 +25,13 @@ import Showcase from '../showcase/Showcase/Showcase';
 // Temp
 // import { UserProvider } from '../../context/userContext';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
+import { useFormRequest } from '../../hooks/useFormRequest';
 
 const App = () => {
   // const location = useLocation();
   // const navigate = useNavigate();
+  const { formRequest } = useFormRequest();
+
   const [isPreloader, setPreloader] = useState(false);
   const [showAuthButtons, setShowAuthButtons] = useState(false);
 
@@ -128,6 +131,11 @@ const App = () => {
   useEffect(() => {
     getProducts();
   }, []);
+
+  // Выполнить поиск по Ботам
+  const getSearchProducts = () => {
+    getProducts(formRequest);
+  };
 
   // обработчик лайков и дизлайков
   const cbLike = async (card) => {
@@ -246,6 +254,8 @@ const App = () => {
                 favoritesPage={currentFavorites}
                 cartPage={undefined}
                 isAuthorized={isAuthorized}
+                onSearch={getSearchProducts}
+                isPreloader={isPreloader}
               />
               <Main>
                 <Outlet />
@@ -260,7 +270,11 @@ const App = () => {
             element={
               <>
                 <Poster />
-                <Showcase productsPage={currentProdacts} onLike={cbLike} />
+                <Showcase
+                  productsPage={currentProdacts}
+                  onLike={cbLike}
+                  onSearch={getSearchProducts}
+                />
               </>
             }
           />
