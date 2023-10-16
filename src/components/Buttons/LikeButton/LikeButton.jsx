@@ -1,14 +1,16 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './LikeButton.css';
 
 const LikeButton = ({ parentClass, onLike, card }) => {
-  const [isLiked, setLiked] = useState(card.is_favorited);
+  const [isLiked, setLiked] = useState(false);
+  useEffect(() => {
+    setLiked(card?.is_favorited);
+  }, [card?.is_favorited]);
   const dataCard = { ...card, is_favorited: isLiked };
   const handleLikeClick = async () => {
     const liked = await onLike(dataCard);
     setLiked(liked);
   };
-
   const buttonTitle = isLiked ? 'В избранном' : 'В избранное';
   const likeButtonClassName = `like-button__icon like-button__icon${
     isLiked ? '_active' : '_default'

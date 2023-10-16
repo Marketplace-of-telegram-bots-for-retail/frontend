@@ -9,7 +9,7 @@ const Favorites = ({ favoritesPage, onLike }) => {
   // console.log(favoritesPage);
   useEffect(() => {
     setLikeCards(() => {
-      if (favoritesPage?.count === 0) {
+      if (favoritesPage.lenght === 0) {
         return false;
       }
       return true;
@@ -20,7 +20,7 @@ const Favorites = ({ favoritesPage, onLike }) => {
   return isLikeCards ? (
     <div className='content__favorites favorites'>
       <h1 className='favorites__title'>Избранное</h1>
-      <Cards cards={favoritesPage?.results} onLike={onLike} />
+      <Cards cards={favoritesPage} onLike={onLike} />
     </div>
   ) : (
     <EmptyPage />
