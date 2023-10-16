@@ -62,7 +62,6 @@ const Header = ({
               placeholder='Искать бота'
               value={values?.search || ''}
               name='search'
-              required
               onChange={handleChange}
               disabled={isPreloader}
             ></input>
