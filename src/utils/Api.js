@@ -24,7 +24,7 @@ class Api {
       return data;
     }
     const err = await res.json();
-    return Promise.reject(err.message);
+    return Promise.reject(err);
   };
   // Делаем запрос на сервер
 
