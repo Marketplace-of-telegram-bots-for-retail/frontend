@@ -31,6 +31,9 @@ const Header = ({
     event.preventDefault();
     onSearch();
   };
+  useEffect(() => {
+    onSearch();
+  }, [values]);
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {

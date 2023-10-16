@@ -9,7 +9,7 @@ const Favorites = ({ favoritesPage, onLike }) => {
   // console.log(favoritesPage);
   useEffect(() => {
     setLikeCards(() => {
-      if (favoritesPage.lenght === 0) {
+      if (favoritesPage.length === 0) {
         return false;
       }
       return true;

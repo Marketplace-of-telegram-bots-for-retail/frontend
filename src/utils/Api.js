@@ -6,17 +6,28 @@ class Api {
   }
 
   // Проверяем ответ сервера
-  _checkResponse = (res) => {
+  // _checkResponse = (res) => {
+  //   if (res.ok) {
+  //     if (res.status === 204) {
+  //       return res;
+  //     }
+  //     return res.json();
+  //   }
+  //   return Promise.reject(res);
+  // };
+  _checkResponse = async (res) => {
     if (res.ok) {
       if (res.status === 204) {
         return res;
       }
-      return res.json();
+      const data = await res.json();
+      return data;
     }
-    return Promise.reject(res);
+    const err = await res.json();
+    return Promise.reject(err.message);
   };
-
   // Делаем запрос на сервер
+
   _makeRequest = async (url, method, body, params) => {
     const token = localStorage.getItem('jwt');
     // console.log('_makeRequest=>', token);
