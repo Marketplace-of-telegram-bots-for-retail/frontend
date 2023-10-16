@@ -23,11 +23,10 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 import Favorites from '../Favorites/Favorites';
 import Preloader from '../Preloader/Preloader';
 import Main from '../Main/Main';
-import Showcase from '../showcase/Showcase/Showcase';
-// Temp
 // import { UserProvider } from '../../context/userContext';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { useFormRequest } from '../../hooks/useFormRequest';
+import Showcase from '../showcase/Showcase/Showcase';
 
 const App = () => {
   // const location = useLocation();
@@ -83,7 +82,7 @@ const App = () => {
         setPreloader(false);
       }
     },
-    [checkLocalStorage]
+    [checkLocalStorage, dispatch]
   );
 
   const getProducts = useCallback(
@@ -164,7 +163,7 @@ const App = () => {
         setPreloader(false);
       }
     },
-    [checkLocalStorage]
+    [checkLocalStorage, dispatch]
   );
 
   // обработчик лайков и дизлайков
