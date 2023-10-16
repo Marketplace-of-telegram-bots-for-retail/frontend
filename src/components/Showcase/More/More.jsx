@@ -4,18 +4,18 @@ import './More.css';
 const More = ({ onClick }) => {
   return (
     <div className='showcase__more more'>
-      <button
+      {/* <button
         type='button'
         className='more__button more__button_previous'
-        onClick={() => onClick('previous')}
+        onClick={() => onClick()}
       >
         Предыдущая страница
-      </button>
+      </button> */}
       <span className='more__page-number'></span>
       <button
         type='button'
         className='more__button more__button_next'
-        onClick={() => onClick('next')}
+        onClick={() => onClick()}
       >
         Следущая страница
       </button>

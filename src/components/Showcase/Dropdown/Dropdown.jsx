@@ -5,7 +5,7 @@ import './Dropdown.css';
 import { SORTING_OPTIONS } from '../../../utils/constants';
 import { collecSorting } from '../../../store/dataSearchFormSlice';
 
-const Dropdown = () => {
+const Dropdown = ({ onSearch }) => {
   const [dropdown, setDropdown] = useState(0);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -16,6 +16,7 @@ const Dropdown = () => {
 
   const dropdownListClick = (index) => {
     setDropdown(index);
+    onSearch();
   };
 
   // Обновляем стейт Redux
