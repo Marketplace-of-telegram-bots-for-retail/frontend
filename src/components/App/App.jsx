@@ -6,7 +6,8 @@ import {
   // useLocation,
   // useNavigate,
 } from 'react-router-dom';
-
+import { useDispatch } from 'react-redux';
+import { collecProductsAllStates } from '../../store/dataProductsStateSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import Header from '../Header/Header';
@@ -37,6 +38,8 @@ const App = () => {
 
   const [isAuthorized, setAuthorized] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+
+  const dispatch = useDispatch();
 
   // Проверить localStorage
   const checkLocalStorage = useCallback((key) => {
@@ -114,17 +117,17 @@ const App = () => {
       setPreloader(true);
       try {
         const data = await api.getProducts(params);
-        console.log('getProducts => data', data);
-        // localStorage.setItem('currentProdacts', JSON.stringify(data.results));
-        localStorage.setItem('currentProdacts', JSON.stringify(data));
+        const { results } = data;
+        localStorage.setItem('currentProdacts', JSON.stringify(results));
         setProdacts(() => checkLocalStorage('currentProdacts'));
+        dispatch(collecProductsAllStates(data));
       } catch (err) {
         console.log('getProdacts => err', err); // Консоль
       } finally {
         setPreloader(false);
       }
     },
-    [checkLocalStorage]
+    [checkLocalStorage, dispatch]
   );
 
   // Выполнить первичную загрузку карточек
@@ -136,6 +139,28 @@ const App = () => {
   const getSearchProducts = () => {
     getProducts(formRequest);
   };
+
+  const getMoreProducts = useCallback(
+    async (params) => {
+      const productsData = JSON.parse(localStorage.getItem('currentProdacts'));
+      setPreloader(true);
+      try {
+        const data = await api.getProducts(params);
+        const { count, next, previous, results } = data;
+        const newArr = results.concat(productsData);
+        localStorage.setItem('currentProdacts', JSON.stringify(newArr));
+        setProdacts(() => checkLocalStorage('currentProdacts'));
+        dispatch(
+          collecProductsAllStates({ count, next, previous, results: newArr })
+        );
+      } catch (err) {
+        console.log('getProdacts => err', err); // Консоль
+      } finally {
+        setPreloader(false);
+      }
+    },
+    [checkLocalStorage]
+  );
 
   // обработчик лайков и дизлайков
   const cbLike = async (card) => {
@@ -274,6 +299,7 @@ const App = () => {
                   productsPage={currentProdacts}
                   onLike={cbLike}
                   onSearch={getSearchProducts}
+                  onMore={getMoreProducts}
                 />
               </>
             }
