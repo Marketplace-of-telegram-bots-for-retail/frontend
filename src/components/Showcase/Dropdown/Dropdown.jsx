@@ -13,7 +13,6 @@ const Dropdown = ({ onSearch }) => {
   const handleOpen = () => {
     setOpen(!open);
   };
-  console.log(dropdownState);
   const dropdownListClick = (index) => {
     setDropdown(index);
     onSearch();
