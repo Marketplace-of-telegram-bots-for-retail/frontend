@@ -1,6 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { collecSearch } from '../../store/dataSearchFormSlice';
 import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
@@ -11,7 +11,6 @@ import { CurrentUserContext } from '../../contexts/currentUserContext';
 const Header = ({
   showAuthButtons,
   setShowAuthButtons,
-  favoritesPage,
   cartPage,
   isAuthorized,
   onSearch,
@@ -20,6 +19,9 @@ const Header = ({
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange } = useForm();
   const dispatch = useDispatch();
+  const favoritesCount = useSelector(
+    (state) => state.dataFavoritesState.pageFavoritesCount
+  );
   // Обновляем стейт Redux
   useEffect(() => {
     dispatch(collecSearch(values?.search));
@@ -85,10 +87,8 @@ const Header = ({
           </Link>
           <Link to='/favorites' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_favorite'></span>
-            {favoritesPage.count > 0 ? (
-              <span className='header__badge-counter'>
-                {favoritesPage?.count}
-              </span>
+            {favoritesCount > 0 ? (
+              <span className='header__badge-counter'>{favoritesCount}</span>
             ) : null}
             <span className='header__button-text'>Избранное</span>
           </Link>
