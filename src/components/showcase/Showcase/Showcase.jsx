@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import './Showcase.css';
 import Dropdown from '../Dropdown/Dropdown';
@@ -7,6 +7,7 @@ import More from '../More/More';
 import { AftPoster } from '../../posters';
 import Title from '../../Title/Title';
 import Filters from '../Filters/Filters';
+import ErrorPage from '../../ErrorPage/ErrorPage';
 
 const Showcase = ({ productsPage, onLike, onSearch, onMore }) => {
   const isMorePage = useSelector(
@@ -16,6 +17,15 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore }) => {
   //   'Showcase => dataProductPage',
   //   useSelector((state) => state.dataProductsState)
   // );
+  const [isCards, setCards] = useState(false);
+  useEffect(() => {
+    setCards(() => {
+      if (productsPage?.length === 0) {
+        return false;
+      }
+      return true;
+    });
+  }, [productsPage]);
 
   const onClickMore = () => {
     const moreRequest = ['?', isMorePage.split('/?')[1]].join('&');
@@ -32,12 +42,13 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore }) => {
         <Filters onSearch={onSearch} />
         <div className='showcase__wrap'>
           <Dropdown onSearch={onSearch} />
-          {productsPage && <Cards cards={productsPage} onLike={onLike} />}
-          {isMorePage ? (
-            <More onClick={() => onClickMore()} />
+          {productsPage && isCards ? (
+            <Cards cards={productsPage} onLike={onLike} />
           ) : (
-            <AftPoster onClick={() => onClickAftPoster()} />
+            <ErrorPage botNotFound />
           )}
+          {isMorePage && <More onClick={() => onClickMore()} />}
+          <AftPoster onClick={() => onClickAftPoster()} />
         </div>
       </div>
     </section>

@@ -87,7 +87,7 @@ const App = () => {
 
   const getProducts = useCallback(
     async (params) => {
-      setPreloader(true);
+      // setPreloader(true);
       try {
         const data = await api.getProducts(params);
         const { results } = data;
@@ -97,7 +97,7 @@ const App = () => {
       } catch (err) {
         console.log('getProdacts => err', err); // Консоль
       } finally {
-        setPreloader(false);
+        // setPreloader(false);
       }
     },
     [checkLocalStorage, dispatch]
@@ -249,6 +249,7 @@ const App = () => {
       await cbTokenCheck();
       // Обновить стейт
       await getProducts();
+      setShowAuthButtons(false);
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {

@@ -25,9 +25,11 @@ const ErrorPage = ({ pageNotFound, botNotFound }) => {
     <section className='content__error-page error-page'>
       <img className='error-page__icon' src={isParams?.image} alt='иконка' />
       <h1 className='error-page__text'>{isParams?.text}</h1>
-      <NavLink to='/' className='error-page__button-lagre'>
-        На главную
-      </NavLink>
+      {!botNotFound && (
+        <NavLink to='/' className='error-page__button-lagre'>
+          На главную
+        </NavLink>
+      )}
     </section>
   );
 };
