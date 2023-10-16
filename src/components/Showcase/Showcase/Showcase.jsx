@@ -12,10 +12,10 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore }) => {
   const isMorePage = useSelector(
     (state) => state.dataProductsState.pageProductsNext
   );
-  console.log(
-    'Showcase => dataProductPage',
-    useSelector((state) => state.dataProductsState)
-  );
+  // console.log(
+  //   'Showcase => dataProductPage',
+  //   useSelector((state) => state.dataProductsState)
+  // );
 
   const onClickMore = () => {
     const moreRequest = ['?', isMorePage.split('/?')[1]].join('&');
