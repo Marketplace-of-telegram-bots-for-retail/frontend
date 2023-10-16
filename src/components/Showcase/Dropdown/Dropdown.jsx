@@ -13,9 +13,10 @@ const Dropdown = ({ onSearch }) => {
   const handleOpen = () => {
     setOpen(!open);
   };
-
+  console.log(dropdownState);
   const dropdownListClick = (index) => {
     setDropdown(index);
+    onSearch();
   };
 
   // Обновляем стейт Redux
@@ -25,7 +26,7 @@ const Dropdown = ({ onSearch }) => {
   // Отправить запрос
   useEffect(() => {
     onSearch();
-  }, [dropdownState]);
+  }, [dropdownState, onSearch]);
 
   return (
     <div className='showcase__dropdown dropdown'>

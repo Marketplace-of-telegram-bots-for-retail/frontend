@@ -141,9 +141,9 @@ const App = () => {
   }, []);
 
   // Выполнить поиск по Ботам
-  const getSearchProducts = () => {
+  const getSearchProducts = useCallback(() => {
     getProducts(formRequest);
-  };
+  }, [getProducts, formRequest]);
 
   const getMoreProducts = useCallback(
     async (params) => {
@@ -152,7 +152,7 @@ const App = () => {
       try {
         const data = await api.getProducts(params);
         const { count, next, previous, results } = data;
-        const newArr = results.concat(productsData);
+        const newArr = productsData.concat(results);
         localStorage.setItem('currentProdacts', JSON.stringify(newArr));
         setProdacts(() => checkLocalStorage('currentProdacts'));
         dispatch(
