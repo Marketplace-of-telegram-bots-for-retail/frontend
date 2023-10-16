@@ -31,7 +31,10 @@ const AuthButtons = ({
       setShowAuthButtons(false);
     }
   };
-
+  const handleCloseModal = () => {
+    setShowAuthButtons(false);
+    setShowModal(false);
+  };
   return !showModal ? (
     !isAuthorized && (
       <div
@@ -67,7 +70,7 @@ const AuthButtons = ({
     <AuthModal
       isLogin={isLogin}
       setIsLogin={setIsLogin}
-      onClose={() => setShowModal(false)}
+      onClose={() => handleCloseModal()}
       cbLogIn={cbLogIn}
       cbRegister={cbRegister}
     />
