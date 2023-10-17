@@ -9,7 +9,7 @@ import { useForm } from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 
 const Header = ({
-  showAuthButtons,
+  // showAuthButtons,
   setShowAuthButtons,
   cartPage,
   isAuthorized,
@@ -38,7 +38,7 @@ const Header = ({
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
     setLogin(!isLogin);
-    setShowAuthButtons(!showAuthButtons);
+    setShowAuthButtons(true);
   };
   return (
     <section className='page__header header'>
@@ -107,7 +107,6 @@ const Header = ({
             <Link
               to='/profile'
               className='header__menu-button-icon '
-              onClick={() => handleLogin()}
             >
               <span className='header__button-icon header__button-icon_profile'></span>
               <span className='header__button-text'>

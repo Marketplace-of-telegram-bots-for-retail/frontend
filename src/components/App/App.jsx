@@ -215,13 +215,9 @@ const App = () => {
       const res = await api.postLogIn(data);
       // console.log(res);
       res.auth_token && localStorage.setItem('jwt', res.auth_token);
+      // setShowAuthButtons(false);
       // загрузить данные пользователя и чекнуть jwt
       await cbTokenCheck();
-      // Загрузить избранные
-      // await getFavoritesProducts();
-      // // Обновить стейт
-      // await getProducts();
-      // setProdacts(() => checkLocalStorage('currentProdacts'));
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
     } finally {
@@ -255,7 +251,6 @@ const App = () => {
       await cbTokenCheck();
       // Обновить стейт
       await getProducts();
-      setShowAuthButtons(false);
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
@@ -292,7 +287,6 @@ const App = () => {
           element={
             <>
               <Header
-                showAuthButtons={showAuthButtons}
                 setShowAuthButtons={setShowAuthButtons}
                 isAuthorized={isAuthorized}
                 onSearch={getSearchProducts}
