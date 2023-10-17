@@ -9,13 +9,22 @@ import Title from '../../Title/Title';
 import Filters from '../Filters/Filters';
 import ErrorPage from '../../ErrorPage/ErrorPage';
 
-const Showcase = ({ productsPage, onLike, onSearch, onMore }) => {
-  const isMorePage = useSelector(
-    (state) => state.dataProductsState.pageProductsNext
+const Showcase = ({ productsPage, onLike, onSearch, onMore, isPreloader }) => {
+  // const isMorePage = useSelector(
+  //   (state) => state.dataProductsState.pageProductsNext
+  // );
+  // const isCountProduct = useSelector(
+  //   (state) => state.dataProductsState.pageProductsCount
+  // );
+
+  const { pageProductsNext, pageProductsCount } = useSelector(
+    (state) => state.dataProductsState
   );
   // console.log(
   //   'Showcase => dataProductPage',
-  //   useSelector((state) => state.dataProductsState)
+  //   pageProductsNext,
+  //   pageProductsCount
+  //   // useSelector((state) => state.dataProductsState)
   // );
   const [isCards, setCards] = useState(false);
   useEffect(() => {
@@ -28,7 +37,8 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore }) => {
   }, [productsPage]);
 
   const onClickMore = () => {
-    const moreRequest = ['?', isMorePage.split('/?')[1]].join('&');
+    const moreRequest = ['?', pageProductsNext.split('/?')[1]].join('&');
+    console.log('Showcase => onClickMore', moreRequest);
     onMore(moreRequest);
   };
 
@@ -41,14 +51,16 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore }) => {
       <div className='showcase__wrapper'>
         <Filters onSearch={onSearch} />
         <div className='showcase__wrap'>
-          <Dropdown onSearch={onSearch} />
           {productsPage && isCards ? (
-            <Cards cards={productsPage} onLike={onLike} />
+            <>
+              <Dropdown onSearch={onSearch} />
+              <Cards cards={productsPage} onLike={onLike} />
+            </>
           ) : (
-            <ErrorPage botNotFound />
+            pageProductsCount === 0 && !isPreloader && <ErrorPage botNotFound />
           )}
-          {isMorePage && <More onClick={() => onClickMore()} />}
-          <AftPoster onClick={() => onClickAftPoster()} />
+          {pageProductsNext && <More onClick={() => onClickMore()} />}
+          {!isPreloader && <AftPoster onClick={() => onClickAftPoster()} />}
         </div>
       </div>
     </section>
