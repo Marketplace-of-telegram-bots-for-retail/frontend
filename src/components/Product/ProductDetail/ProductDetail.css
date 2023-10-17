@@ -1,0 +1,63 @@
+.product__good-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.product__good-award {
+    display: flex;
+    flex-direction: row;
+    margin: 32px 0 16px;
+    gap: 12px;
+    align-items: center;
+}
+
+.product__good-prize {
+    width: 36px;
+    height: 36px;
+    background: lightgray 0px 0px / 100% 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 8px;
+}
+
+.product__good-heading {
+    margin: 0;
+    padding: 0;
+    color: var(--Primary-Black);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 22px;
+    letter-spacing: 0.75px;
+}
+
+.product__good-items {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    margin-bottom: 24px;
+}
+
+.product__good-item {
+    display: flex;
+    max-width: 188px;
+    width: 100%;
+    margin: 0;
+    padding: 10px 0;
+    box-sizing: border-box;
+    justify-content: center;
+    align-items: center;
+    color: var(--Gray-Dark);
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 24px;
+    letter-spacing: -0.5px;
+    border-bottom: 2px solid var(--Secondary-Purple-Light);
+    cursor: pointer;
+}
+
+.product__good-item_active {
+    color: var(--Secondary-Accent-Blue-Dark);
+    border-bottom: 2px solid var(--Secondary-Accent-Blue-Dark);
+}

@@ -1,0 +1,66 @@
+.product__good-info {
+    display: flex;
+    flex-direction: row;
+    height: 30px;
+    margin: 13px 0 26px;
+    gap: 15px;
+}
+
+.product__good-raiting {
+    width: 236px;
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.product__good-rewiew {
+    margin: 0;
+    padding: 0;
+    color: var(--Gray-Dark);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.2px;
+    cursor: pointer;
+}
+
+.product__good-rewiew:hover {
+    color: var(--Secondary-Accent-Blue-Dark);
+}
+
+.product__good-like {
+    width: 20px;
+    height: 20px;
+    background: url(../../../images/ic_heart-24_blue.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    border: none;
+    cursor: pointer;
+}
+
+.product__good-like:hover {
+    background: url(../../../images/ic_heart-24-hover.svg);
+}
+
+.product__good-like_active {
+    background: url(../../../images/ic_heart-solid-24-magenta.svg);
+}
+
+.product__good-add {
+    margin: 0;
+    padding: 0;
+    color: var(--Gray-Dark);
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    letter-spacing: 0.4px;
+    cursor: pointer;
+}
+
+.product__good-add:hover {
+    color: var(--Secondary-Accent-Blue-Dark);
+}

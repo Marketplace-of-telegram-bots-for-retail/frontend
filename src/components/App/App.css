@@ -1,0 +1,69 @@
+.page {
+  font-family: 'Poppins', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* justify-content: center; */
+  margin: 0 auto;
+  padding: 0;
+  width: 100%;
+  min-width: 320px;
+  height: 100vh;
+  position: relative;
+}
+.page__header {
+  margin: 0 auto;
+  padding: 0 var(--s-indent);
+  max-width: 1280px;
+  width: 100%;
+}
+.page__content {
+  margin: 0 auto;
+  padding: 0 var(--s-indent);
+  max-width: 1280px;
+  width: 100%;
+  flex: 1 0 auto;
+}
+.page__footer {
+  margin: 0 auto;
+  flex: 0 0 auto;
+}
+.page__modal {
+  position: fixed;
+  margin: 0;
+  padding: 0 var(--s-indent);
+  max-width: 1280px;
+  width: 100%;
+  height: 100vh;
+  z-index: 3;
+  margin: 0 auto;
+}
+
+.button {
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  padding: 14px 16px;
+  border-radius: 8px;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 22px;
+  color: var(--Primary-Accent);
+  min-width: 188px;
+  text-align: center;
+}
+
+.button_color_transparent {
+  border: 2px solid var(--Primary-Accent);
+}
+
+.button_color_blue {
+  background-color: var(--Primary-Accent);
+  color: var(--Primary-White);
+}

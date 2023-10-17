@@ -1,0 +1,63 @@
+.preloader {
+  box-sizing: border-box;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  margin: 0;
+  padding: 0;
+}
+.preloader__container {
+  position: relative;
+}
+
+.preloader__outer,
+.preloader__middle,
+.preloader__inner {
+  border: 3px solid transparent;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.preloader__outer {
+  border-top-color: var(--Primary-Accent);
+  border-right-color: var(--Primary-Accent);
+  width: 3.5em;
+  height: 3.5em;
+  margin-left: -1.75em;
+  margin-top: -1.75em;
+  animation: spin 2s linear infinite;
+}
+
+.preloader__middle {
+  border-top-color: var(--Primary-Accent);
+  border-right-color: var(--Primary-Accent);
+  width: 2.1em;
+  height: 2.1em;
+  margin-left: -1.05em;
+  margin-top: -1.05em;
+  animation: spin 1.75s linear reverse infinite;
+}
+
+.preloader__inner {
+  border-top-color: var(--Primary-Accent);
+  border-right-color: var(--Primary-Accent);
+  width: 0.8em;
+  height: 0.8em;
+  margin-left: -0.4em;
+  margin-top: -0.4em;
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

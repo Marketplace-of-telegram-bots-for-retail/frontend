@@ -1,0 +1,77 @@
+.cart-button {
+  display: flex;
+  height: 3.25rem;
+  margin: 0;
+  padding: 0;
+}
+.cart-button_small {
+  height: 2.5rem;
+}
+
+.cart-button__wrapper {
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.cart-button__counter {
+  text-align: center;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  border: none;
+  color: var(--Primary-Black);
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.375rem;
+}
+.cart-button__counter::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.cart-button__button {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  padding: 0.875rem 1rem;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  border-radius: 8px;
+  border: none;
+  border-radius: 8px;
+  background: var(--Primary-Accent);
+  color: var(--Primary-White);
+  text-align: center;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.375rem;
+  cursor: pointer;
+  transition: all 0.25s;
+}
+
+.cart-button__button_counter_large {
+  width: 5rem;
+}
+.cart-button__button_counter_small {
+  width: 3.75rem;
+}
+
+.cart-button__button:hover {
+  background: var(--Secondary-Accent-Blue-Dark);
+  transition: all 0.25s;
+}
+
+.cart-button__button:disabled {
+  background: var(--Secondary-Purple-Light);
+}

@@ -1,0 +1,41 @@
+.rating {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-direction: row;
+
+}
+
+.rating__stars {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  margin: 0;
+  padding: 0;
+}
+.rating__star {
+  margin: 0;
+  padding: 0;
+  height: 1.25rem;
+  width: 1.25rem;
+  border: none;
+  background-size: 1.25rem 1.25rem;
+}
+
+.rating__star_on {
+  background: center no-repeat url(../../images/ic_rating-20-on.svg);
+}
+
+.rating__star_off {
+  background: center no-repeat url(../../images/ic_rating-20.svg);
+}
+
+.rating__feedback {
+  color: var(--Primary-Black);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  margin: 0;
+  padding: 0;
+}

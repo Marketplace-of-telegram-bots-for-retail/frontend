@@ -1,13 +1,41 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+/* normilize */
+@import url(./vendor/normalize.css);
+/*fonts*/
+@import url(./vendor/fonts.css);
+
+:root {
+  --text-color: #7e7e7e;
+  --s-indent: 1.62rem;
+  --gradient-primary: linear-gradient(
+    270deg,
+    #7916e1 0%,
+    #680be0 47.92%,
+    #5500de 100%
+  );
+  --Primary-White: #fdfdfd;
+  --letter-space: 0.5px;
+  --Input-Text: #cccccc;
+  --Accent-Purple: #680be0;
+  --Accent-Orange: #ff8f6e;
+  --Primary-Black: #1e1e1e;
+  --Primary-Accent: #726efa;
+  --Primary-Accent-Magenta: #ea248a;
+  --Secondary-Accent-Blue-Dark: #352df2;
+  --Secondary-Purple-Light: #b2b0ff;
+  --Gray-Light: #8e8e8e;
+  --Gray-Medium: #7e7e7e;
+  --Gray-Dark: #737373;
+  --Gray-Additional: #9fa1a5;
+  --Card-Peach: #ffb19a;
+  --Card-Yellow: #fcd78c;
+  --Card-Green: #66d4b9;
+  --Card-Blue: #bad8f9;
+  --Card-Gray: #dddcdf;
+  --Error: #ff2455;
+  --Rating: #f1c644;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  box-sizing: border-box;
+  /* outline: 1px solid pink; */
 }

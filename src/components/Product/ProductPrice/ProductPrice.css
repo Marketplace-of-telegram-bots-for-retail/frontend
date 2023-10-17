@@ -1,0 +1,20 @@
+.product__price {
+    display: flex;
+    box-sizing: border-box;
+    max-width: 292px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.product__price-item {
+    margin: 0;
+    padding: 0;
+    color: #1E1E1E;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+}

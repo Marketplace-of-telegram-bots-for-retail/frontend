@@ -1,0 +1,5 @@
+.product__good-details {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+}

@@ -1,0 +1,33 @@
+.product__title-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin: 35px 0 0;
+}
+
+.product__title {
+    max-width: 1020px;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    color: #1E1E1E;
+    text-overflow: ellipsis;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: normal;
+    letter-spacing: 0.7px;
+}
+
+.product__article {
+    margin: 0;
+    padding: 0;
+    color: #1E1E1E;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    align-self: center;
+    letter-spacing: 0.4px;
+}
