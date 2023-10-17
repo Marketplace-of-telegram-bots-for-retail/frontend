@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
 
 const AuthForm = ({ children, ...props }) => {
+  useEffect(() => props.setQueryMessage(''), []);
   return (
     <>
       {!props.isLogin && (
@@ -30,6 +31,9 @@ const AuthForm = ({ children, ...props }) => {
             )
           )}
         </div>
+        <span className='modal__query-error'>
+          {props.queryMessage !== '' ? props.queryMessage : props.errorMessage}
+        </span>
         <button
           className='modal__button_type_submit'
           type='submit'

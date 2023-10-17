@@ -11,6 +11,8 @@ const AuthModal = ({
   setIsLogin,
   cbLogIn,
   cbRegister,
+  queryMessage,
+  setQueryMessage,
 }) => {
   const [rememberMe, setRememberMe] = useState(false);
   const [registerStep, setRegisterStep] = useState(1);
@@ -25,7 +27,10 @@ const AuthModal = ({
         <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2>
         <Close className='modal__button_type_close' onClick={onClose} />
         {registerStep === 2 && (
-          <Back className='modal__button_type_back' onClick={() => setRegisterStep(1)} />
+          <Back
+            className='modal__button_type_back'
+            onClick={() => setRegisterStep(1)}
+          />
         )}
         {isLogin ? (
           <Login
@@ -34,7 +39,8 @@ const AuthModal = ({
             setRememberMe={setRememberMe}
             onToggleFormClick={() => setIsLogin(false)}
             cbLogIn={cbLogIn}
-            handleClose={onClose}
+            queryMessage={queryMessage}
+            setQueryMessage={setQueryMessage}
           />
         ) : (
           <Register
@@ -46,6 +52,8 @@ const AuthModal = ({
             onClose={onClose}
             registerStep={registerStep}
             setRegisterStep={setRegisterStep}
+            queryMessage={queryMessage}
+            setQueryMessage={setQueryMessage}
           />
         )}
       </div>

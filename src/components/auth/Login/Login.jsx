@@ -24,7 +24,6 @@ const Login = (props) => {
     };
     console.log(formData);
     props.cbLogIn(formData);
-    props.handleClose();
   };
   return (
     <>
@@ -36,6 +35,8 @@ const Login = (props) => {
         isValid={isValid}
         isCheckboxChecked={isCheckboxChecked}
         setIsCheckboxChecked={setIsCheckboxChecked}
+        queryMessage={props.queryMessage}
+        setQueryMessage={props.setQueryMessage}
       >
         <AuthInput
           htmlFor='email'
