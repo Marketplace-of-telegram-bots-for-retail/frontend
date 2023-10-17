@@ -10,6 +10,13 @@ const AuthButtons = (props) => {
     props.setShowAuthButtons(false);
     props.setShowAuthModal(false);
   };
+  const handleClickButton = (stateButton) => {
+    // stateButton - true for login, false for signup
+    setIsLogin(stateButton);
+    props.setShowAuthModal(true);
+    // закрываем предыдущий попап
+    props.setShowAuthButtons(false);
+  };
 
   return !props.showAuthModal ? (
     !props.isAuthorized && (
@@ -25,8 +32,9 @@ const AuthButtons = (props) => {
             className='auth-buttons__button auth-buttons__button_accent'
             type='button'
             onClick={() => {
-              setIsLogin(true);
-              props.setShowAuthModal(true);
+              handleClickButton(true);
+              // setIsLogin(true);
+              // props.setShowAuthModal(true);
             }}
           >
             Войти
@@ -35,8 +43,9 @@ const AuthButtons = (props) => {
             className='auth-buttons__button'
             type='button'
             onClick={() => {
-              setIsLogin(false);
-              props.setShowAuthModal(true);
+              handleClickButton(false);
+              // setIsLogin(false);
+              // props.setShowAuthModal(true);
             }}
           >
             Зарегистрироваться

@@ -83,6 +83,10 @@ const App = () => {
         setFavorites(() => checkLocalStorage('currentFavorites'));
         dispatch(collecFavoritesAllStates(data));
       } catch (err) {
+        // сбросить стейты
+        setFavorites(() => checkLocalStorage('currentFavorites'));
+        dispatch(collecFavoritesAllStates([]));
+        // вывести в консоль ошибку
         console.log('getProdacts => err', err); // Консоль
       } finally {
         setPreloader(false);
@@ -101,6 +105,10 @@ const App = () => {
         setProdacts(() => checkLocalStorage('currentProdacts'));
         dispatch(collecProductsAllStates(data));
       } catch (err) {
+        // сбросить стейты
+        setProdacts(() => checkLocalStorage('currentProdacts'));
+        dispatch(collecProductsAllStates([]));
+        // вывести в консоль ошибку
         console.log('getProdacts => err', err); // Консоль
       } finally {
         // setPreloader(false);
@@ -128,9 +136,9 @@ const App = () => {
         setCurrentUser(userData);
         setAuthorized(true);
         // Загрузить избранные
-        await getFavoritesProducts();
+        getFavoritesProducts();
         // Обновить стейт
-        await getProducts();
+        getProducts();
       }
     } catch (err) {
       console.log('cbTokenCheck => getUserMe =>', err); // Консоль
@@ -215,13 +223,9 @@ const App = () => {
       const res = await api.postLogIn(data);
       // console.log(res);
       res.auth_token && localStorage.setItem('jwt', res.auth_token);
+      // setShowAuthButtons(false);
       // загрузить данные пользователя и чекнуть jwt
-      await cbTokenCheck();
-      // Загрузить избранные
-      // await getFavoritesProducts();
-      // // Обновить стейт
-      // await getProducts();
-      // setProdacts(() => checkLocalStorage('currentProdacts'));
+      cbTokenCheck();
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
     } finally {
@@ -252,10 +256,10 @@ const App = () => {
       setAuthorized(false);
       setCurrentUser({});
       // загрузить данные пользователя и чекнуть jwt
-      await cbTokenCheck();
-      // Обновить стейт
-      await getProducts();
-      setShowAuthButtons(false);
+      cbTokenCheck();
+      // Обновить стейты
+      getFavoritesProducts();
+      getProducts();
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
@@ -292,7 +296,6 @@ const App = () => {
           element={
             <>
               <Header
-                showAuthButtons={showAuthButtons}
                 setShowAuthButtons={setShowAuthButtons}
                 isAuthorized={isAuthorized}
                 onSearch={getSearchProducts}
@@ -316,6 +319,7 @@ const App = () => {
                   onLike={cbLike}
                   onSearch={getSearchProducts}
                   onMore={getMoreProducts}
+                  isPreloader={isPreloader}
                 />
               </>
             }

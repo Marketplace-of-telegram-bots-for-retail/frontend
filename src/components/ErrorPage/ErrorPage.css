@@ -3,15 +3,14 @@
   align-items: center;
   flex-direction: column;
   margin: 0 auto;
-  padding: 4rem 0 0;
-  height: 36rem;
+  padding: 64px 0;
 }
 
 .error-page__button-lagre {
   display: flex;
-  width: 18.25rem;
-  height: 3.25rem;
-  padding: 0.875rem 1rem;
+  width: 292px;
+  height: 52px;
+  padding: 14px 16px;
   margin: 0;
   justify-content: center;
   align-items: center;
@@ -45,8 +44,8 @@
 }
 
 .error-page__icon {
-  width: 11.75rem;
-  height: 10.75rem;
+  width: 188px;
+  height: 172px;
   object-fit: cover;
   margin: 0;
   padding: 0;

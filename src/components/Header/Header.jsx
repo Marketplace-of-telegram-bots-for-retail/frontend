@@ -9,7 +9,6 @@ import { useForm } from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 
 const Header = ({
-  showAuthButtons,
   setShowAuthButtons,
   cartPage,
   isAuthorized,
@@ -33,12 +32,12 @@ const Header = ({
   };
   useEffect(() => {
     onSearch();
-  }, [values]);
+  }, [values?.search]);
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
     setLogin(!isLogin);
-    setShowAuthButtons(!showAuthButtons);
+    setShowAuthButtons(true);
   };
   return (
     <section className='page__header header'>
@@ -69,6 +68,7 @@ const Header = ({
               name='search'
               onChange={handleChange}
               disabled={isPreloader}
+              onBlur={onSearch}
             ></input>
             <button
               className='header__search-button'
@@ -104,11 +104,7 @@ const Header = ({
               Войти
             </button>
           ) : (
-            <Link
-              to='/profile'
-              className='header__menu-button-icon '
-              onClick={() => handleLogin()}
-            >
+            <Link to='/profile' className='header__menu-button-icon '>
               <span className='header__button-icon header__button-icon_profile'></span>
               <span className='header__button-text'>
                 {currentUser.first_name}
