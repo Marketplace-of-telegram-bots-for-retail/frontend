@@ -1,45 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
 import { ReactComponent as Triangle } from '../../../images/triangle.svg';
 
-const AuthButtons = ({
-  cbLogIn,
-  cbRegister,
-  isAuthorized,
-  setShowAuthButtons,
-  showAuthButtons,
-}) => {
-  const [showModal, setShowModal] = useState(false);
+const AuthButtons = (props) => {
   const [isLogin, setIsLogin] = useState(true); // true for login, false for signup
 
-  // указываем `useEffect` для обработчика `Escape`
-  useEffect(() => {
-    if (!showAuthButtons) return;
-    function handleEscapeKey(e) {
-      if (e.code === 'Escape') {
-        setShowAuthButtons(false);
-      }
-    }
-    document.addEventListener('keydown', handleEscapeKey);
-    return () => document.removeEventListener('keydown', handleEscapeKey);
-  }, [showAuthButtons, setShowAuthButtons]);
-
-  // создаем обработчик оверлея
-  const handleOverlay = (e) => {
-    if (e.target === e.currentTarget) {
-      setShowAuthButtons(false);
-    }
-  };
   const handleCloseModal = () => {
-    setShowAuthButtons(false);
-    setShowModal(false);
+    props.setShowAuthButtons(false);
+    props.setShowAuthModal(false);
   };
-  return !showModal ? (
-    !isAuthorized && (
+
+  return !props.showAuthModal ? (
+    !props.isAuthorized && (
       <div
         className='auth-buttons page__modal modal'
-        onClick={(e) => handleOverlay(e)}
+        onClick={() => {
+          props.setShowAuthButtons(true);
+        }}
       >
         <div className='auth-buttons__container'>
           <Triangle className='auth-buttons__triangle' />
@@ -48,7 +26,7 @@ const AuthButtons = ({
             type='button'
             onClick={() => {
               setIsLogin(true);
-              setShowModal(true);
+              props.setShowAuthModal(true);
             }}
           >
             Войти
@@ -58,7 +36,7 @@ const AuthButtons = ({
             type='button'
             onClick={() => {
               setIsLogin(false);
-              setShowModal(true);
+              props.setShowAuthModal(true);
             }}
           >
             Зарегистрироваться
@@ -70,9 +48,9 @@ const AuthButtons = ({
     <AuthModal
       isLogin={isLogin}
       setIsLogin={setIsLogin}
-      onClose={() => handleCloseModal()}
-      cbLogIn={cbLogIn}
-      cbRegister={cbRegister}
+      onClose={handleCloseModal}
+      cbLogIn={props.cbLogIn}
+      cbRegister={props.cbRegister}
     />
   );
 };
