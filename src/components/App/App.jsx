@@ -27,6 +27,7 @@ import Main from '../Main/Main';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { useFormRequest } from '../../hooks/useFormRequest';
 import Showcase from '../showcase/Showcase/Showcase';
+import useModal from '../../hooks/useModal';
 
 const App = () => {
   // const location = useLocation();
@@ -34,12 +35,17 @@ const App = () => {
   const { formRequest } = useFormRequest();
 
   const [isPreloader, setPreloader] = useState(false);
-  const [showAuthButtons, setShowAuthButtons] = useState(false);
 
   const [isAuthorized, setAuthorized] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
 
   const dispatch = useDispatch();
+
+  const [showAuthButtons, setShowAuthButtons] = useState(false);
+  useModal(showAuthButtons, setShowAuthButtons);
+
+  const [showAuthModal, setShowAuthModal] = useState(false);
+  useModal(showAuthModal, setShowAuthModal);
 
   // Проверить localStorage
   const checkLocalStorage = useCallback((key) => {
@@ -269,12 +275,13 @@ const App = () => {
       {isPreloader && <Preloader />}
       {showAuthButtons && (
         <AuthButtons
-          setShowAuthButtons={setShowAuthButtons}
-          showAuthButtons
           cbLogIn={cbLogIn}
           cbRegister={cbRegister}
-          setAuthorized={setAuthorized}
           isAuthorized={isAuthorized}
+          showAuthButtons={showAuthButtons}
+          setShowAuthButtons={setShowAuthButtons}
+          showAuthModal={showAuthModal}
+          setShowAuthModal={setShowAuthModal}
         />
       )}
       <Routes>
