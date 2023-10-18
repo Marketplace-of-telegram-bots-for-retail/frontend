@@ -3,7 +3,7 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
-import './Profile.css';
+import './index.css';
 import { profileNavigation } from '../../utils/constants';
 import { ReactComponent as ClosedEye } from '../../images/eye.svg';
 import { ReactComponent as OpenedEye } from '../../images/open_eye.svg';
