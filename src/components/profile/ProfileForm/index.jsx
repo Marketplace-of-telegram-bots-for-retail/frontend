@@ -113,10 +113,12 @@ export default function ProfileForm(props) {
                 inputName='Новый пароль'
                 disabled={!isEditing}
               />
-              <span>
-                Не менее 8 символов. Может содержать только латинские буквы,
-                цифры, знаки.
-              </span>
+              {!errors.newPassword && (
+                <span>
+                  Не менее 8 символов. Может содержать только латинские буквы,
+                  цифры, знаки.
+                </span>
+              )}
             </li>
             <li>
               <Input
@@ -138,9 +140,7 @@ export default function ProfileForm(props) {
           <button type='button' onClick={() => setIsEditing(false)}>
             Отменить
           </button>
-          <button type='button'>
-            Сохранить
-          </button>
+          <button type='button'>Сохранить</button>
         </>
       ) : (
         <div>

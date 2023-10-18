@@ -55,7 +55,9 @@ export const useFormWithValidation = () => {
     const phoneRegex =
       /^\+7\s?[0-7|9]?[0-9]{2}\s?[0-9]{3}\s?[0-9]{2}\s?[0-9]{2}/;
     if (!phoneRegex.test(phone)) return 'Неверный формат номера телефона';
-    if (phone.length < 11 || phone.length > 13) return 'Длина номера телефона - от 10 до 12 цифр';
+    if (phone.length < 11 || phone.length > 13) {
+      return 'Длина номера телефона - от 10 до 12 цифр';
+    }
     return '';
   };
 
@@ -70,25 +72,33 @@ export const useFormWithValidation = () => {
     let { value } = e.target;
     const { name } = e.target;
     let { validationMessage } = e.target;
-    if (name === 'email') {
-      validationMessage = _isValidEmail(value);
-    }
+    if (value === '') {
+      validationMessage = 'Поле ввода не может быть пустым';
+    } else {
+      if (name === 'email') {
+        validationMessage = _isValidEmail(value);
+      }
 
-    if (name === 'password') {
-      validationMessage = _isValidPassword(value, values.email);
-    }
+      if (name === 'password' || name === 'newPassword') {
+        validationMessage = _isValidPassword(value, values.email);
+      }
 
-    if (name === 'confirmPassword') {
-      validationMessage = _validateConfirmPassword(value, values.password);
-    }
+      if (name === 'confirmPassword') {
+        validationMessage = _validateConfirmPassword(value, values.password);
+      }
 
-    if (name === 'name' || name === 'surname') {
-      validationMessage = _isValidName(value);
-    }
+      if (name === 'confirmNewPassword') {
+        validationMessage = _validateConfirmPassword(value, values.newPassword);
+      }
 
-    if (name === 'phone') {
-      value = _addCountryCode(value);
-      validationMessage = _isValidPhone(value);
+      if (name.includes('name')) {
+        validationMessage = _isValidName(value);
+      }
+
+      if (name === 'phone') {
+        value = _addCountryCode(value);
+        validationMessage = _isValidPhone(value);
+      }
     }
 
     e.target.setCustomValidity(validationMessage);
