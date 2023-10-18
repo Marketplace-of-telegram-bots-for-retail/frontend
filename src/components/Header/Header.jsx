@@ -40,6 +40,7 @@ const Header = ({
     setLogin(!isLogin);
     setShowAuthButtons(true);
   };
+
   return (
     <section className='page__header header'>
       <nav className='header__nav'>
@@ -51,7 +52,7 @@ const Header = ({
           );
         })}
       </nav>
-      <article className='header__basis'>
+      <div className='header__basis header__basis_sticky'>
         <div className='header__navbar'>
           <NavLink className='header__logo' to='/'>
             <img src={logo} alt='логотип' />
@@ -113,7 +114,7 @@ const Header = ({
             </Link>
           )}
         </div>
-      </article>
+      </div>
     </section>
   );
 };
