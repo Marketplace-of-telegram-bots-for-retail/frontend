@@ -17,7 +17,7 @@ export default function ProfileForm() {
       email: currentUser.username,
       phone: currentUser.phone,
     });
-  }, []);
+  }, [currentUser]);
 
   return (
     <form className='profile__form'>
