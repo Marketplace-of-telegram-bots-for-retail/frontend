@@ -2,7 +2,6 @@ import React from 'react';
 import './AuthInput.css';
 
 const AuthInput = ({ children, ...props }) => {
-  console.log(props.value);
   return (
     <label htmlFor={props.htmlFor} className='modal__label'>
       {children}
