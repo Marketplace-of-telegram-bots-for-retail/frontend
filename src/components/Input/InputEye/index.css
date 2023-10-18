@@ -4,6 +4,8 @@
   right: 12px;
   top: 50%;
   cursor: pointer;
+  width: 20px;
+  height: 20px;
 }
 
 .input__eye_active {
