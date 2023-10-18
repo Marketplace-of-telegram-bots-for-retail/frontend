@@ -1,4 +1,4 @@
-export const checkToken = () => {
+export const getToken = () => {
   const tokenLocal = localStorage.getItem('jwt');
   if (tokenLocal) {
     return tokenLocal;
@@ -15,4 +15,12 @@ export const setToken = (token, rememberMe) => {
   } else {
     sessionStorage.setItem('jwt', token);
   }
+};
+
+export const checkToken = () => {
+  const jwt = getToken();
+  if (!jwt) {
+    throw new Error('Ошибка, нет токена');
+  }
+  return jwt;
 };
