@@ -19,13 +19,13 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { userType, rememberMe } = props;
+    // const { userType, rememberMe } = props; // Не нужен
     const { email, password } = values;
     const formData = {
-      userType,
+      // userType, // не нужен
       email,
       password,
-      rememberMe,
+      rememberMe: isCheckboxChecked,
     };
     console.log(formData);
     props.cbLogIn(formData);
@@ -33,8 +33,8 @@ const Login = (props) => {
   return (
     <>
       <AuthForm
-        rememberMe={props.rememberMe}
-        setRememberMe={props.setRememberMe}
+        // rememberMe={props.rememberMe}
+        // setRememberMe={props.setRememberMe}
         handleSubmit={handleSubmit}
         isLogin={props.isLogin}
         isValid={isValid}

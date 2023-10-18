@@ -21,13 +21,13 @@ const Register = (props) => {
 
   const handleStepOne = (e) => {
     e.preventDefault();
-    const { userType, rememberMe } = props;
+    // const { userType, rememberMe } = props;
     const { name, surname, email } = values;
     localStorage.setItem(
       'registerFormData',
       JSON.stringify({
-        userType,
-        rememberMe,
+        // userType,
+        // rememberMe,
         first_name: name,
         last_name: surname,
         email,
