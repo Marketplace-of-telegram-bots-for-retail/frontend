@@ -1,8 +1,9 @@
-.profile__container {
-  display: flex;
+.profile__title {
+  margin: 0 0 48px;
+  font-size: 2.5em;
 }
 
-.profile__content {
+.profile__container {
   display: flex;
-  flex-direction: column;
+  gap: 104px;
 }

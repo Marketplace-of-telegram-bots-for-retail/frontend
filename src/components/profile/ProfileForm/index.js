@@ -1,4 +1,5 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 import Input from '../../Input';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
@@ -9,6 +10,9 @@ export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
+  const [isEditing, setIsEditing] = useState(false);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setValues({
@@ -44,7 +48,7 @@ export default function ProfileForm(props) {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Имя'
-            disabled={!props.isEditing}
+            disabled={!isEditing}
           />
         </li>
         <li>
@@ -56,7 +60,7 @@ export default function ProfileForm(props) {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Фамилия'
-            disabled={!props.isEditing}
+            disabled={!isEditing}
           />
         </li>
         <li>
@@ -68,7 +72,7 @@ export default function ProfileForm(props) {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Телефон'
-            disabled={!props.isEditing}
+            disabled={!isEditing}
           />
         </li>
         <li>
@@ -80,7 +84,7 @@ export default function ProfileForm(props) {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Почта'
-            disabled={!props.isEditing}
+            disabled={!isEditing}
           />
         </li>
         <li>
@@ -91,12 +95,12 @@ export default function ProfileForm(props) {
             value={values.password ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
-            inputName={!props.isEditing ? 'Пароль' : 'Старый пароль'}
-            disabled={!props.isEditing}
-            placeholder={props.isEditing && 'Введите текущий пароль'}
+            inputName={!isEditing ? 'Пароль' : 'Старый пароль'}
+            disabled={!isEditing}
+            placeholder={isEditing && 'Введите текущий пароль'}
           />
         </li>
-        {props.isEditing && (
+        {isEditing && (
           <>
             <li>
               <Input
@@ -107,7 +111,7 @@ export default function ProfileForm(props) {
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Новый пароль'
-                disabled={!props.isEditing}
+                disabled={!isEditing}
               />
               <span>
                 Не менее 8 символов. Может содержать только латинские буквы,
@@ -118,17 +122,42 @@ export default function ProfileForm(props) {
               <Input
                 name='confirmNewPassword'
                 type='password'
-                error={errors.onfirmNewPassword}
-                value={values.onfirmNewPassword ?? ''}
+                error={errors.confirmNewPassword}
+                value={values.confirmNewPassword ?? ''}
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Новый пароль еще раз'
-                disabled={!props.isEditing}
+                disabled={!isEditing}
               />
             </li>
           </>
         )}
       </ul>
+      {isEditing ? (
+        <>
+          <button type='button' onClick={() => setIsEditing(false)}>
+            Отменить
+          </button>
+          <button type='button'>
+            Сохранить
+          </button>
+        </>
+      ) : (
+        <div>
+          <button
+            type='button'
+            onClick={() => {
+              props.cbLogout();
+              navigate('/');
+            }}
+          >
+            Выйти из профиля
+          </button>
+          <button type='button' onClick={() => setIsEditing(true)}>
+            Редактировать профиль
+          </button>
+        </div>
+      )}
     </form>
   );
 }
