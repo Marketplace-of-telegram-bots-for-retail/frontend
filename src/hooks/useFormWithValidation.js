@@ -39,12 +39,15 @@ export const useFormWithValidation = () => {
   const _isValidName = (name) => {
     name = name.trim();
     const nameRegex = /^[А-Яа-яё]+$/;
-    console.log(name);
     if (!nameRegex.test(name)) return 'Только кириллица';
     if (name.length < 1 || name.length > 50) {
       return 'Имя должно содержать не меньше 1 и не больше 50 букв';
     }
     return '';
+  };
+
+  const _addCountryCode = (phone) => {
+    return phone.startsWith('9') ? `+7${phone}` : phone;
   };
 
   const _isValidPhone = (phone) => {
@@ -64,7 +67,8 @@ export const useFormWithValidation = () => {
   };
 
   const handleChange = (e) => {
-    const { value, name } = e.target;
+    let { value } = e.target;
+    const { name } = e.target;
     let { validationMessage } = e.target;
     if (name === 'email') {
       validationMessage = _isValidEmail(value);
@@ -83,6 +87,7 @@ export const useFormWithValidation = () => {
     }
 
     if (name === 'phone') {
+      value = _addCountryCode(value);
       validationMessage = _isValidPhone(value);
     }
 

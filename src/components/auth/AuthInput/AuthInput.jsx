@@ -19,6 +19,7 @@ const AuthInput = ({ children, ...props }) => {
         onBlur={props.onBlur}
         placeholder={props.placeholder ? props.placeholder : ''}
         autoFocus={props.autoFocus}
+        required
       />
       {props.error && (
         <span className='modal__error-message'>{props.error}</span>
