@@ -7,6 +7,8 @@ import { CurrentUserContext } from '../../../contexts/currentUserContext';
 import avatar from '../../../images/Avatar.png';
 
 export default function ProfileForm(props) {
+  // Переключатель для отображения всплывающего окна редактирования фотографии
+  // const [isEditingPhoto, setIsEditingPhoto] = useState(false);
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
@@ -25,17 +27,28 @@ export default function ProfileForm(props) {
     e.preventDefault();
     if (values.newPassword !== values.password) {
       console.log('submit');
+      setIsEditing(false);
     }
+  }
+
+  function deleteProfile(e) {
+    e.preventDefault();
   }
 
   return (
     <form className='profile__form' noValidate>
       <div
-        className='profile__avatar'
+        className='profile__avatar-container'
         // onMouseEnter={() => isEditing && setIsEditingPhoto(true)}
         // onMouseLeave={() => setIsEditingPhoto(false)}
       >
-        <img src={avatar} alt='avatar' />
+        <img
+          className={`profile__avatar ${
+            isEditing ? 'profile_avatar_type_edit' : ''
+          }`}
+          src={avatar}
+          alt='avatar'
+        />
         {/* {isEditing && isEditingPhoto && (
           <div className='profile__avatar-popup'>
             <button type='button'>Добавить фото</button>
@@ -145,6 +158,7 @@ export default function ProfileForm(props) {
         setIsEditing={setIsEditing}
         cbLogout={props.cbLogout}
         handleSubmit={handleSubmit}
+        deleteProfile={deleteProfile}
       />
     </form>
   );

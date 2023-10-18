@@ -1,11 +1,22 @@
 .profile__form {
-    max-width: 416px;
+  min-height: 1195px;
+  max-width: 416px;
+  margin-bottom: 48px;
 }
 
 .profile__inputs-list {
-    list-style: none;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    gap: 31px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 31px;
+}
+
+.profile__avatar {
+  margin-bottom: 44px;
+}
+
+.profile_avatar_type_edit {
+  margin-bottom: 69px;
 }

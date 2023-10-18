@@ -27,10 +27,15 @@
   margin: 0;
 }
 
-.profile__link {
+.profile__link a {
   text-decoration: none;
   color: var(--Primary-Black);
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
+}
+
+.profile__delete-profile-button {
+  padding: 0;
+  min-width: auto;
 }
