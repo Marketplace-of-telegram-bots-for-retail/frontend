@@ -1,10 +1,8 @@
 /* eslint-disable react/jsx-curly-newline */
-// Импорты необходимых библиотек и компонентов
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './index.css';
-import { profileNavigation } from '../../utils/constants';
 import ProfileForm from './ProfileForm';
+import ProfileNavigation from './ProfileNavigation';
 
 // Компонент профиля пользователя
 const Profile = () => {
@@ -52,27 +50,7 @@ const Profile = () => {
     <div className='profile'>
       <h1 className='profile__title'>Личный кабинет</h1>
       <div className='profile__container'>
-        {/* Навигация */}
-        <nav className='profile__navigation'>
-          <ul>
-            {profileNavigation.map((block, i) => (
-              <li key={i}>
-                <h3>{block.title}</h3>
-                <ul>
-                  {block.links.map((link) => (
-                    <li key={link.link}>
-                      <Link to={link.link}>{link.name}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </li>
-            ))}
-          </ul>
-          <button type='button' onClick={() => {}}>
-            Удалить профиль
-          </button>
-        </nav>
-
+        <ProfileNavigation />
         <ProfileForm />
       </div>
     </div>

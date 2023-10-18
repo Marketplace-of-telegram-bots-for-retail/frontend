@@ -6,4 +6,5 @@
 .profile__container {
   display: flex;
   gap: 104px;
+  margin-bottom: 48px;
 }

@@ -1,0 +1,36 @@
+.profile__navigation-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 37px;
+  margin-bottom: 62px;
+}
+
+.profile__links-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.profile__navigation-item {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.profile__links-list-title {
+  margin: 0;
+}
+
+.profile__link {
+  text-decoration: none;
+  color: var(--Primary-Black);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
