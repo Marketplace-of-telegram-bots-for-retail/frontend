@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './index.css';
 import InputEye from './InputEye';
 
 export default function Input(props) {
+  const [showPassword, setShowPassword] = useState(false);
   return (
     <label htmlFor={props.name} className='input'>
       <span className='input__name'>{props.inputName}</span>
@@ -12,7 +13,7 @@ export default function Input(props) {
         className={`input__input ${
           props.error || props.queryMessage ? 'input__input_type_error' : ''
         }`}
-        type={props.type}
+        type={showPassword ? 'text' : props.type}
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}
@@ -26,8 +27,8 @@ export default function Input(props) {
       )}
       {props.type === 'password' && (
         <InputEye
-          showPassword={props.showPassword}
-          setShowPassword={props.setShowPassword}
+          showPassword={showPassword}
+          setShowPassword={setShowPassword}
         />
       )}
     </label>

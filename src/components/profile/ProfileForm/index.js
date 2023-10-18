@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
 import './index.css';
 import Input from '../../Input';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
@@ -9,7 +9,6 @@ export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
-  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     setValues({
@@ -87,13 +86,12 @@ export default function ProfileForm(props) {
         <li>
           <Input
             name='password'
-            type={showPassword ? 'text' : 'password'}
+            type='password'
             error={errors.password}
             value={values.password ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
             inputName={!props.isEditing ? 'Пароль' : 'Старый пароль'}
-            setShowPassword={setShowPassword}
             disabled={!props.isEditing}
             placeholder={props.isEditing && 'Введите текущий пароль'}
           />
@@ -103,13 +101,12 @@ export default function ProfileForm(props) {
             <li>
               <Input
                 name='newPassword'
-                type={showPassword ? 'text' : 'password'}
+                type='password'
                 error={errors.newPassword}
                 value={values.newPassword ?? ''}
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Новый пароль'
-                setShowPassword={setShowPassword}
                 disabled={!props.isEditing}
               />
               <span>
@@ -120,13 +117,12 @@ export default function ProfileForm(props) {
             <li>
               <Input
                 name='confirmNewPassword'
-                type={showPassword ? 'text' : 'password'}
+                type='password'
                 error={errors.onfirmNewPassword}
                 value={values.onfirmNewPassword ?? ''}
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Новый пароль еще раз'
-                setShowPassword={setShowPassword}
                 disabled={!props.isEditing}
               />
             </li>
