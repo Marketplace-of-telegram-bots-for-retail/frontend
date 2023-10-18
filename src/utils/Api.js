@@ -1,4 +1,4 @@
-import { checkToken } from './tokenStorage';
+import { getToken } from './tokenStorage';
 
 class Api {
   constructor(options) {
@@ -22,7 +22,7 @@ class Api {
 
   _makeRequest = async (url, method, body, params) => {
     // const token = localStorage.getItem('jwt');
-    const token = checkToken();
+    const token = getToken();
     // console.log('_makeRequest=>', token);
     if (token) {
       this._headers.Authorization = `Token ${token}`;
