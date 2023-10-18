@@ -191,7 +191,7 @@ const App = () => {
     setPreloader(true);
     let isLiked;
     const isMy = card.is_favorited;
-    console.log('cbLike => isMy =>', isMy);
+    // console.log('cbLike => isMy =>', isMy);
     try {
       if (!isMy) {
         // Добавляем карточку
@@ -224,15 +224,10 @@ const App = () => {
 
   // Авторизация
   const cbLogIn = async (data) => {
-    console.log('cbLogIn ->', data);
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
-      // console.log(res);
-      // res.auth_token && localStorage.setItem('jwt', res.auth_token);
-      if (res.auth_token) {
-        setToken(res.auth_token, data.rememberMe);
-      }
+      setToken(res.auth_token, data.rememberMe);
       setShowAuthButtons(false);
       setShowAuthModal(false);
       cbTokenCheck();
