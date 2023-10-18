@@ -47,6 +47,10 @@ export const useFormWithValidation = () => {
     return '';
   };
 
+  // const _addCountryCode = (phone) => {
+  //   return phone.startsWith('9') ? `+7' + ${phone}` : phone;
+  // };
+
   const _isValidPhone = (phone) => {
     phone = phone.trim();
     const phoneRegex =

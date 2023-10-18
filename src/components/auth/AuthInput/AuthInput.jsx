@@ -2,6 +2,7 @@ import React from 'react';
 import './AuthInput.css';
 
 const AuthInput = ({ children, ...props }) => {
+  console.log(props.value);
   return (
     <label htmlFor={props.htmlFor} className='modal__label'>
       {children}
@@ -19,6 +20,7 @@ const AuthInput = ({ children, ...props }) => {
         onBlur={props.onBlur}
         placeholder={props.placeholder ? props.placeholder : ''}
         autoFocus={props.autoFocus}
+        required
       />
       {props.error && (
         <span className='modal__error-message'>{props.error}</span>
