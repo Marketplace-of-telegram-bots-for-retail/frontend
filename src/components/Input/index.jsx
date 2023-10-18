@@ -1,10 +1,10 @@
 import React from 'react';
 import './index.css';
+// import InputEye from './InputEye';
 
-export const Input = ({ children, ...props }) => {
+export default function Input(props) {
   return (
     <label htmlFor={props.htmlFor} className='input'>
-      {children}
       <span className='input__name'>{props.inputName}</span>
       <input
         name={props.name}
@@ -22,6 +22,12 @@ export const Input = ({ children, ...props }) => {
       {props.error && (
         <span className='input__error-message'>{props.error}</span>
       )}
+      {/* {props.type === 'password' && (
+        <InputEye
+          showPassword={props.showPassword}
+          setShowPassword={props.setShowPassword}
+        />
+      )} */}
     </label>
   );
-};
+}

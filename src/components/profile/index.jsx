@@ -8,6 +8,7 @@ import { profileNavigation } from '../../utils/constants';
 import { ReactComponent as ClosedEye } from '../../images/eye.svg';
 import { ReactComponent as OpenedEye } from '../../images/open_eye.svg';
 import avatar from '../../images/Avatar.png';
+import Input from '../Input';
 
 // Компонент профиля пользователя
 const Profile = (props) => {
@@ -156,6 +157,7 @@ const Profile = (props) => {
             )}
           </div>
           <ul>
+            <Input />
             {profileInputs.map((field) => (
               <li key={field.key}>
                 <label htmlFor={field.label}>
