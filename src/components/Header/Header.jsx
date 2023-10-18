@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { useDispatch, useSelector } from 'react-redux';
 import { collecSearch } from '../../store/dataSearchFormSlice';
 import { ARR_NAV } from '../../utils/constants';
@@ -44,9 +45,9 @@ const Header = ({
       <nav className='header__nav'>
         {ARR_NAV.map((link, i) => {
           return (
-            <NavLink key={i} to={link.path} className='header__link'>
-              {link.labelName}
-            </NavLink>
+            <HashLink key={i} to={link.link} className='header__link'>
+              {link.label}
+            </HashLink>
           );
         })}
       </nav>

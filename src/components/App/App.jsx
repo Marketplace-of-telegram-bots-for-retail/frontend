@@ -28,6 +28,8 @@ import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { useFormRequest } from '../../hooks/useFormRequest';
 import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
+import Promo from '../info/Promo/Promo';
+import Salesman from '../Salesman/Salesman';
 
 const App = () => {
   // const location = useLocation();
@@ -334,27 +336,11 @@ const App = () => {
           />
           <Route path='/cart' element={<Cart />} />
           <Route path='/profile' element={<Profile cbLogout={cbLogout} />} />
-
-          <Route
-            path='/contacts'
-            // стоит заглушка
-            element={<ErrorPage />}
-          />
-          <Route
-            path='/about'
-            // стоит заглушка
-            element={<ErrorPage />}
-          />
-          <Route
-            path='/developers'
-            // стоит заглушка
-            element={<ErrorPage />}
-          />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route
             path='/salesman'
             // стоит заглушка
-            element={<ErrorPage />}
+            element={<Salesman />}
           />
           <Route
             path='/return'
@@ -362,9 +348,9 @@ const App = () => {
             element={<ErrorPage />}
           />
           <Route
-            path='/faq'
+            path='/promo'
             // стоит заглушка
-            element={<ErrorPage />}
+            element={<Promo />}
           />
         </Route>
       </Routes>

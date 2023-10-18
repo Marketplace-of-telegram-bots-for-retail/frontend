@@ -1,6 +1,7 @@
 .privacy-policy {
   display: flex;
-  margin: 0 var(--s-indent);
+  margin: 0;
+  padding: 0;
   flex-direction: column;
   gap: 20px;
 }

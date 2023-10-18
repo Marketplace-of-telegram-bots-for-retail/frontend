@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 
 import './Footer.css';
 import { FOOTER_LINKS } from '../../utils/constants';
@@ -14,9 +14,9 @@ const Footer = () => {
         <div className='footer__nav-container'>
           {FOOTER_LINKS.map((item, i) => {
             return (
-              <NavLink key={i} to={item.link} className='footer__link'>
+              <HashLink key={i} to={item.link} className='footer__link'>
                 {item.label}
-              </NavLink>
+              </HashLink>
             );
           })}
         </div>
