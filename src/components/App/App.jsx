@@ -47,6 +47,8 @@ const App = () => {
   const [showAuthModal, setShowAuthModal] = useState(false);
   useModal(showAuthModal, setShowAuthModal);
 
+  const [queryMessage, setQueryMessage] = useState('');
+
   // Проверить localStorage
   const checkLocalStorage = useCallback((key) => {
     const item = JSON.parse(localStorage.getItem(key));
@@ -221,6 +223,7 @@ const App = () => {
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
+      setShowAuthModal(false);
       // console.log(res);
       res.auth_token && localStorage.setItem('jwt', res.auth_token);
       // setShowAuthButtons(false);
@@ -228,6 +231,8 @@ const App = () => {
       cbTokenCheck();
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
+      const errMessage = Object.values(err)[0];
+      setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
     }
@@ -239,11 +244,13 @@ const App = () => {
     try {
       await api.postUser(data);
       cbLogIn(data);
+      localStorage.removeItem('registerFormData');
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
+      const errMessage = await Object.values(err)[0];
+      setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
-      localStorage.removeItem('registerFormData');
     }
   };
 
@@ -287,6 +294,8 @@ const App = () => {
           setShowAuthButtons={setShowAuthButtons}
           showAuthModal={showAuthModal}
           setShowAuthModal={setShowAuthModal}
+          queryMessage={queryMessage}
+          setQueryMessage={setQueryMessage}
         />
       )}
       <Routes>

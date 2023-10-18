@@ -43,7 +43,9 @@ const Register = (props) => {
       formData.re_password = confirmPassword;
       console.log(formData);
       props.cbRegister(formData);
-      props.setRegisterStep(3);
+      // сюда всегда передается пустая строка, пофиксить
+      console.log(props.queryMessage);
+      if (props.queryMessage === '') props.setRegisterStep(3);
     } else {
       setErrorMessage('Необходимо согласиться с Политикой Конфиденциальности');
       setErrorCheckbox(true);
@@ -67,6 +69,8 @@ const Register = (props) => {
           errorMessage={errorMessage}
           errorCheckbox={errorCheckbox}
           setErrorCheckbox={setErrorCheckbox}
+          queryMessage={props.queryMessage}
+          setQueryMessage={props.setQueryMessage}
         >
           {props.registerStep === 1 && (
             <>
