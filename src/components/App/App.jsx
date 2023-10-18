@@ -222,6 +222,7 @@ const App = () => {
 
   // Авторизация
   const cbLogIn = async (data) => {
+    сconsole.log('cbLogIn ->', data);
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
