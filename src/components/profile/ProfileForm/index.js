@@ -3,8 +3,9 @@ import './index.css';
 import Input from '../../Input';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
+import avatar from '../../../images/Avatar.png';
 
-export default function ProfileForm() {
+export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
@@ -21,9 +22,21 @@ export default function ProfileForm() {
 
   return (
     <form className='profile__form'>
+      <div
+        className='profile__avatar'
+        // onMouseEnter={() => isEditing && setIsEditingPhoto(true)}
+        // onMouseLeave={() => setIsEditingPhoto(false)}
+      >
+        <img src={avatar} alt='avatar' />
+        {/* {isEditing && isEditingPhoto && (
+          <div className='profile__avatar-popup'>
+            <button type='button'>Добавить фото</button>
+            <button type='button'>Удалить фото</button>
+          </div>
+        )} */}
+      </div>
       <ul className='profile__inputs-list'>
         <li>
-          {' '}
           <Input
             name='name'
             type='text'
@@ -32,10 +45,10 @@ export default function ProfileForm() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Имя'
+            disabled={!props.isEditing}
           />
         </li>
         <li>
-          {' '}
           <Input
             name='surname'
             type='text'
@@ -44,10 +57,10 @@ export default function ProfileForm() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Фамилия'
+            disabled={!props.isEditing}
           />
         </li>
         <li>
-          {' '}
           <Input
             name='phone'
             type='tel'
@@ -56,10 +69,10 @@ export default function ProfileForm() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Телефон'
+            disabled={!props.isEditing}
           />
         </li>
         <li>
-          {' '}
           <Input
             name='email'
             type='email'
@@ -68,6 +81,7 @@ export default function ProfileForm() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Почта'
+            disabled={!props.isEditing}
           />
         </li>
         <li>
@@ -78,11 +92,46 @@ export default function ProfileForm() {
             value={values.password ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
-            inputName='Пароль'
+            inputName={!props.isEditing ? 'Пароль' : 'Старый пароль'}
             setShowPassword={setShowPassword}
+            disabled={!props.isEditing}
+            placeholder={props.isEditing && 'Введите текущий пароль'}
           />
         </li>
-        <li></li>
+        {props.isEditing && (
+          <>
+            <li>
+              <Input
+                name='newPassword'
+                type={showPassword ? 'text' : 'password'}
+                error={errors.newPassword}
+                value={values.newPassword ?? ''}
+                onChange={handleChange}
+                onBlur={onBlur}
+                inputName='Новый пароль'
+                setShowPassword={setShowPassword}
+                disabled={!props.isEditing}
+              />
+              <span>
+                Не менее 8 символов. Может содержать только латинские буквы,
+                цифры, знаки.
+              </span>
+            </li>
+            <li>
+              <Input
+                name='confirmNewPassword'
+                type={showPassword ? 'text' : 'password'}
+                error={errors.onfirmNewPassword}
+                value={values.onfirmNewPassword ?? ''}
+                onChange={handleChange}
+                onBlur={onBlur}
+                inputName='Новый пароль еще раз'
+                setShowPassword={setShowPassword}
+                disabled={!props.isEditing}
+              />
+            </li>
+          </>
+        )}
       </ul>
     </form>
   );

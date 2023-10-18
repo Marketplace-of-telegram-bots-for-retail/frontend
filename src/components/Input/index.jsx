@@ -18,6 +18,7 @@ export default function Input(props) {
         onBlur={props.onBlur}
         placeholder={props.placeholder ? props.placeholder : ''}
         autoFocus={props.autoFocus}
+        disabled={props.disabled}
         required
       ></input>
       {props.error && (
