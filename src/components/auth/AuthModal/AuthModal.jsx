@@ -14,7 +14,7 @@ const AuthModal = ({
   queryMessage,
   setQueryMessage,
 }) => {
-  const [rememberMe, setRememberMe] = useState(false);
+  // const [rememberMe, setRememberMe] = useState(false); // не нужен
   const [registerStep, setRegisterStep] = useState(1);
 
   return (
@@ -35,8 +35,8 @@ const AuthModal = ({
         {isLogin ? (
           <Login
             isLogin={isLogin}
-            rememberMe={rememberMe}
-            setRememberMe={setRememberMe}
+            // rememberMe={rememberMe}  // не нужен
+            // setRememberMe={setRememberMe}  // не нужен
             onToggleFormClick={() => setIsLogin(false)}
             cbLogIn={cbLogIn}
             queryMessage={queryMessage}
@@ -45,8 +45,8 @@ const AuthModal = ({
         ) : (
           <Register
             isLogin={isLogin}
-            rememberMe={rememberMe}
-            setRememberMe={setRememberMe}
+            // rememberMe={rememberMe}  // не нужен
+            // setRememberMe={setRememberMe}  // не нужен
             onToggleFormClick={() => setIsLogin(true)}
             cbRegister={cbRegister}
             onClose={onClose}

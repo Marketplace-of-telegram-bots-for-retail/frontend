@@ -30,6 +30,7 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
+import { checkToken, setToken } from '../../utils/tokenStorage';
 
 const App = () => {
   // const location = useLocation();
@@ -130,12 +131,13 @@ const App = () => {
   const cbTokenCheck = useCallback(async () => {
     setPreloader(true);
     try {
-      const jwt = localStorage.getItem('jwt');
+      // const jwt = localStorage.getItem('jwt');
+      const jwt = checkToken();
       if (!jwt) {
         throw new Error('Ошибка, нет токена');
       }
       const userData = await api.getUserMe();
-      console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userData);
+      // console.log('cbTokenCheck => jwt => api.getUserMe(jwt) => ', userData);
       if (userData) {
         setCurrentUser(userData);
         setAuthorized(true);
@@ -222,15 +224,19 @@ const App = () => {
 
   // Авторизация
   const cbLogIn = async (data) => {
+    console.log('cbLogIn ->', data);
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
-      setShowAuthModal(false);
       // console.log(res);
-      res.auth_token && localStorage.setItem('jwt', res.auth_token);
-      // setShowAuthButtons(false);
-      // загрузить данные пользователя и чекнуть jwt
+      // res.auth_token && localStorage.setItem('jwt', res.auth_token);
+      if (res.auth_token) {
+        setToken(res.auth_token, data.rememberMe);
+      }
+      setShowAuthButtons(false);
+      setShowAuthModal(false);
       cbTokenCheck();
+      // загрузить данные пользователя и чекнуть jwt
     } catch (err) {
       console.log('cbLogIn => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -262,6 +268,7 @@ const App = () => {
     try {
       await api.postLogOut();
       localStorage.clear();
+      sessionStorage.clear();
       setAuthorized(false);
       setCurrentUser({});
       // загрузить данные пользователя и чекнуть jwt
@@ -277,12 +284,8 @@ const App = () => {
   };
 
   // Временно автоматический вход
-  // useEffect(() => {
-  //   cbLogIn({
   //     email: 'user-test@user-test.com',
   //     password: 'Qwe123Asd456',
-  //   });
-  // }, []);
 
   return (
     <CurrentUserContext.Provider value={currentUser}>

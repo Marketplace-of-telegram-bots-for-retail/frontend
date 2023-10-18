@@ -40,7 +40,10 @@ const AuthForm = ({ children, ...props }) => {
           className='modal__button_type_submit'
           type='submit'
           onClick={props.handleSubmit}
-          disabled={!props.isValid || (props.registerStep === 2 && !props.isCheckboxChecked)}
+          disabled={
+            !props.isValid ||
+            (props.registerStep === 2 && !props.isCheckboxChecked)
+          }
         >
           {props.isLogin
             ? 'Войти'

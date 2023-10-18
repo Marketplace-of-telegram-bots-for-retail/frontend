@@ -1,3 +1,5 @@
+import { checkToken } from './tokenStorage';
+
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -29,7 +31,9 @@ class Api {
   // Делаем запрос на сервер
 
   _makeRequest = async (url, method, body, params) => {
-    const token = localStorage.getItem('jwt');
+    // const token = localStorage.getItem('jwt');
+    const token = checkToken();
+
     // console.log('_makeRequest=>', token);
     if (token) {
       this._headers.Authorization = `Token ${token}`;
