@@ -9,13 +9,16 @@ const AuthInput = ({ children, ...props }) => {
       <input
         name={props.name}
         className={`modal__input ${
-          props.error ? 'modal__input_type_error' : 'modal__input_type_valid'
+          props.error || props.queryMessage
+            ? 'modal__input_type_error'
+            : 'modal__input_type_valid'
         }`}
         type={props.type}
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}
         placeholder={props.placeholder ? props.placeholder : ''}
+        autoFocus={props.autoFocus}
       />
       {props.error && (
         <span className='modal__error-message'>{props.error}</span>

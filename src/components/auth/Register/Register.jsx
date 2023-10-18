@@ -10,11 +10,14 @@ const Register = (props) => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [errorCheckbox, setErrorCheckbox] = useState(false);
 
   const { values, onBlur, handleChange, errors, isValid } =
     useFormWithValidation();
+
+  const handleInput = (e) => {
+    handleChange(e);
+    props.setQueryMessage('');
+  };
 
   const handleStepOne = (e) => {
     e.preventDefault();
@@ -35,22 +38,18 @@ const Register = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isCheckboxChecked) {
-      const formData = JSON.parse(localStorage.getItem('registerFormData'));
-      const { phone, password, confirmPassword } = values;
-      formData.phone = phone;
-      formData.password = password;
-      formData.re_password = confirmPassword;
-      console.log(formData);
-      props.cbRegister(formData);
-      // сюда всегда передается пустая строка, пофиксить
-      console.log(props.queryMessage);
-      if (props.queryMessage === '') props.setRegisterStep(3);
-    } else {
-      setErrorMessage('Необходимо согласиться с Политикой Конфиденциальности');
-      setErrorCheckbox(true);
-    }
+    const formData = JSON.parse(localStorage.getItem('registerFormData'));
+    const { phone, password, confirmPassword } = values;
+    formData.phone = phone;
+    formData.password = password;
+    formData.re_password = confirmPassword;
+    console.log(formData);
+    props.cbRegister(formData);
+    // сюда всегда передается пустая строка, пофиксить
+    console.log(props.queryMessage);
+    if (props.queryMessage === '') props.setRegisterStep(3);
   };
+
   return (
     <>
       {props.registerStep === 1 || props.registerStep === 2 ? (
@@ -66,9 +65,6 @@ const Register = (props) => {
           registerStep={props.registerStep}
           isCheckboxChecked={isCheckboxChecked}
           setIsCheckboxChecked={setIsCheckboxChecked}
-          errorMessage={errorMessage}
-          errorCheckbox={errorCheckbox}
-          setErrorCheckbox={setErrorCheckbox}
           queryMessage={props.queryMessage}
           setQueryMessage={props.setQueryMessage}
         >
@@ -80,10 +76,11 @@ const Register = (props) => {
                 type='text'
                 error={errors.name}
                 value={values.name ?? ''}
-                onChange={handleChange}
+                onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Имя'
                 placeholder='Иван'
+                autoFocus
               ></AuthInput>
               <AuthInput
                 htmlFor='surname'
@@ -91,7 +88,7 @@ const Register = (props) => {
                 type='text'
                 error={errors.surname}
                 value={values.surname ?? ''}
-                onChange={handleChange}
+                onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Фамилия'
                 placeholder='Иванов'
@@ -102,7 +99,7 @@ const Register = (props) => {
                 type='email'
                 error={errors.email}
                 value={values.email ?? ''}
-                onChange={handleChange}
+                onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Почта'
                 placeholder='example@mail.ru'
@@ -117,10 +114,11 @@ const Register = (props) => {
                 type='tel'
                 error={errors.phone}
                 value={values.phone ?? ''}
-                onChange={handleChange}
+                onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Телефон'
                 placeholder='+7'
+                autoFocus
               ></AuthInput>
               <AuthInput
                 htmlFor='password'
@@ -128,7 +126,7 @@ const Register = (props) => {
                 type={showPassword ? 'text' : 'password'}
                 error={errors.password}
                 value={values.password ?? ''}
-                onChange={handleChange}
+                onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Пароль'
               >
@@ -145,7 +143,7 @@ const Register = (props) => {
                 type={showConfirmPassword ? 'text' : 'password'}
                 error={errors.confirmPassword}
                 value={values.confirmPassword ?? ''}
-                onChange={handleChange}
+                onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Повторите пароль'
               >
