@@ -1,5 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { HashLink } from 'react-router-hash-link';
 import { useDispatch, useSelector } from 'react-redux';
 import { collecSearch } from '../../store/dataSearchFormSlice';
 import { ARR_NAV } from '../../utils/constants';
@@ -39,18 +40,19 @@ const Header = ({
     setLogin(!isLogin);
     setShowAuthButtons(true);
   };
+
   return (
     <section className='page__header header'>
       <nav className='header__nav'>
         {ARR_NAV.map((link, i) => {
           return (
-            <NavLink key={i} to={link.path} className='header__link'>
-              {link.labelName}
-            </NavLink>
+            <HashLink key={i} to={link.link} className='header__link'>
+              {link.label}
+            </HashLink>
           );
         })}
       </nav>
-      <article className='header__basis'>
+      <div className='header__basis header__basis_sticky'>
         <div className='header__navbar'>
           <NavLink className='header__logo' to='/'>
             <img src={logo} alt='логотип' />
@@ -112,7 +114,7 @@ const Header = ({
             </Link>
           )}
         </div>
-      </article>
+      </div>
     </section>
   );
 };
