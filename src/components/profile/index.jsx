@@ -3,11 +3,12 @@
 import React, { useContext, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
-import './Profile.css';
+import './index.css';
 import { profileNavigation } from '../../utils/constants';
 import { ReactComponent as ClosedEye } from '../../images/eye.svg';
 import { ReactComponent as OpenedEye } from '../../images/open_eye.svg';
 import avatar from '../../images/Avatar.png';
+import ProfileForm from './ProfileForm';
 
 // Компонент профиля пользователя
 const Profile = (props) => {
@@ -80,35 +81,6 @@ const Profile = (props) => {
   // Хук для навигации
   const navigate = useNavigate();
 
-  // Массив объектов с данными для полей ввода профиля
-  const profileInputs = [
-    {
-      label: 'Логин',
-      type: 'text',
-      key: 'login',
-    },
-    {
-      label: 'Имя',
-      type: 'text',
-      key: 'first_name',
-    },
-    {
-      label: 'Фамилия',
-      type: 'text',
-      key: 'last_name',
-    },
-    {
-      label: 'Телефон',
-      type: 'tel',
-      key: 'phone',
-    },
-    {
-      label: 'Почта',
-      type: 'email',
-      key: 'email',
-    },
-  ];
-
   // Массив объектов с данными для полей ввода пароля
   const passwordInputs = [
     { label: 'Старый пароль', key: 'current_password' },
@@ -156,27 +128,7 @@ const Profile = (props) => {
             )}
           </div>
           <ul>
-            {profileInputs.map((field) => (
-              <li key={field.key}>
-                <label htmlFor={field.label}>
-                  {field.label}
-                  <input
-                    type='text'
-                    value={userData[field.key]}
-                    id={field.key}
-                    onChange={(e) =>
-                      handleInputChange(field.key, e.target.value)
-                    }
-                    disabled={!isEditing}
-                  />
-                  {(field.key === 'first_name' || field.key === 'last_name') &&
-                    isEditing && <span>Только кириллица</span>}
-                  {field.key === 'phone' && isEditing && (
-                    <Link to='/'>Подтвердить телефон</Link>
-                  )}
-                </label>
-              </li>
-            ))}
+            <ProfileForm />
             {isEditing ? (
               passwordInputs.map((field) => (
                 <li key={field.key}>
