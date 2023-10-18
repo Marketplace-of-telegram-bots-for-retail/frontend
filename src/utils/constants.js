@@ -55,17 +55,17 @@ export const ARR_NAV = [
   { label: 'О маркетплейсе', link: '/promo#about' },
   { label: 'Контакты', link: '/promo#contacts' },
   { label: 'FAQ', link: '/promo#faq' },
-  { label: 'Возврат', link: '/return' },
-  { label: 'Стать продавцом', path: '/salesman' },
+  { label: 'Возврат', link: '/return#' },
+  { label: 'Стать продавцом', path: '/salesman#' },
 ];
 
 export const FOOTER_LINKS = [
   { label: 'О маркетплейсе', link: '/promo#about' },
-  { label: 'Возврат', link: '/return' },
+  { label: 'Возврат', link: '/return#' },
   { label: 'Контакты', link: '/promo#contacts' },
-  { label: 'Политика конфиденциальности', link: '/privacy-policy' },
+  { label: 'Политика конфиденциальности', link: '/privacy-policy#' },
   { label: 'FAQ', link: '/promo#faq' },
-  { label: 'Команда разработчиков', link: '/promo#developers' },
+  { label: 'Команда разработчиков', link: '/promo#developers#' },
 ];
 
 export const PRIVACY_POLICY_URL = 'https://botmarketplace.ru';

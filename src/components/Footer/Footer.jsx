@@ -10,11 +10,18 @@ const Footer = () => {
   return (
     <footer className='page__footer footer'>
       <div className='footer__container'>
-        <img className='footer__logo' src={Logo} alt='лого' />
+        <HashLink smooth className='footer__logo' to='/#'>
+          <img src={Logo} alt='лого' />
+        </HashLink>
         <div className='footer__nav-container'>
           {FOOTER_LINKS.map((item, i) => {
             return (
-              <HashLink key={i} to={item.link} className='footer__link'>
+              <HashLink
+                smooth
+                key={i}
+                to={`${item.link}`}
+                className='footer__link'
+              >
                 {item.label}
               </HashLink>
             );
