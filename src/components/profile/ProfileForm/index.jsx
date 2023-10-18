@@ -1,7 +1,7 @@
 import React, { useEffect, useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import './index.css';
 import Input from '../../Input';
+import ProfileFormButtons from '../ProfileFormButtons';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
 import avatar from '../../../images/Avatar.png';
@@ -12,8 +12,6 @@ export default function ProfileForm(props) {
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
 
-  const navigate = useNavigate();
-
   useEffect(() => {
     setValues({
       name: currentUser.first_name,
@@ -23,8 +21,15 @@ export default function ProfileForm(props) {
     });
   }, [currentUser]);
 
+  function handleSubmit(e) {
+    e.preventDefault();
+    if (values.newPassword !== values.password) {
+      console.log('submit');
+    }
+  }
+
   return (
-    <form className='profile__form'>
+    <form className='profile__form' noValidate>
       <div
         className='profile__avatar'
         // onMouseEnter={() => isEditing && setIsEditingPhoto(true)}
@@ -135,29 +140,12 @@ export default function ProfileForm(props) {
           </>
         )}
       </ul>
-      {isEditing ? (
-        <>
-          <button type='button' onClick={() => setIsEditing(false)}>
-            Отменить
-          </button>
-          <button type='button'>Сохранить</button>
-        </>
-      ) : (
-        <div>
-          <button
-            type='button'
-            onClick={() => {
-              props.cbLogout();
-              navigate('/');
-            }}
-          >
-            Выйти из профиля
-          </button>
-          <button type='button' onClick={() => setIsEditing(true)}>
-            Редактировать профиль
-          </button>
-        </div>
-      )}
+      <ProfileFormButtons
+        isEditing={isEditing}
+        setIsEditing={setIsEditing}
+        cbLogout={props.cbLogout}
+        handleSubmit={handleSubmit}
+      />
     </form>
   );
 }
