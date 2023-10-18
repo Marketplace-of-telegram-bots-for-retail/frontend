@@ -84,6 +84,7 @@ const Register = (props) => {
                 onBlur={onBlur}
                 inputName='Имя'
                 placeholder='Иван'
+                autoFocus='true'
               ></AuthInput>
               <AuthInput
                 htmlFor='surname'

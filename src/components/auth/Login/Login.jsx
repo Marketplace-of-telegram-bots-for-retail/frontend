@@ -47,6 +47,7 @@ const Login = (props) => {
           onChange={handleChange}
           onBlur={onBlur}
           inputName='Почта'
+          autoFocus='true'
         />
         <AuthInput
           htmlFor='password'

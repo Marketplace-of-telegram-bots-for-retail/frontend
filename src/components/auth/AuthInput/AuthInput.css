@@ -31,6 +31,10 @@
   color: #9fa1a5;
 }
 
+.modal__input:focus {
+  border: 1px solid var(--Secondary-Accent-Blue-Dark);
+}
+
 .modal__input_type_error {
   color: var(--Error);
 }
