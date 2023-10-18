@@ -9,7 +9,9 @@ const AuthInput = ({ children, ...props }) => {
       <input
         name={props.name}
         className={`modal__input ${
-          props.error ? 'modal__input_type_error' : 'modal__input_type_valid'
+          props.error || props.queryMessage
+            ? 'modal__input_type_error'
+            : 'modal__input_type_valid'
         }`}
         type={props.type}
         value={props.value}

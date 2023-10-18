@@ -40,7 +40,7 @@
 }
 
 .modal__input_type_valid {
-  color: var(--Secondary-Accent-Blue-Dark);
+  color: var(--Primary-Black);
 }
 
 .modal__error-message {

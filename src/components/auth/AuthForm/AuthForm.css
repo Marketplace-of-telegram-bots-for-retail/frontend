@@ -11,6 +11,10 @@
   width: 100%;
 }
 
+.modal__inputs_type_register {
+  margin-bottom: 68px;
+}
+
 .modal__button_type_submit {
   all: unset;
   border-radius: 8px;

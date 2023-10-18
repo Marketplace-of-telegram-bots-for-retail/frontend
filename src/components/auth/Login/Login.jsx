@@ -12,6 +12,11 @@ const Login = (props) => {
     useFormWithValidation();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
+  const handleInput = (e) => {
+    handleChange(e);
+    props.setQueryMessage('');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     const { userType, rememberMe } = props;
@@ -44,10 +49,11 @@ const Login = (props) => {
           type='email'
           error={errors.email}
           value={values.email ?? ''}
-          onChange={handleChange}
+          onChange={handleInput}
           onBlur={onBlur}
           inputName='Почта'
-          autoFocus='true'
+          autoFocus
+          queryMessage={props.queryMessage}
         />
         <AuthInput
           htmlFor='password'
@@ -55,9 +61,10 @@ const Login = (props) => {
           type={showPassword ? 'text' : 'password'}
           error={errors.password}
           value={values.password ?? ''}
-          onChange={handleChange}
+          onChange={handleInput}
           onBlur={onBlur}
           inputName='Пароль'
+          queryMessage={props.queryMessage}
         >
           <Eye
             className='modal__eye-icon'

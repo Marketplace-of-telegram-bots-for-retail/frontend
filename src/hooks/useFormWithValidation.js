@@ -38,7 +38,8 @@ export const useFormWithValidation = () => {
 
   const _isValidName = (name) => {
     name = name.trim();
-    const nameRegex = /[а-яё]/gi;
+    const nameRegex = /^[А-Яа-яё]+$/;
+    console.log(name);
     if (!nameRegex.test(name)) return 'Только кириллица';
     if (name.length < 1 || name.length > 50) {
       return 'Имя должно содержать не меньше 1 и не больше 50 букв';
