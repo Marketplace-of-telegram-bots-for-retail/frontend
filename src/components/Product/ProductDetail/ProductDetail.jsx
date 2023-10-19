@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './ProductDetail.css';
 import ProductPhotos from '../ProductPhotos/ProductPhotos';
 import award from '../../../images/Pixel-36.svg';
@@ -10,11 +10,11 @@ const ProductDetail = ({
   handleFullScreenClick,
   reviews,
   sendFeedback,
-  ratingFeedback,
-  setRatingFeedback
+  state,
+  setState,
+  star,
+  setStar
 }) => {
-  const [state, setState] = useState('description');
-
   function handleDescClick() {
     setState('description');
   }
@@ -38,8 +38,9 @@ const ProductDetail = ({
       {state === 'review' && <ProductReviews
         reviews={reviews}
         sendFeedback={sendFeedback}
-        ratingFeedback={ratingFeedback}
-        setRatingFeedback={setRatingFeedback}
+        setState={setState}
+        star={star}
+        setStar={setStar}
       />}
     </div>
   );

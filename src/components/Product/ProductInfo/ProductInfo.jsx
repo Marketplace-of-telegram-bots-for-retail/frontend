@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ProductInfo.css';
 import { LikeButton } from '../../buttons';
 import { Rating } from '../../Rating/Rating';
 
-const ProductInfo = ({ card, onLike, ratingFeedback, setRatingFeedback }) => {
+const ProductInfo = ({ card, onLike, setState, setStar }) => {
+  const [ratingFeedback, setRatingFeedback] = useState('show');
+
   useEffect(() => {
     setRatingFeedback('show');
-  });
+  }, [setRatingFeedback]);
 
   return (
     <div className='product__good-info'>
@@ -18,6 +20,8 @@ const ProductInfo = ({ card, onLike, ratingFeedback, setRatingFeedback }) => {
         onReviewClick={() => {
           console.log('object');
         }}
+        setStar={setStar}
+        setState={setState}
         ratingFeedback={ratingFeedback}
       />
       <LikeButton parentClass='product' onLike={onLike} card={card} />

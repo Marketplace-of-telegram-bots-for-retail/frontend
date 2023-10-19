@@ -8,6 +8,7 @@ export const Rating = ({
   onReviewClick,
   starsFeedback,
   setStar,
+  setState,
   ratingFeedback
 }) => {
   const [rating, setRating] = useState(0);
@@ -45,6 +46,8 @@ export const Rating = ({
     if (location === '/') {
       return;
     }
+    window.scrollTo(0, 950);
+    setState('review');
     // onReviewClick();
     console.log('=> onReviewClick()', id);
   };
@@ -67,6 +70,8 @@ export const Rating = ({
         onClick={() => {
           setRating(index);
           setStar(index);
+          window.scrollTo(0, 950);
+          setState('review');
           console.log('star => Click!', index);
           console.log('=> onStarClick()');
         }}

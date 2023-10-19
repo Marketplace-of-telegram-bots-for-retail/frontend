@@ -8,8 +8,10 @@ const ProductDetails = ({
   handleFullScreenClick,
   reviews,
   sendFeedback,
-  ratingFeedback,
-  setRatingFeedback
+  state,
+  setState,
+  star,
+  setStar
 }) => {
   return (
     <div className='product__good-details'>
@@ -18,8 +20,10 @@ const ProductDetails = ({
         handleFullScreenClick={handleFullScreenClick}
         reviews={reviews}
         sendFeedback={sendFeedback}
-        ratingFeedback={ratingFeedback}
-        setRatingFeedback={setRatingFeedback}
+        state={state}
+        setState={setState}
+        star={star}
+        setStar={setStar}
       />
       <ProductPriceBlock card={card} />
     </div>

@@ -13,8 +13,9 @@ const Product = ({ onLike }) => {
   const [card, setCard] = useState({});
   const [reviews, setReviews] = useState([]);
   const [review, setReview] = useState({});
-  const [ratingFeedback, setRatingFeedback] = useState('show');
   const [showProductPopup, setShowProductPopup] = useState(false);
+  const [state, setState] = useState('description');
+  const [star, setStar] = useState();
 
   useEffect(() => {
     // заменить на входящий пропсом cb
@@ -56,7 +57,7 @@ const Product = ({ onLike }) => {
     <section className='product'>
       <BreadCrumbs card={card} />
       <ProductTitle card={card} />
-      <ProductInfo card={card} onLike={onLike} ratingFeedback={ratingFeedback} setRatingFeedback={setRatingFeedback} />
+      <ProductInfo card={card} onLike={onLike} setState={setState} setStar={setStar} />
       <ProductDetails
         card={card}
         showProductPopup={showProductPopup}
@@ -64,8 +65,10 @@ const Product = ({ onLike }) => {
         handleFullScreenClick={handleFullScreenClick}
         reviews={reviews}
         sendFeedback={sendFeedback}
-        ratingFeedback={ratingFeedback}
-        setRatingFeedback={setRatingFeedback}
+        state={state}
+        setState={setState}
+        star={star}
+        setStar={setStar}
       />
       {showProductPopup && <PopupImage card={card} onClose={closePopup} />}
     </section>

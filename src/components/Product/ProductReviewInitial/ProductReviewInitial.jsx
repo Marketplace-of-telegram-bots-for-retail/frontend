@@ -9,14 +9,15 @@ const ProductReviewInitial = ({
   count,
   sendFeedback,
   handleShowAllReviews,
-  ratingFeedback,
-  setRatingFeedback
+  setState,
+  star,
+  setStar
 }) => {
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useFormWithValidation({});
-  const [star, setStar] = useState();
   const limit = count < reviews.length;
+  const [ratingFeedback, setRatingFeedback] = useState('show');
 
   useEffect(() => {
     setValues('');
@@ -24,7 +25,7 @@ const ProductReviewInitial = ({
 
   useEffect(() => {
     setRatingFeedback('without');
-  });
+  }, [setRatingFeedback]);
 
   function handleFeedbackClick() {
     setIsShown(!isShown);
@@ -79,6 +80,7 @@ const ProductReviewInitial = ({
               console.log('object');
             }}
             setStar={setStar}
+            setState={setState}
             ratingFeedback={ratingFeedback}
           />
           <textarea
