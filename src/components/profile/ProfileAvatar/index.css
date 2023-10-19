@@ -3,6 +3,10 @@
   width: fit-content;
 }
 
+.profile__avatar {
+  margin-bottom: 44px;
+}
+
 .profile__avatar-popup {
   position: absolute;
   bottom: 40px;
@@ -30,7 +34,7 @@
 }
 
 .profile__avatar-edit-button:hover {
-    background-color: var(--Secondary-Purple-Light);
+  background-color: var(--Secondary-Purple-Light);
 }
 
 .profile__avatar-edit-button:last-child {
