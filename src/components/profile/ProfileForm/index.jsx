@@ -11,13 +11,15 @@ export default function ProfileForm() {
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
+  console.log(currentUser);
 
   useEffect(() => {
     setValues({
       name: currentUser.first_name,
       surname: currentUser.last_name,
-      email: currentUser.username,
+      email: currentUser.email,
       phone: currentUser.phone,
+      user: currentUser.username,
     });
   }, [currentUser]);
 
@@ -38,6 +40,18 @@ export default function ProfileForm() {
       <h2 className='profile__form-title'>Персональные данные</h2>
       <ProfileAvatar isEditing={isEditing} />
       <ul className='profile__inputs-list'>
+        <li>
+          <Input
+            name='user'
+            type='text'
+            error={errors.user}
+            value={values.user ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Никнейм'
+            disabled={!isEditing}
+          />
+        </li>
         <li>
           <Input
             name='name'
