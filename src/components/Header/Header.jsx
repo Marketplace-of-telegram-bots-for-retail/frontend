@@ -69,7 +69,6 @@ const Header = ({
               value={values?.search || ''}
               name='search'
               onChange={handleChange}
-              disabled={isPreloader}
               onBlur={onSearch}
             ></input>
             <button
