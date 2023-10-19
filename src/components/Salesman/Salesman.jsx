@@ -1,10 +1,12 @@
 import React from 'react';
-import ErrorPage from '../ErrorPage/ErrorPage';
+import SellerInfo from '../SellerInfo/SellerInfo';
+import Contacts from '../info/Contacts/Contacts';
 
 const Salesman = () => {
   return (
     <div>
-      <ErrorPage />
+      <SellerInfo />
+      <Contacts />
     </div>
   );
 };
