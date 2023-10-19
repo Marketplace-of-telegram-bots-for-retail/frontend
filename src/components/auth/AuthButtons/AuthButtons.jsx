@@ -60,6 +60,8 @@ const AuthButtons = (props) => {
       onClose={handleCloseModal}
       cbLogIn={props.cbLogIn}
       cbRegister={props.cbRegister}
+      queryMessage={props.queryMessage}
+      setQueryMessage={props.setQueryMessage}
     />
   );
 };

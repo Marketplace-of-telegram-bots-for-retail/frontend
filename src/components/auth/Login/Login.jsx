@@ -12,30 +12,36 @@ const Login = (props) => {
     useFormWithValidation();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
+  const handleInput = (e) => {
+    handleChange(e);
+    props.setQueryMessage('');
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { userType, rememberMe } = props;
+    // const { userType, rememberMe } = props; // Не нужен
     const { email, password } = values;
     const formData = {
-      userType,
+      // userType, // не нужен
       email,
       password,
-      rememberMe,
+      rememberMe: isCheckboxChecked,
     };
     console.log(formData);
     props.cbLogIn(formData);
-    props.handleClose();
   };
   return (
     <>
       <AuthForm
-        rememberMe={props.rememberMe}
-        setRememberMe={props.setRememberMe}
+        // rememberMe={props.rememberMe}
+        // setRememberMe={props.setRememberMe}
         handleSubmit={handleSubmit}
         isLogin={props.isLogin}
         isValid={isValid}
         isCheckboxChecked={isCheckboxChecked}
         setIsCheckboxChecked={setIsCheckboxChecked}
+        queryMessage={props.queryMessage}
+        setQueryMessage={props.setQueryMessage}
       >
         <AuthInput
           htmlFor='email'
@@ -43,9 +49,11 @@ const Login = (props) => {
           type='email'
           error={errors.email}
           value={values.email ?? ''}
-          onChange={handleChange}
+          onChange={handleInput}
           onBlur={onBlur}
           inputName='Почта'
+          autoFocus
+          queryMessage={props.queryMessage}
         />
         <AuthInput
           htmlFor='password'
@@ -53,9 +61,10 @@ const Login = (props) => {
           type={showPassword ? 'text' : 'password'}
           error={errors.password}
           value={values.password ?? ''}
-          onChange={handleChange}
+          onChange={handleInput}
           onBlur={onBlur}
           inputName='Пароль'
+          queryMessage={props.queryMessage}
         >
           <Eye
             className='modal__eye-icon'

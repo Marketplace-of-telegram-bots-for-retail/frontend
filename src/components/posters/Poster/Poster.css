@@ -1,7 +1,10 @@
+.content__poster {
+  margin: 1rem var(--s-indent);
+}
+
 .poster {
   display: flex;
   flex-direction: row;
-  margin: 1rem 0;
   padding: 0;
 }
 

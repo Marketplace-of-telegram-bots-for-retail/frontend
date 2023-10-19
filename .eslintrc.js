@@ -19,6 +19,7 @@ module.exports = {
   plugins: ['react'],
   rules: {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'jsx-a11y/no-autofocus': 0,
     quotes: [1, 'single', { avoidEscape: true }],
     'react/self-closing-comp': [
       'error',

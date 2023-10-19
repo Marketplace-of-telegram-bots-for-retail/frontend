@@ -1,16 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
 
 const AuthForm = ({ children, ...props }) => {
+  useEffect(() => props.setQueryMessage(''), []);
   return (
     <>
       {!props.isLogin && (
         <RegisterStepsScale registerStep={props.registerStep} />
       )}
       <form className='modal__form' noValidate>
-        <div className='modal__inputs'>
+        <div
+          className={`modal__inputs ${
+            !props.isLogin && props.registerStep === 1
+              ? 'modal__inputs_type_register'
+              : ''
+          }`}
+        >
           {children}
           {props.isLogin ? (
             <AuthCheckbox
@@ -24,17 +31,19 @@ const AuthForm = ({ children, ...props }) => {
                 checkboxType='privacy-policy'
                 isCheckboxChecked={props.isCheckboxChecked}
                 setIsCheckboxChecked={props.setIsCheckboxChecked}
-                errorCheckbox={props.errorCheckbox}
-                setErrorCheckbox={props.setErrorCheckbox}
               />
             )
           )}
         </div>
+        <span className='modal__query-error'>{props.queryMessage}</span>
         <button
           className='modal__button_type_submit'
           type='submit'
           onClick={props.handleSubmit}
-          disabled={!props.isValid}
+          disabled={
+            !props.isValid ||
+            (props.registerStep === 2 && !props.isCheckboxChecked)
+          }
         >
           {props.isLogin
             ? 'Войти'

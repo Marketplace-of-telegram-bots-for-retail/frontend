@@ -1,0 +1,10 @@
+.profile__title {
+  margin: 20px 0 48px;
+  font-size: 2.5em;
+  font-weight: 700;
+}
+
+.profile__container {
+  display: flex;
+  gap: 104px;
+}

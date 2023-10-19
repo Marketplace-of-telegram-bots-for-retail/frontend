@@ -6,23 +6,17 @@ const AuthCheckbox = ({
   checkboxType,
   isCheckboxChecked,
   setIsCheckboxChecked,
-  errorCheckbox,
-  setErrorCheckbox,
 }) => {
   return (
     <div className='modal__checkbox'>
       <button
         type='button'
         className={`modal__icon ${
-          isCheckboxChecked ? 'modal__icon_type_checked' : ''
-        }
-        ${
-          errorCheckbox
-            ? 'modal__icon_type_error'
+          isCheckboxChecked
+            ? 'modal__icon_type_checked'
             : 'modal__icon_type_blank'
         }`}
         onClick={() => {
-          errorCheckbox && setErrorCheckbox(!errorCheckbox);
           setIsCheckboxChecked(!isCheckboxChecked);
         }}
       />

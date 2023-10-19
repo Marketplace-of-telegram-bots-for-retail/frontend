@@ -1,0 +1,9 @@
+.profile__form-buttons {
+  display: flex;
+  box-sizing: content-box;
+  margin-top: 44px;
+}
+
+.profile__form-buttons_type_edit {
+    gap: 16px;
+}

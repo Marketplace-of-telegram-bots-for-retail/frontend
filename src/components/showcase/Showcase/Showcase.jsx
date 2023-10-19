@@ -8,24 +8,14 @@ import { AftPoster } from '../../posters';
 import Title from '../../Title/Title';
 import Filters from '../Filters/Filters';
 import ErrorPage from '../../ErrorPage/ErrorPage';
+import { useScroll } from '../../../hooks/useScroll';
 
 const Showcase = ({ productsPage, onLike, onSearch, onMore, isPreloader }) => {
-  // const isMorePage = useSelector(
-  //   (state) => state.dataProductsState.pageProductsNext
-  // );
-  // const isCountProduct = useSelector(
-  //   (state) => state.dataProductsState.pageProductsCount
-  // );
-
-  const { pageProductsNext, pageProductsCount } = useSelector(
-    (state) => state.dataProductsState
-  );
-  // console.log(
-  //   'Showcase => dataProductPage',
-  //   pageProductsNext,
-  //   pageProductsCount
-  //   // useSelector((state) => state.dataProductsState)
-  // );
+  const { pageProductsNext, pageProductsCount, pageProductsPrevious } =
+    useSelector((state) => state.dataProductsState);
+  const { scroll } = useScroll();
+  // const [isScroll, setIsScroll] = useState(false);
+  const [isMoreButton, setMoreButtom] = useState(true);
   const [isCards, setCards] = useState(false);
   useEffect(() => {
     setCards(() => {
@@ -36,12 +26,22 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore, isPreloader }) => {
     });
   }, [productsPage]);
 
-  const onClickMore = () => {
+  // Загрузить еще
+  const handleOnMore = () => {
     const moreRequest = ['?', pageProductsNext.split('/?')[1]].join('&');
-    console.log('Showcase => onClickMore', moreRequest);
     onMore(moreRequest);
   };
-
+  // отслеживание слеживание скрола и загрузка еще
+  useEffect(() => {
+    scroll > 70 && pageProductsNext && !isMoreButton && handleOnMore();
+  }, [isMoreButton, scroll]);
+  // Изменить состояние кнопки загрузить еще
+  useEffect(() => {
+    pageProductsNext && !pageProductsPrevious
+      ? setMoreButtom(true)
+      : setMoreButtom(false);
+  }, [pageProductsNext, pageProductsPrevious, setMoreButtom]);
+  // заглушка на постер
   const onClickAftPoster = () => {
     console.log('Click => AftPoster');
   };
@@ -59,7 +59,7 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore, isPreloader }) => {
           ) : (
             pageProductsCount === 0 && !isPreloader && <ErrorPage botNotFound />
           )}
-          {pageProductsNext && <More onClick={() => onClickMore()} />}
+          {isMoreButton && <More onClick={() => handleOnMore()} />}
           {!isPreloader && <AftPoster onClick={() => onClickAftPoster()} />}
         </div>
       </div>

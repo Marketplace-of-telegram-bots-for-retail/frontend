@@ -1,0 +1,13 @@
+.input__eye {
+  background-image: url(../../../images/eye.svg);
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+}
+
+.input__eye_active {
+  background-image: url(../../../images/open_eye.svg);
+}

@@ -1,3 +1,5 @@
+import { getToken } from './tokenStorage';
+
 class Api {
   constructor(options) {
     this._baseUrl = options.baseUrl;
@@ -5,16 +7,6 @@ class Api {
     this._credentials = options.credentials;
   }
 
-  // Проверяем ответ сервера
-  // _checkResponse = (res) => {
-  //   if (res.ok) {
-  //     if (res.status === 204) {
-  //       return res;
-  //     }
-  //     return res.json();
-  //   }
-  //   return Promise.reject(res);
-  // };
   _checkResponse = async (res) => {
     if (res.ok) {
       if (res.status === 204) {
@@ -29,7 +21,8 @@ class Api {
   // Делаем запрос на сервер
 
   _makeRequest = async (url, method, body, params) => {
-    const token = localStorage.getItem('jwt');
+    // const token = localStorage.getItem('jwt');
+    const token = getToken();
     // console.log('_makeRequest=>', token);
     if (token) {
       this._headers.Authorization = `Token ${token}`;

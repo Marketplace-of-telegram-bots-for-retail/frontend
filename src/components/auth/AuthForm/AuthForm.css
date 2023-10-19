@@ -11,6 +11,10 @@
   width: 100%;
 }
 
+.modal__inputs_type_register {
+  margin-bottom: 68px;
+}
+
 .modal__button_type_submit {
   all: unset;
   border-radius: 8px;
@@ -28,9 +32,18 @@
   font-weight: 400;
   line-height: 22px;
   box-sizing: border-box;
-  margin: 32px 0 24px;
+  margin-bottom: 24px;
 }
 
 .modal__button_type_submit:disabled {
   background: var(--Secondary-Purple-Light);
+}
+
+.modal__query-error {
+  color: var(--Error);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+  height: 32px;
+  padding: 12px 0 4px;
 }

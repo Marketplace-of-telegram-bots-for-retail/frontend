@@ -52,32 +52,37 @@ export const SORTING_OPTIONS = [
 //   { checkbox: 'checkbox4', labelName: 'Персонализация акций' },
 // ];
 export const ARR_NAV = [
-  { labelName: 'О маркетплейсе', path: '/about' },
-  { labelName: 'Контакты', path: '/contacts' },
-  { labelName: 'FAQ', path: '/faq' },
-  { labelName: 'Возврат', path: '/return' },
-  { labelName: 'Стать продавцом', path: '/salesman' },
+  { label: 'О маркетплейсе', link: '/promo#about' },
+  { label: 'Контакты', link: '/promo#contacts' },
+  { label: 'FAQ', link: '/promo#faq' },
+  { label: 'Возврат', link: '/return#' },
+  { label: 'Стать продавцом', path: '/salesman#' },
 ];
 
 export const FOOTER_LINKS = [
-  { label: 'О маркетплейсе', link: '/about' },
-  { label: 'Возврат', link: '/return' },
-  { label: 'Контакты', link: '/contacts' },
-  { label: 'Политика конфиденциальности', link: '/privacy-policy' },
-  { label: 'FAQ', link: '/faq' },
-  { label: 'Команда разработчиков', link: '/developers' },
+  { label: 'О маркетплейсе', link: '/promo#about' },
+  { label: 'Возврат', link: '/return#' },
+  { label: 'Контакты', link: '/promo#contacts' },
+  { label: 'Политика конфиденциальности', link: '/privacy-policy#' },
+  { label: 'FAQ', link: '/promo#faq' },
+  { label: 'Команда разработчиков', link: '/promo#developers#' },
 ];
 
 export const PRIVACY_POLICY_URL = 'https://botmarketplace.ru';
 
 export const profileNavigation = [
   {
-    title: 'Заказы',
+    title: 'Профиль',
     links: [
       {
-        name: 'Моя корзина',
-        link: '/cart',
+        name: 'Персональные данные',
+        link: '/profile',
       },
+    ],
+  },
+  {
+    title: 'Заказы',
+    links: [
       {
         name: 'Мои заказы',
         link: '/orders',
@@ -86,18 +91,13 @@ export const profileNavigation = [
         name: 'Мои возвраты',
         link: '/returns',
       },
-    ],
-  },
-  {
-    title: 'Оплата',
-    links: [
       {
-        name: 'Способы оплаты',
-        link: '/payment',
+        name: 'Моя корзина',
+        link: '/cart',
       },
       {
-        name: 'Мои промокоды',
-        link: '/promo',
+        name: 'Мое избранное',
+        link: '/favorites',
       },
     ],
   },
