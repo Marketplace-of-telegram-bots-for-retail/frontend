@@ -17,7 +17,7 @@ const More = ({ onClick }) => {
         className='more__button more__button_next'
         onClick={() => onClick()}
       >
-        Смотреть еще
+        Смотреть все
       </button>
     </div>
   );
