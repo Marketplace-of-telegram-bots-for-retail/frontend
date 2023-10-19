@@ -1,0 +1,35 @@
+.about-bots {
+  margin-top: 93px;
+}
+
+.about-bots__title {
+  color: var(--Primary-Black, #1E1E1E);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0 0 42px
+}
+
+.about-bots__container {
+  display: flex;
+  gap: 67px;
+  flex-wrap: wrap;
+}
+
+.about-bots__item {
+  width: 364px;
+  height: 248px;
+}
+
+.about-bots__description {
+  display: flex;
+  padding: 0 48px;
+  margin: 0;
+  justify-content: center;
+  align-items: center;
+  width: 795px;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 30px;
+}
