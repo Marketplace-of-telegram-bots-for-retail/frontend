@@ -6,7 +6,7 @@ import ProfileAvatar from '../ProfileAvatar';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
 
-export default function ProfileForm(props) {
+export default function ProfileForm() {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
@@ -35,6 +35,7 @@ export default function ProfileForm(props) {
 
   return (
     <form className='profile__form' noValidate>
+      <h2 className='profile__form-title'>Персональные данные</h2>
       <ProfileAvatar isEditing={isEditing} />
       <ul className='profile__inputs-list'>
         <li>
@@ -136,7 +137,6 @@ export default function ProfileForm(props) {
       <ProfileFormButtons
         isEditing={isEditing}
         setIsEditing={setIsEditing}
-        cbLogout={props.cbLogout}
         handleSubmit={handleSubmit}
         deleteProfile={deleteProfile}
       />

@@ -12,8 +12,8 @@ const Profile = (props) => {
       <BreadCrumbs />
       <h1 className='profile__title'>Личный кабинет</h1>
       <div className='profile__container'>
-        <ProfileNavigation />
-        <ProfileForm cbLogout={props.cbLogout} />
+        <ProfileNavigation cbLogout={props.cbLogout} />
+        <ProfileForm />
       </div>
     </div>
   );

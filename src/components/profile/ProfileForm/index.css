@@ -1,7 +1,7 @@
 .profile__form {
   min-height: 1195px;
   max-width: 416px;
-  margin-bottom: 48px;
+  margin: 32px 0 48px;
 }
 
 .profile__inputs-list {
@@ -13,3 +13,9 @@
   gap: 31px;
 }
 
+.profile__form-title {
+  margin: 0;
+  color: var(--Primary-Black);
+  font-size: 24px;
+  font-weight: 700;
+}
