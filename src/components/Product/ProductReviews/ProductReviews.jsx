@@ -6,8 +6,9 @@ import ReviewCard from '../ReviewCard/ReviewCard';
 const ProductReviews = ({
   reviews,
   sendFeedback,
-  ratingFeedback,
-  setRatingFeedback
+  setState,
+  star,
+  setStar
 }) => {
   const [count, setCount] = useState(3);
   const allReviews = reviews.length;
@@ -17,7 +18,7 @@ const ProductReviews = ({
   }
 
   return (
-    <div className='product__rewiews'>
+    <div className='product__rewiews' id='reviews'>
       {
         allReviews === 0 ? (
           <p className='product__rewiews-none'>У этого бота пока нет отзывов.</p>
@@ -27,8 +28,6 @@ const ProductReviews = ({
               return <ReviewCard
                 key={review.id}
                 review={review}
-                ratingFeedback={ratingFeedback}
-                setRatingFeedback={setRatingFeedback}
               />;
             })}
           </ul>
@@ -39,8 +38,9 @@ const ProductReviews = ({
         count={count}
         sendFeedback={sendFeedback}
         handleShowAllReviews={handleShowAllReviews}
-        ratingFeedback={ratingFeedback}
-        setRatingFeedback={setRatingFeedback}
+        setState={setState}
+        star={star}
+        setStar={setStar}
       />
     </div>
   );
