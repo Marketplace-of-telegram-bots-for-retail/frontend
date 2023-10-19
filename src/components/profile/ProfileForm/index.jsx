@@ -126,12 +126,6 @@ export default function ProfileForm() {
                 inputName='Новый пароль'
                 disabled={!isEditing}
               />
-              {!errors.newPassword && (
-                <span>
-                  Не менее 8 символов. Может содержать только латинские буквы,
-                  цифры, знаки.
-                </span>
-              )}
             </li>
             <li>
               <Input
