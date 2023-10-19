@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './index.css';
 import InputEye from './InputEye';
+import spanInputMessages from '../../constants/spanInputMessages';
 
 export default function Input(props) {
   const [showPassword, setShowPassword] = useState(false);
+
   return (
     <label htmlFor={props.name} className='input'>
       <span className='input__name'>{props.inputName}</span>
@@ -22,10 +24,14 @@ export default function Input(props) {
         disabled={props.disabled}
         required
       ></input>
-      {props.error && (
+      {props.error ? (
         <span className='input__error-message'>{props.error}</span>
+      ) : (
+        Object.keys(spanInputMessages).includes(props.name) && (
+          <span className='input__span-message'>{spanInputMessages[props.name]}</span>
+        )
       )}
-      {props.type === 'password' && (
+      {(props.type === 'password' && props.name !== 'newPassword') && (
         <InputEye
           showPassword={showPassword}
           setShowPassword={setShowPassword}

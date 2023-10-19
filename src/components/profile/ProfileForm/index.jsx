@@ -11,13 +11,15 @@ export default function ProfileForm() {
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
+  console.log(currentUser);
 
   useEffect(() => {
     setValues({
       name: currentUser.first_name,
       surname: currentUser.last_name,
-      email: currentUser.username,
+      email: currentUser.email,
       phone: currentUser.phone,
+      user: currentUser.username,
     });
   }, [currentUser]);
 
@@ -38,6 +40,18 @@ export default function ProfileForm() {
       <h2 className='profile__form-title'>Персональные данные</h2>
       <ProfileAvatar isEditing={isEditing} />
       <ul className='profile__inputs-list'>
+        <li>
+          <Input
+            name='user'
+            type='text'
+            error={errors.user}
+            value={values.user ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Никнейм'
+            disabled={!isEditing}
+          />
+        </li>
         <li>
           <Input
             name='name'
@@ -96,7 +110,7 @@ export default function ProfileForm() {
             onBlur={onBlur}
             inputName={!isEditing ? 'Пароль' : 'Старый пароль'}
             disabled={!isEditing}
-            placeholder={isEditing && 'Введите текущий пароль'}
+            placeholder={isEditing && 'введите текущий пароль'}
           />
         </li>
         {isEditing && (
@@ -111,13 +125,8 @@ export default function ProfileForm() {
                 onBlur={onBlur}
                 inputName='Новый пароль'
                 disabled={!isEditing}
+                placeholder={isEditing && 'введите новый пароль'}
               />
-              {!errors.newPassword && (
-                <span>
-                  Не менее 8 символов. Может содержать только латинские буквы,
-                  цифры, знаки.
-                </span>
-              )}
             </li>
             <li>
               <Input
