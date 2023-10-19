@@ -50,6 +50,13 @@ export const useFormWithValidation = () => {
     return phone.startsWith('9') ? `+7${phone}` : phone;
   };
 
+  const _isValidNewPassword = (newPassword, password, email) => {
+    if (newPassword === password) {
+      return 'Новый пароль должен отличаться от старого';
+    }
+    return _isValidPassword(newPassword, email);
+  };
+
   const _isValidPhone = (phone) => {
     phone = phone.trim();
     const phoneRegex =
@@ -79,8 +86,16 @@ export const useFormWithValidation = () => {
         validationMessage = _isValidEmail(value);
       }
 
-      if (name === 'password' || name === 'newPassword') {
+      if (name === 'password') {
         validationMessage = _isValidPassword(value, values.email);
+      }
+
+      if (name === 'newPassword') {
+        validationMessage = _isValidNewPassword(
+          value,
+          values.password,
+          values.email
+        );
       }
 
       if (name === 'confirmPassword') {
