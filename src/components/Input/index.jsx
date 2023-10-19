@@ -31,7 +31,7 @@ export default function Input(props) {
           <span className='input__span-message'>{spanInputMessages[props.name]}</span>
         )
       )}
-      {props.type === 'password' && (
+      {(props.type === 'password' && props.name !== 'newPassword') && (
         <InputEye
           showPassword={showPassword}
           setShowPassword={setShowPassword}

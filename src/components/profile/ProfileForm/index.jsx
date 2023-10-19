@@ -110,7 +110,7 @@ export default function ProfileForm() {
             onBlur={onBlur}
             inputName={!isEditing ? 'Пароль' : 'Старый пароль'}
             disabled={!isEditing}
-            placeholder={isEditing && 'Введите текущий пароль'}
+            placeholder={isEditing && 'введите текущий пароль'}
           />
         </li>
         {isEditing && (
@@ -125,6 +125,7 @@ export default function ProfileForm() {
                 onBlur={onBlur}
                 inputName='Новый пароль'
                 disabled={!isEditing}
+                placeholder={isEditing && 'введите новый пароль'}
               />
             </li>
             <li>
