@@ -1,6 +1,7 @@
 .profile__form {
   min-height: 1195px;
-  max-width: 416px;
+  width: 100%;
+  max-width: 396px;
   margin: 32px 0 48px;
 }
 
