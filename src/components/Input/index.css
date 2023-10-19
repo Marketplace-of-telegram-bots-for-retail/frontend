@@ -27,15 +27,15 @@
     line-height: 24px;
   }
   
-  .input::placeholder {
+  .input__input::placeholder {
     color: #9fa1a5;
   }
   
-  .input:focus {
+  .input__input:focus {
     border: 1px solid var(--Secondary-Accent-Blue-Dark);
   }
   
-  .input_type_error {
+  .input__input_type_error {
     color: var(--Error);
   }
   

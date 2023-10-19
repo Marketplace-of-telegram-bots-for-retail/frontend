@@ -1,0 +1,43 @@
+.profile__avatar-container {
+  position: relative;
+  width: fit-content;
+}
+
+.profile__avatar {
+  margin-bottom: 44px;
+}
+
+.profile__avatar-popup {
+  position: absolute;
+  bottom: 40px;
+  left: 95px;
+  border-radius: 8px;
+  box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+}
+
+.profile__avatar-edit-button {
+  background-color: var(--Primary-White);
+  border: none;
+  min-width: 224px;
+  padding: 6px 8px 6px 16px;
+  cursor: pointer;
+
+  text-align: start;
+  color: var(--Primary-Black);
+  font-size: 16px;
+  font-weight: 500;
+
+  background-repeat: no-repeat;
+  background-position: right 8px top 4px;
+  background-image: url(../../../images/ic_plus-20.svg);
+}
+
+.profile__avatar-edit-button:hover {
+  background-color: var(--Secondary-Purple-Light);
+}
+
+.profile__avatar-edit-button:last-child {
+  border-top: 1px solid var(--Gray-Light);
+  background-image: url(../../../images/fluent_delete-20-regular.svg);
+}
