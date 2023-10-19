@@ -22,6 +22,7 @@ const Header = ({
   const favoritesCount = useSelector(
     (state) => state.dataFavoritesState.pageFavoritesCount
   );
+  const searchState = useSelector((state) => state.dataSearchForm.search);
   // Обновляем стейт Redux
   useEffect(() => {
     dispatch(collecSearch(values?.search));
@@ -31,9 +32,10 @@ const Header = ({
     event.preventDefault();
     onSearch();
   };
+  // поиск по вводу текста
   useEffect(() => {
     onSearch();
-  }, [values?.search]);
+  }, [searchState]);
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
