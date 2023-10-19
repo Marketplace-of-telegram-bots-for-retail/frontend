@@ -72,12 +72,17 @@ export const PRIVACY_POLICY_URL = 'https://botmarketplace.ru';
 
 export const profileNavigation = [
   {
-    title: 'Заказы',
+    title: 'Профиль',
     links: [
       {
-        name: 'Моя корзина',
-        link: '/cart',
+        name: 'Персональные данные',
+        link: '/profile',
       },
+    ],
+  },
+  {
+    title: 'Заказы',
+    links: [
       {
         name: 'Мои заказы',
         link: '/orders',
@@ -86,18 +91,13 @@ export const profileNavigation = [
         name: 'Мои возвраты',
         link: '/returns',
       },
-    ],
-  },
-  {
-    title: 'Оплата',
-    links: [
       {
-        name: 'Способы оплаты',
-        link: '/payment',
+        name: 'Моя корзина',
+        link: '/cart',
       },
       {
-        name: 'Мои промокоды',
-        link: '/promo',
+        name: 'Мое избранное',
+        link: '/favorites',
       },
     ],
   },

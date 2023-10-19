@@ -1,9 +1,10 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import './index.css';
 import { profileNavigation } from '../../../utils/constants';
 
 export default function ProfileNavigation(props) {
+  const navigate = useNavigate();
   return (
     <nav className='profile__navigation'>
       <ul className='profile__navigation-list'>
@@ -20,13 +21,25 @@ export default function ProfileNavigation(props) {
           </li>
         ))}
       </ul>
-      <button
-        type='button'
-        className='profile__delete-profile-button button'
-        onClick={props.deleteProfile}
-      >
-        Удалить профиль
-      </button>
+      <div className='profile__nav-buttons-container'>
+        <button
+          type='button'
+          className='profile__nav-button profile__nav-button_type_logout button'
+          onClick={() => {
+            props.cbLogout();
+            navigate('/');
+          }}
+        >
+          Выйти из аккаунта
+        </button>
+        <button
+          type='button'
+          className='profile__nav-button profile__nav-button_type_delete-profile button'
+          onClick={props.deleteProfile}
+        >
+          Удалить аккаунт
+        </button>
+      </div>
     </nav>
   );
 }
