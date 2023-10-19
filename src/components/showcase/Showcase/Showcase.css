@@ -1,5 +1,5 @@
 .content__showcase {
-  margin: 0;
+  margin: 0 var(--s-indent);
 }
 
 .showcase__wrapper {

@@ -1,9 +1,7 @@
 .content__favorites {
   display: flex;
   flex-direction: column;
-  margin: 0;
-  /* margin-right: var(--s-indent);
-  margin-left: var(--s-indent) */
+  margin: 0 var(--s-indent);
 }
 
 .favorites {
