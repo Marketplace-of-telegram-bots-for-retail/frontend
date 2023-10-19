@@ -5,13 +5,13 @@ import ProfileFormButtons from '../ProfileFormButtons';
 import ProfileAvatar from '../ProfileAvatar';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
+import getChangedData from '../../../utils/getChangedData';
 
-export default function ProfileForm() {
+export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
-  console.log(currentUser);
 
   useEffect(() => {
     setValues({
@@ -25,10 +25,15 @@ export default function ProfileForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (values.newPassword !== values.password) {
-      console.log('submit');
-      setIsEditing(false);
-    }
+    const formData = {
+      first_name: values.name,
+      last_name: values.surname,
+      email: values.email,
+      phone: values.phone,
+      username: values.user,
+    };
+    props.cbUpdateProfile(getChangedData(currentUser, formData));
+    setIsEditing(false);
   }
 
   function deleteProfile(e) {

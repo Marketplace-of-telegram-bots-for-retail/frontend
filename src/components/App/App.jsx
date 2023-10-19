@@ -251,6 +251,21 @@ const App = () => {
     }
   };
 
+  // Обновление данных профиля
+  const cbUpdateProfile = async (data) => {
+    setPreloader(true);
+    try {
+      await api.patchUserMe(data);
+      cbTokenCheck();
+    } catch (err) {
+      console.log('cbUpdateProfile => err', err); // Консоль
+      const errMessage = await Object.values(err)[0];
+      setQueryMessage(errMessage);
+    } finally {
+      setPreloader(false);
+    }
+  };
+
   // Временно автоматический вход
   //     email: 'user-test@user-test.com',
   //     password: 'Qwe123Asd456',
@@ -315,7 +330,12 @@ const App = () => {
             }
           />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/profile' element={<Profile cbLogout={cbLogout} />} />
+          <Route
+            path='/profile'
+            element={
+              <Profile cbLogout={cbLogout} cbUpdateProfile={cbUpdateProfile} />
+            }
+          />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route
             path='/salesman'
