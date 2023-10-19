@@ -38,7 +38,7 @@
 }
 
 .about__list-item::marker {
-  color: #726EFA;
+  color: var(--Primary-Accent, #726EFA);
 }
 
 .about__image {
