@@ -5,6 +5,9 @@ import avatar from '../../../images/Group.svg';
 
 const ReviewCard = ({ review }) => {
   const [ratingFeedback, setRatingFeedback] = useState('show');
+  const date = new Date(review.modified);
+  const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+
   useEffect(() => {
     setRatingFeedback('without');
   }, [setRatingFeedback]);
@@ -17,7 +20,7 @@ const ReviewCard = ({ review }) => {
           <span className='product__review-author'>{review.user}</span>
         </div>
         <div className='product__review-set'>
-          <span className='product__review-date'>{review.modified}</span>
+          <span className='product__review-date'>{formattedDate}</span>
           <Rating
             ratingCard={review.rating}
             ratingFeedback={ratingFeedback}
