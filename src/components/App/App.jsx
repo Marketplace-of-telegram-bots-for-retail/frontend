@@ -1,11 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import {
-  // collecProductsAllStates,
-  getProducts,
-} from '../../store/dataProductsStateSlice';
-import { collecFavoritesAllStates } from '../../store/dataFavoritesStateSlice';
+import { getProducts, getFavorites } from '../../store/dataProductsStateSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';
@@ -45,44 +41,44 @@ const App = () => {
 
   const [queryMessage, setQueryMessage] = useState('');
 
-  // Проверить localStorage
-  const checkLocalStorage = useCallback((key) => {
-    const item = JSON.parse(localStorage.getItem(key));
-    if (item) {
-      return item;
-    }
-    return [];
-  }, []);
+  // // Проверить localStorage
+  // const checkLocalStorage = useCallback((key) => {
+  //   const item = JSON.parse(localStorage.getItem(key));
+  //   if (item) {
+  //     return item;
+  //   }
+  //   return [];
+  // }, []);
 
-  // // проверяем localStorage на наличие карточек и сохраняем в соответсвующий стейт
-  const [currentProdacts, setProdacts] = useState(() => {
-    checkLocalStorage('currentProdacts');
-  });
-  console.log('currentProdacts = >', currentProdacts);
-  const [currentFavorites, setFavorites] = useState(() =>
-    checkLocalStorage('currentFavorites')
-  );
+  // // // проверяем localStorage на наличие карточек и сохраняем в соответсвующий стейт
+  // const [currentProdacts, setProdacts] = useState(() => {
+  //   checkLocalStorage('currentProdacts');
+  // });
+  // console.log('currentProdacts = >', currentProdacts);
+  // const [currentFavorites, setFavorites] = useState(() =>
+  //   checkLocalStorage('currentFavorites')
+  // );
 
-  const getFavoritesProducts = useCallback(async () => {
-    setPreloader(true);
-    try {
-      if (checkToken()) {
-        const data = await api.getProducts('?is_favorited=True');
-        const { results } = data;
-        localStorage.setItem('currentFavorites', JSON.stringify(results));
-        setFavorites(() => checkLocalStorage('currentFavorites'));
-        dispatch(collecFavoritesAllStates(data));
-      }
-    } catch (err) {
-      // сбросить стейты
-      setFavorites(() => checkLocalStorage('currentFavorites'));
-      dispatch(collecFavoritesAllStates([]));
-      // вывести в консоль ошибку
-      console.log('getProdacts => err', err); // Консоль
-    } finally {
-      setPreloader(false);
-    }
-  }, [checkLocalStorage, dispatch]);
+  // const getFavoritesProducts = useCallback(async () => {
+  //   setPreloader(true);
+  //   try {
+  //     if (checkToken()) {
+  //       const data = await api.getProducts('?is_favorited=True');
+  //       const { results } = data;
+  //       localStorage.setItem('currentFavorites', JSON.stringify(results));
+  //       setFavorites(() => checkLocalStorage('currentFavorites'));
+  //       // dispatch(collecFavoritesAllStates(data));
+  //     }
+  //   } catch (err) {
+  //     // сбросить стейты
+  //     setFavorites(() => checkLocalStorage('currentFavorites'));
+  //     // dispatch(collecFavoritesAllStates([]));
+  //     // вывести в консоль ошибку
+  //     console.log('getProdacts => err', err); // Консоль
+  //   } finally {
+  //     setPreloader(false);
+  //   }
+  // }, [checkLocalStorage, dispatch]);
 
   // const getProducts = useCallback(
   //   async (params) => {
@@ -122,9 +118,10 @@ const App = () => {
           setCurrentUser(userData);
           setAuthorized(true);
           // Загрузить избранные
-          getFavoritesProducts();
+          // getFavoritesProducts();
+          dispatch(getFavorites());
           // Обновить стейт
-          getProducts();
+          dispatch(getProducts());
         }
       }
     } catch (err) {
@@ -133,7 +130,7 @@ const App = () => {
     } finally {
       setPreloader(false);
     }
-  }, [getFavoritesProducts, getProducts]);
+  }, [dispatch]);
 
   // Выполнить первичную проверку по токену и загрузить данные
   useEffect(() => {
@@ -142,7 +139,7 @@ const App = () => {
 
   // // Выполнить поиск по Ботам
   // const getSearchProducts = useCallback(() => {
-  //   getProducts(formRequest);
+  // getProducts(formRequest);
   // }, [getProducts, formRequest]);
 
   // const getMoreProducts = useCallback(
@@ -167,38 +164,38 @@ const App = () => {
   //   [checkLocalStorage, dispatch]
   // );
 
-  // обработчик лайков и дизлайков
-  const cbLike = async (card) => {
-    setPreloader(true);
-    let isLiked;
-    const isMy = card.is_favorited;
-    try {
-      if (!isMy) {
-        // Добавляем карточку
-        await api.postProductFavorite(card.id);
-        isLiked = true;
-      } else {
-        // Удаляем карточку
-        await api.deleteProductFavorite(card.id);
-        isLiked = false;
-      }
-      // Обновить стейт isProduckts
-      setProdacts((state) => {
-        console.log(state);
-        return state.map((c) => {
-          return c.id === card.id ? { ...c, is_favorited: isLiked } : c;
-        });
-      });
-      // обновить стейт избранные выполнив загрузку
-      getFavoritesProducts();
-      // вернуть значение в карточку для ихсенения состояния иконки
-      return isLiked;
-    } catch (err) {
-      console.log('cbCardLike => err', err); // Консоль
-    } finally {
-      setPreloader(false);
-    }
-  };
+  // // обработчик лайков и дизлайков
+  // const cbLike = async (card) => {
+  //   setPreloader(true);
+  //   let isLiked;
+  //   const isMy = card.is_favorited;
+  //   try {
+  //     if (!isMy) {
+  //       // Добавляем карточку
+  //       await api.postProductFavorite(card.id);
+  //       isLiked = true;
+  //     } else {
+  //       // Удаляем карточку
+  //       await api.deleteProductFavorite(card.id);
+  //       isLiked = false;
+  //     }
+  //     // Обновить стейт isProduckts
+  //     setProdacts((state) => {
+  //       console.log(state);
+  //       return state.map((c) => {
+  //         return c.id === card.id ? { ...c, is_favorited: isLiked } : c;
+  //       });
+  //     });
+  //     // обновить стейт избранные выполнив загрузку
+  //     getFavoritesProducts();
+  //     // вернуть значение в карточку для ихсенения состояния иконки
+  //     return isLiked;
+  //   } catch (err) {
+  //     console.log('cbCardLike => err', err); // Консоль
+  //   } finally {
+  //     setPreloader(false);
+  //   }
+  // };
 
   // Авторизация
   const cbLogIn = async (data) => {
@@ -353,7 +350,7 @@ const App = () => {
                 <Poster />
                 <Showcase
                   // productsPage={currentProdacts}
-                  onLike={cbLike}
+                  oonLike={() => {}}
                   // onSearch={getSearchProducts}
                   // onMore={getMoreProducts}
                   isPreloader={isPreloader}
@@ -361,14 +358,9 @@ const App = () => {
               </>
             }
           />
-          <Route path='/products/:id' element={<Product onLike={cbLike} />} />
+          <Route path='/products/:id' element={<Product onLike={() => {}} />} />
           <Route path='*' element={<ErrorPage pageNotFound />} />
-          <Route
-            path='/favorites'
-            element={
-              <Favorites favoritesPage={currentFavorites} onLike={cbLike} />
-            }
-          />
+          <Route path='/favorites' element={<Favorites onLike={() => {}} />} />
           <Route path='/cart' element={<Cart />} />
           <Route
             path='/profile'

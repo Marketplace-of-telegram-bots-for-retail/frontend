@@ -11,23 +11,13 @@ import ErrorPage from '../../ErrorPage/ErrorPage';
 import { useScroll } from '../../../hooks/useScroll';
 import { getMoreProducts } from '../../../store/dataProductsStateSlice';
 
-const Showcase = ({ onLike, onSearch, isPreloader }) => {
+const Showcase = ({ isPreloader }) => {
   const { next, count, previous, results, is_loading } = useSelector(
     (state) => state.dataProductsState
   );
   const dispatch = useDispatch();
   const { scroll } = useScroll();
-  // const [isScroll, setIsScroll] = useState(false);
   const [isMoreButton, setMoreButtom] = useState(true);
-  const [isCards, setCards] = useState(false);
-  useEffect(() => {
-    setCards(() => {
-      if (results?.length === 0) {
-        return false;
-      }
-      return true;
-    });
-  }, [results]);
 
   // Загрузить еще
   const handleOnMore = () => {
@@ -41,6 +31,7 @@ const Showcase = ({ onLike, onSearch, isPreloader }) => {
       handleOnMore();
     }
   }, [scroll]);
+
   // Изменить состояние кнопки загрузить еще
   useEffect(() => {
     next && !previous ? setMoreButtom(true) : setMoreButtom(false);
@@ -54,12 +45,12 @@ const Showcase = ({ onLike, onSearch, isPreloader }) => {
     <section className='content__showcase showcase'>
       <Title titleText='Телеграм-боты для ритейла' />
       <div className='showcase__wrapper'>
-        <Filters onSearch={onSearch} />
+        <Filters />
         <div className='showcase__wrap'>
-          {results && isCards ? (
+          {results?.length !== 0 ? (
             <>
-              <Dropdown onSearch={onSearch} />
-              <Cards cards={results} onLike={onLike} />
+              <Dropdown />
+              <Cards cards={results} />
             </>
           ) : (
             count === 0 && !isPreloader && <ErrorPage botNotFound />

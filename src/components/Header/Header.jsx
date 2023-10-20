@@ -21,9 +21,7 @@ const Header = ({
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange } = useForm();
   const dispatch = useDispatch();
-  const favoritesCount = useSelector(
-    (state) => state.dataFavoritesState.pageFavoritesCount
-  );
+  const { favoritesCount } = useSelector((state) => state.dataProductsState);
   const searchState = useSelector((state) => state.dataSearchForm.search);
   // Обновляем стейт Redux
   useEffect(() => {

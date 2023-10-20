@@ -3,7 +3,7 @@ import './ProductInfo.css';
 import { LikeButton } from '../../buttons';
 import { Rating } from '../../Rating/Rating';
 
-const ProductInfo = ({ card, onLike, setState, setStar }) => {
+const ProductInfo = ({ card, setState, setStar }) => {
   const [ratingFeedback, setRatingFeedback] = useState('show');
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const ProductInfo = ({ card, onLike, setState, setStar }) => {
         setState={setState}
         ratingFeedback={ratingFeedback}
       />
-      <LikeButton parentClass='product' onLike={onLike} card={card} />
+      <LikeButton parentClass='product' card={card} />
     </div>
   );
 };
