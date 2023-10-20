@@ -251,6 +251,56 @@ const App = () => {
     }
   };
 
+  // Изменить пароль
+  const cbChangePassword = async (data) => {
+    setPreloader(true);
+    try {
+      await api.changePassword(data);
+      cbTokenCheck();
+    } catch (err) {
+      console.log('cbChangePassword => err', err); // Консоль
+      const errMessage = await Object.values(err)[0];
+      setQueryMessage(errMessage);
+    } finally {
+      setPreloader(false);
+    }
+  };
+
+  // Обновление данных профиля
+  const cbUpdateProfile = async (data) => {
+    setPreloader(true);
+    try {
+      await api.patchUserMe(data);
+      cbChangePassword({
+        current_password: data.current_password,
+        new_password: data.new_password,
+      });
+      cbTokenCheck();
+    } catch (err) {
+      console.log('cbUpdateProfile => err', err); // Консоль
+      const errMessage = await Object.values(err)[0];
+      setQueryMessage(errMessage);
+    } finally {
+      setPreloader(false);
+    }
+  };
+
+  // Удаление пользователя
+
+  const cbDeleteUser = async () => {
+    setPreloader(true);
+    try {
+      await api.deleteUserMe();
+      cbTokenCheck();
+    } catch (err) {
+      console.log('cbDeleteUser => err', err); // Консоль
+      const errMessage = await Object.values(err)[0];
+      setQueryMessage(errMessage);
+    } finally {
+      setPreloader(false);
+    }
+  };
+
   // Временно автоматический вход
   //     email: 'user-test@user-test.com',
   //     password: 'Qwe123Asd456',
@@ -315,7 +365,16 @@ const App = () => {
             }
           />
           <Route path='/cart' element={<Cart />} />
-          <Route path='/profile' element={<Profile cbLogout={cbLogout} />} />
+          <Route
+            path='/profile'
+            element={
+              <Profile
+                cbLogout={cbLogout}
+                cbUpdateProfile={cbUpdateProfile}
+                cbDeleteUser={cbDeleteUser}
+              />
+            }
+          />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route
             path='/salesman'

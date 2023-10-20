@@ -65,7 +65,10 @@ class Api {
   patchUserMe = (data) => this._makeRequest('/users/me/', 'PATCH', data);
 
   // Удалить пользователя
-  deletetUserMe = () => this._makeRequest('/users/me/', 'DELETE');
+  deleteUserMe = () => this._makeRequest('/users/me/', 'DELETE');
+
+  // Поменять пароль
+  changePassword = (data) => this._makeRequest('/users/set_password/', 'POST', data);
 
   // Вьюсет для отображения корзины.
   getCart = () => this._makeRequest('/cart/', 'GET');

@@ -17,8 +17,9 @@ const Profile = (props) => {
           cbLogout={props.cbLogout}
           userType={userType}
           setUserType={setUserType}
+          cbDeleteUser={props.cbDeleteUser}
         />
-        <ProfileForm />
+        <ProfileForm cbUpdateProfile={props.cbUpdateProfile} />
       </div>
     </div>
   );

@@ -6,6 +6,8 @@
   cursor: pointer;
   width: 20px;
   height: 20px;
+  border: none;
+  background-color: transparent;
 }
 
 .input__eye_active {

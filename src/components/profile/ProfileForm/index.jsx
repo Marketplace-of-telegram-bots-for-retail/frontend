@@ -5,13 +5,14 @@ import ProfileFormButtons from '../ProfileFormButtons';
 import ProfileAvatar from '../ProfileAvatar';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
+import getChangedData from '../../../utils/getChangedData';
 
-export default function ProfileForm() {
+export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
-  console.log(currentUser);
+  const [userphoto, setUserphoto] = useState('');
 
   useEffect(() => {
     setValues({
@@ -25,10 +26,23 @@ export default function ProfileForm() {
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (values.newPassword !== values.password) {
-      console.log('submit');
-      setIsEditing(false);
+
+    const formData = {
+      first_name: values.name,
+      last_name: values.surname,
+      email: values.email,
+      phone: values.phone,
+      username: values.user,
+      photo: userphoto
+    };
+
+    if (values.newPassword && values.password) {
+      formData.new_password = values.newPassword;
+      formData.current_password = values.password;
     }
+
+    props.cbUpdateProfile(getChangedData(currentUser, formData));
+    setIsEditing(false);
   }
 
   function deleteProfile(e) {
@@ -38,7 +52,7 @@ export default function ProfileForm() {
   return (
     <form className='profile__form' noValidate>
       <h2 className='profile__form-title'>Персональные данные</h2>
-      <ProfileAvatar isEditing={isEditing} />
+      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
       <ul className='profile__inputs-list'>
         <li>
           <Input
