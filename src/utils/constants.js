@@ -91,14 +91,6 @@ export const profileNavigation = [
         name: 'Мои возвраты',
         link: '/returns',
       },
-      {
-        name: 'Моя корзина',
-        link: '/cart',
-      },
-      {
-        name: 'Мое избранное',
-        link: '/favorites',
-      },
     ],
   },
   {
