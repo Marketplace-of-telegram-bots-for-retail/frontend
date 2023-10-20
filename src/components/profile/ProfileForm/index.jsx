@@ -12,6 +12,7 @@ export default function ProfileForm(props) {
   const { values, setValues, onBlur, handleChange, errors } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
+  const [userphoto, setUserphoto] = useState('');
 
   useEffect(() => {
     setValues({
@@ -32,6 +33,7 @@ export default function ProfileForm(props) {
       email: values.email,
       phone: values.phone,
       username: values.user,
+      photo: userphoto
     };
 
     if (values.newPassword && values.password) {
@@ -50,7 +52,7 @@ export default function ProfileForm(props) {
   return (
     <form className='profile__form' noValidate>
       <h2 className='profile__form-title'>Персональные данные</h2>
-      <ProfileAvatar isEditing={isEditing} />
+      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
       <ul className='profile__inputs-list'>
         <li>
           <Input

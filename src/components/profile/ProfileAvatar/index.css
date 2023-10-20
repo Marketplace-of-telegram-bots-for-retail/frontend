@@ -6,21 +6,44 @@
 
 .profile__avatar {
   margin: 32px 0;
+  width: 88px;
+  aspect-ratio: 1/1;
+  border-radius: 50%;
+}
+
+.profile__avatar-input-container{
+  position: relative;
+  cursor: pointer;
+}
+
+.profile__avatar-input {
+  opacity: 0;
+  position: absolute;
+  width: 100%;
+  height: 32px;
+}
+
+.profile__avatar-input:focus + .profile__avatar-button_type_edit {
+  cursor: pointer;
+}
+
+.profile__avatar-input:hover + .profile__avatar-button_type_edit {
+  background-color: var(--Secondary-Purple-Light);
 }
 
 .profile__avatar-popup {
   position: absolute;
   bottom: 40px;
-  left: 95px;
+  left: 75px;
   border-radius: 8px;
   box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.15);
   overflow: hidden;
 }
 
-.profile__avatar-edit-button {
+.profile__avatar-button {
   background-color: var(--Primary-White);
   border: none;
-  min-width: 224px;
+  min-width: 168px;
   padding: 6px 8px 6px 16px;
   cursor: pointer;
 
@@ -32,13 +55,14 @@
   background-repeat: no-repeat;
   background-position: right 8px top 4px;
   background-image: url(../../../images/ic_plus-20.svg);
+  background-size: 20px;
 }
 
-.profile__avatar-edit-button:hover {
+.profile__avatar-button:hover {
   background-color: var(--Secondary-Purple-Light);
 }
 
-.profile__avatar-edit-button:last-child {
+.profile__avatar-button_type_delete {
   border-top: 1px solid var(--Gray-Light);
   background-image: url(../../../images/fluent_delete-20-regular.svg);
 }
