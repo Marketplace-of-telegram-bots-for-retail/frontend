@@ -13,6 +13,7 @@ const Product = ({ onLike }) => {
   const [card, setCard] = useState({});
   const [reviews, setReviews] = useState([]);
   const [review, setReview] = useState({});
+  const [editReview, setEditReview] = useState({});
   const [showProductPopup, setShowProductPopup] = useState(false);
   const [state, setState] = useState('description');
   const [star, setStar] = useState();
@@ -53,6 +54,15 @@ const Product = ({ onLike }) => {
       .catch(console.error);
   }
 
+  function editFeedback(id, reviewId, data) {
+    api.putProductReviewId(id, reviewId, data)
+      .then((newReview) => {
+        setEditReview(newReview);
+        console.log(editReview);
+      })
+      .catch(console.error);
+  }
+
   return (
     <section className='product'>
       <BreadCrumbs card={card} />
@@ -65,6 +75,7 @@ const Product = ({ onLike }) => {
         handleFullScreenClick={handleFullScreenClick}
         reviews={reviews}
         sendFeedback={sendFeedback}
+        editFeedback={editFeedback}
         state={state}
         setState={setState}
         star={star}

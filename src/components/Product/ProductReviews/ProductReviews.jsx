@@ -6,6 +6,7 @@ import ReviewCard from '../ReviewCard/ReviewCard';
 const ProductReviews = ({
   reviews,
   sendFeedback,
+  editFeedback,
   setState,
   star,
   setStar
@@ -37,6 +38,7 @@ const ProductReviews = ({
         reviews={reviews}
         count={count}
         sendFeedback={sendFeedback}
+        editFeedback={editFeedback}
         handleShowAllReviews={handleShowAllReviews}
         setState={setState}
         star={star}

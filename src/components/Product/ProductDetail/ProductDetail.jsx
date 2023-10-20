@@ -10,6 +10,7 @@ const ProductDetail = ({
   handleFullScreenClick,
   reviews,
   sendFeedback,
+  editFeedback,
   state,
   setState,
   star,
@@ -38,6 +39,7 @@ const ProductDetail = ({
       {state === 'review' && <ProductReviews
         reviews={reviews}
         sendFeedback={sendFeedback}
+        editFeedback={editFeedback}
         setState={setState}
         star={star}
         setStar={setStar}
