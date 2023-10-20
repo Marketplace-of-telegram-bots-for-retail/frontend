@@ -1,26 +1,33 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './Favorites.css';
 import Cards from '../Cards/Cards';
 import EmptyPage from '../EmptyPage/EmptyPage';
+import { useScroll } from '../../hooks/useScroll';
+import { getMoreFavorites } from '../../store/dataProductsStateSlice';
 
-const Favorites = ({ favoritesPage, onLike }) => {
-  favoritesPage;
-  const [isLikeCards, setLikeCards] = useState(false);
-  // console.log(favoritesPage);
+const Favorites = () => {
+  const { favoritesNext, favoritesResults, is_loading } = useSelector(
+    (state) => state.dataProductsState
+  );
+  const dispatch = useDispatch();
+  const { scroll } = useScroll();
+
+  const handleOnMore = () => {
+    const moreRequest = ['?', favoritesNext.split('/?')[1]].join('&');
+    dispatch(getMoreFavorites(moreRequest));
+  };
+  // отслеживание слеживание скрола и загрузка еще
   useEffect(() => {
-    setLikeCards(() => {
-      if (favoritesPage.length === 0) {
-        return false;
-      }
-      return true;
-    });
-  }, [favoritesPage]);
-  // console.log(resilts.length());
-  // const isLikeCards = false;
-  return isLikeCards ? (
+    if (favoritesNext && scroll > 80 && !is_loading) {
+      handleOnMore();
+    }
+  }, [scroll]);
+
+  return favoritesResults?.length !== 0 ? (
     <div className='content__favorites favorites'>
       <h1 className='favorites__title'>Избранное</h1>
-      <Cards cards={favoritesPage} onLike={onLike} />
+      <Cards cards={favoritesResults} />
     </div>
   ) : (
     <EmptyPage />

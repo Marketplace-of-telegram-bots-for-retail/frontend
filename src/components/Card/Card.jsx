@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './Card.css';
 import { Rating } from '../Rating/Rating';
 import { CartButton } from '../buttons';
+import { onLike } from '../../store/dataProductsStateSlice';
 
-const Card = ({ card, onLike }) => {
+const Card = ({ card }) => {
   const [isLiked, setLiked] = useState(card.is_favorited);
-
+  const dispatch = useDispatch();
   useEffect(() => {
     setLiked(card.is_favorited);
   }, [card.is_favorited]);
 
-  const handleLikeClick = async () => {
-    const liked = await onLike(card);
+  const handleLikeClick = () => {
+    const liked = dispatch(onLike(card));
     setLiked(liked);
   };
   const handleCardClick = () => {

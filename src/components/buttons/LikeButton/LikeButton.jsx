@@ -1,16 +1,20 @@
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { onLike } from '../../../store/dataProductsStateSlice';
 import './LikeButton.css';
 
-const LikeButton = ({ parentClass, onLike, card }) => {
-  const [isLiked, setLiked] = useState(false);
+const LikeButton = ({ parentClass, card }) => {
+  const [isLiked, setLiked] = useState(card?.is_favorited);
+  const dispatch = useDispatch();
   useEffect(() => {
     setLiked(card?.is_favorited);
   }, [card?.is_favorited]);
   const dataCard = { ...card, is_favorited: isLiked };
   const handleLikeClick = async () => {
-    const liked = await onLike(dataCard);
-    setLiked(liked);
+    dispatch(await onLike(dataCard));
+    setLiked((state) => !state);
   };
+
   const buttonTitle = isLiked ? 'В избранном' : 'В избранное';
   const likeButtonClassName = `like-button__icon like-button__icon${
     isLiked ? '_active' : '_default'
