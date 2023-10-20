@@ -9,12 +9,13 @@ import getChangedData from '../../../utils/getChangedData';
 
 export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, setValues, onBlur, handleChange, errors } =
+  const { values, setValues, onBlur, handleChange, errors, resetForm } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
   const [userphoto, setUserphoto] = useState('');
 
   useEffect(() => {
+    resetForm();
     setValues({
       name: currentUser.first_name,
       surname: currentUser.last_name,
@@ -22,7 +23,7 @@ export default function ProfileForm(props) {
       phone: currentUser.phone,
       user: currentUser.username,
     });
-  }, [currentUser]);
+  }, [currentUser, isEditing]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -33,7 +34,7 @@ export default function ProfileForm(props) {
       email: values.email,
       phone: values.phone,
       username: values.user,
-      photo: userphoto
+      photo: userphoto,
     };
 
     if (values.newPassword && values.password) {
