@@ -5,7 +5,6 @@ import spanInputMessages from '../../constants/spanInputMessages';
 
 export default function Input(props) {
   const [showPassword, setShowPassword] = useState(false);
-
   return (
     <label htmlFor={props.name} className='input'>
       <span className='input__name'>{props.inputName}</span>
@@ -22,16 +21,18 @@ export default function Input(props) {
         placeholder={props.placeholder ? props.placeholder : ''}
         autoFocus={props.autoFocus}
         disabled={props.disabled}
-        required
+        required={props.required}
       ></input>
       {props.error ? (
         <span className='input__error-message'>{props.error}</span>
       ) : (
         Object.keys(spanInputMessages).includes(props.name) && (
-          <span className='input__span-message'>{spanInputMessages[props.name]}</span>
+          <span className='input__span-message'>
+            {spanInputMessages[props.name]}
+          </span>
         )
       )}
-      {(props.type === 'password' && props.name !== 'newPassword') && (
+      {props.type === 'password' && props.name !== 'newPassword' && (
         <InputEye
           showPassword={showPassword}
           setShowPassword={setShowPassword}

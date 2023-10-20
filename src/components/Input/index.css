@@ -51,6 +51,9 @@
 }
 
 .input__span-message {
+  position: absolute;
+  bottom: -18px;
+  left: 0;
   color: var(--Gray-Medium);
   font-size: 12px;
   font-weight: 400;
