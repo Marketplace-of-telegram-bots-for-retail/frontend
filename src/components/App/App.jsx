@@ -41,6 +41,7 @@ const App = () => {
   useModal(showAuthModal, setShowAuthModal);
 
   const [queryMessage, setQueryMessage] = useState('');
+  const [registerStep, setRegisterStep] = useState(1);
 
   // Проверить localStorage
   const checkLocalStorage = useCallback((key) => {
@@ -195,7 +196,7 @@ const App = () => {
     }
   };
 
-  // Авторизация
+  // Логин
   const cbLogIn = async (data) => {
     setPreloader(true);
     try {
@@ -214,16 +215,35 @@ const App = () => {
     }
   };
 
+  // Авторизация
+  const cbAuth = async (data) => {
+    setPreloader(true);
+    try {
+      const res = await api.postLogIn(data);
+      setToken(res.auth_token, data.rememberMe);
+      setRegisterStep(1);
+      cbTokenCheck();
+      // загрузить данные пользователя и чекнуть jwt
+    } catch (err) {
+      console.log('cbAuth => err', err); // Консоль
+      const errMessage = Object.values(err)[0];
+      setQueryMessage(errMessage);
+    } finally {
+      setPreloader(false);
+    }
+  };
+
   // Регистрация
   const cbRegister = async (data) => {
     setPreloader(true);
     try {
       await api.postUser(data);
-      cbLogIn(data);
+      cbAuth(data);
       localStorage.removeItem('registerFormData');
+      setRegisterStep(3);
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
@@ -259,7 +279,7 @@ const App = () => {
       cbTokenCheck();
     } catch (err) {
       console.log('cbChangePassword => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
@@ -278,7 +298,7 @@ const App = () => {
       cbTokenCheck();
     } catch (err) {
       console.log('cbUpdateProfile => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
@@ -294,7 +314,7 @@ const App = () => {
       cbTokenCheck();
     } catch (err) {
       console.log('cbDeleteUser => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
@@ -319,6 +339,8 @@ const App = () => {
           setShowAuthModal={setShowAuthModal}
           queryMessage={queryMessage}
           setQueryMessage={setQueryMessage}
+          registerStep={registerStep}
+          setRegisterStep={setRegisterStep}
         />
       )}
       <Routes>

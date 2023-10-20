@@ -39,9 +39,6 @@ const Register = (props) => {
     formData.re_password = confirmPassword;
     console.log(formData);
     props.cbRegister(formData);
-    // сюда всегда передается пустая строка, пофиксить
-    console.log(props.queryMessage);
-    if (props.queryMessage === '') props.setRegisterStep(3);
   };
 
   return (

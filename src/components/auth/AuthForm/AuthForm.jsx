@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
 
 const AuthForm = ({ children, ...props }) => {
-  useEffect(() => props.setQueryMessage(''), []);
   return (
     <>
       {!props.isLogin && (

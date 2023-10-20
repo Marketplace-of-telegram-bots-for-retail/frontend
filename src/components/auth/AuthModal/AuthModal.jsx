@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';
@@ -13,10 +13,9 @@ const AuthModal = ({
   cbRegister,
   queryMessage,
   setQueryMessage,
+  registerStep,
+  setRegisterStep,
 }) => {
-  // const [rememberMe, setRememberMe] = useState(false); // не нужен
-  const [registerStep, setRegisterStep] = useState(1);
-
   return (
     <div className='modal__container modal'>
       <div
@@ -25,18 +24,25 @@ const AuthModal = ({
         }`}
       >
         <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2>
-        <Close className='modal__button_type_close' onClick={onClose} />
+        <Close
+          className='modal__button_type_close'
+          onClick={() => {
+            onClose();
+            setRegisterStep(1);
+          }}
+        />
         {registerStep === 2 && (
           <Back
             className='modal__button_type_back'
-            onClick={() => setRegisterStep(1)}
+            onClick={() => {
+              setRegisterStep(1);
+              setQueryMessage('');
+            }}
           />
         )}
         {isLogin ? (
           <Login
             isLogin={isLogin}
-            // rememberMe={rememberMe}  // не нужен
-            // setRememberMe={setRememberMe}  // не нужен
             onToggleFormClick={() => setIsLogin(false)}
             cbLogIn={cbLogIn}
             queryMessage={queryMessage}
@@ -45,8 +51,6 @@ const AuthModal = ({
         ) : (
           <Register
             isLogin={isLogin}
-            // rememberMe={rememberMe}  // не нужен
-            // setRememberMe={setRememberMe}  // не нужен
             onToggleFormClick={() => setIsLogin(true)}
             cbRegister={cbRegister}
             onClose={onClose}
