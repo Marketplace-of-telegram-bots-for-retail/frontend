@@ -8,14 +8,16 @@ import './Header.css';
 import logo from '../../images/logo-color.png';
 import { useForm } from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
+import { getProducts } from '../../store/dataProductsStateSlice';
+import { useFormRequest } from '../../hooks/useFormRequest';
 
 const Header = ({
   setShowAuthButtons,
   cartPage,
   isAuthorized,
-  onSearch,
   isPreloader,
 }) => {
+  const { formRequest } = useFormRequest();
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange } = useForm();
   const dispatch = useDispatch();
@@ -30,11 +32,11 @@ const Header = ({
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    onSearch();
+    dispatch(getProducts(formRequest));
   };
   // поиск по вводу текста
   useEffect(() => {
-    onSearch();
+    dispatch(getProducts(formRequest));
   }, [searchState]);
 
   const [isLogin, setLogin] = useState(false);
@@ -71,7 +73,7 @@ const Header = ({
               value={values?.search || ''}
               name='search'
               onChange={handleChange}
-              onBlur={onSearch}
+              onBlur={handleSubmit}
             ></input>
             <button
               className='header__search-button'

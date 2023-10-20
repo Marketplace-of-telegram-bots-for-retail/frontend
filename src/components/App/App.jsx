@@ -1,7 +1,10 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { collecProductsAllStates } from '../../store/dataProductsStateSlice';
+import {
+  // collecProductsAllStates,
+  getProducts,
+} from '../../store/dataProductsStateSlice';
 import { collecFavoritesAllStates } from '../../store/dataFavoritesStateSlice';
 import './App.css';
 import { api } from '../../utils/Api';
@@ -19,14 +22,14 @@ import Favorites from '../Favorites/Favorites';
 import Preloader from '../Preloader/Preloader';
 import Main from '../Main/Main';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
-import { useFormRequest } from '../../hooks/useFormRequest';
+// import { useFormRequest } from '../../hooks/useFormRequest';
 import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
 
 const App = () => {
-  const { formRequest } = useFormRequest();
+  // const { formRequest } = useFormRequest();
 
   const [isPreloader, setPreloader] = useState(false);
   const [isAuthorized, setAuthorized] = useState(false);
@@ -51,10 +54,11 @@ const App = () => {
     return [];
   }, []);
 
-  // проверяем localStorage на наличие карточек и сохраняем в соответсвующий стейт
+  // // проверяем localStorage на наличие карточек и сохраняем в соответсвующий стейт
   const [currentProdacts, setProdacts] = useState(() => {
     checkLocalStorage('currentProdacts');
   });
+  console.log('currentProdacts = >', currentProdacts);
   const [currentFavorites, setFavorites] = useState(() =>
     checkLocalStorage('currentFavorites')
   );
@@ -80,31 +84,32 @@ const App = () => {
     }
   }, [checkLocalStorage, dispatch]);
 
-  const getProducts = useCallback(
-    async (params) => {
-      setPreloader(true);
-      try {
-        const data = await api.getProducts(params);
-        const { results } = data;
-        localStorage.setItem('currentProdacts', JSON.stringify(results));
-        setProdacts(() => checkLocalStorage('currentProdacts'));
-        dispatch(collecProductsAllStates(data));
-      } catch (err) {
-        // сбросить стейты
-        setProdacts(() => checkLocalStorage('currentProdacts'));
-        dispatch(collecProductsAllStates([]));
-        // вывести в консоль ошибку
-        console.log('getProdacts => err', err); // Консоль
-      } finally {
-        setPreloader(false);
-      }
-    },
-    [checkLocalStorage, dispatch]
-  );
+  // const getProducts = useCallback(
+  //   async (params) => {
+  //     setPreloader(true);
+  //     try {
+  //       const data = await api.getProducts(params);
+  //       const { results } = data;
+  //       localStorage.setItem('currentProdacts', JSON.stringify(results));
+  //       setProdacts(() => checkLocalStorage('currentProdacts'));
+  //       dispatch(collecProductsAllStates(data));
+  //     } catch (err) {
+  //       // сбросить стейты
+  //       setProdacts(() => checkLocalStorage('currentProdacts'));
+  //       dispatch(collecProductsAllStates([]));
+  //       // вывести в консоль ошибку
+  //       console.log('getProdacts => err', err); // Консоль
+  //     } finally {
+  //       setPreloader(false);
+  //     }
+  //   },
+  //   [checkLocalStorage, dispatch]
+  // );
 
   // Выполнить первичную загрузку карточек
   useEffect(() => {
-    getProducts();
+    console.log('useEffect => getProducts');
+    dispatch(getProducts());
   }, []);
 
   // Чекнуть токен, произвести загрузку данных пользователя, избранных (корзина не добавлена)
@@ -135,32 +140,32 @@ const App = () => {
     cbTokenCheck();
   }, []);
 
-  // Выполнить поиск по Ботам
-  const getSearchProducts = useCallback(() => {
-    getProducts(formRequest);
-  }, [getProducts, formRequest]);
+  // // Выполнить поиск по Ботам
+  // const getSearchProducts = useCallback(() => {
+  //   getProducts(formRequest);
+  // }, [getProducts, formRequest]);
 
-  const getMoreProducts = useCallback(
-    async (params) => {
-      const productsData = JSON.parse(localStorage.getItem('currentProdacts'));
-      setPreloader(true);
-      try {
-        const data = await api.getProducts(params);
-        const { count, next, previous, results } = data;
-        const newArr = productsData.concat(results);
-        localStorage.setItem('currentProdacts', JSON.stringify(newArr));
-        setProdacts(() => checkLocalStorage('currentProdacts'));
-        dispatch(
-          collecProductsAllStates({ count, next, previous, results: newArr })
-        );
-      } catch (err) {
-        console.log('getProdacts => err', err); // Консоль
-      } finally {
-        setPreloader(false);
-      }
-    },
-    [checkLocalStorage, dispatch]
-  );
+  // const getMoreProducts = useCallback(
+  //   async (params) => {
+  //     const productsData = JSON.parse(localStorage.getItem('currentProdacts'));
+  //     setPreloader(true);
+  //     try {
+  //       const data = await api.getProducts(params);
+  //       const { count, next, previous, results } = data;
+  //       const newArr = productsData.concat(results);
+  //       localStorage.setItem('currentProdacts', JSON.stringify(newArr));
+  //       setProdacts(() => checkLocalStorage('currentProdacts'));
+  //       dispatch(
+  //         collecProductsAllStates({ count, next, previous, results: newArr })
+  //       );
+  //     } catch (err) {
+  //       console.log('getProdacts => err', err); // Консоль
+  //     } finally {
+  //       setPreloader(false);
+  //     }
+  //   },
+  //   [checkLocalStorage, dispatch]
+  // );
 
   // обработчик лайков и дизлайков
   const cbLike = async (card) => {
@@ -347,10 +352,10 @@ const App = () => {
               <>
                 <Poster />
                 <Showcase
-                  productsPage={currentProdacts}
+                  // productsPage={currentProdacts}
                   onLike={cbLike}
-                  onSearch={getSearchProducts}
-                  onMore={getMoreProducts}
+                  // onSearch={getSearchProducts}
+                  // onMore={getMoreProducts}
                   isPreloader={isPreloader}
                 />
               </>
