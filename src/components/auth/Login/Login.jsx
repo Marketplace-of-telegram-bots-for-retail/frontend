@@ -19,10 +19,8 @@ const Login = (props) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const { userType, rememberMe } = props; // Не нужен
     const { email, password } = values;
     const formData = {
-      // userType, // не нужен
       email,
       password,
       rememberMe: isCheckboxChecked,
@@ -33,8 +31,6 @@ const Login = (props) => {
   return (
     <>
       <AuthForm
-        // rememberMe={props.rememberMe}
-        // setRememberMe={props.setRememberMe}
         handleSubmit={handleSubmit}
         isLogin={props.isLogin}
         isValid={isValid}

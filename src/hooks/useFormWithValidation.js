@@ -79,7 +79,6 @@ export const useFormWithValidation = () => {
     let { value } = e.target;
     const { name } = e.target;
     let { validationMessage } = e.target;
-    console.log(e.target.required);
     if (e.target.required && value === '') {
       validationMessage = 'Поле ввода не может быть пустым';
     } else {
