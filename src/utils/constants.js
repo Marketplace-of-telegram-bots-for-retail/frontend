@@ -76,7 +76,7 @@ export const profileNavigation = [
     links: [
       {
         name: 'Персональные данные',
-        link: '/profile',
+        link: '',
       },
     ],
   },
@@ -85,19 +85,11 @@ export const profileNavigation = [
     links: [
       {
         name: 'Мои заказы',
-        link: '/orders',
+        link: '',
       },
       {
         name: 'Мои возвраты',
-        link: '/returns',
-      },
-      {
-        name: 'Моя корзина',
-        link: '/cart',
-      },
-      {
-        name: 'Мое избранное',
-        link: '/favorites',
+        link: '',
       },
     ],
   },
@@ -106,7 +98,7 @@ export const profileNavigation = [
     links: [
       {
         name: 'Мои отзывы',
-        link: '/reviews',
+        link: '',
       },
     ],
   },
@@ -115,7 +107,7 @@ export const profileNavigation = [
     links: [
       {
         name: 'Связаться с нами',
-        link: '/contact',
+        link: '/promo#contacts',
       },
     ],
   },
