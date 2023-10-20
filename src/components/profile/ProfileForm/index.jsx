@@ -25,6 +25,7 @@ export default function ProfileForm(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
+
     const formData = {
       first_name: values.name,
       last_name: values.surname,
@@ -32,6 +33,12 @@ export default function ProfileForm(props) {
       phone: values.phone,
       username: values.user,
     };
+
+    if (values.newPassword && values.password) {
+      formData.new_password = values.newPassword;
+      formData.current_password = values.password;
+    }
+
     props.cbUpdateProfile(getChangedData(currentUser, formData));
     setIsEditing(false);
   }

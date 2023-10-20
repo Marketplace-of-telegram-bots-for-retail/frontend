@@ -40,7 +40,7 @@ export default function ProfileNavigation(props) {
         <button
           type='button'
           className='profile__nav-button profile__nav-button_type_delete-profile button'
-          onClick={props.deleteProfile}
+          onClick={props.cbDeleteUser}
         >
           Удалить аккаунт
         </button>
