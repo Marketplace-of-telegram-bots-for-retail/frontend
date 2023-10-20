@@ -26,10 +26,10 @@ export default function ProfileAvatar(props) {
 
   function handleChange(e) {
     const file = e.target.files[0];
-    const res = getBase64(file, (result) => {
+    getBase64(file, (result) => {
       props.setUserphoto(result);
+      setShowModal(false);
     });
-    console.log(res);
   }
   return (
     <div
@@ -53,11 +53,18 @@ export default function ProfileAvatar(props) {
               accept='image/png, image/jpeg'
               onChange={handleChange}
             />
-            <button type='button' className='profile__avatar-button profile__avatar-button_type_edit'>
+            <button
+              type='button'
+              className='profile__avatar-button profile__avatar-button_type_edit'
+            >
               Добавить фото
             </button>
           </label>
-          <button type='button' className='profile__avatar-button profile__avatar-button_type_delete'>
+          <button
+            type='button'
+            className='profile__avatar-button profile__avatar-button_type_delete'
+            onClick={props.setUserphoto(null)}
+          >
             Удалить фото
           </button>
         </div>
