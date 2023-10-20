@@ -335,7 +335,7 @@ const App = () => {
               <Header
                 setShowAuthButtons={setShowAuthButtons}
                 isAuthorized={isAuthorized}
-                onSearch={getSearchProducts}
+                // onSearch={getSearchProducts}
                 isPreloader={isPreloader}
               />
               <Main>
