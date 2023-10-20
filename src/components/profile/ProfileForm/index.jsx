@@ -12,7 +12,7 @@ export default function ProfileForm(props) {
   const { values, setValues, onBlur, handleChange, errors, resetForm } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
-  const [userphoto, setUserphoto] = useState('');
+  const [userphoto, setUserphoto] = useState(null);
 
   useEffect(() => {
     resetForm();
@@ -34,8 +34,9 @@ export default function ProfileForm(props) {
       email: values.email,
       phone: values.phone,
       username: values.user,
-      photo: userphoto,
     };
+
+    if (userphoto) formData.photo = userphoto;
 
     if (values.newPassword && values.password) {
       formData.new_password = values.newPassword;
