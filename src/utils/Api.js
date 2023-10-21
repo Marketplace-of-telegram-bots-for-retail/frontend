@@ -1,3 +1,4 @@
+/* eslint-disable lines-between-class-members */
 import { getToken } from './tokenStorage';
 
 class Api {
@@ -68,13 +69,8 @@ class Api {
   deleteUserMe = () => this._makeRequest('/users/me/', 'DELETE');
 
   // Поменять пароль
-  changePassword = (data) => this._makeRequest('/users/set_password/', 'POST', data);
-
-  // Вьюсет для отображения корзины.
-  getCart = () => this._makeRequest('/cart/', 'GET');
-
-  // Вьюсет для отображения корзины.
-  getCartId = (id) => this._makeRequest(`/cart/${id}`, 'GET');
+  changePassword = (data) =>
+    this._makeRequest('/users/set_password/', 'POST', data);
 
   // Получить список заказов (в разработке).
   getOrders = () => this._makeRequest('/orders/', 'GET');
@@ -121,11 +117,40 @@ class Api {
   deleteProductFavorite = (id) =>
     this._makeRequest(`/products/${id}/favorite/`, 'DELETE');
 
-  postProductCart = (id, data) =>
-    this._makeRequest(`/products/${id}/shopping_cart/`, 'POST', data);
-
+  // Вьюсет для отображения корзины.
+  getCart = () => this._makeRequest('/cart/', 'GET');
+  // Добавить бота в корзину, по его id. При нажатии на кнопку
+  // "Добавить в корзину и '+'."
+  postProductCart = (id) =>
+    this._makeRequest(`/products/${id}/shopping_cart/`, 'POST');
+  // Удалить бота из корзины, по его id. При нажатии на кнопку 'Удалить'.
   deleteProductCart = (id) =>
     this._makeRequest(`/products/${id}/shopping_cart/`, 'DELETE');
+  // Уменьшить кол-во бота в корзине на 1. При нажатии на кнопку '-'.
+  reduceProductCart = (id) =>
+    this._makeRequest(`/products/${id}/shopping_cart/`, 'PATCH');
+  // Выбрать одного бота в коризне. При нажатии на чек-бокс,
+  // is_selected меняется True/False
+  selectProductCart = (id) =>
+    this._makeRequest(`/products/${id}/select/`, 'PATCH');
+  // -> Выбрать всех ботов в корзине, вне зависимости от того,
+  // какое состояние у них было, у всех is_selected становится True.
+  // При нажатии на кнопку 'Выбрать всё'.
+  selectAllProductsCart = () =>
+    this._makeRequest('/products/select_all/', 'PATCH');
+  // Убрать выбор всех ботов в корзине, у всех is_selected становится False.
+  // При нажатии на кнопку 'Выбрать всё'.
+  unselectAllProductsCart = () =>
+    this._makeRequest('/products/select_all/', 'DELETE');
+  // Удалить все выбраные товары, при нажатии на кнопку 'Удалить выбранные'.
+  deleteSelectedProductsCart = () =>
+    this._makeRequest('/products/delete_all_selected/', 'DELETE');
+  // далить все выбраные товары, при нажатии на кнопку 'Удалить выбранные'.
+  // Вводится промокод, если он корректный, поле 'promocode' становится True,
+  // и цена со скидкой отображается в поле 'discount_sum',
+  // если нет приходит в ответ "Некорректный промокод"
+  addPromocodeCart = (data) =>
+    this._makeRequest('/cart/promocode/', 'POST', data);
 
   // Получить отзывы.
   getProductsReviews = (product_id) =>

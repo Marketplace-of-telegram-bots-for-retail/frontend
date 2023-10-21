@@ -10,17 +10,17 @@ const dataSearchFormSlice = createSlice({
     sorting: null,
   },
   reducers: {
-    collecSearch(state, actions) {
-      state.search = actions.payload;
+    collecSearch(state, action) {
+      state.search = action.payload;
     },
-    collectCategories(state, actions) {
-      state.categories = actions.payload;
+    collectCategories(state, action) {
+      state.categories = action.payload;
     },
-    collecPrices(state, actions) {
-      state.prices = actions.payload;
+    collecPrices(state, action) {
+      state.prices = action.payload;
     },
-    collecSorting(state, actions) {
-      state.sorting = actions.payload;
+    collecSorting(state, action) {
+      state.sorting = action.payload;
     },
   },
 });

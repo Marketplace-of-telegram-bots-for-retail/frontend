@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { unwrapResult } from '@reduxjs/toolkit';
 import { onLike } from '../../../store/dataProductsStateSlice';
 import './LikeButton.css';
 
@@ -11,8 +12,7 @@ const LikeButton = ({ parentClass, card }) => {
   }, [card?.is_favorited]);
   const dataCard = { ...card, is_favorited: isLiked };
   const handleLikeClick = async () => {
-    dispatch(await onLike(dataCard));
-    setLiked((state) => !state);
+    setLiked(unwrapResult(await dispatch(onLike(dataCard))));
   };
 
   const buttonTitle = isLiked ? 'В избранном' : 'В избранное';
