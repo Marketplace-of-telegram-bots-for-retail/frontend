@@ -19,8 +19,8 @@ class Api {
     const err = await res.json();
     return Promise.reject(err);
   };
-  // Делаем запрос на сервер
 
+  // Делаем запрос на сервер
   _makeRequest = async (url, method, body, params) => {
     // const token = localStorage.getItem('jwt');
     const token = getToken();
