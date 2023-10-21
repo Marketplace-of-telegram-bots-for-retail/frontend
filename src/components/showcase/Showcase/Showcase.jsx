@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './Showcase.css';
 import Dropdown from '../Dropdown/Dropdown';
 import Cards from '../../Cards/Cards';
@@ -9,38 +9,34 @@ import Title from '../../Title/Title';
 import Filters from '../Filters/Filters';
 import ErrorPage from '../../ErrorPage/ErrorPage';
 import { useScroll } from '../../../hooks/useScroll';
+import { getMoreProducts } from '../../../store/dataProductsStateSlice';
 
-const Showcase = ({ productsPage, onLike, onSearch, onMore, isPreloader }) => {
-  const { pageProductsNext, pageProductsCount, pageProductsPrevious } =
-    useSelector((state) => state.dataProductsState);
+const Showcase = ({ isPreloader }) => {
+  const { next, count, previous, results, is_loading } = useSelector(
+    (state) => state.dataProductsState
+  );
+  const dispatch = useDispatch();
   const { scroll } = useScroll();
-  // const [isScroll, setIsScroll] = useState(false);
   const [isMoreButton, setMoreButtom] = useState(true);
-  const [isCards, setCards] = useState(false);
-  useEffect(() => {
-    setCards(() => {
-      if (productsPage?.length === 0) {
-        return false;
-      }
-      return true;
-    });
-  }, [productsPage]);
 
   // Загрузить еще
   const handleOnMore = () => {
-    const moreRequest = ['?', pageProductsNext.split('/?')[1]].join('&');
-    onMore(moreRequest);
+    const moreRequest = ['?', next.split('/?')[1]].join('&');
+    dispatch(getMoreProducts(moreRequest));
   };
+
   // отслеживание слеживание скрола и загрузка еще
   useEffect(() => {
-    scroll > 70 && pageProductsNext && !isMoreButton && handleOnMore();
-  }, [isMoreButton, scroll]);
+    if (!isMoreButton && next && scroll > 70 && !is_loading) {
+      handleOnMore();
+    }
+  }, [scroll]);
+
   // Изменить состояние кнопки загрузить еще
   useEffect(() => {
-    pageProductsNext && !pageProductsPrevious
-      ? setMoreButtom(true)
-      : setMoreButtom(false);
-  }, [pageProductsNext, pageProductsPrevious, setMoreButtom]);
+    next && !previous ? setMoreButtom(true) : setMoreButtom(false);
+  }, [next, previous, setMoreButtom]);
+
   // заглушка на постер
   const onClickAftPoster = () => {
     console.log('Click => AftPoster');
@@ -49,15 +45,15 @@ const Showcase = ({ productsPage, onLike, onSearch, onMore, isPreloader }) => {
     <section className='content__showcase showcase'>
       <Title titleText='Телеграм-боты для ритейла' />
       <div className='showcase__wrapper'>
-        <Filters onSearch={onSearch} />
+        <Filters />
         <div className='showcase__wrap'>
-          {productsPage && isCards ? (
+          {results?.length !== 0 ? (
             <>
-              <Dropdown onSearch={onSearch} />
-              <Cards cards={productsPage} onLike={onLike} />
+              <Dropdown />
+              <Cards cards={results} />
             </>
           ) : (
-            pageProductsCount === 0 && !isPreloader && <ErrorPage botNotFound />
+            count === 0 && !isPreloader && <ErrorPage botNotFound />
           )}
           {isMoreButton && <More onClick={() => handleOnMore()} />}
           {!isPreloader && <AftPoster onClick={() => onClickAftPoster()} />}

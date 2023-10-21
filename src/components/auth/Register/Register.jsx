@@ -1,14 +1,11 @@
 import React, { useState } from 'react';
 import AuthForm from '../AuthForm/AuthForm';
-import AuthInput from '../AuthInput/AuthInput';
+import Input from '../../Input';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
-import { ReactComponent as Eye } from '../../../images/eye1.svg';
 import RegisterSuccessMessage from '../RegisterSuccessMessage/RegisterSuccessMessage';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 
 const Register = (props) => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   const { values, onBlur, handleChange, errors, isValid } =
@@ -21,13 +18,10 @@ const Register = (props) => {
 
   const handleStepOne = (e) => {
     e.preventDefault();
-    // const { userType, rememberMe } = props;
     const { name, surname, email } = values;
     localStorage.setItem(
       'registerFormData',
       JSON.stringify({
-        // userType,
-        // rememberMe,
         first_name: name,
         last_name: surname,
         email,
@@ -45,9 +39,6 @@ const Register = (props) => {
     formData.re_password = confirmPassword;
     console.log(formData);
     props.cbRegister(formData);
-    // сюда всегда передается пустая строка, пофиксить
-    console.log(props.queryMessage);
-    if (props.queryMessage === '') props.setRegisterStep(3);
   };
 
   return (
@@ -70,8 +61,7 @@ const Register = (props) => {
         >
           {props.registerStep === 1 && (
             <>
-              <AuthInput
-                htmlFor='name'
+              <Input
                 name='name'
                 type='text'
                 error={errors.name}
@@ -81,9 +71,9 @@ const Register = (props) => {
                 inputName='Имя'
                 placeholder='Иван'
                 autoFocus
-              ></AuthInput>
-              <AuthInput
-                htmlFor='surname'
+                required
+              />
+              <Input
                 name='surname'
                 type='text'
                 error={errors.surname}
@@ -92,9 +82,9 @@ const Register = (props) => {
                 onBlur={onBlur}
                 inputName='Фамилия'
                 placeholder='Иванов'
-              ></AuthInput>
-              <AuthInput
-                htmlFor='email'
+                required
+              />
+              <Input
                 name='email'
                 type='email'
                 error={errors.email}
@@ -103,13 +93,13 @@ const Register = (props) => {
                 onBlur={onBlur}
                 inputName='Почта'
                 placeholder='example@mail.ru'
+                required
               />
             </>
           )}
           {props.registerStep === 2 && (
             <>
-              <AuthInput
-                htmlFor='phone'
+              <Input
                 name='phone'
                 type='tel'
                 error={errors.phone}
@@ -119,41 +109,28 @@ const Register = (props) => {
                 inputName='Телефон'
                 placeholder='+7'
                 autoFocus
-              ></AuthInput>
-              <AuthInput
-                htmlFor='password'
+                required
+              />
+              <Input
                 name='password'
-                type={showPassword ? 'text' : 'password'}
+                type='password'
                 error={errors.password}
                 value={values.password ?? ''}
                 onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Пароль'
-              >
-                <Eye
-                  className='modal__eye-icon'
-                  onMouseDown={() => setShowPassword(true)}
-                  onMouseUp={() => setShowPassword(false)}
-                  onMouseLeave={() => setShowPassword(false)}
-                />
-              </AuthInput>
-              <AuthInput
-                htmlFor='confirmPassword'
+                required
+              />
+              <Input
                 name='confirmPassword'
-                type={showConfirmPassword ? 'text' : 'password'}
+                type='password'
                 error={errors.confirmPassword}
                 value={values.confirmPassword ?? ''}
                 onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Повторите пароль'
-              >
-                <Eye
-                  className='modal__eye-icon'
-                  onMouseDown={() => setShowConfirmPassword(true)}
-                  onMouseUp={() => setShowConfirmPassword(false)}
-                  onMouseLeave={() => setShowConfirmPassword(false)}
-                />
-              </AuthInput>
+                required
+              />
             </>
           )}
         </AuthForm>

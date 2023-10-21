@@ -4,7 +4,9 @@ import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
 
 const AuthForm = ({ children, ...props }) => {
-  useEffect(() => props.setQueryMessage(''), []);
+  useEffect(() => {
+    props.setQueryMessage('');
+  }, []);
   return (
     <>
       {!props.isLogin && (

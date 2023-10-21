@@ -1,13 +1,16 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import './ReviewCard.css';
-// import StarRating from '../../StarRating/StarRating';
 import { Rating } from '../../Rating/Rating';
 import avatar from '../../../images/Group.svg';
 
-const ReviewCard = ({ review, ratingFeedback, setRatingFeedback }) => {
+const ReviewCard = ({ review }) => {
+  const [ratingFeedback, setRatingFeedback] = useState('show');
+  const date = new Date(review.modified);
+  const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+
   useEffect(() => {
     setRatingFeedback('without');
-  });
+  }, [setRatingFeedback]);
 
   return (
     <li className='product__review'>
@@ -17,15 +20,9 @@ const ReviewCard = ({ review, ratingFeedback, setRatingFeedback }) => {
           <span className='product__review-author'>{review.user}</span>
         </div>
         <div className='product__review-set'>
-          <span className='product__review-date'>{review.modified}</span>
+          <span className='product__review-date'>{formattedDate}</span>
           <Rating
             ratingCard={review.rating}
-            onStarClick={() => {
-              console.log('object');
-            }}
-            onReviewClick={() => {
-              console.log('object');
-            }}
             ratingFeedback={ratingFeedback}
           />
         </div>

@@ -5,28 +5,46 @@ import ProfileFormButtons from '../ProfileFormButtons';
 import ProfileAvatar from '../ProfileAvatar';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
+import getChangedData from '../../../utils/getChangedData';
 
-export default function ProfileForm() {
+export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, setValues, onBlur, handleChange, errors } =
+  const { values, setValues, onBlur, handleChange, errors, resetForm } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
+  const [userphoto, setUserphoto] = useState(null);
 
   useEffect(() => {
+    resetForm();
     setValues({
       name: currentUser.first_name,
       surname: currentUser.last_name,
-      email: currentUser.username,
+      email: currentUser.email,
       phone: currentUser.phone,
+      user: currentUser.username,
     });
-  }, [currentUser]);
+  }, [currentUser, isEditing]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    if (values.newPassword !== values.password) {
-      console.log('submit');
-      setIsEditing(false);
+
+    const formData = {
+      first_name: values.name,
+      last_name: values.surname,
+      email: values.email,
+      phone: values.phone,
+      username: values.user,
+    };
+
+    if (userphoto) formData.photo = userphoto;
+
+    if (values.newPassword && values.password) {
+      formData.new_password = values.newPassword;
+      formData.current_password = values.password;
     }
+
+    props.cbUpdateProfile(getChangedData(currentUser, formData));
+    setIsEditing(false);
   }
 
   function deleteProfile(e) {
@@ -36,8 +54,20 @@ export default function ProfileForm() {
   return (
     <form className='profile__form' noValidate>
       <h2 className='profile__form-title'>Персональные данные</h2>
-      <ProfileAvatar isEditing={isEditing} />
+      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
       <ul className='profile__inputs-list'>
+        <li>
+          <Input
+            name='user'
+            type='text'
+            error={errors.user}
+            value={values.user ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Никнейм'
+            disabled={!isEditing}
+          />
+        </li>
         <li>
           <Input
             name='name'
@@ -96,7 +126,7 @@ export default function ProfileForm() {
             onBlur={onBlur}
             inputName={!isEditing ? 'Пароль' : 'Старый пароль'}
             disabled={!isEditing}
-            placeholder={isEditing && 'Введите текущий пароль'}
+            placeholder={isEditing && 'введите текущий пароль'}
           />
         </li>
         {isEditing && (
@@ -111,13 +141,8 @@ export default function ProfileForm() {
                 onBlur={onBlur}
                 inputName='Новый пароль'
                 disabled={!isEditing}
+                placeholder={isEditing && 'введите новый пароль'}
               />
-              {!errors.newPassword && (
-                <span>
-                  Не менее 8 символов. Может содержать только латинские буквы,
-                  цифры, знаки.
-                </span>
-              )}
             </li>
             <li>
               <Input

@@ -4,8 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import './Dropdown.css';
 import { SORTING_OPTIONS } from '../../../utils/constants';
 import { collecSorting } from '../../../store/dataSearchFormSlice';
+import { getProducts } from '../../../store/dataProductsStateSlice';
+import { useFormRequest } from '../../../hooks/useFormRequest';
 
-const Dropdown = ({ onSearch }) => {
+const Dropdown = () => {
+  const { formRequest } = useFormRequest();
   const [dropdown, setDropdown] = useState(0);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
@@ -15,7 +18,7 @@ const Dropdown = ({ onSearch }) => {
   };
   const dropdownListClick = (index) => {
     setDropdown(index);
-    onSearch();
+    dispatch(getProducts(formRequest));
   };
 
   // Обновляем стейт Redux
@@ -24,7 +27,7 @@ const Dropdown = ({ onSearch }) => {
   }, [dropdown, dispatch]);
   // Отправить запрос
   useEffect(() => {
-    onSearch();
+    dispatch(getProducts(formRequest));
   }, [dropdownState]);
 
   return (

@@ -13,8 +13,10 @@ const Product = ({ onLike }) => {
   const [card, setCard] = useState({});
   const [reviews, setReviews] = useState([]);
   const [review, setReview] = useState({});
-  const [ratingFeedback, setRatingFeedback] = useState('show');
+  const [editReview, setEditReview] = useState({});
   const [showProductPopup, setShowProductPopup] = useState(false);
+  const [state, setState] = useState('description');
+  const [star, setStar] = useState();
 
   useEffect(() => {
     // заменить на входящий пропсом cb
@@ -52,11 +54,20 @@ const Product = ({ onLike }) => {
       .catch(console.error);
   }
 
+  function editFeedback(id, reviewId, data) {
+    api.putProductReviewId(id, reviewId, data)
+      .then((newReview) => {
+        setEditReview(newReview);
+        console.log(editReview);
+      })
+      .catch(console.error);
+  }
+
   return (
     <section className='product'>
       <BreadCrumbs card={card} />
       <ProductTitle card={card} />
-      <ProductInfo card={card} onLike={onLike} ratingFeedback={ratingFeedback} setRatingFeedback={setRatingFeedback} />
+      <ProductInfo card={card} onLike={onLike} setState={setState} setStar={setStar} />
       <ProductDetails
         card={card}
         showProductPopup={showProductPopup}
@@ -64,8 +75,11 @@ const Product = ({ onLike }) => {
         handleFullScreenClick={handleFullScreenClick}
         reviews={reviews}
         sendFeedback={sendFeedback}
-        ratingFeedback={ratingFeedback}
-        setRatingFeedback={setRatingFeedback}
+        editFeedback={editFeedback}
+        state={state}
+        setState={setState}
+        star={star}
+        setStar={setStar}
       />
       {showProductPopup && <PopupImage card={card} onClose={closePopup} />}
     </section>
