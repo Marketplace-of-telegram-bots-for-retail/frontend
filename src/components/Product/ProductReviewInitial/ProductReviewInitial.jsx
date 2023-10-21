@@ -24,6 +24,7 @@ const ProductReviewInitial = ({
   const [isReview, setIsReview] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
   const currentReview = reviews.filter((c) => c.user === currentUser.username);
+  console.log(currentReview);
 
   useEffect(() => {
     setValues('');
@@ -142,7 +143,7 @@ const ProductReviewInitial = ({
               ratingFeedback={ratingFeedback}
             />
           )}
-          {currentReview && (
+          {currentReview.length !== 0 && (
             <Rating
               ratingCard={currentReview[0].rating}
               onStarClick={() => {
