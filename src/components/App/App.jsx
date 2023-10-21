@@ -18,7 +18,6 @@ import Favorites from '../Favorites/Favorites';
 import Preloader from '../Preloader/Preloader';
 import Main from '../Main/Main';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
-// import { useFormRequest } from '../../hooks/useFormRequest';
 import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
@@ -40,6 +39,7 @@ const App = () => {
   useModal(showAuthModal, setShowAuthModal);
 
   const [queryMessage, setQueryMessage] = useState('');
+  const [registerStep, setRegisterStep] = useState(1);
 
   // Выполнить первичную загрузку карточек
   useEffect(() => {
@@ -76,7 +76,7 @@ const App = () => {
     cbTokenCheck();
   }, []);
 
-  // Авторизация
+  // Логин
   const cbLogIn = async (data) => {
     setPreloader(true);
     try {
@@ -95,16 +95,35 @@ const App = () => {
     }
   };
 
+  // Авторизация
+  const cbAuth = async (data) => {
+    setPreloader(true);
+    try {
+      const res = await api.postLogIn(data);
+      setToken(res.auth_token, data.rememberMe);
+      setRegisterStep(1);
+      cbTokenCheck();
+      // загрузить данные пользователя и чекнуть jwt
+    } catch (err) {
+      console.log('cbAuth => err', err); // Консоль
+      const errMessage = Object.values(err)[0];
+      setQueryMessage(errMessage);
+    } finally {
+      setPreloader(false);
+    }
+  };
+
   // Регистрация
   const cbRegister = async (data) => {
     setPreloader(true);
     try {
       await api.postUser(data);
-      cbLogIn(data);
+      cbAuth(data);
       localStorage.removeItem('registerFormData');
+      setRegisterStep(3);
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
@@ -140,7 +159,7 @@ const App = () => {
       cbTokenCheck();
     } catch (err) {
       console.log('cbChangePassword => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
@@ -159,7 +178,7 @@ const App = () => {
       cbTokenCheck();
     } catch (err) {
       console.log('cbUpdateProfile => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
@@ -167,7 +186,6 @@ const App = () => {
   };
 
   // Удаление пользователя
-
   const cbDeleteUser = async () => {
     setPreloader(true);
     try {
@@ -175,14 +193,13 @@ const App = () => {
       cbTokenCheck();
     } catch (err) {
       console.log('cbDeleteUser => err', err); // Консоль
-      const errMessage = await Object.values(err)[0];
+      const errMessage = Object.values(err)[0];
       setQueryMessage(errMessage);
     } finally {
       setPreloader(false);
     }
   };
 
-  // Временно автоматический вход
   //     email: 'user-test@user-test.com',
   //     password: 'Qwe123Asd456',
 
@@ -200,6 +217,8 @@ const App = () => {
           setShowAuthModal={setShowAuthModal}
           queryMessage={queryMessage}
           setQueryMessage={setQueryMessage}
+          registerStep={registerStep}
+          setRegisterStep={setRegisterStep}
         />
       )}
       <Routes>
@@ -211,7 +230,6 @@ const App = () => {
               <Header
                 setShowAuthButtons={setShowAuthButtons}
                 isAuthorized={isAuthorized}
-                // onSearch={getSearchProducts}
                 isPreloader={isPreloader}
               />
               <Main>
@@ -227,19 +245,13 @@ const App = () => {
             element={
               <>
                 <Poster />
-                <Showcase
-                  // productsPage={currentProdacts}
-                  oonLike={() => {}}
-                  // onSearch={getSearchProducts}
-                  // onMore={getMoreProducts}
-                  isPreloader={isPreloader}
-                />
+                <Showcase isPreloader={isPreloader} />
               </>
             }
           />
-          <Route path='/products/:id' element={<Product onLike={() => {}} />} />
+          <Route path='/products/:id' element={<Product />} />
           <Route path='*' element={<ErrorPage pageNotFound />} />
-          <Route path='/favorites' element={<Favorites onLike={() => {}} />} />
+          <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
           <Route
             path='/profile'

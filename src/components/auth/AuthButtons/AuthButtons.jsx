@@ -62,6 +62,8 @@ const AuthButtons = (props) => {
       cbRegister={props.cbRegister}
       queryMessage={props.queryMessage}
       setQueryMessage={props.setQueryMessage}
+      registerStep={props.registerStep}
+      setRegisterStep={props.setRegisterStep}
     />
   );
 };
