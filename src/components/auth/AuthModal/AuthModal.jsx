@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './AuthModal.css';
+import Forgot from '../ForgotPassword/ForgotPassword';
 
 const AuthModal = ({
   onClose,
@@ -14,8 +16,30 @@ const AuthModal = ({
   queryMessage,
   setQueryMessage,
 }) => {
-  // const [rememberMe, setRememberMe] = useState(false); // не нужен
   const [registerStep, setRegisterStep] = useState(1);
+
+  const location = useLocation();
+  const authTitle = isLogin ? 'Вход' : 'Регистрация';
+  const authModal = isLogin ? (
+    <Login
+      isLogin={isLogin}
+      onToggleFormClick={() => setIsLogin(false)}
+      cbLogIn={cbLogIn}
+      queryMessage={queryMessage}
+      setQueryMessage={setQueryMessage}
+    />
+  ) : (
+    <Register
+      isLogin={isLogin}
+      onToggleFormClick={() => setIsLogin(true)}
+      cbRegister={cbRegister}
+      onClose={onClose}
+      registerStep={registerStep}
+      setRegisterStep={setRegisterStep}
+      queryMessage={queryMessage}
+      setQueryMessage={setQueryMessage}
+    />
+  );
 
   return (
     <div className='modal__container modal'>
@@ -24,7 +48,8 @@ const AuthModal = ({
           !isLogin ? 'modal__content_type_register' : ''
         }`}
       >
-        <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2>
+        {/* <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2> */}
+        <h2 className='modal__title'>{location.pathname === '/reset-password' ? 'Восстановление пароля' : authTitle}</h2>
         <Close className='modal__button_type_close' onClick={onClose} />
         {registerStep === 2 && (
           <Back
@@ -32,7 +57,15 @@ const AuthModal = ({
             onClick={() => setRegisterStep(1)}
           />
         )}
-        {isLogin ? (
+        {location.pathname === '/reset-password' ?
+          <Forgot
+            isLogin={isLogin}
+            onToggleFormClick={() => setIsLogin(false)}
+            queryMessage={queryMessage}
+            onClose={onClose}
+            setQueryMessage={setQueryMessage}
+          /> : (authModal)}
+        {/* {isLogin ? (
           <Login
             isLogin={isLogin}
             // rememberMe={rememberMe}  // не нужен
@@ -55,7 +88,7 @@ const AuthModal = ({
             queryMessage={queryMessage}
             setQueryMessage={setQueryMessage}
           />
-        )}
+        )} */}
       </div>
     </div>
   );

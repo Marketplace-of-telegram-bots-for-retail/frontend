@@ -23,6 +23,7 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
+// import Forgot from '../auth/ForgotPassword/ForgotPassword';
 
 const App = () => {
   // const { formRequest } = useFormRequest();
@@ -267,6 +268,13 @@ const App = () => {
             // стоит заглушка
             element={<Promo />}
           />
+          {/* <Route
+            path='/reset-password'
+            // стоит заглушка
+            element={<Forgot
+              isLogin
+              />}
+          /> */}
         </Route>
       </Routes>
     </CurrentUserContext.Provider>
