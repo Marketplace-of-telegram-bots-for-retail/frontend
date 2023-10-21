@@ -151,6 +151,12 @@ const dataProductsStateSlice = createSlice({
       state.favoritesPrevious = actions.payload.previous;
       state.favoritesResults.push(...actions.payload.results);
     },
+    cleanLike(state) {
+      state.favoritesCount = 0;
+      state.favoritesNext = null;
+      state.favoritesPrevious = null;
+      state.favoritesResults = [];
+    },
   },
   extraReducers: {
     [getProducts.pending]: SetPending,
@@ -180,5 +186,6 @@ export const {
   changeFavoritesResults,
   changeFavoritesAllStates,
   changeMoreFavorites,
+  cleanLike,
 } = dataProductsStateSlice.actions;
 export default dataProductsStateSlice.reducer;

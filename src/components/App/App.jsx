@@ -1,7 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { getProducts, getFavorites } from '../../store/dataProductsStateSlice';
+import {
+  getProducts,
+  getFavorites,
+  cleanLike,
+} from '../../store/dataProductsStateSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';
@@ -43,7 +47,6 @@ const App = () => {
 
   // Выполнить первичную загрузку карточек
   useEffect(() => {
-    console.log('useEffect => getProducts');
     dispatch(getProducts());
   }, []);
 
@@ -57,7 +60,6 @@ const App = () => {
           setCurrentUser(userData);
           setAuthorized(true);
           // Загрузить избранные
-          // getFavoritesProducts();
           dispatch(getFavorites());
           // Обновить стейт
           dispatch(getProducts());
@@ -141,9 +143,11 @@ const App = () => {
       setCurrentUser({});
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
-      // Обновить стейты
-      getFavoritesProducts();
-      getProducts();
+      // // Обновить стейты
+      // Загрузить избранные
+      dispatch(cleanLike());
+      // Обновить стейт
+      dispatch(getProducts());
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
