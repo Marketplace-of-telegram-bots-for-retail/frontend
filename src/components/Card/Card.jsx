@@ -19,6 +19,7 @@ const Card = ({ card }) => {
   };
   const handleCardClick = () => {
     console.log('img => Click!');
+    window.scrollTo(0, 0);
   };
 
   const cardLikeButtonClassName = `card__like ${
