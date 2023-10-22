@@ -11,10 +11,10 @@ import {
 const CartButton = ({ parentClass, card }) => {
   const dispatch = useDispatch();
   const { items } = useSelector((state) => state.dataCart);
-  console.log(items);
   const [isProductInTheCart, setProductInTheCart] = useState(0);
   const limets = { min: 1, max: 100 };
   const handleClickCartButton = (increment) => {
+    console.log(items);
     return increment
       ? setProductInTheCart((state) => (state < limets.max ? state + 1 : state))
       : setProductInTheCart((state) => (state > limets.min ? state - 1 : state));
