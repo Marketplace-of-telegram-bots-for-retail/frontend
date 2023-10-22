@@ -11,18 +11,14 @@ import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { getProducts } from '../../store/dataProductsStateSlice';
 import { useFormRequest } from '../../hooks/useFormRequest';
 
-const Header = ({
-  setShowAuthButtons,
-  cartPage,
-  isAuthorized,
-  isPreloader,
-}) => {
+const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
   const { formRequest } = useFormRequest();
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange } = useForm();
   const dispatch = useDispatch();
   const { favoritesCount } = useSelector((state) => state.dataProductsState);
   const searchState = useSelector((state) => state.dataSearchForm.search);
+  const { total_amount } = useSelector((state) => state.dataCart);
   // Обновляем стейт Redux
   useEffect(() => {
     dispatch(collecSearch(values?.search));
@@ -86,8 +82,8 @@ const Header = ({
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
-            {cartPage?.count > 0 ? (
-              <span className='header__badge-counter'>1</span>
+            {total_amount > 0 ? (
+              <span className='header__badge-counter'>{total_amount}</span>
             ) : null}
             <span className='header__button-text'>Корзина</span>
           </Link>

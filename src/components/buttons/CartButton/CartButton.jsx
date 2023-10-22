@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './CartButton.css';
 import IconPlus from '../../../images/ic_plus-24.svg';
 import IconMinus from '../../../images/ic_minus-24.svg';
+import {
+  addProductCart,
+  reduceProductCart,
+} from '../../../store/dataCartSlice';
 
-const CartButton = ({ parentClass }) => {
+const CartButton = ({ parentClass, card }) => {
+  const dispatch = useDispatch();
+  const { items } = useSelector((state) => state.dataCart);
   const [isProductInTheCart, setProductInTheCart] = useState(0);
-  const limets = { min: 0, max: 100 };
+  const limets = { min: 1, max: 100 };
   const handleClickCartButton = (increment) => {
+    console.log(items);
     return increment
       ? setProductInTheCart((state) => (state < limets.max ? state + 1 : state))
-      : setProductInTheCart((state) => state - 1);
+      : setProductInTheCart((state) => (state > limets.min ? state - 1 : state));
   };
 
+  const handleAddProductCart = () => {
+    dispatch(addProductCart(card.id));
+  };
+  const handleReduceProductCart = () => {
+    dispatch(reduceProductCart(card.id));
+  };
   const handleChange = (e) => {
     const value = Math.max(
       limets.min,
@@ -20,19 +34,8 @@ const CartButton = ({ parentClass }) => {
     e.preventDefault();
     setProductInTheCart(value);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log(isProductInTheCart);
-  };
-
-  // useEffect(() => {
-  //   isProductInTheCart
-  //     ? console.log('Отправить данные в корзину', isProductInTheCart)
-  //     : console.log('Удалить из корзины');
-  // }, [isProductInTheCart]);
 
   const cartButtonCounter = (
-    // <form action='' className='cart-button__wrapper' onSubmit={handleSubmit}>
     <>
       <button
         type='button'
@@ -41,7 +44,9 @@ const CartButton = ({ parentClass }) => {
         }`}
         onClick={() => {
           handleClickCartButton(false);
+          handleReduceProductCart();
         }}
+        disabled={isProductInTheCart === 1}
       >
         <img alt='минус' src={IconMinus} />
       </button>
@@ -50,6 +55,7 @@ const CartButton = ({ parentClass }) => {
         type='number'
         className='cart-button__counter'
         value={isProductInTheCart}
+        disabled
         onChange={handleChange}
       />
       <button
@@ -59,6 +65,7 @@ const CartButton = ({ parentClass }) => {
         }`}
         onClick={() => {
           handleClickCartButton(true);
+          handleAddProductCart();
         }}
       >
         <img alt='плюс' src={IconPlus} />
@@ -72,6 +79,7 @@ const CartButton = ({ parentClass }) => {
       type='submit'
       onClick={() => {
         handleClickCartButton(true);
+        handleAddProductCart();
       }}
     >
       В корзину
@@ -82,7 +90,6 @@ const CartButton = ({ parentClass }) => {
       className={`${parentClass}__cart-button cart-button ${
         parentClass === 'cart' && 'cart-button_small'
       }`}
-      onSubmit={handleSubmit}
     >
       {isProductInTheCart ? cartButtonCounter : cartButton}
     </div>

@@ -64,7 +64,7 @@ const Card = ({ card }) => {
       </div>
       <div className='card__wrapper'>
         <p className='card__price'>{`${card?.price} ₽`}</p>
-        <CartButton parentClass='card' />
+        <CartButton parentClass='card' card={card} />
       </div>
     </div>
   );
