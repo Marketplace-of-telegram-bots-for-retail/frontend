@@ -63,6 +63,15 @@ const Product = ({ onLike }) => {
       .catch(console.error);
   }
 
+  function deleteFeedback(id, reviewId,) {
+    api.deleteProductReview(id, reviewId,)
+      .then(() => {
+        const feedback = reviews.filter((c) => c.id !== id);
+        setReview(feedback);
+      })
+      .catch(console.error);
+  }
+
   return (
     <section className='product'>
       <BreadCrumbs card={card} />
@@ -76,6 +85,7 @@ const Product = ({ onLike }) => {
         reviews={reviews}
         sendFeedback={sendFeedback}
         editFeedback={editFeedback}
+        deleteFeedback={deleteFeedback}
         state={state}
         setState={setState}
         star={star}
