@@ -6,9 +6,12 @@ import {
   getFavorites,
   cleanLike,
 } from '../../store/dataProductsStateSlice';
+import { getMinMaxCost } from '../../store/dataSearchFormSlice';
+import { getCart } from '../../store/dataCartSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';
+import { createQueryParameter } from '../../utils/createQueryParameter';
 import Header from '../Header/Header';
 import { Poster } from '../posters';
 import AuthButtons from '../auth/AuthButtons/AuthButtons';
@@ -28,7 +31,7 @@ import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
 
 const App = () => {
-  // const { formRequest } = useFormRequest();
+  const { formRequest } = createQueryParameter();
 
   const [isPreloader, setPreloader] = useState(false);
   const [isAuthorized, setAuthorized] = useState(false);
@@ -45,10 +48,17 @@ const App = () => {
   const [queryMessage, setQueryMessage] = useState('');
   const [registerStep, setRegisterStep] = useState(1);
 
-  // Выполнить первичную загрузку карточек
-  useEffect(() => {
-    dispatch(getProducts());
-  }, []);
+  // Загрузить начальные данные
+  const getInitialData = useCallback(() => {
+    dispatch(getMinMaxCost());
+    dispatch(getProducts(formRequest));
+  }, [dispatch, formRequest]);
+  // Загрузить данные
+  const getFullData = useCallback(() => {
+    getInitialData();
+    dispatch(getFavorites());
+    dispatch(getCart());
+  }, [dispatch, getInitialData]);
 
   // Чекнуть токен, произвести загрузку данных пользователя, избранных (корзина не добавлена)
   const cbTokenCheck = useCallback(async () => {
@@ -59,24 +69,28 @@ const App = () => {
         if (userData) {
           setCurrentUser(userData);
           setAuthorized(true);
-          // Загрузить избранные
-          dispatch(getFavorites());
-          // Обновить стейт
-          dispatch(getProducts());
+          // Загрузить данные
+          getFullData();
         }
       }
     } catch (err) {
       console.log('cbTokenCheck => getUserMe =>', err); // Консоль
       setAuthorized(false);
+      getInitialData();
     } finally {
       setPreloader(false);
     }
-  }, [dispatch]);
+  }, [getInitialData, getFullData]);
 
   // Выполнить первичную проверку по токену и загрузить данные
   useEffect(() => {
     cbTokenCheck();
   }, []);
+
+  // Выполнить поиск
+  useEffect(() => {
+    dispatch(getProducts(formRequest));
+  }, [formRequest, dispatch]);
 
   // Логин
   const cbLogIn = async (data) => {
@@ -249,7 +263,7 @@ const App = () => {
             element={
               <>
                 <Poster />
-                <Showcase isPreloader={isPreloader} />
+                <Showcase />
               </>
             }
           />

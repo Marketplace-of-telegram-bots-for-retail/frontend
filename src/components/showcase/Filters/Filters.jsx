@@ -1,21 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import './Filters.css';
 import Categories from '../Categories/Categories';
 import PriceSlider from '../PriceSlider/PriceSlider';
-import { useFormRequest } from '../../../hooks/useFormRequest';
-import { getProducts } from '../../../store/dataProductsStateSlice';
 import { ressetFiltersState } from '../../../store/dataSearchFormSlice';
 
 const Filters = () => {
   const dispatch = useDispatch();
-  const { formRequest } = useFormRequest();
-  const onSearch = () => dispatch(getProducts(formRequest));
-
-  useEffect(() => {
-    onSearch();
-  }, [formRequest]);
-
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(ressetFiltersState());
