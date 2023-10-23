@@ -1,3 +1,11 @@
+.seller {
+  margin: 68px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 100px;
+  padding: 0 26px;
+}
+
 .seller__popup {
   position: fixed;
   top: 0;
