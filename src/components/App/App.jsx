@@ -18,6 +18,7 @@ import AuthButtons from '../auth/AuthButtons/AuthButtons';
 import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import Cart from '../Cart/Cart';
+import Order from '../Order/Order';
 import Profile from '../profile';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import ErrorPage from '../ErrorPage/ErrorPage';
@@ -203,6 +204,19 @@ const App = () => {
     }
   };
 
+  // Изменение почты при оформлении заказа
+  const cbUpdateEmail = async (data) => {
+    setPreloader(true);
+    try {
+      await api.patchUserMe(data);
+      cbTokenCheck();
+    } catch (err) {
+      console.log('cbUpdateEmail => err', err); // Консоль
+      const errMessage = Object.values(err)[0];
+      setQueryMessage(errMessage);
+    }
+  };
+
   // Удаление пользователя
   const cbDeleteUser = async () => {
     setPreloader(true);
@@ -271,6 +285,7 @@ const App = () => {
           <Route path='*' element={<ErrorPage pageNotFound />} />
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
+          {isAuthorized && <Route path='/order' element={<Order cbUpdateEmail={cbUpdateEmail} />} />}
           <Route
             path='/profile'
             element={
@@ -285,7 +300,13 @@ const App = () => {
           <Route
             path='/salesman'
             // стоит заглушка
-            element={<Salesman />}
+            element={<Salesman
+              cbRegister={cbRegister}
+              queryMessage={queryMessage}
+              setQueryMessage={setQueryMessage}
+              registerStep={registerStep}
+              setRegisterStep={setRegisterStep}
+            />}
           />
           <Route
             path='/return'
