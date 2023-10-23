@@ -5,7 +5,7 @@
 
 :root {
   --text-color: #7e7e7e;
-  --s-indent: 1.62rem;
+  --s-indent: 26px;
   --gradient-primary: linear-gradient(
     270deg,
     #7916e1 0%,

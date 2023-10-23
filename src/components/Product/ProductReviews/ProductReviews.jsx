@@ -7,6 +7,7 @@ const ProductReviews = ({
   reviews,
   sendFeedback,
   editFeedback,
+  deleteFeedback,
   setState,
   star,
   setStar
@@ -39,6 +40,7 @@ const ProductReviews = ({
         count={count}
         sendFeedback={sendFeedback}
         editFeedback={editFeedback}
+        deleteFeedback={deleteFeedback}
         handleShowAllReviews={handleShowAllReviews}
         setState={setState}
         star={star}

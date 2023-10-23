@@ -9,6 +9,7 @@ const ProductDetails = ({
   reviews,
   sendFeedback,
   editFeedback,
+  deleteFeedback,
   state,
   setState,
   star,
@@ -22,6 +23,7 @@ const ProductDetails = ({
         reviews={reviews}
         sendFeedback={sendFeedback}
         editFeedback={editFeedback}
+        deleteFeedback={deleteFeedback}
         state={state}
         setState={setState}
         star={star}

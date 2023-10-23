@@ -1,0 +1,124 @@
+Ендпоинты корзины:
+
+1) GET localhost/api/cart/     -> отобразить корзину.
+2) POST localhost/api/products/{id}/shopping_cart/     -> Добавить бота в корзину, по его id. При нажатии на кнопку "Добавить в корзину и '+'."
+3) DELETE localhost/api/products/{id}/shopping_cart/     -> Удалить бота из корзины, по его id. При нажатии на кнопку 'Удалить'.
+4) PATCH localhost/api/products/{id}/shopping_cart/     -> Уменьшить кол-во бота в корзине на 1. При нажатии на кнопку '-'.
+5) PATCH localhost/api/products/{id}/select/     -> Выбрать одного бота в коризне. При нажатии на чек-бокс, is_selected меняется True/False
+6) PATCH localhost/api/products/select_all/     -> Выбрать всех ботов в корзине, вне зависимости от того, какое состояние у них было, у всех is_selected становится True. При нажатии на кнопку 'Выбрать всё'.
+7) DELETE localhost/api/products/select_all/     -> Убрать выбор всех ботов в корзине, у всех is_selected становится False. При нажатии на кнопку 'Выбрать всё'.
+8) DELETE localhost/api/products/delete_all_selected/     -> Удалить все выбраные товары, при нажатии на кнопку 'Удалить выбранные'.
+9) POST localhost/api/cart/promocode/     -> Вводится промокод, если он корректный, поле 'promocode' становится True, и цена со скидкой отображается в поле 'discount_sum', если нет приходит в ответ "Некорректный промокод"
+
+
+--  GET localhost/api/cart/  --
+
+[
+    {
+        "id": 7,
+        "total_cost": 11000,
+        "total_amount": 3,
+        "promocode": false,
+        "discount_sum": null,
+        "items": [
+            {
+                "id": 1,
+                "name": "Учебный бот",
+                "article": 100000,
+                "description": "Этот бот помогает учиться",
+                "image_1": null,
+                "in_favorite": false,
+                "price": 5000,
+                "cost": 15000,
+                "quantity": 3,
+                "is_selected": false
+            },
+            {
+                "id": 2,
+                "name": "Бот для розыгрышей",
+                "article": 100001,
+                "description": "Разыграйте своих друзей",
+                "image_1": "http://127.0.0.1:8000/products/1/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.jpg",
+                "in_favorite": true,
+                "price": 1000,
+                "cost": 2000,
+                "quantity": 2,
+                "is_selected": true
+            },
+            {
+                "id": 3,
+                "name": "Бот для парсинга",
+                "article": 100002,
+                "description": "Этот бот помогает парсить",
+                "image_1": "http://127.0.0.1:8000/products/1/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_qWjmlJf.jpg",
+                "in_favorite": false,
+                "price": 9000,
+                "cost": 9000,
+                "quantity": 1,
+                "is_selected": true
+            }
+        ]
+    }
+]
+
+--  POST localhost/api/cart/promocode/  --
+# возможные промокоды
+PROMOCODE = {
+    'STUDENT_10': 10,
+    'SCHOOL_20': 20,
+    'BIRTHDAY_30': 30
+}
+
+{
+    "promocode": "SCHOOL_20"
+	}
+
+
+
+[
+    {
+        "id": 7,
+        "total_cost": 11000,
+        "total_amount": 3,
+        "promocode": true,
+        "discount_sum": 8800,
+        "items": [
+            {
+                "id": 1,
+                "name": "Учебный бот",
+                "article": 100000,
+                "description": "Этот бот помогает учиться",
+                "image_1": null,
+                "in_favorite": false,
+                "price": 5000,
+                "cost": 15000,
+                "quantity": 3,
+                "is_selected": false
+            },
+            {
+                "id": 2,
+                "name": "Бот для розыгрышей",
+                "article": 100001,
+                "description": "Разыграйте своих друзей",
+                "image_1": "http://127.0.0.1:8000/products/1/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F.jpg",
+                "in_favorite": true,
+                "price": 1000,
+                "cost": 2000,
+                "quantity": 2,
+                "is_selected": true
+            },
+            {
+                "id": 3,
+                "name": "Бот для парсинга",
+                "article": 100002,
+                "description": "Этот бот помогает парсить",
+                "image_1": "http://127.0.0.1:8000/products/1/%D0%91%D0%B5%D0%B7_%D0%BD%D0%B0%D0%B7%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F_qWjmlJf.jpg",
+                "in_favorite": false,
+                "price": 9000,
+                "cost": 9000,
+                "quantity": 1,
+                "is_selected": true
+            }
+        ]
+    }
+]

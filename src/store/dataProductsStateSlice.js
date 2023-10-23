@@ -10,7 +10,7 @@ export const getProducts = createAsyncThunk(
       const data = await api.getProducts(params);
       dispatch(changeProductsAllStates(data));
     } catch (err) {
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -22,7 +22,7 @@ export const getMoreProducts = createAsyncThunk(
       const data = await api.getProducts(params);
       dispatch(changeMoreProducts(data));
     } catch (err) {
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -34,7 +34,7 @@ export const getFavorites = createAsyncThunk(
       const data = await api.getProducts('?is_favorited=True');
       dispatch(changeFavoritesAllStates(data));
     } catch (err) {
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -46,7 +46,7 @@ export const getMoreFavorites = createAsyncThunk(
       const data = await api.getProducts(params);
       dispatch(changeMoreFavorites(data));
     } catch (err) {
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
@@ -54,28 +54,33 @@ export const getMoreFavorites = createAsyncThunk(
 export const onLike = createAsyncThunk(
   'dataProductsState/onLike',
   async (card, { rejectWithValue, dispatch }) => {
-    const isLiked = card.is_favorited;
+    let isLiked = card.is_favorited;
     try {
       if (!isLiked) {
         // Добавляем карточку
         await api.postProductFavorite(card.id);
         dispatch(getFavorites());
+        isLiked = true;
       } else {
         // Удаляем карточку
         await api.deleteProductFavorite(card.id);
         dispatch(deleteLikeInFavorites(card.id));
+        isLiked = false;
       }
       dispatch(toggleLike(card.id));
+      return isLiked;
     } catch (err) {
       console.log('cbCardLike => err', err); // Консоль
-      rejectWithValue(err);
+      return rejectWithValue(err);
     }
   }
 );
 
 const setError = (state, action) => {
-  state.status = 'rejected';
-  state.error = action.payload;
+  const errMessage = action.payload.detail || action.payload.message;
+  console.log(errMessage);
+  state.statu = 'rejected';
+  state.error = errMessage;
 };
 const SetPending = (state) => {
   state.status = 'loading';
@@ -102,54 +107,53 @@ const dataProductsStateSlice = createSlice({
     is_loading: false,
   },
   reducers: {
-    toggleLike(state, actions) {
+    toggleLike(state, action) {
       // const productCard = state.results.find(
-      //   (card) => card.id === actions.payload
+      //   (card) => card.id === action.payload
       // );
       // productCard.is_favorited = !productCard.is_favorited;
-
       state.results = state.results.map((c) => {
-        return c.id === actions.payload
+        return c.id === action.payload
           ? { ...c, is_favorited: !c.is_favorited }
           : c;
       });
     },
-    deleteLikeInFavorites(state, actions) {
+    deleteLikeInFavorites(state, action) {
       state.favoritesResults = state.favoritesResults.filter(
-        (card) => card.id !== actions.payload
+        (card) => card.id !== action.payload
       );
       state.favoritesCount -= 1;
     },
 
-    changeProductsResults(state, actions) {
-      state.results = actions.payload;
+    changeProductsResults(state, action) {
+      state.results = action.payload;
     },
-    changeProductsAllStates(state, actions) {
-      state.count = actions.payload.count;
-      state.next = actions.payload.next;
-      state.previous = actions.payload.previous;
-      state.results = actions.payload.results;
+    changeProductsAllStates(state, action) {
+      state.count = action.payload.count;
+      state.next = action.payload.next;
+      state.previous = action.payload.previous;
+      state.results = action.payload.results;
     },
-    changeMoreProducts(state, actions) {
-      state.count = actions.payload.count;
-      state.next = actions.payload.next;
-      state.previous = actions.payload.previous;
-      state.results.push(...actions.payload.results);
+    changeMoreProducts(state, action) {
+      state.count = action.payload.count;
+      state.next = action.payload.next;
+      state.previous = action.payload.previous;
+      state.results.push(...action.payload.results);
     },
-    changeFavoritesResults(state, actions) {
-      state.favoritesResults = actions.payload;
+    changeFavoritesResults(state, action) {
+      state.favoritesResults = action.payload;
     },
-    changeFavoritesAllStates(state, actions) {
-      state.favoritesCount = actions.payload.count;
-      state.favoritesNext = actions.payload.next;
-      state.favoritesPrevious = actions.payload.previous;
-      state.favoritesResults = actions.payload.results;
+    changeFavoritesAllStates(state, action) {
+      state.favoritesCount = action.payload.count;
+      state.favoritesNext = action.payload.next;
+      state.favoritesPrevious = action.payload.previous;
+      state.favoritesResults = action.payload.results;
     },
-    changeMoreFavorites(state, actions) {
-      state.favoritesCount = actions.payload.count;
-      state.favoritesNext = actions.payload.next;
-      state.favoritesPrevious = actions.payload.previous;
-      state.favoritesResults.push(...actions.payload.results);
+    changeMoreFavorites(state, action) {
+      state.favoritesCount = action.payload.count;
+      state.favoritesNext = action.payload.next;
+      state.favoritesPrevious = action.payload.previous;
+      state.favoritesResults.push(...action.payload.results);
     },
     cleanLike(state) {
       state.favoritesCount = 0;

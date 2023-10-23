@@ -10,6 +10,7 @@ const ProductReviewInitial = ({
   count,
   sendFeedback,
   editFeedback,
+  deleteFeedback,
   handleShowAllReviews,
   setState,
   star,
@@ -24,7 +25,6 @@ const ProductReviewInitial = ({
   const [isReview, setIsReview] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
   const currentReview = reviews.filter((c) => c.user === currentUser.username);
-  console.log(currentReview);
 
   useEffect(() => {
     setValues('');
@@ -89,6 +89,11 @@ const ProductReviewInitial = ({
     }
   }
 
+  function handleDeleteClick() {
+    const reviewId = currentReview[0].id;
+    deleteFeedback(id, reviewId);
+  }
+
   function onShow() {
     handleShowAllReviews();
   }
@@ -106,7 +111,7 @@ const ProductReviewInitial = ({
             onClick={handleFeedbackClick}
             aria-label='Оставить отзыв'
           >
-            Отправить отзыв
+            Оставить отзыв
           </button>
         )}
         {!isShown && isReview === 'true' && (
@@ -131,7 +136,7 @@ const ProductReviewInitial = ({
         )}
       </div>
       {isShown && (
-        <form className='product__review-block' onSubmit={handleSendClick}>
+        <form className='product__review-block'>
           {currentReview.length === 0 && (
             <Rating
               ratingCard={reviews.rating}
@@ -164,14 +169,27 @@ const ProductReviewInitial = ({
             placeholder='сюда можно написать отзыв'
             autoComplete='off'
           />
-          <button
-            className='product__review-send'
-            type='submit'
-            aria-label='Оставить отзыв'
-            disabled={!star || !isDataChanged}
-          >
-            Отправить отзыв
-          </button>
+          <div className="product__review-buttons">
+            <button
+              className='product__review-send'
+              type='submit'
+              aria-label='Оставить отзыв'
+              disabled={!star || !isDataChanged}
+              onClick={handleSendClick}
+            >
+              Оставить отзыв
+            </button>
+            {currentReview.length !== 0 && (
+            <button
+              className='product__review-delete'
+              type='submit'
+              aria-label='Оставить отзыв'
+              onClick={handleDeleteClick}
+            >
+              Удалить отзыв
+            </button>
+            )}
+          </div>
         </form>
       )}
     </>

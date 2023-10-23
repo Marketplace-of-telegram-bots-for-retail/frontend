@@ -5,8 +5,12 @@ import avatar from '../../../images/Group.svg';
 
 const ReviewCard = ({ review }) => {
   const [ratingFeedback, setRatingFeedback] = useState('show');
-  const date = new Date(review.modified);
-  const formattedDate = `${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`;
+  const date = new Date(review.modified).toLocaleString('ru', {
+    day: 'numeric',
+    month: 'long',
+    year: 'numeric'
+  });
+  const formattedDate = `${date}`;
 
   useEffect(() => {
     setRatingFeedback('without');
