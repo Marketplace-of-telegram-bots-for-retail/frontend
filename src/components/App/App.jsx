@@ -93,32 +93,12 @@ const App = () => {
     dispatch(getProducts(formRequest));
   }, [formRequest, dispatch]);
 
-  // Логин
-  const cbLogIn = async (data) => {
-    setPreloader(true);
-    try {
-      const res = await api.postLogIn(data);
-      setToken(res.auth_token, data.rememberMe);
-      setShowAuthButtons(false);
-      setShowAuthModal(false);
-      cbTokenCheck();
-      // загрузить данные пользователя и чекнуть jwt
-    } catch (err) {
-      console.log('cbLogIn => err', err); // Консоль
-      const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
-    } finally {
-      setPreloader(false);
-    }
-  };
-
   // Авторизация
   const cbAuth = async (data) => {
     setPreloader(true);
     try {
       const res = await api.postLogIn(data);
       setToken(res.auth_token, data.rememberMe);
-      setRegisterStep(1);
       cbTokenCheck();
       // загрузить данные пользователя и чекнуть jwt
     } catch (err) {
@@ -128,6 +108,13 @@ const App = () => {
     } finally {
       setPreloader(false);
     }
+  };
+
+  // Логин
+  const cbLogIn = (data) => {
+    cbAuth(data);
+    setShowAuthButtons(false);
+    setShowAuthModal(false);
   };
 
   // Регистрация
@@ -285,7 +272,12 @@ const App = () => {
           <Route path='*' element={<ErrorPage pageNotFound />} />
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
-          {isAuthorized && <Route path='/order' element={<Order cbUpdateEmail={cbUpdateEmail} />} />}
+          {isAuthorized && (
+            <Route
+              path='/order'
+              element={<Order cbUpdateEmail={cbUpdateEmail} />}
+            />
+          )}
           <Route
             path='/profile'
             element={
@@ -300,13 +292,15 @@ const App = () => {
           <Route
             path='/salesman'
             // стоит заглушка
-            element={<Salesman
-              cbRegister={cbRegister}
-              queryMessage={queryMessage}
-              setQueryMessage={setQueryMessage}
-              registerStep={registerStep}
-              setRegisterStep={setRegisterStep}
-            />}
+            element={
+              <Salesman
+                cbRegister={cbRegister}
+                queryMessage={queryMessage}
+                setQueryMessage={setQueryMessage}
+                registerStep={registerStep}
+                setRegisterStep={setRegisterStep}
+              />
+            }
           />
           <Route
             path='/return'
