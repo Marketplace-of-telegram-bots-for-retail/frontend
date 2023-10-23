@@ -1,5 +1,5 @@
 .page {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Noto Sans', 'Poppins', Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -15,6 +15,7 @@
   min-width: 320px;
   height: 100vh;
   position: relative;
+  font-feature-settings: 'liga' 0;
 }
 .page__header {
   margin: 0 auto;

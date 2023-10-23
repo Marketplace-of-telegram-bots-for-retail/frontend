@@ -5,8 +5,8 @@ const dataSearchFormSlice = createSlice({
   name: 'dataSearchForm',
   initialState: {
     search: null,
-    categories: [],
-    prices: [0, 0],
+    categories: { 1: false, 2: false, 3: false, 4: false },
+    prices: [0, 99999],
     sorting: null,
   },
   reducers: {
@@ -14,7 +14,11 @@ const dataSearchFormSlice = createSlice({
       state.search = action.payload;
     },
     collectCategories(state, action) {
-      state.categories = action.payload;
+      console.log(action.payload);
+      // state.categories = action.payload;
+      const newState = action.payload;
+      const { categories } = state;
+      state.categories = { ...categories, ...newState };
     },
     collecPrices(state, action) {
       state.prices = action.payload;
@@ -22,8 +26,17 @@ const dataSearchFormSlice = createSlice({
     collecSorting(state, action) {
       state.sorting = action.payload;
     },
+    ressetFiltersState(state) {
+      state.prices = [0, 99999];
+      state.categories = { 1: false, 2: false, 3: false, 4: false };
+    },
   },
 });
-export const { collecSearch, collectCategories, collecPrices, collecSorting } =
-  dataSearchFormSlice.actions;
+export const {
+  collecSearch,
+  collectCategories,
+  collecPrices,
+  collecSorting,
+  ressetFiltersState,
+} = dataSearchFormSlice.actions;
 export default dataSearchFormSlice.reducer;

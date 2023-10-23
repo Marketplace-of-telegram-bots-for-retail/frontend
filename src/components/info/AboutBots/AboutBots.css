@@ -1,14 +1,14 @@
 .about-bots {
-  margin-top: 93px;
+  margin: 93px var(--s-indent) 0;
 }
 
 .about-bots__title {
-  color: var(--Primary-Black, #1E1E1E);
+  color: var(--Primary-Black, #1e1e1e);
   font-size: 40px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-  margin: 0 0 42px
+  margin: 0 0 42px;
 }
 
 .about-bots__container {

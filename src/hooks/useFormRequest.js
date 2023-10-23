@@ -2,33 +2,32 @@ import { useSelector } from 'react-redux';
 import { REQUEST_OPTIONS } from '../utils/constants';
 
 export const useFormRequest = () => {
-  const formState = useSelector((state) => state.dataSearchForm);
+  const { search, categories, prices, sorting } = useSelector(
+    (state) => state.dataSearchForm
+  );
 
   const formArry = [];
 
-  if (formState.search) {
-    // console.log(formState.search);
-    const searchRequest = REQUEST_OPTIONS.search.concat(formState.search);
+  if (search) {
+    // console.log(search);
+    const searchRequest = REQUEST_OPTIONS.search.concat(search);
     // Консолька
     // console.log(searchRequest);
     // Добавить в массив
     formArry.push(searchRequest);
   }
-  if (formState.sorting) {
-    // console.log(formState.sorting);
-    const sortingRequest = REQUEST_OPTIONS.sorting.concat(formState.sorting);
+  if (sorting) {
+    // console.log(sorting);
+    const sortingRequest = REQUEST_OPTIONS.sorting.concat(sorting);
     // Консолька
     // console.log(sortingRequest);
     // Добавить в массив
     formArry.push(sortingRequest);
   }
-  if (
-    formState.prices &&
-    (formState.prices[0] !== 0 || formState.prices[1] !== 0)
-  ) {
-    // console.log(formState.prices);
-    const pricesBefore = REQUEST_OPTIONS.prices.concat(formState.prices[0]);
-    const pricesAfter = REQUEST_OPTIONS.prices.concat(formState.prices[1]);
+  if (prices && (prices[0] !== 0 || prices[1] !== 0)) {
+    // console.log(prices);
+    const pricesBefore = REQUEST_OPTIONS.prices.concat(prices[0]);
+    const pricesAfter = REQUEST_OPTIONS.prices.concat(prices[1]);
     // console.log(pricesBefore, pricesAfter);
     const pricesRequest = [pricesBefore, pricesAfter].join('&');
     // Консолька
@@ -36,20 +35,25 @@ export const useFormRequest = () => {
     // Добавить в массив
     formArry.push(pricesRequest);
   }
-  if (formState.categories.length > 0) {
-    // console.log(formState.categories);
-    const categoriesRequest = formState.categories.map((item) =>
-      REQUEST_OPTIONS.categories.concat(item)
-    );
-    if (categoriesRequest !== 1) {
-      formArry.push(categoriesRequest.join('&'));
-    } else {
-      // Добавить в массив
-      formArry.push(categoriesRequest);
-    }
+
+  const categoriesArr = Object.keys(categories).filter(
+    (item) => categories[item] === true && item
+  );
+  // console.log(categoriesArr);
+  // if (categoriesArr.length > 0) {
+  const categoriesRequest = categoriesArr.map((item) =>
+    REQUEST_OPTIONS.categories.concat(item)
+  );
+  // console.log(categoriesRequest);
+  if (categoriesRequest !== 1) {
+    formArry.push(categoriesRequest.join('&'));
+  } else {
+    // Добавить в массив
+    formArry.push(categoriesRequest);
   }
+  // }
   const formRequest = ['?'].concat(formArry).join('&');
   // Консолька запроса
-  // console.log(['?'].concat(formArry).join('&'));
+  console.log(formRequest);
   return { formRequest };
 };
