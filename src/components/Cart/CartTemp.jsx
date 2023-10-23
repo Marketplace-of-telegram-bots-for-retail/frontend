@@ -12,6 +12,7 @@ import {
   deleteSelectedProductsCart,
   addPromocodeCart,
 } from '../../store/dataCartSlice';
+import CartCard from './CartCard/CartCard';
 
 const CartTemp = () => {
   const dispatch = useDispatch();
@@ -123,12 +124,7 @@ const CartTemp = () => {
       </div>
       {items.map((item) => {
         return (
-          <div key={item.id} style={{ border: '2px solid  #726EFA' }}>
-            <h3>{item.id}</h3>
-            <h3>{item.name}</h3>
-            <h3>{item.price}</h3>
-            <h3>{item.quantity}</h3>
-          </div>
+          <CartCard key={item.id} item={item} />
         );
       })}
     </div>

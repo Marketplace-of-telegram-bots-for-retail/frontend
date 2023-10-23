@@ -6,7 +6,7 @@ const ProductPrice = ({ card }) => {
   return (
     <div className='product__price'>
       <p className='product__price-item'>{`${card.price} ₽`}</p>
-      <CartButton parentClass='card' />
+      <CartButton parentClass='card' card={card} />
     </div>
   );
 };

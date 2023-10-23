@@ -2,12 +2,14 @@
 import React from 'react';
 import './CartCard.css';
 import Image from '../../../images/Picture.jpg';
-import Heart from '../../../images/ic_heart-20.svg';
+// import Heart from '../../../images/ic_heart-20.svg';
+import LikeButton from '../../buttons/LikeButton/LikeButton';
+import CartButton from '../../buttons/CartButton/CartButton';
 import LightCross from '../../../images/ic_cross-20.svg';
-import Minus from '../../../images/ic_minus-24-white.svg';
-import Plus from '../../../images/ic_plus-24-white.svg';
+// import Minus from '../../../images/ic_minus-24-white.svg';
+// import Plus from '../../../images/ic_plus-24-white.svg';
 
-function CartCard() {
+function CartCard({ item }) {
   return (
     <div className='cart-card'>
       <div className='cart-card__container'>
@@ -32,26 +34,15 @@ function CartCard() {
         <div className='cart-card__info'>
           <div className='cart-card__info-container'>
             <div className='cart-card__text-container'>
-              <p className='cart-card__text-title'>
-                Название бота, которое может занимать 2 строки Название бота,
-                которое может
-              </p>
-              <p className='cart-card__text-articl'>Артикул: 000001</p>
-              <p className='cart-card__text-description'>
-                Описание бота, которое может занимать 3 строки. Описание бота,
-                которое может занимать 3 строки.
-              </p>
+              <p className='cart-card__text-title'>{item.name}</p>
+              <p className='cart-card__text-articl'>{item.article}</p>
+              <p className='cart-card__text-description'>{item.description}</p>
             </div>
-            <div className='cart-card__bot-price'>1000 ₽</div>
+            <div className='cart-card__bot-price'>{`${item.price} ₽`}</div>
           </div>
           <div className='cart-card__favourite-container'>
             <div style={{ display: 'flex', alignItems: 'flex-end' }}>
-              <img
-                className='cart-card__favourite-heart'
-                src={Heart}
-                alt='сердечко'
-              />
-              <p className='cart-card__favourite-heart-text'>В избранное</p>
+              <LikeButton parentClass='product' card={item} />
               <div className='cart-card__favourite-break'></div>
               <img
                 className='cart-card__favourite-cross'
@@ -59,23 +50,7 @@ function CartCard() {
                 src={LightCross}
               />
               <p className='cart-card__favourite-heart-text'>Удалить</p>
-              <div className='cart-card__bot-number-container'>
-                <button type='button' className='cart-card__button'>
-                  <img
-                    className='cart-card__button-symbol'
-                    src={Minus}
-                    alt='минус'
-                  />
-                </button>
-                <p className='cart-card__bot-number'>1</p>
-                <button type='button' className='cart-card__button'>
-                  <img
-                    className='cart-card__button-symbol'
-                    src={Plus}
-                    alt='плюс'
-                  />
-                </button>
-              </div>
+              <CartButton parentClass='card' card={item} />
             </div>
           </div>
         </div>
