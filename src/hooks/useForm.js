@@ -9,3 +9,13 @@ export const useForm = () => {
   };
   return { values, handleChange, setValues };
 };
+
+export const useCheckbox = () => {
+  const [valuesCheckbox, setValuesCheckbox] = useState({});
+
+  const handleChangeCheckbox = (event) => {
+    const { id, checked } = event.target;
+    setValuesCheckbox({ ...valuesCheckbox, [id]: checked });
+  };
+  return { valuesCheckbox, handleChangeCheckbox, setValuesCheckbox };
+};
