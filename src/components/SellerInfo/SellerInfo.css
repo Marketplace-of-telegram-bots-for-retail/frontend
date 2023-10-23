@@ -46,6 +46,7 @@
     max-width: 292px;
     width: 100%;
     margin: 0;
+    cursor: pointer;
 }
 
 .seller__image {

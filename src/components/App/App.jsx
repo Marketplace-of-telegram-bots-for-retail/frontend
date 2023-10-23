@@ -286,7 +286,13 @@ const App = () => {
           <Route
             path='/salesman'
             // стоит заглушка
-            element={<Salesman />}
+            element={<Salesman
+              cbRegister={cbRegister}
+              queryMessage={queryMessage}
+              setQueryMessage={setQueryMessage}
+              registerStep={registerStep}
+              setRegisterStep={setRegisterStep}
+            />}
           />
           <Route
             path='/return'
