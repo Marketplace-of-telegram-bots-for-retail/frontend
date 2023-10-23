@@ -31,6 +31,7 @@ import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
 import { authorise, logOut } from '../../store/dataAuthorisation';
+// import Forgot from '../auth/ForgotPassword/ForgotPassword';
 
 const App = () => {
   const { formRequest } = createQueryParameter();

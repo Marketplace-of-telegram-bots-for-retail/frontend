@@ -3,14 +3,14 @@
   flex-direction: column;
   justify-content: center;
   text-align: center;
-  margin-top: 56px;
+  /* margin-top: 56px; */
   min-width: 396px;
 }
 
 .modal__success-message-link {
   text-decoration: none;
   margin-top: 48px;
-  margin-bottom: 82px;
+  /* margin-bottom: 82px; */
 }
 
 .modal__success-message-title {
@@ -27,4 +27,16 @@
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
+}
+
+.modal__success-message-button {
+  color: var(--Primary-Accent, #726EFA);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  margin-top: 16px;
+  border: none;
+  background-color: #fff;
 }
