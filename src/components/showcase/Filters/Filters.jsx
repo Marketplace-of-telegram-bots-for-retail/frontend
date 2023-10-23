@@ -22,11 +22,7 @@ const Filters = () => {
   };
 
   return (
-    <form
-      type='submit'
-      className='showcase__filters filters'
-      onSubmit={handleSubmit}
-    >
+    <form className='showcase__filters filters' onSubmit={handleSubmit}>
       <Categories />
       <PriceSlider />
       <button type='submit' className='filters__submit-button'>

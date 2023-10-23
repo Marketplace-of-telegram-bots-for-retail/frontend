@@ -1,6 +1,6 @@
 export const PRICE_LIMIT = {
   min: 0,
-  max: 99999,
+  max: 50000,
 };
 
 export const REQUEST_OPTIONS = {
