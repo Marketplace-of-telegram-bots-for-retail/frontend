@@ -10,6 +10,8 @@ export default function ProfileAvatar(props) {
   const currentUser = useContext(CurrentUserContext);
 
   function setAvatar(currentUser, isEditing) {
+    const userphoto = localStorage.getItem('avatar');
+    if (userphoto) return userphoto;
     if (currentUser.photo) return currentUser.photo;
     return isEditing ? avatarEdit : avatar;
   }
@@ -18,7 +20,7 @@ export default function ProfileAvatar(props) {
     const file = e.target.files[0];
     getBase64(file, (result) => {
       props.setUserphoto(result);
-      console.log(result);
+      localStorage.setItem('avatar', result);
       setShowModal(false);
     });
   }
@@ -30,7 +32,7 @@ export default function ProfileAvatar(props) {
     >
       <img
         className='profile__avatar'
-        src={props.userphoto ? props.userphoto : setAvatar(currentUser, props.isEditing)}
+        src={setAvatar(currentUser, props.isEditing)}
         alt='avatar'
       />
       {props.isEditing && showModal && (

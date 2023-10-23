@@ -23,6 +23,7 @@ export default function ProfileForm(props) {
       phone: currentUser.phone,
       user: currentUser.username,
     });
+    if (!isEditing) localStorage.removeItem('avatar');
   }, [currentUser, isEditing]);
 
   function handleSubmit(e) {
@@ -45,6 +46,7 @@ export default function ProfileForm(props) {
 
     props.cbUpdateProfile(getChangedData(currentUser, formData));
     setIsEditing(false);
+    localStorage.removeItem('avatar');
   }
 
   function deleteProfile(e) {
@@ -54,11 +56,7 @@ export default function ProfileForm(props) {
   return (
     <form className='profile__form' noValidate>
       <h2 className='profile__form-title'>Персональные данные</h2>
-      <ProfileAvatar
-        isEditing={isEditing}
-        setUserphoto={setUserphoto}
-        userphoto={userphoto}
-      />
+      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
       <ul className='profile__inputs-list'>
         <li>
           <Input
