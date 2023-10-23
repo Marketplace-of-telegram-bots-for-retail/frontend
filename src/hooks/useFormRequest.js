@@ -54,6 +54,6 @@ export const useFormRequest = () => {
   // }
   const formRequest = ['?'].concat(formArry).join('&');
   // Консолька запроса
-  console.log(formRequest);
+  // console.log(formRequest);
   return { formRequest };
 };
