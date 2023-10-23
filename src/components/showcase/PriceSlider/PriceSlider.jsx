@@ -16,8 +16,6 @@ const PriceSlider = () => {
   const { prices } = useSelector((state) => state.dataSearchForm);
 
   const handleChangeSlider = (event, newValue) => {
-    setValue(newValue);
-    setValueOnBlur(newValue);
     dispatch(collecPrices(newValue));
   };
   const handleChange = (e, index) => {
@@ -97,7 +95,8 @@ const PriceSlider = () => {
           placeholder={`от ${PRICE_LIMIT.min}`}
           className='price-slider__input'
           type='text'
-          value={!Number(value[0]) ? '' : value[0]}
+          // value={!Number(value[0]) ? '' : value[0]}
+          value={value[0]}
           onChange={(e) => handleChange(e, 0)}
           onBlur={(e) => handleOnBlur(e, 0)}
           onKeyDown={(e) => handleKeyDown(e, 0)}
@@ -106,7 +105,8 @@ const PriceSlider = () => {
           placeholder={`до ${PRICE_LIMIT.max}`}
           className='price-slider__input'
           type='text'
-          value={!Number(value[1]) ? '' : value[1]}
+          // value={!Number(value[1]) ? '' : value[1]}
+          value={value[1]}
           onChange={(e) => handleChange(e, 1)}
           onBlur={(e) => handleOnBlur(e, 1)}
           onKeyDown={(e) => handleKeyDown(e, 1)}
