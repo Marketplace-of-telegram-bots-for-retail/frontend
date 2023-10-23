@@ -151,6 +151,8 @@ class Api {
   // если нет приходит в ответ "Некорректный промокод"
   addPromocodeCart = (data) =>
     this._makeRequest('/cart/promocode/', 'POST', data);
+  // Загрузить мин-макс цену.
+  getMinMaxCost = () => this._makeRequest('/get_min_max_cost/', 'GET');
 
   // Получить отзывы.
   getProductsReviews = (product_id) =>

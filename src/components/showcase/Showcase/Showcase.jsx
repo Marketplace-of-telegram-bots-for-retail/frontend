@@ -11,7 +11,7 @@ import ErrorPage from '../../ErrorPage/ErrorPage';
 import { useScroll } from '../../../hooks/useScroll';
 import { getMoreProducts } from '../../../store/dataProductsStateSlice';
 
-const Showcase = ({ isPreloader }) => {
+const Showcase = () => {
   const { next, count, previous, results, is_loading } = useSelector(
     (state) => state.dataProductsState
   );
@@ -53,10 +53,10 @@ const Showcase = ({ isPreloader }) => {
               <Cards cards={results} />
             </>
           ) : (
-            count === 0 && !isPreloader && <ErrorPage botNotFound />
+            count === 0 && !is_loading && <ErrorPage botNotFound />
           )}
           {isMoreButton && <More onClick={() => handleOnMore()} />}
-          {!isPreloader && <AftPoster onClick={() => onClickAftPoster()} />}
+          {!is_loading && <AftPoster onClick={() => onClickAftPoster()} />}
         </div>
       </div>
     </section>
