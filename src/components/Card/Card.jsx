@@ -1,31 +1,14 @@
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './Card.css';
 import { Rating } from '../Rating/Rating';
-import { CartButton } from '../buttons';
-import { onLike } from '../../store/dataProductsStateSlice';
+import { CartButton, LikeButton } from '../buttons';
 
 const Card = ({ card }) => {
-  const [isLiked, setLiked] = useState(card.is_favorited);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    setLiked(card.is_favorited);
-  }, [card.is_favorited]);
-
-  const handleLikeClick = () => {
-    const liked = dispatch(onLike(card));
-    setLiked(liked);
-  };
   const handleCardClick = () => {
     console.log('img => Click!');
     window.scrollTo(0, 0);
   };
-
-  const cardLikeButtonClassName = `card__like ${
-    isLiked ? 'card__like_active' : ''
-  }`;
-
   const colorsPreview = [
     '#FAAE1A80',
     '#FF8F6EB2',
@@ -37,11 +20,7 @@ const Card = ({ card }) => {
   return (
     <div className='cards__card card'>
       <div className='card__wrapper'>
-        <button
-          type='button'
-          className={cardLikeButtonClassName}
-          onClick={handleLikeClick}
-        ></button>
+        <LikeButton parentClass='card' card={card} />
         <Link
           to={`/products/${card.id}`}
           className='card__preview'

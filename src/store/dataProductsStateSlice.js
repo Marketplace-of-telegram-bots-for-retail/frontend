@@ -79,7 +79,7 @@ export const onLike = createAsyncThunk(
 const setError = (state, action) => {
   const errMessage = action.payload.detail || action.payload.message;
   console.log(errMessage);
-  state.statu = 'rejected';
+  state.status = 'rejected';
   state.error = errMessage;
 };
 const SetPending = (state) => {

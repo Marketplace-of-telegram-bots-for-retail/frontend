@@ -1,5 +1,6 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
 import { onLike } from '../../../store/dataProductsStateSlice';
 import './LikeButton.css';
@@ -7,17 +8,22 @@ import './LikeButton.css';
 const LikeButton = ({ parentClass, card }) => {
   const [isLiked, setLiked] = useState(card?.is_favorited);
   const dispatch = useDispatch();
+  const { is_Authorised } = useSelector((state) => state.authorisation);
   useEffect(() => {
     setLiked(card?.is_favorited);
   }, [card?.is_favorited]);
   const dataCard = { ...card, is_favorited: isLiked };
   const handleLikeClick = async () => {
-    setLiked(unwrapResult(await dispatch(onLike(dataCard))));
+    if (is_Authorised) {
+      const resLike = await dispatch(onLike(dataCard));
+      const isLike = unwrapResult(resLike);
+      setLiked(isLike);
+    }
   };
 
   const buttonTitle = isLiked ? 'В избранном' : 'В избранное';
   const likeButtonClassName = `like-button__icon like-button__icon${
-    isLiked ? '_active' : '_default'
+    isLiked ? '_active' : parentClass !== 'card' ? '_default' : '_default-card'
   }`;
 
   return (
@@ -60,7 +66,9 @@ const LikeButton = ({ parentClass, card }) => {
             </clipPath>
           </defs>
         </svg>
-        <span className='like-button__title'>{buttonTitle}</span>
+        {parentClass !== 'card' && (
+          <span className='like-button__title'>{buttonTitle}</span>
+        )}
       </button>
     </div>
   );
