@@ -30,7 +30,7 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
-import ProfileForm from '../profile/profileInfo/ProfileForm';
+import ProfileForm from '../profile/user/ProfileForm';
 
 const App = () => {
   const { formRequest } = createQueryParameter();
