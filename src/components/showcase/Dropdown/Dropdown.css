@@ -1,10 +1,12 @@
 .dropdown {
+  z-index: 10;
   display: block;
   position: relative;
   margin: 0 0 32px;
 }
 
 .dropdown__button {
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   width: 224px;
@@ -37,7 +39,7 @@
 }
 
 .dropdown__list {
-  z-index: 3;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   width: 224px;
@@ -48,8 +50,17 @@
   padding: 0;
   position: absolute;
 }
-
+.dropdown_is-open::after {
+  z-index: 5;
+  position: fixed;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
 .dropdown__item {
+  z-index: 10;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;

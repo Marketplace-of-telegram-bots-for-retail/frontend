@@ -30,6 +30,7 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
+import { authorise, logOut } from '../../store/dataAuthorisation';
 
 const App = () => {
   const { formRequest } = createQueryParameter();
@@ -70,6 +71,7 @@ const App = () => {
         if (userData) {
           setCurrentUser(userData);
           setAuthorized(true);
+          dispatch(authorise());
           // Загрузить данные
           getFullData();
         }
@@ -77,6 +79,7 @@ const App = () => {
     } catch (err) {
       console.log('cbTokenCheck => getUserMe =>', err); // Консоль
       setAuthorized(false);
+      dispatch(logOut());
       getInitialData();
     } finally {
       setPreloader(false);

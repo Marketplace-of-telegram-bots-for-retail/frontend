@@ -20,9 +20,14 @@ const Dropdown = () => {
   useEffect(() => {
     dispatch(collecSorting(SORTING_OPTIONS[dropdown].value));
   }, [dropdown, dispatch]);
-
+  const handleOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      handleOpen();
+    }
+    handleOpen();
+  };
   return (
-    <div className='showcase__dropdown dropdown'>
+    <div className={`showcase__dropdown dropdown `}>
       <button
         className='dropdown__button'
         type='button'
@@ -37,10 +42,10 @@ const Dropdown = () => {
       </button>
       {open ? (
         <ul
-          className='dropdown__list'
+          className={`dropdown__list ${open && 'dropdown_is-open'}`}
           aria-labelledby='dropdown-list'
-          onClick={() => {
-            handleOpen();
+          onClick={(e) => {
+            handleOverlay(e);
           }}
         >
           {SORTING_OPTIONS.map((item, index) => {
