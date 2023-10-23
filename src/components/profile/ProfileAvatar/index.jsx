@@ -3,6 +3,7 @@ import './index.css';
 import avatar from '../../../images/Avatar.png';
 import avatarEdit from '../../../images/Avatar-edit.svg';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
+import getBase64 from '../../../utils/getBase64';
 
 export default function ProfileAvatar(props) {
   const [showModal, setShowModal] = useState(false);
@@ -12,17 +13,6 @@ export default function ProfileAvatar(props) {
     if (currentUser.photo) return currentUser.photo;
     return isEditing ? avatarEdit : avatar;
   }
-
-  const getBase64 = (file, cb) => {
-    const reader = new FileReader();
-    reader.readAsDataURL(file);
-    reader.onload = function () {
-      cb(reader.result);
-    };
-    reader.onerror = function (error) {
-      console.log('Error: ', error);
-    };
-  };
 
   function handleChange(e) {
     const file = e.target.files[0];

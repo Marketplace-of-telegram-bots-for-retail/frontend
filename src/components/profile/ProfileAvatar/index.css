@@ -9,9 +9,10 @@
   width: 88px;
   aspect-ratio: 1/1;
   border-radius: 50%;
+  object-fit: cover;
 }
 
-.profile__avatar-input-container{
+.profile__avatar-input-container {
   position: relative;
   cursor: pointer;
 }
