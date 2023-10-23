@@ -111,21 +111,11 @@ const App = () => {
   };
 
   // Логин
-  const cbLogIn = async (data) => {
-    setPreloader(true);
-    try {
-      cbAuth(data);
-      setRegisterStep(1);
-      setShowAuthButtons(false);
-      setShowAuthModal(false);
-      // загрузить данные пользователя и чекнуть jwt
-    } catch (err) {
-      console.log('cbLogIn => err', err); // Консоль
-      const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
-    } finally {
-      setPreloader(false);
-    }
+  const cbLogIn = (data) => {
+    cbAuth(data);
+    setRegisterStep(1);
+    setShowAuthButtons(false);
+    setShowAuthModal(false);
   };
 
   // Регистрация
