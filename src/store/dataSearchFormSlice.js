@@ -1,29 +1,43 @@
 /* eslint-disable prefer-destructuring */
 import { createSlice } from '@reduxjs/toolkit';
+import { PRICE_LIMIT } from '../utils/constants';
 
 const dataSearchFormSlice = createSlice({
   name: 'dataSearchForm',
   initialState: {
     search: null,
-    categories: [],
-    prices: [0, 0],
+    categories: { 1: false, 2: false, 3: false, 4: false },
+    prices: [PRICE_LIMIT.min, PRICE_LIMIT.max],
     sorting: null,
   },
   reducers: {
-    collecSearch(state, actions) {
-      state.search = actions.payload;
+    collecSearch(state, action) {
+      state.search = action.payload;
     },
-    collectCategories(state, actions) {
-      state.categories = actions.payload;
+    collectCategories(state, action) {
+      console.log(action.payload);
+      // state.categories = action.payload;
+      const newState = action.payload;
+      const { categories } = state;
+      state.categories = { ...categories, ...newState };
     },
-    collecPrices(state, actions) {
-      state.prices = actions.payload;
+    collecPrices(state, action) {
+      state.prices = action.payload;
     },
-    collecSorting(state, actions) {
-      state.sorting = actions.payload;
+    collecSorting(state, action) {
+      state.sorting = action.payload;
+    },
+    ressetFiltersState(state) {
+      state.prices = [PRICE_LIMIT.min, PRICE_LIMIT.max];
+      state.categories = { 1: false, 2: false, 3: false, 4: false };
     },
   },
 });
-export const { collecSearch, collectCategories, collecPrices, collecSorting } =
-  dataSearchFormSlice.actions;
+export const {
+  collecSearch,
+  collectCategories,
+  collecPrices,
+  collecSorting,
+  ressetFiltersState,
+} = dataSearchFormSlice.actions;
 export default dataSearchFormSlice.reducer;

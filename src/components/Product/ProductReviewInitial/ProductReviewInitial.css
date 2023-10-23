@@ -43,6 +43,7 @@
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
+    letter-spacing: 0.2px;
 }
 
 .product__review-show {
@@ -73,24 +74,33 @@
 
 .product__review-input {
     display: flex;
-    width: 896px;
-    height: 182px;
+    width: 916px;
+    height: 183px;
     padding: 24px 16px;
     justify-content: center;
     border-radius: 16px;
     border: 1px solid var(--Gray-Additional);
-    color: var(--Gray-Light);
+    color: var(--Primary-Black);
     font-size: 18px;
     font-style: normal;
     font-weight: 400;
     line-height: 22px;
 }
 
+.product__review-buttons {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 48px;
+}
+
 .product__review-send {
     display: flex;
     width: 396px;
     height: 52px;
-    margin: 8px 0 0;
+    margin: 0;
     padding: 0;
     justify-content: center;
     align-items: center;
@@ -114,4 +124,19 @@
 
 .product__review-send:disabled {
     background: var(--Secondary-Purple-Light);
+}
+
+.product__review-delete {
+    margin: 0;
+    padding: 0;
+    background: #FFF;
+    color: var(--Primary-Accent);
+    text-align: center;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: 0.2px;
+    border: none;
+    cursor: pointer;
 }

@@ -15,6 +15,8 @@
   ['PATCH', `/orders/${id}/`],
   ['DELETE', `/orders/${id}/`],
 
+  ['GET', ' ']
+
   ['GET', `/products/`],
   ['POST', `/products/`],
   ['GET', `/products/${id}/`],

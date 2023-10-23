@@ -1,37 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CATEGORY_OPTIONS } from '../../../utils/constants';
 import { collectCategories } from '../../../store/dataSearchFormSlice';
 import './Categories.css';
 
 const Categories = () => {
-  const [categoryValues, setCategoryValues] = useState({
-    1: false,
-    2: false,
-    3: false,
-    4: false,
-  });
   const dispatch = useDispatch();
-
+  const { categories } = useSelector((state) => state.dataSearchForm);
   const handleCheckboxChange = (event) => {
     const { id, checked } = event.target;
-    setCategoryValues({
-      ...categoryValues,
-      [id]: checked,
-    });
+    dispatch(collectCategories({ [id]: checked }));
   };
-
-  // Обновляем стейт Redux
-  useEffect(() => {
-    dispatch(
-      collectCategories(
-        Object.keys(categoryValues).filter(
-          (item) => categoryValues[item] === true && item
-        )
-      )
-    );
-  }, [categoryValues, dispatch]);
 
   return (
     <div className='filters__categories categories'>
@@ -44,7 +24,7 @@ const Categories = () => {
               className='categories__input'
               type='checkbox'
               id={id}
-              checked={categoryValues[id]}
+              checked={categories[id]}
               onChange={handleCheckboxChange}
             ></input>
             <label htmlFor={id} className='categories__label'>

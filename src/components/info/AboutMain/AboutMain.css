@@ -1,7 +1,8 @@
 .about {
   display: flex;
   gap: 106px;
-  margin: 68px 61px 0 0;
+  margin: 68px var(--s-indent) 0;
+
 }
 
 .about__title {
