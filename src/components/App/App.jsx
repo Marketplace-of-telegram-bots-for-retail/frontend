@@ -30,6 +30,7 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
+import ProfileForm from '../profile/profileInfo/ProfileForm';
 
 const App = () => {
   const { formRequest } = createQueryParameter();
@@ -285,9 +286,25 @@ const App = () => {
                 cbLogout={cbLogout}
                 cbUpdateProfile={cbUpdateProfile}
                 cbDeleteUser={cbDeleteUser}
-              />
+              >
+                <Outlet />
+              </Profile>
             }
-          />
+          >
+            <Route
+              path='/profile/user'
+              element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
+            />
+            {/* Роуты пользователя */}
+            <Route path='/profile/orders' />
+            <Route path='/profile/returns' />
+            <Route path='/profile/reviews' />
+            {/* Роуты продавца. Обернуть в защищенный роут? */}
+            <Route path='/profile/legal-info' />
+            <Route path='/profile/products' />
+            <Route path='/profile/statistics' />
+            <Route path='/profile/promocodes' />
+          </Route>
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route
             path='/salesman'

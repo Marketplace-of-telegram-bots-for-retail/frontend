@@ -55,7 +55,7 @@
 
   background-repeat: no-repeat;
   background-position: right 8px top 4px;
-  background-image: url(../../../images/ic_plus-20.svg);
+  background-image: url(../../../../images/ic_plus-20.svg);
   background-size: 20px;
 }
 
@@ -65,5 +65,5 @@
 
 .profile__avatar-button_type_delete {
   border-top: 1px solid var(--Gray-Light);
-  background-image: url(../../../images/fluent_delete-20-regular.svg);
+  background-image: url(../../../../images/fluent_delete-20-regular.svg);
 }

@@ -1,9 +1,9 @@
 import React, { useState, useContext } from 'react';
 import './index.css';
-import avatar from '../../../images/Avatar.png';
-import avatarEdit from '../../../images/Avatar-edit.svg';
-import { CurrentUserContext } from '../../../contexts/currentUserContext';
-import getBase64 from '../../../utils/getBase64';
+import avatar from '../../../../images/Avatar.png';
+import avatarEdit from '../../../../images/Avatar-edit.svg';
+import { CurrentUserContext } from '../../../../contexts/currentUserContext';
+import getBase64 from '../../../../utils/getBase64';
 
 export default function ProfileAvatar(props) {
   const [showModal, setShowModal] = useState(false);
