@@ -18,6 +18,7 @@ export default function ProfileAvatar(props) {
     const file = e.target.files[0];
     getBase64(file, (result) => {
       props.setUserphoto(result);
+      console.log(result);
       setShowModal(false);
     });
   }
@@ -29,7 +30,7 @@ export default function ProfileAvatar(props) {
     >
       <img
         className='profile__avatar'
-        src={setAvatar(currentUser, props.isEditing)}
+        src={props.userphoto ? props.userphoto : setAvatar(currentUser, props.isEditing)}
         alt='avatar'
       />
       {props.isEditing && showModal && (
