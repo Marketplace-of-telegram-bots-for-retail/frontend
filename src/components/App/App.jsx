@@ -113,7 +113,6 @@ const App = () => {
   // Логин
   const cbLogIn = (data) => {
     cbAuth(data);
-    setRegisterStep(1);
     setShowAuthButtons(false);
     setShowAuthModal(false);
   };
