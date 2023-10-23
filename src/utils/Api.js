@@ -181,7 +181,7 @@ class Api {
     );
 
   // Удалить отзыв.
-  geleteProductReview = (product_id, review_id) =>
+  deleteProductReview = (product_id, review_id) =>
     this._makeRequest(
       `/products/${product_id}/reviews/${review_id}/`,
       'DELETE'
