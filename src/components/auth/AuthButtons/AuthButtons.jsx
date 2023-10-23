@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
 import { ReactComponent as Triangle } from '../../../images/triangle.svg';
 
 const AuthButtons = (props) => {
   const [isLogin, setIsLogin] = useState(true); // true for login, false for signup
+  const navigate = useNavigate();
 
   const handleCloseModal = () => {
     props.setShowAuthButtons(false);
     props.setShowAuthModal(false);
+    navigate('/', { replace: true });
   };
   const handleClickButton = (stateButton) => {
     // stateButton - true for login, false for signup

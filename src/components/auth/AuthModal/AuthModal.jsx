@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';
@@ -17,6 +17,12 @@ const AuthModal = ({
   setQueryMessage,
 }) => {
   const [registerStep, setRegisterStep] = useState(1);
+  const navigate = useNavigate();
+
+  function handleToggleFormClick() {
+    setIsLogin(false);
+    navigate('/', { replace: true });
+  }
 
   const location = useLocation();
   const authTitle = isLogin ? 'Вход' : 'Регистрация';
@@ -48,7 +54,6 @@ const AuthModal = ({
           !isLogin ? 'modal__content_type_register' : ''
         }`}
       >
-        {/* <h2 className='modal__title'>{isLogin ? 'Вход' : 'Регистрация'}</h2> */}
         <h2 className='modal__title'>{location.pathname === '/reset-password' ? 'Восстановление пароля' : authTitle}</h2>
         <Close className='modal__button_type_close' onClick={onClose} />
         {registerStep === 2 && (
@@ -60,7 +65,7 @@ const AuthModal = ({
         {location.pathname === '/reset-password' ?
           <Forgot
             isLogin={isLogin}
-            onToggleFormClick={() => setIsLogin(false)}
+            onToggleFormClick={handleToggleFormClick}
             queryMessage={queryMessage}
             onClose={onClose}
             setQueryMessage={setQueryMessage}

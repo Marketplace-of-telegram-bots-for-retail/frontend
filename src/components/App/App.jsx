@@ -268,13 +268,6 @@ const App = () => {
             // стоит заглушка
             element={<Promo />}
           />
-          {/* <Route
-            path='/reset-password'
-            // стоит заглушка
-            element={<Forgot
-              isLogin
-              />}
-          /> */}
         </Route>
       </Routes>
     </CurrentUserContext.Provider>
