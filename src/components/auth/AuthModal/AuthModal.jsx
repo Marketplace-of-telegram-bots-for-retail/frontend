@@ -5,6 +5,7 @@ import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regu
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './AuthModal.css';
+import Forgot from '../ForgotPassword/ForgotPassword';
 
 const AuthModal = ({
   onClose,
@@ -40,8 +41,8 @@ const AuthModal = ({
       onToggleFormClick={() => setIsLogin(true)}
       cbRegister={cbRegister}
       onClose={onClose}
-      registerStep={props.registerStep}
-      setRegisterStep={props.setRegisterStep}
+      registerStep={registerStep}
+      setRegisterStep={setRegisterStep}
       queryMessage={queryMessage}
       setQueryMessage={setQueryMessage}
     />
@@ -80,27 +81,6 @@ const AuthModal = ({
         ) : (
           authModal
         )}
-        {/*           
-        {isLogin ? (
-          <Login
-            isLogin={isLogin}
-            onToggleFormClick={() => setIsLogin(false)}
-            cbLogIn={cbLogIn}
-            queryMessage={queryMessage}
-            setQueryMessage={setQueryMessage}
-          />
-        ) : (
-          <Register
-            isLogin={isLogin}
-            onToggleFormClick={() => setIsLogin(true)}
-            cbRegister={cbRegister}
-            onClose={onClose}
-            registerStep={registerStep}
-            setRegisterStep={setRegisterStep}
-            queryMessage={queryMessage}
-            setQueryMessage={setQueryMessage}
-          />
-        )} */}
       </div>
     </div>
   );

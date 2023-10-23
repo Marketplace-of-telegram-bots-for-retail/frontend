@@ -25,38 +25,38 @@ const Forgot = (props) => {
     console.log(formData);
     // props.cbLogIn(formData);
   };
-  return (
-    successMessage
-      ? <RegisterSuccessMessage
-          handleClose={props.onClose}
-          handleSubmit={handleSubmit}
-      />
-      : <>
-        <AuthForm
-          handleSubmit={handleSubmit}
-          isLogin={props.isLogin}
-          isValid={isValid}
+  return successMessage ? (
+    <RegisterSuccessMessage
+      handleClose={props.onClose}
+      handleSubmit={handleSubmit}
+    />
+  ) : (
+    <>
+      <AuthForm
+        handleSubmit={handleSubmit}
+        isLogin={props.isLogin}
+        isValid={isValid}
+        queryMessage={props.queryMessage}
+        setQueryMessage={props.setQueryMessage}
+      >
+        <AuthInput
+          htmlFor='email'
+          name='email'
+          type='email'
+          error={errors.email}
+          value={values.email ?? ''}
+          onChange={handleInput}
+          onBlur={onBlur}
+          inputName='Почта'
+          autoFocus
           queryMessage={props.queryMessage}
-          setQueryMessage={props.setQueryMessage}
-        >
-          <AuthInput
-            htmlFor='email'
-            name='email'
-            type='email'
-            error={errors.email}
-            value={values.email ?? ''}
-            onChange={handleInput}
-            onBlur={onBlur}
-            inputName='Почта'
-            autoFocus
-            queryMessage={props.queryMessage}
-          />
-        </AuthForm>
-        <ToggleAuthForm
-          isLogin={props.isLogin}
-          onClick={props.onToggleFormClick}
         />
-      </>
+      </AuthForm>
+      <ToggleAuthForm
+        isLogin={props.isLogin}
+        onClick={props.onToggleFormClick}
+      />
+    </>
   );
 };
 
