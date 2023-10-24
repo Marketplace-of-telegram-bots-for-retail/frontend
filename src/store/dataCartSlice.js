@@ -8,7 +8,7 @@ export const getCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getCart();
-      console.log(data);
+      // console.log(data);
       dispatch(setCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -22,7 +22,7 @@ export const addProductCart = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.postProductCart(id);
-      console.log(data);
+      // console.log(data);
       dispatch(editCartsState(data));
     } catch (err) {
       console.log('addProductCart => err', err);
@@ -36,7 +36,7 @@ export const deleteProductCart = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.deleteProductCart(id);
-      console.log(data);
+      // console.log(data);
       dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -49,7 +49,7 @@ export const reduceProductCart = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.reduceProductCart(id);
-      console.log(data);
+      // console.log(data);
       dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -62,7 +62,7 @@ export const selectProductCart = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.selectProductCart(id);
-      console.log(data);
+      // console.log(data);
       dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -75,7 +75,7 @@ export const selectAllProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.selectAllProductsCart();
-      console.log(data);
+      // console.log(data);
       dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -88,7 +88,7 @@ export const unselectAllProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.unselectAllProductsCart();
-      console.log(data);
+      // console.log(data);
       dispatch(editCareditCartsStatetsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -104,7 +104,7 @@ export const deleteSelectedProductsCart = createAsyncThunk(
       if (data.status === 204) {
         dispatch(clearCartsState());
       } else {
-        console.log(data);
+        // console.log(data);
         dispatch(editCartsState(data));
       }
     } catch (err) {
@@ -118,7 +118,7 @@ export const addPromocodeCart = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.addPromocodeCart(data);
-      console.log(res);
+      // console.log(res);
       dispatch(editCartsState(res));
     } catch (err) {
       return rejectWithValue(err);

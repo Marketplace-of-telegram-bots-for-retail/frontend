@@ -8,7 +8,7 @@ import CartTemp from './CartTemp';
 function Cart() {
   return (
     <section className='cart'>
-      <CartTemp />
+      {/* <CartTemp /> */}
       <CartEmpty />
     </section>
   );
