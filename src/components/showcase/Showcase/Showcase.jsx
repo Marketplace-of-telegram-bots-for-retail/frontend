@@ -43,7 +43,7 @@ const Showcase = () => {
   };
   return (
     <section className='content__showcase showcase'>
-      <Title titleText='Телеграм&ndash;боты для ритейла' />
+      <Title titleText='Телеграм-боты для ритейла' />
       <div className='showcase__wrapper'>
         <Filters />
         <div className='showcase__wrap'>

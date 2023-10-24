@@ -68,7 +68,7 @@ const CartTemp = () => {
 
   return (
     <div>
-      <div>
+      <div style={{ display: 'flex', gap: '10px' }}>
         <button type='button' onClick={() => dispatch(getCart())}>
           загрузить корзину
         </button>
@@ -90,13 +90,13 @@ const CartTemp = () => {
         >
           уменьшить товар
         </button>
-        <lebel>
+        <div>
           <input
             type='checkbox'
             onClick={() => dispatch(selectProductCart(idList[1].id))}
           />
           выбрать товар
-        </lebel>
+        </div>
         <button type='button' onClick={() => dispatch(selectAllProductsCart())}>
           выбрать все товары
         </button>
@@ -123,9 +123,7 @@ const CartTemp = () => {
         {discount_sum && <h2>Стоимость: {discount_sum}</h2>}
       </div>
       {items.map((item) => {
-        return (
-          <CartCard key={item.id} item={item} />
-        );
+        return <CartCard key={item.id} item={item} />;
       })}
     </div>
   );
