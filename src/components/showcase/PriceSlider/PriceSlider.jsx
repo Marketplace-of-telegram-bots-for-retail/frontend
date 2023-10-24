@@ -18,23 +18,21 @@ const PriceSlider = () => {
   };
   const handleChange = (e, index) => {
     let inputValue = Number(e.target.value);
+
     if (isNaN(inputValue)) {
       inputValue = 0;
-      console.log('check');
     }
     if (!isNaN(inputValue)) {
       const numericValue = parseInt(inputValue, 10);
-      if (numericValue >= price__min && numericValue <= price__max) {
-        const updatedValue = [...value];
-        updatedValue[index] = numericValue;
-        setValue(updatedValue);
-      }
+      const updatedValue = [...value];
+      updatedValue[index] = numericValue;
+      setValue(updatedValue);
     }
   };
   const handleOnBlur = (e, index) => {
     let inputValue = Number(e.target.value);
-    if (isNaN(inputValue)) {
-      inputValue = 0;
+    if (isNaN(inputValue) || Number(e.target.value) === 0) {
+      inputValue = price__min;
       console.log('check');
     }
     if (!isNaN(inputValue)) {
@@ -49,6 +47,7 @@ const PriceSlider = () => {
           updatedValue[0] = updatedValue[1];
         }
         setValueOnBlur(updatedValue);
+        setValue(updatedValue);
         dispatch(collecPrices(updatedValue));
       }
     } else {
