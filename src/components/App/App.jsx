@@ -11,7 +11,7 @@ import { getCart } from '../../store/dataCartSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';
-import { createQueryParameter } from '../../utils/createQueryParameter';
+import { useQueryParameter } from '../../hooks/useQueryParameter';
 import Header from '../Header/Header';
 import { Poster } from '../posters';
 import AuthButtons from '../auth/AuthButtons/AuthButtons';
@@ -35,7 +35,7 @@ import { authorise, logOut } from '../../store/dataAuthorisation';
 import ProfileForm from '../profile/user/ProfileForm';
 
 const App = () => {
-  const { formRequest } = createQueryParameter();
+  const { formRequest } = useQueryParameter();
 
   const [isPreloader, setPreloader] = useState(false);
   const [isAuthorized, setAuthorized] = useState(false);

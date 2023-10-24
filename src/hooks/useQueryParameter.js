@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
-import { REQUEST_OPTIONS } from './constants';
+import { REQUEST_OPTIONS } from '../utils/constants';
 
-export const createQueryParameter = () => {
+export const useQueryParameter = () => {
   const { search, categories, prices, sorting } = useSelector(
     (state) => state.dataSearchForm
   );

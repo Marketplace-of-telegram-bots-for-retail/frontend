@@ -9,10 +9,10 @@ import logo from '../../images/logo-color.png';
 import { useForm } from '../../hooks/useForm';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { getProducts } from '../../store/dataProductsStateSlice';
-import { createQueryParameter } from '../../utils/createQueryParameter';
+import { useQueryParameter } from '../../hooks/useQueryParameter';
 
 const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
-  const { formRequest } = createQueryParameter();
+  const { formRequest } = useQueryParameter();
   const currentUser = useContext(CurrentUserContext);
   const { values, handleChange } = useForm();
   const dispatch = useDispatch();
