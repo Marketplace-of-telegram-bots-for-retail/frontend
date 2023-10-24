@@ -1,11 +1,11 @@
 import React, { useEffect, useContext, useState } from 'react';
 import './index.css';
-import Input from '../../Input';
+import Input from '../../../Input';
 import ProfileFormButtons from '../ProfileFormButtons';
 import ProfileAvatar from '../ProfileAvatar';
-import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
-import { CurrentUserContext } from '../../../contexts/currentUserContext';
-import getChangedData from '../../../utils/getChangedData';
+import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
+import { CurrentUserContext } from '../../../../contexts/currentUserContext';
+import getChangedData from '../../../../utils/getChangedData';
 
 export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
@@ -23,6 +23,7 @@ export default function ProfileForm(props) {
       phone: currentUser.phone,
       user: currentUser.username,
     });
+    if (!isEditing) localStorage.removeItem('avatar');
   }, [currentUser, isEditing]);
 
   function handleSubmit(e) {
@@ -45,6 +46,7 @@ export default function ProfileForm(props) {
 
     props.cbUpdateProfile(getChangedData(currentUser, formData));
     setIsEditing(false);
+    localStorage.removeItem('avatar');
   }
 
   function deleteProfile(e) {

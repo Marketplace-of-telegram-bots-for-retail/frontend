@@ -1,13 +1,18 @@
 /* eslint-disable react/jsx-curly-newline */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './index.css';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
-import ProfileForm from './ProfileForm';
 import ProfileNavigation from './ProfileNavigation';
 
 // Компонент профиля пользователя
-const Profile = (props) => {
+const Profile = ({ children, ...props }) => {
+  const navigate = useNavigate();
   const [userType, setUserType] = useState('Покупатель');
+
+  useEffect(() => {
+    navigate('/profile/user');
+  }, [userType]);
   return (
     <div className='profile'>
       <BreadCrumbs />
@@ -19,7 +24,7 @@ const Profile = (props) => {
           setUserType={setUserType}
           cbDeleteUser={props.cbDeleteUser}
         />
-        <ProfileForm cbUpdateProfile={props.cbUpdateProfile} />
+        {children}
       </div>
     </div>
   );

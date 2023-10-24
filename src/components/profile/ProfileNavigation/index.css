@@ -1,7 +1,8 @@
 .profile__navigation {
   border-radius: 0px 16px 0px 0px;
   background-color: #f8f8ff;
-  padding: 32px 57px 0 26px;
+  padding: 32px 0 0 26px;
+  width: 276px;
 }
 
 .profile__navigation-list {

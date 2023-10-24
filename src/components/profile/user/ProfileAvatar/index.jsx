@@ -1,15 +1,17 @@
 import React, { useState, useContext } from 'react';
 import './index.css';
-import avatar from '../../../images/Avatar.png';
-import avatarEdit from '../../../images/Avatar-edit.svg';
-import { CurrentUserContext } from '../../../contexts/currentUserContext';
-import getBase64 from '../../../utils/getBase64';
+import avatar from '../../../../images/Avatar.png';
+import avatarEdit from '../../../../images/Avatar-edit.svg';
+import { CurrentUserContext } from '../../../../contexts/currentUserContext';
+import getBase64 from '../../../../utils/getBase64';
 
 export default function ProfileAvatar(props) {
   const [showModal, setShowModal] = useState(false);
   const currentUser = useContext(CurrentUserContext);
 
   function setAvatar(currentUser, isEditing) {
+    const userphoto = localStorage.getItem('avatar');
+    if (userphoto) return userphoto;
     if (currentUser.photo) return currentUser.photo;
     return isEditing ? avatarEdit : avatar;
   }
@@ -18,6 +20,7 @@ export default function ProfileAvatar(props) {
     const file = e.target.files[0];
     getBase64(file, (result) => {
       props.setUserphoto(result);
+      localStorage.setItem('avatar', result);
       setShowModal(false);
     });
   }

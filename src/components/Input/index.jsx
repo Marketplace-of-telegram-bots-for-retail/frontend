@@ -23,15 +23,12 @@ export default function Input(props) {
         disabled={props.disabled}
         required={props.required}
       ></input>
-      {props.error ? (
-        <span className='input__error-message'>{props.error}</span>
-      ) : (
-        Object.keys(spanInputMessages).includes(props.name) && (
-          <span className='input__span-message'>
-            {spanInputMessages[props.name]}
-          </span>
-        )
-      )}
+      <span className={`input__message ${props.error ? 'input__message_type_error' : 'input__message_type_hint'}`}>
+        {props.error
+          ? props.error
+          : Object.keys(spanInputMessages).includes(props.name) &&
+            spanInputMessages[props.name]}
+      </span>
       {props.type === 'password' && props.name !== 'newPassword' && (
         <InputEye
           showPassword={showPassword}

@@ -61,7 +61,7 @@ const AuthModal = ({
             : authTitle}
         </h2>
         <Close className='modal__button_type_close' onClick={onClose} />
-        {registerStep === 2 && (
+        {!isLogin && registerStep === 2 && (
           <Back
             className='modal__button_type_back'
             onClick={() => {
