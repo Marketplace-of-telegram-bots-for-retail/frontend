@@ -18,7 +18,6 @@ const PriceSlider = () => {
   };
   const handleChange = (e, index) => {
     let inputValue = Number(e.target.value);
-
     if (isNaN(inputValue)) {
       inputValue = 0;
     }
@@ -31,9 +30,11 @@ const PriceSlider = () => {
   };
   const handleOnBlur = (e, index) => {
     let inputValue = Number(e.target.value);
-    if (isNaN(inputValue) || Number(e.target.value) === 0) {
+    if (isNaN(inputValue) || Number(e.target.value) < price__min) {
       inputValue = price__min;
-      console.log('check');
+      // console.log('check');
+    } else if (inputValue > price__max) {
+      inputValue = price__max;
     }
     if (!isNaN(inputValue)) {
       const numericValue = parseInt(inputValue, 10);
