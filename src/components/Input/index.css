@@ -4,7 +4,6 @@
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: 5px;
   box-sizing: border-box;
 }
 
@@ -12,6 +11,7 @@
   color: #1d2433;
   font-size: 16px;
   font-weight: 500;
+  margin-bottom: 5px;
 }
 
 .input__input {
@@ -39,23 +39,20 @@
   color: var(--Error);
 }
 
-.input__error-message {
-  position: absolute;
-  bottom: -24px;
-  left: 0;
-  font-size: 12px;
-  font-weight: 400;
-  line-height: 20px;
-  color: var(--Error);
-  padding-bottom: 4px;
+.input__message {
+  height: 32px;
 }
 
-.input__span-message {
-  position: absolute;
-  bottom: -18px;
-  left: 0;
+.input__message_type_hint {
   color: var(--Gray-Medium);
   font-size: 12px;
   font-weight: 400;
   line-height: 16px;
+}
+
+.input__message_type_error {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--Error);
 }

@@ -70,13 +70,13 @@ export const FOOTER_LINKS = [
 
 export const PRIVACY_POLICY_URL = 'https://botmarketplace.ru';
 
-export const profileNavigation = [
+export const profileNavigationCustomer = [
   {
     title: 'Профиль',
     links: [
       {
         name: 'Персональные данные',
-        link: '',
+        link: '/profile/user',
       },
     ],
   },
@@ -85,11 +85,11 @@ export const profileNavigation = [
     links: [
       {
         name: 'Мои заказы',
-        link: '',
+        link: '/profile/orders',
       },
       {
         name: 'Мои возвраты',
-        link: '',
+        link: '/profile/returns',
       },
     ],
   },
@@ -98,7 +98,54 @@ export const profileNavigation = [
     links: [
       {
         name: 'Мои отзывы',
-        link: '',
+        link: '/profile/reviews',
+      },
+    ],
+  },
+  {
+    title: 'Помощь',
+    links: [
+      {
+        name: 'Связаться с нами',
+        link: '/promo#contacts',
+      },
+    ],
+  },
+];
+
+export const profileNavigationSeller = [
+  {
+    title: 'Профиль',
+    links: [
+      {
+        name: 'Персональные данные',
+        link: '/profile/user',
+      },
+      {
+        name: 'Юридическая информация',
+        link: '/profile/legal-info',
+      },
+    ],
+  },
+  {
+    title: 'Управление товарами',
+    links: [
+      {
+        name: 'Мои товары',
+        link: '/profile/products',
+      },
+    ],
+  },
+  {
+    title: 'Продажи',
+    links: [
+      {
+        name: 'Статистика продаж',
+        link: '/profile/statistics',
+      },
+      {
+        name: 'Мои промокоды',
+        link: '/profile/promocodes',
       },
     ],
   },

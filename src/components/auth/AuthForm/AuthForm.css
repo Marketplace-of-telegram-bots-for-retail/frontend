@@ -7,12 +7,11 @@
 .modal__inputs {
   display: flex;
   flex-direction: column;
-  gap: 44px;
   width: 100%;
 }
 
 .modal__inputs_type_register {
-  margin-bottom: 68px;
+  margin-bottom: 20px;
 }
 
 .modal__button_type_submit {

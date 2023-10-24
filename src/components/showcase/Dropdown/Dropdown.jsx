@@ -1,37 +1,33 @@
 /* eslint-disable react/jsx-curly-newline */
 import React, { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './Dropdown.css';
 import { SORTING_OPTIONS } from '../../../utils/constants';
 import { collecSorting } from '../../../store/dataSearchFormSlice';
-import { getProducts } from '../../../store/dataProductsStateSlice';
-import { useFormRequest } from '../../../hooks/useFormRequest';
 
 const Dropdown = () => {
-  const { formRequest } = useFormRequest();
   const [dropdown, setDropdown] = useState(0);
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-  const dropdownState = useSelector((state) => state.dataSearchForm.sorting);
   const handleOpen = () => {
     setOpen(!open);
   };
   const dropdownListClick = (index) => {
     setDropdown(index);
-    dispatch(getProducts(formRequest));
   };
 
   // Обновляем стейт Redux
   useEffect(() => {
     dispatch(collecSorting(SORTING_OPTIONS[dropdown].value));
   }, [dropdown, dispatch]);
-  // Отправить запрос
-  useEffect(() => {
-    dispatch(getProducts(formRequest));
-  }, [dropdownState]);
-
+  const handleOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      handleOpen();
+    }
+    handleOpen();
+  };
   return (
-    <div className='showcase__dropdown dropdown'>
+    <div className={`showcase__dropdown dropdown `}>
       <button
         className='dropdown__button'
         type='button'
@@ -46,10 +42,10 @@ const Dropdown = () => {
       </button>
       {open ? (
         <ul
-          className='dropdown__list'
+          className={`dropdown__list ${open && 'dropdown_is-open'}`}
           aria-labelledby='dropdown-list'
-          onClick={() => {
-            handleOpen();
+          onClick={(e) => {
+            handleOverlay(e);
           }}
         >
           {SORTING_OPTIONS.map((item, index) => {

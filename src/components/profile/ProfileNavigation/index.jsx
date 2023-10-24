@@ -1,11 +1,20 @@
 import React from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './index.css';
-import { profileNavigation } from '../../../utils/constants';
+import {
+  profileNavigationCustomer,
+  profileNavigationSeller,
+} from '../../../utils/constants';
 import ToggleUserTypeButton from '../ToggleUserTypeButton';
 
 export default function ProfileNavigation(props) {
   const navigate = useNavigate();
+
+  const profileNavigation =
+    props.userType === 'Покупатель'
+      ? profileNavigationCustomer
+      : profileNavigationSeller;
+
   return (
     <nav className='profile__navigation'>
       <ToggleUserTypeButton

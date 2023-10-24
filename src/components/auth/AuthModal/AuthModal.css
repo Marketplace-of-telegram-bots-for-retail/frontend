@@ -27,7 +27,7 @@
 }
 
 .modal__content_type_register {
-  min-height: 718px;
+  padding-bottom: 56px;
 }
 
 .modal__button_type_close {

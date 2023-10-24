@@ -1,3 +1,14 @@
+.card__like-button {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 2;
+  margin: 0;
+  padding: 0;
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
 .like-button {
   align-self: center;
   margin: 0;
@@ -30,6 +41,10 @@
   fill: var(--Primary-Accent-Magenta);
   transition: all 0.25s;
 }
+.like-button__icon_default-card {
+  transition: all 0.25s;
+  fill: var(--Primary-Black);
+}
 .like-button__title {
   margin: 0;
   padding: 0;
@@ -50,6 +65,10 @@
   color: var(--Secondary-Accent-Blue-Dark);
 }
 .like-button__wrapper:hover .like-button__icon_default {
+  transition: all 0.25s;
+  fill: var(--Secondary-Accent-Blue-Dark);
+}
+.like-button__wrapper:hover .like-button__icon_default-card {
   transition: all 0.25s;
   fill: var(--Secondary-Accent-Blue-Dark);
 }

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
@@ -7,6 +8,14 @@ const AuthForm = ({ children, ...props }) => {
   useEffect(() => {
     props.setQueryMessage('');
   }, []);
+
+  const location = useLocation();
+
+  const buttonSubmitText = props.isLogin
+    ? 'Войти'
+    : (props.registerStep === 1 && 'Далее') ||
+      (props.registerStep === 2 && 'Зарегистрироваться');
+
   return (
     <>
       {!props.isLogin && (
@@ -47,10 +56,13 @@ const AuthForm = ({ children, ...props }) => {
             (props.registerStep === 2 && !props.isCheckboxChecked)
           }
         >
-          {props.isLogin
+          {location.pathname === '/reset-password'
+            ? 'Продолжить'
+            : buttonSubmitText}
+          {/* {props.isLogin
             ? 'Войти'
             : (props.registerStep === 1 && 'Далее') ||
-              (props.registerStep === 2 && 'Зарегистрироваться')}
+              (props.registerStep === 2 && 'Зарегистрироваться')}} */}
         </button>
       </form>
     </>
