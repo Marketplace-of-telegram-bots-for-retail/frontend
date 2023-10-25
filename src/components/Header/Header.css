@@ -50,11 +50,23 @@
 .header__basis_fix {
   padding: 8px 0 8px;
   position: fixed;
-  background-color: white;
   top: 0;
   z-index: 15;
   max-width: 1228px;
-  transition: all 0.3s;
+  transition: all 0.5s;
+}
+.header__basis_fix::before {
+  background-color: white;
+  width: 100vw;
+  position: fixed;
+  content: '';
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 68px;
+  box-shadow: 0 2.5px 5px var(--Gray-Light),
+    -2.5px -5px 10px var(--Accent-Orange);
+  transition: all 0.5s;
 }
 
 .header__navbar {
@@ -118,6 +130,7 @@
 }
 
 .header__logo {
+  z-index: 15;
   display: flex;
   width: 188px;
   height: 52px;
@@ -134,6 +147,7 @@
 }
 
 .header__button-medium {
+  z-index: 15;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -175,6 +189,7 @@
 }
 
 .header__button-small {
+  z-index: 15;
   display: flex;
   width: 88px;
   height: 52px;
