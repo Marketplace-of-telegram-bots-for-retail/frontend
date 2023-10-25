@@ -11,8 +11,7 @@ function Cart() {
   const {
     items
   } = useSelector((state) => state.dataCart);
-  console.log(items);
-  console.log(items.length);
+
   return (
     <section className='cart'>
       {items.length !== 0 ? (

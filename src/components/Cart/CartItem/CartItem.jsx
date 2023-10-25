@@ -1,32 +1,35 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React from 'react';
-import { useSelector } from 'react-redux';
+import React, { useEffect, useState, useMemo } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './CartItem.css';
 import Cross from '../../../images/ic_cross-24.svg';
-// import Plus from '../../../images/ic_plus-24-white.svg';
 import CartCard from '../CartCard/CartCard';
-/*
+import { useForm } from '../../../hooks/useForm';
+
 import {
-  getCart,
-  addProductCart,
-  deleteProductCart,
-  reduceProductCart,
-  selectProductCart,
   selectAllProductsCart,
   unselectAllProductsCart,
   deleteSelectedProductsCart,
   addPromocodeCart,
 } from '../../../store/dataCartSlice';
-*/
 
 function CartItem() {
-  // const dispatch = useDispatch();
+  const [isChecked, setIsChecked] = useState(true);
+  const { values, handleChange } = useForm({});
+  const dispatch = useDispatch();
   const {
-    items
+    cart_id,
+    total_cost,
+    total_amount,
+    discount_sum,
+    items,
+    status,
+    error,
+    is_loading,
   } = useSelector((state) => state.dataCart);
 
-  console.log(items);
-  /*
+  const isAllChecked = useMemo(() => items.every((item) => item.is_selected), [items]);
+
   useEffect(() => {
     console.log(
       cart_id,
@@ -48,7 +51,27 @@ function CartItem() {
     error,
     is_loading,
   ]);
-  */
+
+  useEffect(() => {
+    setIsChecked(isChecked);
+  }, [isChecked]);
+
+  console.log(isChecked);
+  console.log(items);
+
+  function checkHandler() {
+    if (isChecked) {
+      dispatch(unselectAllProductsCart());
+      setIsChecked(!isChecked);
+    } else {
+      dispatch(selectAllProductsCart());
+      setIsChecked(!isChecked);
+    }
+  }
+
+  function handlePromo() {
+    dispatch(addPromocodeCart(values.discount));
+  }
 
   return (
     <div className='cart-item'>
@@ -61,6 +84,8 @@ function CartItem() {
                 className='cart-item__input'
                 type='checkbox'
                 id='cart-item-input-all'
+                onChange={checkHandler}
+                checked={isAllChecked}
               ></input>
               <label
                 htmlFor='cart-item-input-all'
@@ -68,36 +93,40 @@ function CartItem() {
               >
                 Выбрать все
               </label>
-              <button className='cart-item__delete-button' type='submit'>
+              <button className='cart-item__delete-button' type='submit' onClick={() => dispatch(deleteSelectedProductsCart())}>
                 <img className='cart-item__delete-img' alt='крест' src={Cross}></img>
                 <p className='cart-item__delete-text'>Удалить выбранные</p>
               </button>
             </div>
           </div>
-          {items.map((item) => {
-            return (
-              <CartCard key={item.id} item={item} />
-            );
-          })}
+          <ul className='cart-card'>
+            {items.map((item) => {
+              return (
+                <CartCard key={item.id} item={item} />
+              );
+            })}
+          </ul>
         </div>
         <div className='cart-item__order-container'>
           <div className='cart-item__order-price'>
             <div className="cart-item__order-row">
               <p className='cart-item__price'>Итого:</p>
-              <span className='cart-item__sum'>1000 ₽</span>
+              <span className='cart-item__sum'>{`${total_cost.toLocaleString('ru-RU')} ₽`}</span>
             </div>
-            <p className='cart-item__amount'>Бот x 1</p>
+            <p className='cart-item__amount'>{`Бот x ${total_amount}`}</p>
           </div>
           <form className='cart-item__promo-container'>
             <input
               className='cart-item__promo-input'
               id='input-search-promo'
               type='text'
-              name='promo'
-              value=''
+              name='discount'
+              value={values.discount || ''}
               placeholder='Промокод'
+              onChange={handleChange}
+              autoComplete='off'
             ></input>
-            <button className='cart-item__promo-button' type='submit'></button>
+            <button className='cart-item__promo-button' type='submit' onClick={handlePromo}></button>
             <span className='input-search-promo-error cart-item__promo-error' type='text'>Некорректный промокод</span>
           </form>
           <button type='button' className='cart-item__make-order'>
