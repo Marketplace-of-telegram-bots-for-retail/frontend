@@ -19,7 +19,7 @@ const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
   const { formRequest } = useQueryParameter();
   const dispatch = useDispatch();
   const { favoritesCount } = useSelector((state) => state.dataProductsState);
-  const { total_amount } = useSelector((state) => state.dataCart);
+  const { items } = useSelector((state) => state.dataCart);
   const locatoin = useLocation();
   const navigate = useNavigate();
 
@@ -85,8 +85,8 @@ const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
-            {total_amount > 0 ? (
-              <span className='header__badge-counter'>{total_amount}</span>
+            {items.length > 0 ? (
+              <span className='header__badge-counter'>{items.length}</span>
             ) : null}
             <span className='header__button-text'>Корзина</span>
           </Link>
