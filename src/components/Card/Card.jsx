@@ -6,9 +6,9 @@ import { CartButton, LikeButton } from '../buttons';
 
 const Card = ({ card }) => {
   const handleCardClick = () => {
-    console.log('img => Click!');
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
+
   const colorsPreview = [
     '#FAAE1A80',
     '#FF8F6EB2',
