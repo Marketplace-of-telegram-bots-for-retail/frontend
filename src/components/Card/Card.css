@@ -1,6 +1,6 @@
 .card {
-  width: 18.25rem;
-  height: 30rem;
+  width: 292px;
+  height: 473px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -15,71 +15,6 @@
   margin: 0;
   padding: 0;
   width: 100%;
-}
-
-.card__preview {
-  margin: 0;
-  padding: 0;
-  border: none;
-  box-sizing: border-box;
-  border-radius: 1rem;
-  width: 18.25rem;
-  height: 14rem;
-  cursor: pointer;
-  transition: all 0.25s;
-  background: no-repeat url(../../images/vecteezy_3d.png) #d9d9d9;
-  background-position: bottom 1rem center;
-  background-size: 5rem 7.25rem;
-  text-decoration: none;
-}
-
-.card__preview-text {
-  position: relative;
-  width: 12.25rem;
-  /* width: min-content; */
-  text-align: center;
-  padding: 0.5rem 0.75rem;
-  margin: 2.5rem auto 0;
-  border-radius: 1.5rem;
-  background-color: var(--Primary-White);
-  color: var(--Primary-Black);
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.25rem;
-  white-space: nowrap;
-}
-
-.card__preview-text:before,
-.card__preview-text:after {
-  content: ' ';
-  position: absolute;
-  width: 0;
-  height: 0;
-}
-.card__preview-text:before,
-.card__preview-text:after {
-  left: 1.75rem;
-  bottom: -1.5rem;
-  width: 0.75rem;
-  height: 0.75rem;
-  background-color: var(--Primary-White);
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-.card__preview-text:after {
-  width: 0.5rem;
-  height: 0.5rem;
-  left: 2.5rem;
-  bottom: -2.25rem;
-  -webkit-border-radius: 50%;
-  -moz-border-radius: 50%;
-  border-radius: 50%;
-}
-.card__preview:hover {
-  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
-  transition: all 0.25s;
 }
 
 .card__like {

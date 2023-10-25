@@ -18,6 +18,14 @@ export const CATEGORY_OPTIONS = [
   { id: 4, labelName: 'Персонализация акций' },
 ];
 
+export const COLORS_PREVIEW = [
+  '#FAAE1A80',
+  '#FF8F6EB2',
+  '#75B2F380',
+  '#00B78B99',
+  '#D9D9D9',
+];
+
 export const SORTING_OPTIONS = [
   {
     id: 1,
