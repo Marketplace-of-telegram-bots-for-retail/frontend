@@ -112,10 +112,10 @@ const Register = (props) => {
                 required
               />
               <Input
-                name='newPassword'
+                name='password'
                 type='password'
-                error={errors.newPassword}
-                value={values.newPassword ?? ''}
+                error={errors.password}
+                value={values.password ?? ''}
                 onChange={handleInput}
                 onBlur={onBlur}
                 inputName='Пароль'
