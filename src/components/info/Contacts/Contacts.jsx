@@ -1,4 +1,5 @@
 import React from 'react';
+import './Contacts.css';
 import ErrorPage from '../../ErrorPage/ErrorPage';
 
 const Contacts = () => {

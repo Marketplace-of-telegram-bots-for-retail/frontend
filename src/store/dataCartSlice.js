@@ -8,7 +8,7 @@ export const getCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getCart();
-      console.log(data);
+      // console.log(data);
       dispatch(setCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -20,12 +20,10 @@ export const getCart = createAsyncThunk(
 export const addProductCart = createAsyncThunk(
   'dataCart/addProductCart',
   async (id, { rejectWithValue, dispatch }) => {
-    console.log('addProductCart => ', id);
-
     try {
       const data = await api.postProductCart(id);
-      console.log(data);
-      dispatch(setCartsState(data));
+      // console.log(data);
+      dispatch(editCartsState(data));
     } catch (err) {
       console.log('addProductCart => err', err);
       return rejectWithValue(err);
@@ -38,8 +36,8 @@ export const deleteProductCart = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.deleteProductCart(id);
-      console.log(data);
-      dispatch(setCartsState(data));
+      // console.log(data);
+      dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -51,8 +49,8 @@ export const reduceProductCart = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.reduceProductCart(id);
-      console.log(data);
-      dispatch(setCartsState(data));
+      // console.log(data);
+      dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -64,8 +62,8 @@ export const selectProductCart = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.selectProductCart(id);
-      console.log(data);
-      dispatch(setCartsState(data));
+      // console.log(data);
+      dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -76,9 +74,9 @@ export const selectAllProductsCart = createAsyncThunk(
   'dataCart/selectAllProductsCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
-      const data = await api.selectProductCart();
-      console.log(data);
-      dispatch(setCartsState(data));
+      const data = await api.selectAllProductsCart();
+      // console.log(data);
+      dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -90,8 +88,8 @@ export const unselectAllProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.unselectAllProductsCart();
-      console.log(data);
-      dispatch(setCartsState(data));
+      // console.log(data);
+      dispatch(editCareditCartsStatetsState(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -103,8 +101,12 @@ export const deleteSelectedProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.deleteSelectedProductsCart();
-      console.log(data);
-      dispatch(setCartsState(data));
+      if (data.status === 204) {
+        dispatch(clearCartsState());
+      } else {
+        // console.log(data);
+        dispatch(editCartsState(data));
+      }
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -115,9 +117,9 @@ export const addPromocodeCart = createAsyncThunk(
   'dataCart/addPromocodeCart',
   async (data, { rejectWithValue, dispatch }) => {
     try {
-      const res = await api.deleteSelectedProductsCart(data);
-      console.log(res);
-      dispatch(setCartsState(res));
+      const res = await api.addPromocodeCart(data);
+      // console.log(res);
+      dispatch(editCartsState(res));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -154,18 +156,25 @@ const dataCartSlice = createSlice({
   },
   reducers: {
     setCartsState(state, action) {
-      state.cart_id = action.payload[0].id || null;
-      state.total_cost = action.payload[0].total_cost || null;
-      state.total_amount = action.payload[0].total_amount || null;
-      state.discount_sum = action.payload[0].discount_sum || null;
-      state.items = action.payload[0].items || [];
+      state.cart_id = action.payload[0]?.id || null;
+      state.total_cost = action.payload[0]?.total_cost || 0;
+      state.total_amount = action.payload[0]?.total_amount || 0;
+      state.discount_sum = action.payload[0]?.discount_sum || null;
+      state.items = action.payload[0]?.items || [];
     },
-    clearCartsState(state, action) {
-      state.cart_id = action.payload[0].id || null;
-      state.total_cost = action.payload[0].total_cost || null;
-      state.total_amount = action.payload[0].total_amount || null;
-      state.discount_sum = action.payload[0].discount_sum || null;
-      state.items = action.payload[0].items || [];
+    editCartsState(state, action) {
+      state.cart_id = action.payload.id || null;
+      state.total_cost = action.payload.total_cost || 0;
+      state.total_amount = action.payload.total_amount || 0;
+      state.discount_sum = action.payload.discount_sum || null;
+      state.items = action.payload.items || [];
+    },
+    clearCartsState(state) {
+      state.cart_id = null;
+      state.total_cost = null;
+      state.total_amount = null;
+      state.discount_sum = null;
+      state.items = [];
     },
   },
   extraReducers: {
@@ -207,5 +216,6 @@ const dataCartSlice = createSlice({
   },
 });
 
-export const { setCartsState } = dataCartSlice.actions;
+export const { setCartsState, editCartsState, clearCartsState } =
+  dataCartSlice.actions;
 export default dataCartSlice.reducer;

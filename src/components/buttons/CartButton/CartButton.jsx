@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './CartButton.css';
 import IconPlus from '../../../images/ic_plus-24.svg';
@@ -10,29 +10,22 @@ import {
 
 const CartButton = ({ parentClass, card }) => {
   const dispatch = useDispatch();
-  const { items } = useSelector((state) => state.dataCart);
-  const [isProductInTheCart, setProductInTheCart] = useState(0);
-  const limets = { min: 1, max: 100 };
-  const handleClickCartButton = (increment) => {
-    console.log(items);
-    return increment
-      ? setProductInTheCart((state) => (state < limets.max ? state + 1 : state))
-      : setProductInTheCart((state) => (state > limets.min ? state - 1 : state));
-  };
+  const { items, is_loading } = useSelector((state) => state.dataCart);
+  const [currentQuantity, setQuantity] = useState(0);
+  useEffect(() => {
+    if (!card.quantity) {
+      const quantity = items?.find((item) => item.id === card.id)?.quantity;
+      setQuantity(quantity);
+    } else {
+      setQuantity(card.quantity);
+    }
+  }, [items, card, setQuantity]);
 
   const handleAddProductCart = () => {
     dispatch(addProductCart(card.id));
   };
   const handleReduceProductCart = () => {
     dispatch(reduceProductCart(card.id));
-  };
-  const handleChange = (e) => {
-    const value = Math.max(
-      limets.min,
-      Math.min(limets.max, Number(e.target.value))
-    );
-    e.preventDefault();
-    setProductInTheCart(value);
   };
 
   const cartButtonCounter = (
@@ -43,10 +36,9 @@ const CartButton = ({ parentClass, card }) => {
           parentClass === 'cart' ? 'small' : 'large'
         }`}
         onClick={() => {
-          handleClickCartButton(false);
           handleReduceProductCart();
         }}
-        disabled={isProductInTheCart === 1}
+        disabled={currentQuantity === 1 || is_loading}
       >
         <img alt='минус' src={IconMinus} />
       </button>
@@ -54,9 +46,8 @@ const CartButton = ({ parentClass, card }) => {
         name='count'
         type='number'
         className='cart-button__counter'
-        value={isProductInTheCart}
+        value={currentQuantity}
         disabled
-        onChange={handleChange}
       />
       <button
         type='button'
@@ -64,23 +55,22 @@ const CartButton = ({ parentClass, card }) => {
           parentClass === 'cart' ? 'small' : 'large'
         }`}
         onClick={() => {
-          handleClickCartButton(true);
           handleAddProductCart();
         }}
+        disabled={is_loading}
       >
         <img alt='плюс' src={IconPlus} />
       </button>
     </>
-    // </form>
   );
   const cartButton = (
     <button
       className='cart-button__button'
       type='submit'
       onClick={() => {
-        handleClickCartButton(true);
         handleAddProductCart();
       }}
+      disabled={is_loading}
     >
       В корзину
     </button>
@@ -91,7 +81,7 @@ const CartButton = ({ parentClass, card }) => {
         parentClass === 'cart' && 'cart-button_small'
       }`}
     >
-      {isProductInTheCart ? cartButtonCounter : cartButton}
+      {currentQuantity ? cartButtonCounter : cartButton}
     </div>
   );
 };
