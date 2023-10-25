@@ -2,7 +2,7 @@ import React from 'react';
 import './Card.css';
 import { Rating } from '../Rating/Rating';
 import { CartButton, LikeButton } from '../buttons';
-import PreviewImage from '../PreviewImage /PreviewImage';
+import PreviewImage from '../PreviewImage/PreviewImage';
 
 const Card = ({ card }) => {
   return (
