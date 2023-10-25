@@ -1,37 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import './Card.css';
 import { Rating } from '../Rating/Rating';
 import { CartButton, LikeButton } from '../buttons';
+import PreviewImage from '../PreviewImage /PreviewImage';
 
 const Card = ({ card }) => {
-  const handleCardClick = () => {
-    console.log('img => Click!');
-    window.scrollTo(0, 0);
-  };
-  const colorsPreview = [
-    '#FAAE1A80',
-    '#FF8F6EB2',
-    '#75B2F380',
-    '#00B78B99',
-    '#D9D9D9',
-  ];
-
   return (
     <div className='cards__card card'>
       <div className='card__wrapper'>
         <LikeButton parentClass='card' card={card} />
-        <Link
-          to={`/products/${card.id}`}
-          className='card__preview'
-          onClick={() => handleCardClick()}
-          style={{ backgroundColor: colorsPreview[card?.category[0]?.id] }}
-          state={card}
-        >
-          <p className='card__preview-text'>
-            {card?.category[0]?.name || 'Без категории'}
-          </p>
-        </Link>
+        <PreviewImage card={card} parentClass='card' />
         <p className='card__title'>
           {card?.name || 'Название бота, которое может занимать 2 строки'}
         </p>
