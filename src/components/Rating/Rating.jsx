@@ -9,14 +9,16 @@ export const Rating = ({
   starsFeedback,
   setStar,
   setState,
-  ratingFeedback
+  ratingFeedback,
 }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   const location = useLocation();
   const { id } = useParams();
   useEffect(() => {
-    ratingCard ? setRating(ratingCard[0] || ratingCard) : setRating(starsFeedback);
+    ratingCard
+      ? setRating(ratingCard[0] || ratingCard)
+      : setRating(starsFeedback);
   }, [ratingCard, starsFeedback]);
 
   function getNoun(number, one, two, five) {
@@ -46,7 +48,8 @@ export const Rating = ({
     if (location === '/') {
       return;
     }
-    window.scrollTo(0, 950);
+    // window.scrollTo(0, 950 );
+    window.scrollTo({ top: 950, left: 0, behavior: 'smooth' });
     setState('review');
     // onReviewClick();
     console.log('=> onReviewClick()', id);
@@ -70,7 +73,8 @@ export const Rating = ({
         onClick={() => {
           setRating(index);
           setStar(index);
-          window.scrollTo(0, 950);
+          // window.scrollTo(0, 950);
+          window.scrollTo({ top: 950, left: 0, behavior: 'smooth' });
           setState('review');
           console.log('star => Click!', index);
           console.log('=> onStarClick()');

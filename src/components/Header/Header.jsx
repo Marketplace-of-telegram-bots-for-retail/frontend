@@ -1,5 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
-import { Link, NavLink } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
 import { useDispatch, useSelector } from 'react-redux';
 import { collecSearch } from '../../store/dataSearchFormSlice';
@@ -7,23 +7,37 @@ import { ARR_NAV } from '../../utils/constants';
 import './Header.css';
 import logo from '../../images/logo-color.png';
 import { useForm } from '../../hooks/useForm';
+import { useScroll } from '../../hooks/useScroll';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { getProducts } from '../../store/dataProductsStateSlice';
 import { useQueryParameter } from '../../hooks/useQueryParameter';
 
 const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
-  const { formRequest } = useQueryParameter();
   const currentUser = useContext(CurrentUserContext);
+  const { scrollPosition } = useScroll();
   const { values, handleChange } = useForm();
+  const { formRequest } = useQueryParameter();
   const dispatch = useDispatch();
   const { favoritesCount } = useSelector((state) => state.dataProductsState);
-  const { total_amount } = useSelector((state) => state.dataCart);
+  const { items } = useSelector((state) => state.dataCart);
+  const locatoin = useLocation();
+  const navigate = useNavigate();
+
   // Обновляем стейт Redux
   useEffect(() => {
     dispatch(collecSearch(values?.search));
   }, [values, dispatch]);
 
   const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(getProducts(formRequest));
+    if (locatoin.pathname !== '/') {
+      console.log(locatoin);
+      navigate('/');
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  };
+  const handleOnBlur = (event) => {
     event.preventDefault();
     dispatch(getProducts(formRequest));
   };
@@ -33,27 +47,21 @@ const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
     setLogin(!isLogin);
     setShowAuthButtons(true);
   };
-
-  return (
-    <section className='page__header header'>
-      <nav className='header__nav'>
-        {ARR_NAV.map((link, i) => {
-          return (
-            <HashLink key={i} to={link.link} className='header__link'>
-              {link.label}
-            </HashLink>
-          );
-        })}
-      </nav>
-      <div className='header__basis header__basis_sticky'>
+  const fixVisible = scrollPosition >= 132;
+  const headerBasisComponent = (is_fix) => {
+    const fixClass = `header__basis_fix header__basis_fix_${
+      fixVisible ? 'visible' : 'invisible'
+    }`;
+    return (
+      <div className={`header__basis ${is_fix ? fixClass : ''}`}>
         <div className='header__navbar'>
-          <NavLink className='header__logo' to='/'>
+          <HashLink smooth className='header__logo' to='/#'>
             <img src={logo} alt='логотип' />
-          </NavLink>
-          <NavLink className='header__button-medium' to='/'>
+          </HashLink>
+          <HashLink smooth className='header__button-medium' to='/#'>
             <span className='header__catalog-icon'></span>
             <span className='header__catalog-text'>Каталог</span>
-          </NavLink>
+          </HashLink>
           <form className='header__search-form' onSubmit={handleSubmit}>
             <input
               type='search'
@@ -62,7 +70,7 @@ const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
               value={values?.search || ''}
               name='search'
               onChange={handleChange}
-              onBlur={handleSubmit}
+              onBlur={handleOnBlur}
             ></input>
             <button
               className='header__search-button'
@@ -77,8 +85,8 @@ const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
         <div className='header__navbar'>
           <Link to='/cart' className='header__menu-button-icon'>
             <span className='header__button-icon header__button-icon_cart'></span>
-            {total_amount > 0 ? (
-              <span className='header__badge-counter'>{total_amount}</span>
+            {items.length > 0 ? (
+              <span className='header__badge-counter'>{items.length}</span>
             ) : null}
             <span className='header__button-text'>Корзина</span>
           </Link>
@@ -106,6 +114,23 @@ const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
             </Link>
           )}
         </div>
+      </div>
+    );
+  };
+  return (
+    <section className='page__header header'>
+      <div className='header__container'>
+        <nav className='header__nav'>
+          {ARR_NAV.map((link, i) => {
+            return (
+              <HashLink key={i} to={link.link} className='header__link'>
+                {link.label}
+              </HashLink>
+            );
+          })}
+        </nav>
+        {headerBasisComponent()}
+        {headerBasisComponent(true)}
       </div>
     </section>
   );

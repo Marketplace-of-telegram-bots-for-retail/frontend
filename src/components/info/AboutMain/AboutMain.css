@@ -1,8 +1,8 @@
 .about {
   display: flex;
   gap: 106px;
-  margin: 68px var(--s-indent) 0;
-
+  /* margin: 68px var(--s-indent) 0; */
+  padding: 68px var(--s-indent) 0;
 }
 
 .about__title {
