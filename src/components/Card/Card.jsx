@@ -20,7 +20,7 @@ const Card = ({ card }) => {
         </p>
       </div>
       <div className='card__wrapper'>
-        <p className='card__price'>{`${card?.price} ₽`}</p>
+        <p className='card__price'>{`${card?.price.toLocaleString('ru-RU')} ₽`}</p>
         <CartButton parentClass='card' card={card} />
       </div>
     </div>
