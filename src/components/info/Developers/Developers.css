@@ -1,5 +1,6 @@
 .developers {
-  margin: 111px var(--s-indent) 100px;
+  /* margin: 111px var(--s-indent) 100px; */
+  padding: 100px var(--s-indent) 159px;
 }
 
 .developers__heading {

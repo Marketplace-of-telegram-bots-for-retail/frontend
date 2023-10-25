@@ -1,0 +1,75 @@
+.card__preview {
+  width: 292px;
+  height: 224px;
+  padding: 40px 0 0;
+  background: no-repeat url(../../images/vecteezy_3d.png) #d9d9d9;
+  background-size: 80px 116px;
+  background-position: bottom 16px center;
+}
+.cart__preview {
+  width: 248px;
+  height: 192px;
+  padding: 30px 0 0;
+  background: no-repeat url(../../images/vecteezy_3d.png) #d9d9d9;
+  background-position: bottom 8px center;
+  background-size: 67px 100px;
+}
+
+.preview {
+  margin: 0;
+  border: none;
+  box-sizing: border-box;
+  border-radius: 16px;
+  cursor: pointer;
+  transition: all 0.25s;
+  text-decoration: none;
+}
+
+.preview__text {
+  position: relative;
+  /* width: 12.25rem; */
+  width: min-content;
+  text-align: center;
+  padding: 8px 12px;
+  margin: 0 auto;
+  border-radius: 1.5rem;
+  background-color: var(--Primary-White);
+  color: var(--Primary-Black);
+  font-size: 0.875rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.25rem;
+  white-space: nowrap;
+}
+
+.preview__text:before,
+.preview__text:after {
+  content: ' ';
+  position: absolute;
+  width: 0;
+  height: 0;
+}
+.preview__text:before,
+.preview__text:after {
+  left: 28px;
+  bottom: -24px;
+  width: 12px;
+  height: 12px;
+  background-color: var(--Primary-White);
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.preview__text:after {
+  width: 8px;
+  height: 8px;
+  left: 40px;
+  bottom: -36px;
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+}
+.preview:hover {
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.25s;
+}

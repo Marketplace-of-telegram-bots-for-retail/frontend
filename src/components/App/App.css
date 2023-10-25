@@ -19,9 +19,6 @@
 }
 .page__header {
   margin: 0 auto;
-  padding: 0 var(--s-indent);
-  max-width: 1280px;
-  width: 100%;
 }
 .page__content {
   max-width: 1280px;
