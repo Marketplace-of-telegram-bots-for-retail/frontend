@@ -79,12 +79,6 @@
   background-color: #b3d7ff;
   border-color: #b3d7ff;
 }
-  
-.categories__input:checked + label::before {
-  border-color: var(--Secondary-Accent-Blue-Dark);
-  background-color: var(--Secondary-Accent-Blue-Dark);
-  background-image: url('../../../images/checked-small.svg');
-}
 
 .cart-item__delete-button {
   display: flex;
@@ -111,6 +105,14 @@
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
+}
+
+.cart-card {
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  padding: 0;
+  list-style: none;
 }
   
 .cart-item__order-container {

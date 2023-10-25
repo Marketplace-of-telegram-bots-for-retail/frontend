@@ -75,7 +75,7 @@ export const selectAllProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.selectAllProductsCart();
-      // console.log(data);
+      console.log(data);
       dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -88,8 +88,8 @@ export const unselectAllProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.unselectAllProductsCart();
-      // console.log(data);
-      dispatch(editCareditCartsStatetsState(data));
+      console.log(data);
+      dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
     }
