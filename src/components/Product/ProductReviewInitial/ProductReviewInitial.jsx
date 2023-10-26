@@ -59,7 +59,6 @@ const ProductReviewInitial = ({
   //     setcurrentReview(false);
   //   }
   // }, [currentReview, reviews]);
-
   useEffect(() => {
     if (currentReview) {
       currentReview.text !== values.text
