@@ -1,57 +1,73 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './ProductReviewInitial.css';
 import { Rating } from '../../Rating/Rating';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
 import { useForm } from '../../../hooks/useForm';
+import {
+  changeProductReview,
+  deleteProductReview,
+  sendProductReview,
+} from '../../../store/productCardDataSlice';
 
 const ProductReviewInitial = ({
   reviews,
   count,
-  sendFeedback,
-  editFeedback,
-  deleteFeedback,
   handleShowAllReviews,
-  setState,
   star,
-  setStar
+  setStar,
 }) => {
   const currentUser = useContext(CurrentUserContext);
+  console.log(currentUser.id);
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
   const limit = count < reviews.length;
-  const [ratingFeedback, setRatingFeedback] = useState('show');
-  const [isReview, setIsReview] = useState(false);
+  // const [ratingFeedback, setRatingFeedback] = useState('show');
+  // const [currentReview, setcurrentReview] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const currentReview = reviews.filter((c) => c.user === currentUser.username);
+  // заменить на userID
+  const currentReview = reviews.filter(
+    (c) => c.user === currentUser.username
+  )[0];
+  console.log(currentReview);
+  const dispatch = useDispatch();
+
+  function sendFeedback(id, data) {
+    dispatch(sendProductReview({ id, data }));
+  }
+  function editFeedback(id, reviewId, data) {
+    dispatch(changeProductReview({ id, reviewId, data }));
+  }
+  function deleteFeedback(id, reviewId) {
+    dispatch(deleteProductReview({ id, reviewId }));
+  }
 
   useEffect(() => {
     setValues('');
   }, [setValues]);
+  // useEffect(() => {
+  //   setRatingFeedback('without');
+  // }, [setRatingFeedback]);
+
+  // useEffect(() => {
+  //   if (currentReview) {
+  //     setcurrentReview(true);
+  //   }
+  //   if (!currentReview) {
+  //     setcurrentReview(false);
+  //   }
+  // }, [currentReview, reviews]);
 
   useEffect(() => {
-    setRatingFeedback('without');
-  }, [setRatingFeedback]);
-
-  useEffect(() => {
-    if (currentReview.length === 0) {
-      setIsReview('false');
-      return;
-    }
     if (currentReview) {
-      setIsReview('true');
+      currentReview.text !== values.text
+        ? setIsDataChanged(true)
+        : setIsDataChanged(false);
     }
-  }, [currentReview, reviews]);
-
-  useEffect(() => {
-    if (currentReview.length === 0) {
+    if (!currentReview) {
       setIsDataChanged(true);
-      return;
-    }
-    if (currentReview) {
-      currentReview[0].text !== values.text ?
-        setIsDataChanged(true) : setIsDataChanged(false);
     }
   }, [currentReview, values.text]);
 
@@ -64,33 +80,34 @@ const ProductReviewInitial = ({
     if (currentReview) {
       setValues({
         rating: setStar(),
-        text: currentReview[0].text
+        text: currentReview.text,
       });
     }
   }
 
   function handleSendClick(e) {
     e.preventDefault();
-    if (currentReview.length === 0) {
-      sendFeedback(id, {
-        modified: new Date().toJSON(),
-        rating: star,
-        text: values.text,
-      });
-      setValues('');
-    } else {
-      const reviewId = currentReview[0].id;
+    if (currentReview) {
+      const reviewId = currentReview.id;
       editFeedback(id, reviewId, {
         modified: new Date().toJSON(),
         rating: star,
         text: values.text,
       });
       setValues('');
+    } else {
+      sendFeedback(id, {
+        modified: new Date().toJSON(),
+        rating: star,
+        text: values.text,
+      });
+      setValues('');
     }
+    setIsShown(false);
   }
 
   function handleDeleteClick() {
-    const reviewId = currentReview[0].id;
+    const reviewId = currentReview.id;
     deleteFeedback(id, reviewId);
   }
 
@@ -104,7 +121,7 @@ const ProductReviewInitial = ({
         {isShown && (
           <span className='product__review-question'>Вам понравился бот?</span>
         )}
-        {!isShown && isReview === 'false' && (
+        {!isShown && !currentReview && (
           <button
             className='product__review-open'
             type='button'
@@ -114,7 +131,7 @@ const ProductReviewInitial = ({
             Оставить отзыв
           </button>
         )}
-        {!isShown && isReview === 'true' && (
+        {!isShown && currentReview && (
           <button
             className='product__review-open'
             type='button'
@@ -137,28 +154,13 @@ const ProductReviewInitial = ({
       </div>
       {isShown && (
         <form className='product__review-block'>
-          {currentReview.length === 0 && (
-            <Rating
-              ratingCard={reviews.rating}
-              onStarClick={() => {
-                console.log('object');
-              }}
-              setStar={setStar}
-              setState={setState}
-              ratingFeedback={ratingFeedback}
-            />
-          )}
-          {currentReview.length !== 0 && (
-            <Rating
-              ratingCard={currentReview[0].rating}
-              onStarClick={() => {
-                console.log('object');
-              }}
-              setStar={setStar}
-              setState={setState}
-              ratingFeedback={ratingFeedback}
-            />
-          )}
+          <Rating
+            feedbackStars={currentReview?.rating}
+            onClickStar={(i) => {
+              console.log(i);
+              setStar(i);
+            }}
+          />
           <textarea
             className='product__review-input'
             value={values.text || ''}
@@ -169,7 +171,7 @@ const ProductReviewInitial = ({
             placeholder='сюда можно написать отзыв'
             autoComplete='off'
           />
-          <div className="product__review-buttons">
+          <div className='product__review-buttons'>
             <button
               className='product__review-send'
               type='submit'
@@ -179,15 +181,15 @@ const ProductReviewInitial = ({
             >
               Оставить отзыв
             </button>
-            {currentReview.length !== 0 && (
-            <button
-              className='product__review-delete'
-              type='submit'
-              aria-label='Оставить отзыв'
-              onClick={handleDeleteClick}
-            >
-              Удалить отзыв
-            </button>
+            {currentReview && (
+              <button
+                className='product__review-delete'
+                type='submit'
+                aria-label='Оставить отзыв'
+                onClick={handleDeleteClick}
+              >
+                Удалить отзыв
+              </button>
             )}
           </div>
         </form>

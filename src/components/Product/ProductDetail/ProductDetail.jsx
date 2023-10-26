@@ -7,24 +7,8 @@ import award from '../../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
 
-const ProductDetail = ({
-  sendFeedback,
-  editFeedback,
-  deleteFeedback,
-  state,
-  setState,
-  star,
-  setStar,
-}) => {
+const ProductDetail = ({ state, setState, star, setStar }) => {
   const { productReviews } = useSelector((state) => state.productCardData);
-
-  function handleDescClick() {
-    setState('description');
-  }
-
-  function handleReviewClick() {
-    setState('review');
-  }
 
   return (
     <div className='product__good-detail'>
@@ -40,7 +24,7 @@ const ProductDetail = ({
               ? 'product__good-item_active'
               : 'product__good-item product'
           }`}
-          onClick={handleDescClick}
+          onClick={() => setState('description')}
         >
           Описание
         </h3>
@@ -50,16 +34,13 @@ const ProductDetail = ({
               ? 'product__good-item_active'
               : 'product__good-item product'
           }`}
-          onClick={handleReviewClick}
+          onClick={() => setState('review')}
         >{`Отзывы (${productReviews?.length || 0})`}</h3>
       </div>
       {state === 'description' && <ProductDescription />}
       {state === 'review' && (
         <ProductReviews
           reviews={productReviews}
-          sendFeedback={sendFeedback}
-          editFeedback={editFeedback}
-          deleteFeedback={deleteFeedback}
           setState={setState}
           star={star}
           setStar={setStar}

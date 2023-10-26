@@ -2,30 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './Product.css';
+import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
+import ProductTitle from './ProductTitle/ProductTitle';
+import PopupImage from '../PopupImage/PopupImage';
+import ProductDetail from './ProductDetail/ProductDetail';
+import ProductPriceBlock from './ProductPriceBlock/ProductPriceBlock';
+import { LikeButton } from '../buttons';
+import { Rating } from '../Rating/Rating';
 import {
   getProductCard,
   getProductsReviews,
 } from '../../store/productCardDataSlice';
-import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
-import ProductTitle from './ProductTitle/ProductTitle';
-import ProductInfo from './ProductInfo/ProductInfo';
-import ProductDetails from './ProductDetails/ProductDetails';
-import PopupImage from '../PopupImage/PopupImage';
-import { api } from '../../utils/Api';
 
-const Product = ({ onLike }) => {
+const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { productCard, productReviews, isShowProductImagesPopup } = useSelector(
+  const { productCard, isShowProductImagesPopup } = useSelector(
     (state) => state.productCardData
   );
-  console.log(productCard);
-  const [review, setReview] = useState({});
-  const [editReview, setEditReview] = useState({});
   const [state, setState] = useState('description');
   const [star, setStar] = useState();
-
-  console.log(productReviews);
 
   // загружаем данные карточки
   useEffect(() => {
@@ -37,57 +33,40 @@ const Product = ({ onLike }) => {
     dispatch(getProductsReviews(id));
   }, [id]);
 
-  function sendFeedback(id, data) {
-    api
-      .postProductsReview(id, data)
-      .then((newReview) => {
-        setReview(newReview);
-        console.log(review);
-      })
-      .catch(console.error);
-  }
+  const [ratingFeedback, setRatingFeedback] = useState('show');
 
-  function editFeedback(id, reviewId, data) {
-    api
-      .putProductReviewId(id, reviewId, data)
-      .then((newReview) => {
-        setEditReview(newReview);
-        console.log(editReview);
-      })
-      .catch(console.error);
-  }
-
-  function deleteFeedback(id, reviewId) {
-    api
-      .deleteProductReview(id, reviewId)
-      .then(() => {
-        const feedback = productReviews.filter((c) => c.id !== id);
-        setReview(feedback);
-      })
-      .catch(console.error);
-  }
+  useEffect(() => {
+    setRatingFeedback('show');
+  }, [setRatingFeedback]);
 
   return (
     <section className='product'>
-      <BreadCrumbs card={productCard} />
+      <BreadCrumbs />
       <ProductTitle card={productCard} />
-      <ProductInfo
-        card={productCard}
-        onLike={onLike}
-        setState={setState}
-        setStar={setStar}
-      />
-      <ProductDetails
-        card={productCard} // store, можно убрать пропс
-        reviews={productReviews} // store, можно убрать пропс
-        sendFeedback={sendFeedback}
-        editFeedback={editFeedback}
-        deleteFeedback={deleteFeedback}
-        state={state}
-        setState={setState}
-        star={star}
-        setStar={setStar}
-      />
+      <div className='product__good-info'>
+        <Rating
+          ratingCard={productCard.rating}
+          onStarClick={() => {
+            console.log('object');
+          }}
+          onReviewClick={() => {
+            console.log('object');
+          }}
+          setStar={setStar}
+          setState={setState}
+          ratingFeedback={ratingFeedback}
+        />
+        <LikeButton parentClass='product' card={productCard} />
+      </div>
+      <div className='product__good-details'>
+        <ProductDetail
+          state={state}
+          setState={setState}
+          star={star}
+          setStar={setStar}
+        />
+        <ProductPriceBlock card={productCard} />
+      </div>
       {isShowProductImagesPopup && <PopupImage card={productCard} />}
     </section>
   );

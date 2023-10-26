@@ -1,25 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './Rating.css';
-import { useLocation, useParams } from 'react-router-dom';
+// import { useLocation, useParams } from 'react-router-dom';
 
 export const Rating = ({
   ratingCard,
-  onStarClick,
+  onClickStar,
   onReviewClick,
-  starsFeedback,
-  setStar,
-  setState,
-  ratingFeedback,
+  feedbackStars,
 }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  const location = useLocation();
-  const { id } = useParams();
+  // const location = useLocation();
+  // const { id } = useParams();
   useEffect(() => {
-    ratingCard
-      ? setRating(ratingCard[0] || ratingCard)
-      : setRating(starsFeedback);
-  }, [ratingCard, starsFeedback]);
+    ratingCard ? setRating(ratingCard[0]) : setRating(feedbackStars);
+  }, [ratingCard, feedbackStars]);
 
   function getNoun(number, one, two, five) {
     const space = ' ';
@@ -45,18 +40,15 @@ export const Rating = ({
     return getNoun(number, 'отзыв', 'отзыва', 'отзывов');
   };
   const handleOnReviewClick = () => {
-    if (location === '/') {
-      return;
-    }
-    // window.scrollTo(0, 950 );
-    window.scrollTo({ top: 950, left: 0, behavior: 'smooth' });
-    setState('review');
-    // onReviewClick();
-    console.log('=> onReviewClick()', id);
+    // if (location === '/') {
+    //   return;
+    // }
+    onReviewClick();
+    console.log('=> onReviewClick()');
   };
 
   const returnStarElement = (index) => {
-    return !onStarClick ? (
+    return !onClickStar ? (
       <span
         key={index}
         className={`rating__star rating__star${
@@ -72,12 +64,8 @@ export const Rating = ({
         }`}
         onClick={() => {
           setRating(index);
-          setStar(index);
-          // window.scrollTo(0, 950);
-          window.scrollTo({ top: 950, left: 0, behavior: 'smooth' });
-          setState('review');
+          onClickStar(index);
           console.log('star => Click!', index);
-          console.log('=> onStarClick()');
         }}
         onMouseEnter={() => setHover(index)}
         onMouseLeave={() => setHover(rating)}
@@ -85,22 +73,19 @@ export const Rating = ({
     );
   };
   const renderFeedback = () => {
-    if (!onReviewClick) {
+    if (feedbackStars || onClickStar) {
+      return null;
+    }
+    if (onReviewClick) {
       return (
         <span className='rating__feedback'>{feedback(ratingCard?.[1])}</span>
       );
     }
-    if (id) {
-      return (
-        <span
-          className='rating__feedback'
-          onClick={() => handleOnReviewClick()}
-        >
-          {feedback(ratingCard?.[1])}
-        </span>
-      );
-    }
-    return null;
+    return (
+      <span className='rating__feedback' onClick={() => handleOnReviewClick()}>
+        {feedback(ratingCard?.[1])}
+      </span>
+    );
   };
 
   return (
@@ -111,7 +96,7 @@ export const Rating = ({
           return returnStarElement(index);
         })}
       </div>
-      {ratingFeedback !== 'without' && renderFeedback()}
+      {renderFeedback()}
     </div>
   );
 };
