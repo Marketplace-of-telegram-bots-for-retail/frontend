@@ -128,9 +128,9 @@ export const addPromocodeCart = createAsyncThunk(
 
 const setError = (state, action) => {
   // console.log(action);
-  const errMessage = action.payload.detail || action.payload.message;
+  const errMessage = action.payload.detail || action.payload.message || action.payload;
   console.log(errMessage);
-  state.statu = 'rejected';
+  state.status = 'rejected';
   state.error = errMessage;
 };
 const SetPending = (state) => {
