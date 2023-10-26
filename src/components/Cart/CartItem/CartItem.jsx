@@ -2,10 +2,11 @@
 /* eslint-disable no-unneeded-ternary */
 import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import './CartItem.css';
 import Cross from '../../../images/ic_cross-24.svg';
 import CartCard from '../CartCard/CartCard';
-import { useForm } from '../../../hooks/useForm';
+// import { useForm } from '../../../hooks/useForm';
 
 import {
   selectAllProductsCart,
@@ -13,10 +14,11 @@ import {
   deleteSelectedProductsCart,
   addPromocodeCart,
 } from '../../../store/dataCartSlice';
+import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 
 function CartItem() {
   const [isChecked, setIsChecked] = useState(true);
-  const { values, handleChange } = useForm({});
+  const { values, handleChange, isValid } = useFormWithValidation({});
   const dispatch = useDispatch();
   const {
     cart_id,
@@ -34,6 +36,9 @@ function CartItem() {
     () => items.every((item) => item.is_selected),
     [items]
   );
+
+  const total = discount_amount ? discount_amount : total_cost;
+  const message = 'Промокод применен';
 
   useEffect(() => {
     console.log(
@@ -80,7 +85,7 @@ function CartItem() {
     e.preventDefault();
     dispatch(addPromocodeCart(values));
   }
-  const total = discount_amount ? discount_amount : total_cost;
+
   return (
     <div className='cart-item'>
       <h2 className='cart-item__title'>Корзина</h2>
@@ -122,15 +127,16 @@ function CartItem() {
           <div className='cart-item__order-price'>
             <div className='cart-item__order-row'>
               <p className='cart-item__price'>Итого:</p>
-              <span className='cart-item__sum'>{`${(total).toLocaleString('ru-RU')} ₽`}</span>
-              {discount_amount && <span className='cart-item__sum-old'>{`${(total_cost).toLocaleString('ru-RU')} ₽`}</span>}
-
+              <div className="cart-item__price-block">
+                <span className='cart-item__sum'>{`${(total).toLocaleString('ru-RU')} ₽`}</span>
+                {discount_amount && <span className='cart-item__sum-old'>{`${(total_cost).toLocaleString('ru-RU')} ₽`}</span>}
+              </div>
             </div>
             <p className='cart-item__amount'>{`Бот x ${total_amount}`}</p>
           </div>
-          <form className='cart-item__promo-container'>
+          <form className='cart-item__promo-container' noValidate>
             <input
-              className='cart-item__promo-input'
+              className='cart-item__promo'
               id='input-search-promo'
               type='text'
               name='promocode'
@@ -140,20 +146,23 @@ function CartItem() {
               autoComplete='off'
             ></input>
             <button
-              className='cart-item__promo-button'
+              className={`cart-item__promo-button ${!isValid && 'cart-item__promo-button_disabled'}`}
               type='submit'
               onClick={handlePromo}
+              disabled={!isValid}
             ></button>
             <span
-              className='input-search-promo-error cart-item__promo-error'
-              type='text'
+              className={`cart-item__promo-error ${discount !== null ? 'cart-item__promo-error_type_green' : 'cart-item__promo-error_type_red'}`}
             >
-              Некорректный промокод
+              {discount !== null && message}
+              {discount === null && error}
             </span>
           </form>
-          <button type='button' className='cart-item__make-order'>
-            К оформлению
-          </button>
+          <Link to='/order'>
+            <button type='button' className='cart-item__make-order'>
+              К оформлению
+            </button>
+          </Link>
         </div>
       </div>
     </div>

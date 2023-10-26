@@ -6,7 +6,7 @@ import CartItem from './CartItem/CartItem';
 import CartEmpty from './CartEmpty/CartEmpty';
 // import CartTemp from './CartTemp';
 
-function Cart() {
+function Cart({ isAuthorized }) {
   // const dispatch = useDispatch();
   const {
     items
@@ -17,7 +17,7 @@ function Cart() {
       {items.length !== 0 ? (
         <CartItem />
       ) : (
-        <CartEmpty />
+        <CartEmpty isAuthorized={isAuthorized} />
       )}
     </section>
   );

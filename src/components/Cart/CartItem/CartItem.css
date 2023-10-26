@@ -143,9 +143,16 @@
   line-height: 24px;
 }
 
+.cart-item__price-block {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  justify-content: center;
+}
+
 .cart-item__sum {
   margin: 0;
-  padding: 9px 0 0;
+  padding: 0;
   color: var(--Primary-Black, #1e1e1e);
   text-align: right;
   font-size: 32px;
@@ -155,17 +162,18 @@
 }
 .cart-item__sum-old {
   margin: 0;
-  padding: 9px 0 0;
+  padding: 0;
   color: var(--Primary-Black);
   font-size: 18px;
   font-style: normal;
   font-weight: 600;
-  line-height: 24px; /* 133.333% */
+  line-height: 24px;
+  text-align: right;
   text-decoration: line-through;
 }
 
 .cart-item__amount {
-  margin: 0;
+  margin: 16px 0 0;
   padding: 12px 0;
   color: var(--Primary-Black);
   font-size: 14px;
@@ -182,7 +190,7 @@
   box-sizing: border-box;
 }
 
-.cart-item__promo-input {
+.cart-item__promo {
   width: 224px;
   height: 52px;
   padding: 12px 16px;
@@ -206,7 +214,7 @@
   height: 100%;
   margin: 0;
   padding: 14px 22px;
-  background-color: var(--Secondary-Purple-Light);
+  background-color: var(--Primary-Accent);
   background-image: url(./../../../images/ic_plus-24-white.svg);
   background-repeat: no-repeat;
   background-position: center;
@@ -217,15 +225,21 @@
   cursor: pointer;
 }
 
+.cart-item__promo-button_disabled {
+  background-color: var(--Secondary-Purple-Light);
+}
+
 .cart-item__promo-error {
   margin: 0;
-  color: var(--Validation-Success-Green, #00b78b);
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
   line-height: 20px;
   display: block;
-  opacity: 0;
+}
+
+.cart-item__promo-error_type_green {
+  color: var(--Validation-Success-Green, #00b78b);
 }
 
 .cart-item__promo-error_type_red {
@@ -244,4 +258,10 @@
   box-sizing: border-box;
   border-radius: 0.5rem;
   border: none;
+  cursor: pointer;
+}
+
+.cart-item__make-order:hover {
+  background: var(--Secondary-Accent-Blue-Dark);
+  transition: all 0.25s;
 }

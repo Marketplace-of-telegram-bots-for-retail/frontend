@@ -276,7 +276,7 @@ const App = () => {
           <Route path='/products/:id' element={<Product />} />
           <Route path='*' element={<ErrorPage pageNotFound />} />
           <Route path='/favorites' element={<Favorites />} />
-          <Route path='/cart' element={<Cart />} />
+          <Route path='/cart' element={<Cart isAuthorized={isAuthorized} />} />
           {isAuthorized && (
             <Route
               path='/order'
