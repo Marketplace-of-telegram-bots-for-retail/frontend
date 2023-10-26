@@ -18,7 +18,7 @@ const OrderCard = ({ item }) => {
           <p className="order__subtext order__subtext_type_cost">{`${item.price.toLocaleString('ru-RU')} ₽/шт.`}</p>}
         </div>
       </div>
-      <p className="order__amount">2 шт.</p>
+      <p className="order__amount">{`${item.quantity} шт.`}</p>
     </div>
   );
 };

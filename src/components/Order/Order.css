@@ -335,7 +335,7 @@
 
 .order__after-info {
   display: grid;
-  grid-template-columns: 406px 300px;
+  grid-template-columns: 406px 310px;
   justify-content: space-between;
   max-width: 716px;
   width: 100%;
