@@ -5,22 +5,17 @@ import ProductPriceBlock from '../ProductPriceBlock/ProductPriceBlock';
 
 const ProductDetails = ({
   card,
-  handleFullScreenClick,
-  reviews,
   sendFeedback,
   editFeedback,
   deleteFeedback,
   state,
   setState,
   star,
-  setStar
+  setStar,
 }) => {
   return (
     <div className='product__good-details'>
       <ProductDetail
-        card={card}
-        handleFullScreenClick={handleFullScreenClick}
-        reviews={reviews}
         sendFeedback={sendFeedback}
         editFeedback={editFeedback}
         deleteFeedback={deleteFeedback}
