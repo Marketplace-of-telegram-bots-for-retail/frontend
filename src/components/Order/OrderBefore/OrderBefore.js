@@ -1,4 +1,6 @@
+/* eslint-disable no-unused-vars */
 import { React, useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
 import subicon from '../../../images/order__subicon.svg';
 import iconblue from '../../../images/order_chevron_blue.svg';
@@ -8,6 +10,18 @@ import btn_sbp from '../../../images/order_btn2.svg';
 const OrderBefore = ({ onClickInput, onPay }) => {
   const currentUser = useContext(CurrentUserContext);
   const [isCard, setIsCard] = useState(true);
+  const dispatch = useDispatch();
+  const {
+    cart_id,
+    total_cost,
+    total_amount,
+    discount_amount,
+    discount,
+    items,
+    status,
+    error,
+    is_loading,
+  } = useSelector((state) => state.dataCart);
 
   return (
     <div className='order__main-block'>
@@ -50,9 +64,13 @@ const OrderBefore = ({ onClickInput, onPay }) => {
         <div className="order__final">
           <div className="order__text-block">
             <p className="order__final-text">Итого:</p>
-            <p className="order__text">Бот х3</p>
+            <p className="order__text">{`Бот x ${total_amount}`}</p>
           </div>
-          <p className="order__summ">3000 ₽</p>
+          <p className="order__summ">
+            {total_cost}
+            {' '}
+            ₽
+          </p>
         </div>
         <button type="button" className="order__final-btn" onClick={onPay}>Оплатить</button>
       </div>
