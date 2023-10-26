@@ -1,4 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unneeded-ternary */
 import React, { useEffect, useState, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './CartItem.css';
@@ -21,21 +22,26 @@ function CartItem() {
     cart_id,
     total_cost,
     total_amount,
-    discount_sum,
+    discount_amount,
+    discount,
     items,
     status,
     error,
     is_loading,
   } = useSelector((state) => state.dataCart);
 
-  const isAllChecked = useMemo(() => items.every((item) => item.is_selected), [items]);
+  const isAllChecked = useMemo(
+    () => items.every((item) => item.is_selected),
+    [items]
+  );
 
   useEffect(() => {
     console.log(
       cart_id,
       total_cost,
       total_amount,
-      discount_sum,
+      discount_amount,
+      discount,
       items,
       status,
       error,
@@ -45,7 +51,8 @@ function CartItem() {
     cart_id,
     total_cost,
     total_amount,
-    discount_sum,
+    discount_amount,
+    discount,
     items,
     status,
     error,
@@ -69,10 +76,11 @@ function CartItem() {
     }
   }
 
-  function handlePromo() {
-    dispatch(addPromocodeCart(values.discount));
+  function handlePromo(e) {
+    e.preventDefault();
+    dispatch(addPromocodeCart(values));
   }
-
+  const total = discount_amount ? discount_amount : total_cost;
   return (
     <div className='cart-item'>
       <h2 className='cart-item__title'>Корзина</h2>
@@ -87,31 +95,36 @@ function CartItem() {
                 onChange={checkHandler}
                 checked={isAllChecked}
               ></input>
-              <label
-                htmlFor='cart-item-input-all'
-                className='cart-item__label'
-              >
+              <label htmlFor='cart-item-input-all' className='cart-item__label'>
                 Выбрать все
               </label>
-              <button className='cart-item__delete-button' type='submit' onClick={() => dispatch(deleteSelectedProductsCart())}>
-                <img className='cart-item__delete-img' alt='крест' src={Cross}></img>
+              <button
+                className='cart-item__delete-button'
+                type='submit'
+                onClick={() => dispatch(deleteSelectedProductsCart())}
+              >
+                <img
+                  className='cart-item__delete-img'
+                  alt='крест'
+                  src={Cross}
+                ></img>
                 <p className='cart-item__delete-text'>Удалить выбранные</p>
               </button>
             </div>
           </div>
           <ul className='cart-card'>
             {items.map((item) => {
-              return (
-                <CartCard key={item.id} item={item} />
-              );
+              return <CartCard key={item.id} item={item} />;
             })}
           </ul>
         </div>
         <div className='cart-item__order-container'>
           <div className='cart-item__order-price'>
-            <div className="cart-item__order-row">
+            <div className='cart-item__order-row'>
               <p className='cart-item__price'>Итого:</p>
-              <span className='cart-item__sum'>{`${total_cost.toLocaleString('ru-RU')} ₽`}</span>
+              <span className='cart-item__sum'>{`${(total).toLocaleString('ru-RU')} ₽`}</span>
+              {discount_amount && <span className='cart-item__sum-old'>{`${(total_cost).toLocaleString('ru-RU')} ₽`}</span>}
+
             </div>
             <p className='cart-item__amount'>{`Бот x ${total_amount}`}</p>
           </div>
@@ -120,14 +133,23 @@ function CartItem() {
               className='cart-item__promo-input'
               id='input-search-promo'
               type='text'
-              name='discount'
-              value={values.discount || ''}
+              name='promocode'
+              value={values.promocode || ''}
               placeholder='Промокод'
               onChange={handleChange}
               autoComplete='off'
             ></input>
-            <button className='cart-item__promo-button' type='submit' onClick={handlePromo}></button>
-            <span className='input-search-promo-error cart-item__promo-error' type='text'>Некорректный промокод</span>
+            <button
+              className='cart-item__promo-button'
+              type='submit'
+              onClick={handlePromo}
+            ></button>
+            <span
+              className='input-search-promo-error cart-item__promo-error'
+              type='text'
+            >
+              Некорректный промокод
+            </span>
           </form>
           <button type='button' className='cart-item__make-order'>
             К оформлению

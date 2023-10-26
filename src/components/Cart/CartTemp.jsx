@@ -20,7 +20,7 @@ const CartTemp = () => {
     cart_id,
     total_cost,
     total_amount,
-    discount_sum,
+    discount_amount,
     items,
     status,
     error,
@@ -32,7 +32,7 @@ const CartTemp = () => {
       cart_id,
       total_cost,
       total_amount,
-      discount_sum,
+      discount_amount,
       items,
       status,
       error,
@@ -42,7 +42,7 @@ const CartTemp = () => {
     cart_id,
     total_cost,
     total_amount,
-    discount_sum,
+    discount_amount,
     items,
     status,
     error,
@@ -120,7 +120,7 @@ const CartTemp = () => {
         <h2>Id Корзины: {cart_id}</h2>
         <h2>Стоимость: {total_cost}</h2>
         <h2>Количество товаров: {total_amount}</h2>
-        {discount_sum && <h2>Стоимость: {discount_sum}</h2>}
+        {discount_amount && <h2>Стоимость: {discount_amount}</h2>}
       </div>
       {items.map((item) => {
         return <CartCard key={item.id} item={item} />;
