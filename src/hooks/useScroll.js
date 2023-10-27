@@ -30,7 +30,8 @@ export const useScroll = () => {
     };
   }, []);
   const elRef = useRef(null);
-  const executeScroll = () => elRef.current.scrollIntoView();
+  const executeScroll = () =>
+    elRef.current.scrollIntoView({ behavior: 'smooth' });
 
   return {
     scroll,

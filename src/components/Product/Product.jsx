@@ -20,9 +20,8 @@ import { useScroll } from '../../hooks/useScroll';
 const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { productCard, isShowProductImagesPopup, myReview } = useSelector(
-    selectors.getProductCardData
-  );
+  const { productCard, isShowProductImagesPopup, myReview, Images } =
+    useSelector(selectors.getProductCardData);
   // загружаем данные карточки
   useEffect(() => {
     dispatch(getProductCard(id));
@@ -38,12 +37,9 @@ const Product = () => {
   const handleClickRating = useCallback(() => {
     dispatch(setShowDescription(false));
     executeScroll();
-    // if (i) {
-    //   console.log('handleClickRating => onClickStar => i', i);
-    // } else {
-    //   console.log('handleClickRating => onClickLabel');
-    // }
-  }, []);
+  }, [dispatch, executeScroll]);
+
+  console.log(Images);
   return (
     <section className='product'>
       <BreadCrumbs />

@@ -94,6 +94,7 @@ const productCardDataSlice = createSlice({
   initialState: {
     productCard: {},
     productImages: [],
+    Images: [],
     productReviews: [],
     myReview: {},
     isShowProductImagesPopup: false,
@@ -111,9 +112,12 @@ const productCardDataSlice = createSlice({
       state.isShowDescription = true;
       // получить массив ссылок на изображение
       const newImages = Object.keys(action.payload)
-        .filter((key) => key.includes('image_'))
-        .map((key) => action.payload[key])
-        .filter((item) => item !== null);
+        // .filter((key) => key.includes('image_') && action.payload[key] !== null)
+        // .map((key) => action.payload[key]);
+        .filter((key) => key.includes('image_') && action.payload[key] !== null)
+        .map((key) => {
+          return { [key]: action.payload[key] };
+        });
       state.productImages = newImages;
     },
     setProductReviewsState(state, action) {

@@ -13,7 +13,6 @@ const ProductPhotos = () => {
   const [offset, setOffset] = useState(0);
   const [visible, setVisible] = useState('initial');
   const imageSize = 162;
-  console.log(productImages);
   function handleSmallImageClick(event) {
     const imageBig = document.getElementById('product-photos__photo-big');
     if (event.target.classList.contains('product-photos__photo-small')) {
@@ -46,32 +45,25 @@ const ProductPhotos = () => {
       return Math.min(newOffset, 0);
     });
   }
-  // const images = Object.keys(productCard)
-  //   .filter((key) => key.includes('image_'))
-  //   .forEach((key) => {
-  //     productCard[key] !== null && [].push(productCard[key]);
-  //   });
-  // console.log(images);
-
   return (
     <div className='product-photos'>
       {productImages.length !== 0 && (
         <>
           <ul className='product-photos__photos'>
-            {productImages.map((image, index) => {
-              return (
-                <div>
-                  <img
-                    key={index + image}
-                    className='product-photos__photo-small product-photos__photo-small_active'
-                    style={{ transform: `translateY(${offset}px)` }}
-                    src={image}
-                    onClick={handleSmallImageClick}
-                    alt='Скриншот'
-                  />
-                </div>
-              );
-            })}
+            {productImages.length !== 0 &&
+              productImages?.map((item, index) => {
+                return (
+                  <div key={index + Object.keys(item)}>
+                    <img
+                      className='product-photos__photo-small product-photos__photo-small_active'
+                      style={{ transform: `translateY(${offset}px)` }}
+                      src={item[Object.keys(item)]}
+                      onClick={handleSmallImageClick}
+                      alt='Скриншот'
+                    />
+                  </div>
+                );
+              })}
           </ul>
           {visible === 'scroll' && (
             <button

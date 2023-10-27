@@ -14,7 +14,7 @@
 }
 
 .product__good-details {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: minmax(min-content, 916px) minmax(min-content, 292px);
   gap: 20px;
 }

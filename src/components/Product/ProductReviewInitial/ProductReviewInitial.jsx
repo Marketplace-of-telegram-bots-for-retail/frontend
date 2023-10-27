@@ -44,14 +44,14 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
 
   useEffect(() => {
     if (currentReview) {
-      currentReview.text !== values.text
+      currentReview.text !== values.text || currentReview.rating !== star
         ? setIsDataChanged(true)
         : setIsDataChanged(false);
     }
     if (!currentReview) {
       setIsDataChanged(true);
     }
-  }, [currentReview, values.text]);
+  }, [currentReview, values.text, star]);
 
   function handleFeedbackClick() {
     setIsShown(!isShown);
@@ -60,8 +60,8 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   function handleEditFeedbackClick() {
     setIsShown(!isShown);
     if (currentReview) {
+      setStar(currentReview.rating);
       setValues({
-        rating: setStar(),
         text: currentReview.text,
       });
     }
@@ -73,7 +73,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
       const reviewId = currentReview.id;
       editFeedback(id, reviewId, {
         modified: new Date().toJSON(),
-        rating: star,
+        rating: star || 5,
         text: values.text,
       });
       setValues('');
@@ -158,7 +158,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
               className='product__review-send'
               type='submit'
               aria-label='Оставить отзыв'
-              disabled={!star || !isDataChanged}
+              disabled={!isDataChanged}
               onClick={handleSendClick}
             >
               Оставить отзыв

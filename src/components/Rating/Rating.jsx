@@ -45,7 +45,7 @@ export const Rating = ({
     if (!onClickLabel) {
       setRating(index);
     }
-    onClickStar(index);
+    onClickStar(index || feedbackStars);
   };
 
   // элемент звездочки рейтинга
