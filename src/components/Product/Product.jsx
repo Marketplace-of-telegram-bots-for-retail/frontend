@@ -1,93 +1,65 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './Product.css';
+import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
+import ProductTitle from './ProductTitle/ProductTitle';
+import PopupImage from '../PopupImage/PopupImage';
+import ProductDetail from './ProductDetail/ProductDetail';
+import ProductPriceBlock from './ProductPriceBlock/ProductPriceBlock';
+import { LikeButton } from '../buttons';
+import { Rating } from '../Rating/Rating';
 import {
   getProductCard,
   getProductsReviews,
+  setShowDescription,
 } from '../../store/productCardDataSlice';
-import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
-import ProductTitle from './ProductTitle/ProductTitle';
-import ProductInfo from './ProductInfo/ProductInfo';
-import ProductDetails from './ProductDetails/ProductDetails';
-import PopupImage from '../PopupImage/PopupImage';
-import { api } from '../../utils/Api';
+import { selectors } from '../../store';
+import { useScroll } from '../../hooks/useScroll';
 
-const Product = ({ onLike }) => {
+const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { productCard, productReviews, isShowProductImagesPopup } = useSelector(
-    (state) => state.productCardData
-  );
-  console.log(productCard);
-  const [review, setReview] = useState({});
-  const [editReview, setEditReview] = useState({});
-  const [state, setState] = useState('description');
-  const [star, setStar] = useState();
-
-  console.log(productReviews);
-
+  const { productCard, isShowProductImagesPopup, myReview, Images } =
+    useSelector(selectors.getProductCardData);
   // загружаем данные карточки
   useEffect(() => {
     dispatch(getProductCard(id));
   }, [id]);
 
-  // проверить, скорее всего он тут не нужен будет
+  // загрузить или обновить
   useEffect(() => {
     dispatch(getProductsReviews(id));
-  }, [id]);
+  }, [id, myReview]);
 
-  function sendFeedback(id, data) {
-    api
-      .postProductsReview(id, data)
-      .then((newReview) => {
-        setReview(newReview);
-        console.log(review);
-      })
-      .catch(console.error);
-  }
+  const { executeScroll, elRef } = useScroll();
 
-  function editFeedback(id, reviewId, data) {
-    api
-      .putProductReviewId(id, reviewId, data)
-      .then((newReview) => {
-        setEditReview(newReview);
-        console.log(editReview);
-      })
-      .catch(console.error);
-  }
+  const handleClickRating = useCallback(() => {
+    dispatch(setShowDescription(false));
+    executeScroll();
+  }, [dispatch, executeScroll]);
 
-  function deleteFeedback(id, reviewId) {
-    api
-      .deleteProductReview(id, reviewId)
-      .then(() => {
-        const feedback = productReviews.filter((c) => c.id !== id);
-        setReview(feedback);
-      })
-      .catch(console.error);
-  }
-
+  console.log(Images);
   return (
     <section className='product'>
-      <BreadCrumbs card={productCard} />
+      <BreadCrumbs />
       <ProductTitle card={productCard} />
-      <ProductInfo
-        card={productCard}
-        onLike={onLike}
-        setState={setState}
-        setStar={setStar}
-      />
-      <ProductDetails
-        card={productCard} // store, можно убрать пропс
-        reviews={productReviews} // store, можно убрать пропс
-        sendFeedback={sendFeedback}
-        editFeedback={editFeedback}
-        deleteFeedback={deleteFeedback}
-        state={state}
-        setState={setState}
-        star={star}
-        setStar={setStar}
-      />
+      <div className='product__good-info'>
+        <Rating
+          ratingCard={productCard.rating}
+          onClickStar={(i) => {
+            handleClickRating(i);
+          }}
+          onClickLabel={() => {
+            handleClickRating();
+          }}
+        />
+        <LikeButton parentClass='product' card={productCard} />
+      </div>
+      <div className='product__good-details'>
+        <ProductDetail scrollRef={elRef} />
+        <ProductPriceBlock card={productCard} />
+      </div>
       {isShowProductImagesPopup && <PopupImage card={productCard} />}
     </section>
   );

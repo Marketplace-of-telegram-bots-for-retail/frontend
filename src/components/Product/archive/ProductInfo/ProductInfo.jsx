@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './ProductInfo.css';
-import { LikeButton } from '../../buttons';
-import { Rating } from '../../Rating/Rating';
+import { LikeButton } from '../../../buttons';
+import { Rating } from '../../../Rating/Rating';
 
 const ProductInfo = ({ card, setState, setStar }) => {
   const [ratingFeedback, setRatingFeedback] = useState('show');

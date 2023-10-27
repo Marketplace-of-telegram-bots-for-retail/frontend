@@ -6,13 +6,14 @@
 }
 
 .product__title {
-    max-width: 1020px;
+    max-width: 916px;
     width: 100%;
     margin: 0;
     padding: 0;
-    overflow: hidden;
     color: #1E1E1E;
+    overflow: hidden;
     text-overflow: ellipsis;
+    text-wrap: nowrap;
     font-size: 24px;
     font-style: normal;
     font-weight: 700;

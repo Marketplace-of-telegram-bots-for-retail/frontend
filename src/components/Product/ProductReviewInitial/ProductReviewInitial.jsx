@@ -1,59 +1,57 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './ProductReviewInitial.css';
 import { Rating } from '../../Rating/Rating';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
 import { useForm } from '../../../hooks/useForm';
+import {
+  changeProductReview,
+  deleteProductReview,
+  sendProductReview,
+} from '../../../store/productCardDataSlice';
+import { selectors } from '../../../store';
 
-const ProductReviewInitial = ({
-  reviews,
-  count,
-  sendFeedback,
-  editFeedback,
-  deleteFeedback,
-  handleShowAllReviews,
-  setState,
-  star,
-  setStar
-}) => {
+const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const currentUser = useContext(CurrentUserContext);
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
+  const [star, setStar] = useState();
+  const { is_Authorised } = useSelector(selectors.getAuthorisation);
   const limit = count < reviews.length;
-  const [ratingFeedback, setRatingFeedback] = useState('show');
-  const [isReview, setIsReview] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const currentReview = reviews.filter((c) => c.user === currentUser.username);
+  // заменить на userID
+  const currentReview = reviews.filter(
+    (c) => c.user === currentUser.username
+  )[0];
+  // console.log(currentReview);
+  const dispatch = useDispatch();
+  // Функции работы с апи отзывов
+  function sendFeedback(id, data) {
+    dispatch(sendProductReview({ id, data }));
+  }
+  function editFeedback(id, reviewId, data) {
+    dispatch(changeProductReview({ id, reviewId, data }));
+  }
+  function deleteFeedback(id, reviewId) {
+    dispatch(deleteProductReview({ id, reviewId }));
+  }
 
   useEffect(() => {
     setValues('');
   }, [setValues]);
 
   useEffect(() => {
-    setRatingFeedback('without');
-  }, [setRatingFeedback]);
-
-  useEffect(() => {
-    if (currentReview.length === 0) {
-      setIsReview('false');
-      return;
-    }
     if (currentReview) {
-      setIsReview('true');
+      currentReview.text !== values.text || currentReview.rating !== star
+        ? setIsDataChanged(true)
+        : setIsDataChanged(false);
     }
-  }, [currentReview, reviews]);
-
-  useEffect(() => {
-    if (currentReview.length === 0) {
+    if (!currentReview) {
       setIsDataChanged(true);
-      return;
     }
-    if (currentReview) {
-      currentReview[0].text !== values.text ?
-        setIsDataChanged(true) : setIsDataChanged(false);
-    }
-  }, [currentReview, values.text]);
+  }, [currentReview, values.text, star]);
 
   function handleFeedbackClick() {
     setIsShown(!isShown);
@@ -62,40 +60,39 @@ const ProductReviewInitial = ({
   function handleEditFeedbackClick() {
     setIsShown(!isShown);
     if (currentReview) {
+      setStar(currentReview.rating);
       setValues({
-        rating: setStar(),
-        text: currentReview[0].text
+        text: currentReview.text,
       });
     }
   }
 
   function handleSendClick(e) {
     e.preventDefault();
-    if (currentReview.length === 0) {
+    if (currentReview) {
+      const reviewId = currentReview.id;
+      editFeedback(id, reviewId, {
+        modified: new Date().toJSON(),
+        rating: star || 5,
+        text: values.text,
+      });
+      setValues('');
+    } else {
       sendFeedback(id, {
         modified: new Date().toJSON(),
         rating: star,
         text: values.text,
       });
       setValues('');
-    } else {
-      const reviewId = currentReview[0].id;
-      editFeedback(id, reviewId, {
-        modified: new Date().toJSON(),
-        rating: star,
-        text: values.text,
-      });
-      setValues('');
     }
+    setIsShown(false);
   }
 
-  function handleDeleteClick() {
-    const reviewId = currentReview[0].id;
+  function handleDeleteClick(e) {
+    e.preventDefault();
+    const reviewId = currentReview.id;
     deleteFeedback(id, reviewId);
-  }
-
-  function onShow() {
-    handleShowAllReviews();
+    setIsShown(false);
   }
 
   return (
@@ -104,31 +101,32 @@ const ProductReviewInitial = ({
         {isShown && (
           <span className='product__review-question'>Вам понравился бот?</span>
         )}
-        {!isShown && isReview === 'false' && (
-          <button
-            className='product__review-open'
-            type='button'
-            onClick={handleFeedbackClick}
-            aria-label='Оставить отзыв'
-          >
-            Оставить отзыв
-          </button>
-        )}
-        {!isShown && isReview === 'true' && (
-          <button
-            className='product__review-open'
-            type='button'
-            onClick={handleEditFeedbackClick}
-            aria-label='Оставить отзыв'
-          >
-            Редактировать отзыв
-          </button>
-        )}
+        {!isShown &&
+          is_Authorised &&
+          (!currentReview ? (
+            <button
+              className='product__review-open'
+              type='button'
+              onClick={() => handleFeedbackClick()}
+              aria-label='Оставить отзыв'
+            >
+              Оставить отзыв
+            </button>
+          ) : (
+            <button
+              className='product__review-open'
+              type='button'
+              onClick={() => handleEditFeedbackClick()}
+              aria-label='Оставить отзыв'
+            >
+              Редактировать отзыв
+            </button>
+          ))}
         {limit && (
           <button
             className='product__review-show'
             type='button'
-            onClick={onShow}
+            onClick={() => onShowAllReviews()}
             aria-label='Показать все'
           >
             Показать все
@@ -137,28 +135,13 @@ const ProductReviewInitial = ({
       </div>
       {isShown && (
         <form className='product__review-block'>
-          {currentReview.length === 0 && (
-            <Rating
-              ratingCard={reviews.rating}
-              onStarClick={() => {
-                console.log('object');
-              }}
-              setStar={setStar}
-              setState={setState}
-              ratingFeedback={ratingFeedback}
-            />
-          )}
-          {currentReview.length !== 0 && (
-            <Rating
-              ratingCard={currentReview[0].rating}
-              onStarClick={() => {
-                console.log('object');
-              }}
-              setStar={setStar}
-              setState={setState}
-              ratingFeedback={ratingFeedback}
-            />
-          )}
+          <Rating
+            feedbackStars={currentReview?.rating || 5}
+            onClickStar={(i) => {
+              console.log(i);
+              setStar(i);
+            }}
+          />
           <textarea
             className='product__review-input'
             value={values.text || ''}
@@ -168,26 +151,27 @@ const ProductReviewInitial = ({
             name='text'
             placeholder='сюда можно написать отзыв'
             autoComplete='off'
+            maxLength={500}
           />
-          <div className="product__review-buttons">
+          <div className='product__review-buttons'>
             <button
               className='product__review-send'
               type='submit'
               aria-label='Оставить отзыв'
-              disabled={!star || !isDataChanged}
+              disabled={!isDataChanged}
               onClick={handleSendClick}
             >
               Оставить отзыв
             </button>
-            {currentReview.length !== 0 && (
-            <button
-              className='product__review-delete'
-              type='submit'
-              aria-label='Оставить отзыв'
-              onClick={handleDeleteClick}
-            >
-              Удалить отзыв
-            </button>
+            {currentReview && (
+              <button
+                className='product__review-delete'
+                type='submit'
+                aria-label='Оставить отзыв'
+                onClick={handleDeleteClick}
+              >
+                Удалить отзыв
+              </button>
             )}
           </div>
         </form>

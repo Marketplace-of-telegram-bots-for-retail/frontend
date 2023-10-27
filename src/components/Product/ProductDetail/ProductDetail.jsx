@@ -1,30 +1,19 @@
 /* eslint-disable react/jsx-one-expression-per-line */
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import './ProductDetail.css';
 import ProductPhotos from '../ProductPhotos/ProductPhotos';
 import award from '../../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
+import { selectors } from '../../../store';
+import { setShowDescription } from '../../../store/productCardDataSlice';
 
-const ProductDetail = ({
-  sendFeedback,
-  editFeedback,
-  deleteFeedback,
-  state,
-  setState,
-  star,
-  setStar,
-}) => {
-  const { productReviews } = useSelector((state) => state.productCardData);
-
-  function handleDescClick() {
-    setState('description');
-  }
-
-  function handleReviewClick() {
-    setState('review');
-  }
+const ProductDetail = ({ scrollRef }) => {
+  const { productReviews, isShowDescription } = useSelector(
+    selectors.getProductCardData
+  );
+  const dispatch = useDispatch();
 
   return (
     <div className='product__good-detail'>
@@ -33,38 +22,28 @@ const ProductDetail = ({
         <img className='product__good-prize' src={award} alt='награда' />
         <h2 className='product__good-heading'>Лучший продавец ботов</h2>
       </div>
-      <div className='product__good-items'>
+      <div className='product__good-items' ref={scrollRef}>
         <h3
           className={`product__good-item ${
-            state === 'description'
+            isShowDescription
               ? 'product__good-item_active'
               : 'product__good-item product'
           }`}
-          onClick={handleDescClick}
+          onClick={() => dispatch(setShowDescription(true))}
         >
           Описание
         </h3>
         <h3
           className={`product__good-item ${
-            state === 'review'
+            !isShowDescription
               ? 'product__good-item_active'
               : 'product__good-item product'
           }`}
-          onClick={handleReviewClick}
+          onClick={() => dispatch(setShowDescription(false))}
         >{`Отзывы (${productReviews?.length || 0})`}</h3>
       </div>
-      {state === 'description' && <ProductDescription />}
-      {state === 'review' && (
-        <ProductReviews
-          reviews={productReviews}
-          sendFeedback={sendFeedback}
-          editFeedback={editFeedback}
-          deleteFeedback={deleteFeedback}
-          setState={setState}
-          star={star}
-          setStar={setStar}
-        />
-      )}
+      {isShowDescription && <ProductDescription />}
+      {!isShowDescription && <ProductReviews reviews={productReviews} />}
     </div>
   );
 };
