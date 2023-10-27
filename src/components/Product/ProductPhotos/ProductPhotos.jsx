@@ -7,11 +7,13 @@ import testPhoto from '../../../images/Picture.jpg';
 
 const ProductPhotos = () => {
   const dispatch = useDispatch();
-  const { productCard } = useSelector((state) => state.productCardData);
+  const { productCard, productImages } = useSelector(
+    (state) => state.productCardData
+  );
   const [offset, setOffset] = useState(0);
   const [visible, setVisible] = useState('initial');
   const imageSize = 162;
-
+  console.log(productImages);
   function handleSmallImageClick(event) {
     const imageBig = document.getElementById('product-photos__photo-big');
     if (event.target.classList.contains('product-photos__photo-small')) {
@@ -25,10 +27,6 @@ const ProductPhotos = () => {
       event.target.classList.add('product-photos__photo-small_active');
     }
   }
-
-  // function onProductClick(productCard) {
-  //   handleFullScreenClick(productCard);
-  // }
 
   function handleScrollDownClick() {
     setOffset((currentOffset) => {
@@ -48,75 +46,63 @@ const ProductPhotos = () => {
       return Math.min(newOffset, 0);
     });
   }
+  // const images = Object.keys(productCard)
+  //   .filter((key) => key.includes('image_'))
+  //   .forEach((key) => {
+  //     productCard[key] !== null && [].push(productCard[key]);
+  //   });
+  // console.log(images);
 
   return (
     <div className='product-photos'>
-      <ul className='product-photos__photos'>
-        <div>
-          <img
-            className='product-photos__photo-small product-photos__photo-small_active'
-            style={{ transform: `translateY(${offset}px)` }}
-            src={productCard.image_1 || testPhoto}
-            onClick={handleSmallImageClick}
-            alt={productCard.name}
-          />
-        </div>
-        <div>
-          <img
-            className='product-photos__photo-small'
-            src={productCard.image_2 || testPhoto}
-            style={{ transform: `translateY(${offset}px)` }}
-            onClick={handleSmallImageClick}
-            alt={productCard.name}
-          />
-        </div>
-        <div>
-          <img
-            className='product-photos__photo-small'
-            src={productCard.image_3 || testPhoto}
-            style={{ transform: `translateY(${offset}px)` }}
-            onClick={handleSmallImageClick}
-            alt={productCard.name}
-          />
-        </div>
-        <div>
-          <img
-            className='product-photos__photo-small'
-            src={productCard.image_4 || testPhoto}
-            style={{ transform: `translateY(${offset}px)` }}
-            onClick={handleSmallImageClick}
-            alt={productCard.name}
-          />
-        </div>
-      </ul>
-      {visible === 'scroll' && (
-        <button
-          className='product-photos__button-scroll product-photos__button-scroll_type_up'
-          type='button'
-          onClick={handleScrollUpClick}
-        ></button>
+      {productImages.length !== 0 && (
+        <>
+          <ul className='product-photos__photos'>
+            {productImages.map((image, index) => {
+              return (
+                <div>
+                  <img
+                    key={index + image}
+                    className='product-photos__photo-small product-photos__photo-small_active'
+                    style={{ transform: `translateY(${offset}px)` }}
+                    src={image}
+                    onClick={handleSmallImageClick}
+                    alt='Скриншот'
+                  />
+                </div>
+              );
+            })}
+          </ul>
+          {visible === 'scroll' && (
+            <button
+              className='product-photos__button-scroll product-photos__button-scroll_type_up'
+              type='button'
+              onClick={handleScrollUpClick}
+            ></button>
+          )}
+          <button
+            className='product-photos__button-scroll product-photos__button-scroll_type_down'
+            type='button'
+            onClick={handleScrollDownClick}
+          ></button>
+          <div
+            className='product-photos__photo'
+            onClick={() => dispatch(setShowProductImagesPopup(true))}
+          >
+            <img
+              className='product-photos__photo-big'
+              id='product-photos__photo-big'
+              src={productCard.image_1 || testPhoto}
+              alt={productCard.name}
+            />
+            <img
+              className='product-photos__photo-icon'
+              src={icon}
+              alt='икoнка развернуть на весь экран'
+            />
+          </div>
+        </>
       )}
-      <button
-        className='product-photos__button-scroll product-photos__button-scroll_type_down'
-        type='button'
-        onClick={handleScrollDownClick}
-      ></button>
-      <div
-        className='product-photos__photo'
-        onClick={() => dispatch(setShowProductImagesPopup(true))}
-      >
-        <img
-          className='product-photos__photo-big'
-          id='product-photos__photo-big'
-          src={productCard.image_1 || testPhoto}
-          alt={productCard.name}
-        />
-        <img
-          className='product-photos__photo-icon'
-          src={icon}
-          alt='икoнка развернуть на весь экран'
-        />
-      </div>
     </div>
   );
 };

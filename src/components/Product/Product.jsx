@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './Product.css';
@@ -12,33 +12,38 @@ import { Rating } from '../Rating/Rating';
 import {
   getProductCard,
   getProductsReviews,
+  setShowDescription,
 } from '../../store/productCardDataSlice';
 import { selectors } from '../../store';
+import { useScroll } from '../../hooks/useScroll';
 
 const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { productCard, isShowProductImagesPopup } = useSelector(
+  const { productCard, isShowProductImagesPopup, myReview } = useSelector(
     selectors.getProductCardData
   );
-  const [state, setState] = useState('description');
-
   // загружаем данные карточки
   useEffect(() => {
     dispatch(getProductCard(id));
   }, [id]);
 
-  // проверить, скорее всего он тут не нужен будет
+  // загрузить или обновить
   useEffect(() => {
     dispatch(getProductsReviews(id));
-  }, [id]);
+  }, [id, myReview]);
 
-  // const [ratingFeedback, setRatingFeedback] = useState('show');
+  const { executeScroll, elRef } = useScroll();
 
-  // useEffect(() => {
-  //   setRatingFeedback('show');
-  // }, [setRatingFeedback]);
-
+  const handleClickRating = useCallback(() => {
+    dispatch(setShowDescription(false));
+    executeScroll();
+    // if (i) {
+    //   console.log('handleClickRating => onClickStar => i', i);
+    // } else {
+    //   console.log('handleClickRating => onClickLabel');
+    // }
+  }, []);
   return (
     <section className='product'>
       <BreadCrumbs />
@@ -47,21 +52,16 @@ const Product = () => {
         <Rating
           ratingCard={productCard.rating}
           onClickStar={(i) => {
-            console.log('object', i);
+            handleClickRating(i);
           }}
           onClickLabel={() => {
-            console.log('object');
+            handleClickRating();
           }}
         />
         <LikeButton parentClass='product' card={productCard} />
       </div>
       <div className='product__good-details'>
-        <ProductDetail
-          state={state}
-          setState={setState}
-          // star={star}
-          // setStar={setStar}
-        />
+        <ProductDetail scrollRef={elRef} />
         <ProductPriceBlock card={productCard} />
       </div>
       {isShowProductImagesPopup && <PopupImage card={productCard} />}

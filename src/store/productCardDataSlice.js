@@ -58,12 +58,15 @@ export const changeProductReview = createAsyncThunk(
 );
 // Удалить мой отызыв
 export const deleteProductReview = createAsyncThunk(
-  'productCardData/changeProductReview',
+  'productCardData/deleteProductReview',
   async ({ id, reviewId }, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.deleteProductReview(id, reviewId);
-      console.log(res);
-      dispatch(setMyProductReview(res));
+      if (res.status === 204) {
+        dispatch(clearCartsState());
+      } else {
+        dispatch(setMyProductReview(res));
+      }
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -90,9 +93,11 @@ const productCardDataSlice = createSlice({
   name: 'productCardData',
   initialState: {
     productCard: {},
+    productImages: [],
     productReviews: [],
     myReview: {},
     isShowProductImagesPopup: false,
+    isShowDescription: true,
     reviewsDisplay: false,
     status: null,
     error: null,
@@ -103,10 +108,15 @@ const productCardDataSlice = createSlice({
       state.productCard = action.payload;
       // сбросить стейт попапа
       state.isShowProductImagesPopup = false;
+      state.isShowDescription = true;
+      // получить массив ссылок на изображение
+      const newImages = Object.keys(action.payload)
+        .filter((key) => key.includes('image_'))
+        .map((key) => action.payload[key])
+        .filter((item) => item !== null);
+      state.productImages = newImages;
     },
     setProductReviewsState(state, action) {
-      console.log('setProductCardState => state', state);
-      console.log('setProductCardState => action', action);
       state.productReviews = action.payload;
     },
     setShowProductImagesPopup(state, action) {
@@ -115,10 +125,14 @@ const productCardDataSlice = createSlice({
     setMyProductReview(state, action) {
       state.myReview = action.payload;
     },
+    cleanMyProductReview(state) {
+      state.myReview = {};
+    },
     setReviewsDisplay(state, action) {
-      // console.log('setProductCardState => state', state);
-      // console.log('setProductCardState => action', action);
       state.reviewsDisplay = action.payload;
+    },
+    setShowDescription(state, action) {
+      state.isShowDescription = action.payload;
     },
   },
   extraReducers: {
@@ -127,12 +141,20 @@ const productCardDataSlice = createSlice({
     [getProductCard.rejected]: setError,
 
     [getProductsReviews.pending]: SetPending,
-    [getProductCard.fulfilled]: setFulfilled,
-    [getProductCard.rejected]: setError,
+    [getProductsReviews.fulfilled]: setFulfilled,
+    [getProductsReviews.rejected]: setError,
 
     [sendProductReview.pending]: SetPending,
-    [getProductCard.fulfilled]: setFulfilled,
-    [getProductCard.rejected]: setError,
+    [sendProductReview.fulfilled]: setFulfilled,
+    [sendProductReview.rejected]: setError,
+
+    [changeProductReview.pending]: SetPending,
+    [changeProductReview.fulfilled]: setFulfilled,
+    [changeProductReview.rejected]: setError,
+
+    [deleteProductReview.pending]: SetPending,
+    [deleteProductReview.fulfilled]: setFulfilled,
+    [deleteProductReview.rejected]: setError,
   },
 });
 
@@ -141,5 +163,7 @@ export const {
   setProductReviewsState,
   setShowProductImagesPopup,
   setMyProductReview,
+  cleanMyProductReview,
+  setShowDescription,
 } = productCardDataSlice.actions;
 export default productCardDataSlice.reducer;

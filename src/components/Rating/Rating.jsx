@@ -39,7 +39,8 @@ export const Rating = ({
   };
 
   // нажате на звездочки
-  const handleClickStar = (index) => {
+  const handleClickStar = (e, index) => {
+    e.preventDefault();
     // если рейтинг текщего отзыва
     if (!onClickLabel) {
       setRating(index);
@@ -63,8 +64,8 @@ export const Rating = ({
         className={`rating__star rating__star${
           index <= (hover || rating) ? '_on' : '_off'
         }`}
-        onClick={() => {
-          handleClickStar(index);
+        onClick={(e) => {
+          handleClickStar(e, index);
         }}
         onMouseEnter={() => setHover(index)}
         onMouseLeave={() => setHover(rating)}

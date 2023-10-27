@@ -3,12 +3,7 @@ import './ProductReviews.css';
 import ProductReviewInitial from '../ProductReviewInitial/ProductReviewInitial';
 import ReviewCard from '../ReviewCard/ReviewCard';
 
-const ProductReviews = ({
-  reviews,
-  setState,
-  // star,
-  // setStar
-}) => {
+const ProductReviews = ({ reviews }) => {
   const [count, setCount] = useState(3);
   const allReviews = reviews.length;
 
@@ -30,10 +25,7 @@ const ProductReviews = ({
       <ProductReviewInitial
         reviews={reviews}
         count={count}
-        handleShowAllReviews={handleShowAllReviews}
-        setState={setState}
-        // star={star}
-        // setStar={setStar}
+        onShowAllReviews={handleShowAllReviews}
       />
     </div>
   );

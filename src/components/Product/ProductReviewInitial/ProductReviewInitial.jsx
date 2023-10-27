@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './ProductReviewInitial.css';
 import { Rating } from '../../Rating/Rating';
@@ -10,23 +10,23 @@ import {
   deleteProductReview,
   sendProductReview,
 } from '../../../store/productCardDataSlice';
+import { selectors } from '../../../store';
 
-const ProductReviewInitial = ({ reviews, count, handleShowAllReviews }) => {
+const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const currentUser = useContext(CurrentUserContext);
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
   const [star, setStar] = useState();
-
+  const { is_Authorised } = useSelector(selectors.getAuthorisation);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
   // заменить на userID
   const currentReview = reviews.filter(
     (c) => c.user === currentUser.username
   )[0];
-  console.log(currentReview);
+  // console.log(currentReview);
   const dispatch = useDispatch();
-
   // Функции работы с апи отзывов
   function sendFeedback(id, data) {
     dispatch(sendProductReview({ id, data }));
@@ -88,9 +88,11 @@ const ProductReviewInitial = ({ reviews, count, handleShowAllReviews }) => {
     setIsShown(false);
   }
 
-  function handleDeleteClick() {
+  function handleDeleteClick(e) {
+    e.preventDefault();
     const reviewId = currentReview.id;
     deleteFeedback(id, reviewId);
+    setIsShown(false);
   }
 
   return (
@@ -99,31 +101,32 @@ const ProductReviewInitial = ({ reviews, count, handleShowAllReviews }) => {
         {isShown && (
           <span className='product__review-question'>Вам понравился бот?</span>
         )}
-        {!isShown && !currentReview && (
-          <button
-            className='product__review-open'
-            type='button'
-            onClick={() => handleFeedbackClick()}
-            aria-label='Оставить отзыв'
-          >
-            Оставить отзыв
-          </button>
-        )}
-        {!isShown && currentReview && (
-          <button
-            className='product__review-open'
-            type='button'
-            onClick={() => handleEditFeedbackClick()}
-            aria-label='Оставить отзыв'
-          >
-            Редактировать отзыв
-          </button>
-        )}
+        {!isShown &&
+          is_Authorised &&
+          (!currentReview ? (
+            <button
+              className='product__review-open'
+              type='button'
+              onClick={() => handleFeedbackClick()}
+              aria-label='Оставить отзыв'
+            >
+              Оставить отзыв
+            </button>
+          ) : (
+            <button
+              className='product__review-open'
+              type='button'
+              onClick={() => handleEditFeedbackClick()}
+              aria-label='Оставить отзыв'
+            >
+              Редактировать отзыв
+            </button>
+          ))}
         {limit && (
           <button
             className='product__review-show'
             type='button'
-            onClick={() => handleShowAllReviews()}
+            onClick={() => onShowAllReviews()}
             aria-label='Показать все'
           >
             Показать все

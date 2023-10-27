@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 export const useScroll = () => {
   const [scroll, setScroll] = useState(0);
@@ -29,6 +29,15 @@ export const useScroll = () => {
       window.removeEventListener('scroll', onScroll);
     };
   }, []);
+  const elRef = useRef(null);
+  const executeScroll = () => elRef.current.scrollIntoView();
 
-  return { scroll, scrollPosition, callBackRef, clientPositionY };
+  return {
+    scroll,
+    scrollPosition,
+    callBackRef,
+    clientPositionY,
+    executeScroll,
+    elRef,
+  };
 };
