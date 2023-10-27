@@ -7,7 +7,12 @@ import award from '../../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
 
-const ProductDetail = ({ state, setState, star, setStar }) => {
+const ProductDetail = ({
+  state,
+  setState,
+  // star,
+  // setStar
+}) => {
   const { productReviews } = useSelector((state) => state.productCardData);
 
   return (
@@ -42,8 +47,8 @@ const ProductDetail = ({ state, setState, star, setStar }) => {
         <ProductReviews
           reviews={productReviews}
           setState={setState}
-          star={star}
-          setStar={setStar}
+          // star={star}
+          // setStar={setStar}
         />
       )}
     </div>

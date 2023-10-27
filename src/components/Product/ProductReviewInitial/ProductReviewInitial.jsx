@@ -11,21 +11,14 @@ import {
   sendProductReview,
 } from '../../../store/productCardDataSlice';
 
-const ProductReviewInitial = ({
-  reviews,
-  count,
-  handleShowAllReviews,
-  star,
-  setStar,
-}) => {
+const ProductReviewInitial = ({ reviews, count, handleShowAllReviews }) => {
   const currentUser = useContext(CurrentUserContext);
-  console.log(currentUser.id);
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
+  const [star, setStar] = useState();
+
   const limit = count < reviews.length;
-  // const [ratingFeedback, setRatingFeedback] = useState('show');
-  // const [currentReview, setcurrentReview] = useState(false);
   const [isDataChanged, setIsDataChanged] = useState(false);
   // заменить на userID
   const currentReview = reviews.filter(
@@ -34,6 +27,7 @@ const ProductReviewInitial = ({
   console.log(currentReview);
   const dispatch = useDispatch();
 
+  // Функции работы с апи отзывов
   function sendFeedback(id, data) {
     dispatch(sendProductReview({ id, data }));
   }
@@ -47,18 +41,7 @@ const ProductReviewInitial = ({
   useEffect(() => {
     setValues('');
   }, [setValues]);
-  // useEffect(() => {
-  //   setRatingFeedback('without');
-  // }, [setRatingFeedback]);
 
-  // useEffect(() => {
-  //   if (currentReview) {
-  //     setcurrentReview(true);
-  //   }
-  //   if (!currentReview) {
-  //     setcurrentReview(false);
-  //   }
-  // }, [currentReview, reviews]);
   useEffect(() => {
     if (currentReview) {
       currentReview.text !== values.text
@@ -110,10 +93,6 @@ const ProductReviewInitial = ({
     deleteFeedback(id, reviewId);
   }
 
-  function onShow() {
-    handleShowAllReviews();
-  }
-
   return (
     <>
       <div className='product__review-initial'>
@@ -124,7 +103,7 @@ const ProductReviewInitial = ({
           <button
             className='product__review-open'
             type='button'
-            onClick={handleFeedbackClick}
+            onClick={() => handleFeedbackClick()}
             aria-label='Оставить отзыв'
           >
             Оставить отзыв
@@ -134,7 +113,7 @@ const ProductReviewInitial = ({
           <button
             className='product__review-open'
             type='button'
-            onClick={handleEditFeedbackClick}
+            onClick={() => handleEditFeedbackClick()}
             aria-label='Оставить отзыв'
           >
             Редактировать отзыв
@@ -144,7 +123,7 @@ const ProductReviewInitial = ({
           <button
             className='product__review-show'
             type='button'
-            onClick={onShow}
+            onClick={() => handleShowAllReviews()}
             aria-label='Показать все'
           >
             Показать все
@@ -154,7 +133,7 @@ const ProductReviewInitial = ({
       {isShown && (
         <form className='product__review-block'>
           <Rating
-            feedbackStars={currentReview?.rating}
+            feedbackStars={currentReview?.rating || 5}
             onClickStar={(i) => {
               console.log(i);
               setStar(i);
@@ -169,6 +148,7 @@ const ProductReviewInitial = ({
             name='text'
             placeholder='сюда можно написать отзыв'
             autoComplete='off'
+            maxLength={500}
           />
           <div className='product__review-buttons'>
             <button

@@ -14,3 +14,5 @@ export default configureStore({
     productCardData: productCardDataReducer,
   },
 });
+
+export * as selectors from './selectors';

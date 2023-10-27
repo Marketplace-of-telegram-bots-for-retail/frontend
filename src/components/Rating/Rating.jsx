@@ -5,13 +5,11 @@ import './Rating.css';
 export const Rating = ({
   ratingCard,
   onClickStar,
-  onReviewClick,
+  onClickLabel,
   feedbackStars,
 }) => {
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
-  // const location = useLocation();
-  // const { id } = useParams();
   useEffect(() => {
     ratingCard ? setRating(ratingCard[0]) : setRating(feedbackStars);
   }, [ratingCard, feedbackStars]);
@@ -39,14 +37,17 @@ export const Rating = ({
   const feedback = (number) => {
     return getNoun(number, 'отзыв', 'отзыва', 'отзывов');
   };
-  const handleOnReviewClick = () => {
-    // if (location === '/') {
-    //   return;
-    // }
-    onReviewClick();
-    console.log('=> onReviewClick()');
+
+  // нажате на звездочки
+  const handleClickStar = (index) => {
+    // если рейтинг текщего отзыва
+    if (!onClickLabel) {
+      setRating(index);
+    }
+    onClickStar(index);
   };
 
+  // элемент звездочки рейтинга
   const returnStarElement = (index) => {
     return !onClickStar ? (
       <span
@@ -63,28 +64,29 @@ export const Rating = ({
           index <= (hover || rating) ? '_on' : '_off'
         }`}
         onClick={() => {
-          setRating(index);
-          onClickStar(index);
-          console.log('star => Click!', index);
+          handleClickStar(index);
         }}
         onMouseEnter={() => setHover(index)}
         onMouseLeave={() => setHover(rating)}
       ></button>
     );
   };
+
+  // элемент звездочки рейтинга
   const renderFeedback = () => {
+    if (onClickLabel) {
+      return (
+        <span className='rating__feedback' onClick={() => onClickLabel()}>
+          {feedback(ratingCard?.[1])}
+        </span>
+      );
+    }
     if (feedbackStars || onClickStar) {
       return null;
     }
-    if (onReviewClick) {
-      return (
-        <span className='rating__feedback'>{feedback(ratingCard?.[1])}</span>
-      );
-    }
+
     return (
-      <span className='rating__feedback' onClick={() => handleOnReviewClick()}>
-        {feedback(ratingCard?.[1])}
-      </span>
+      <span className='rating__feedback'>{feedback(ratingCard?.[1])}</span>
     );
   };
 

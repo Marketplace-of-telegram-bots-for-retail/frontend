@@ -13,15 +13,15 @@ import {
   getProductCard,
   getProductsReviews,
 } from '../../store/productCardDataSlice';
+import { selectors } from '../../store';
 
 const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { productCard, isShowProductImagesPopup } = useSelector(
-    (state) => state.productCardData
+    selectors.getProductCardData
   );
   const [state, setState] = useState('description');
-  const [star, setStar] = useState();
 
   // загружаем данные карточки
   useEffect(() => {
@@ -33,11 +33,11 @@ const Product = () => {
     dispatch(getProductsReviews(id));
   }, [id]);
 
-  const [ratingFeedback, setRatingFeedback] = useState('show');
+  // const [ratingFeedback, setRatingFeedback] = useState('show');
 
-  useEffect(() => {
-    setRatingFeedback('show');
-  }, [setRatingFeedback]);
+  // useEffect(() => {
+  //   setRatingFeedback('show');
+  // }, [setRatingFeedback]);
 
   return (
     <section className='product'>
@@ -46,15 +46,12 @@ const Product = () => {
       <div className='product__good-info'>
         <Rating
           ratingCard={productCard.rating}
-          onStarClick={() => {
+          onClickStar={(i) => {
+            console.log('object', i);
+          }}
+          onClickLabel={() => {
             console.log('object');
           }}
-          onReviewClick={() => {
-            console.log('object');
-          }}
-          setStar={setStar}
-          setState={setState}
-          ratingFeedback={ratingFeedback}
         />
         <LikeButton parentClass='product' card={productCard} />
       </div>
@@ -62,8 +59,8 @@ const Product = () => {
         <ProductDetail
           state={state}
           setState={setState}
-          star={star}
-          setStar={setStar}
+          // star={star}
+          // setStar={setStar}
         />
         <ProductPriceBlock card={productCard} />
       </div>

@@ -5,7 +5,7 @@ import { useLocation, useParams } from 'react-router-dom';
 export const Rating = ({
   ratingCard,
   onStarClick,
-  onReviewClick,
+  onClickLabel,
   starsFeedback,
   setStar,
   setState,
@@ -51,8 +51,8 @@ export const Rating = ({
     // window.scrollTo(0, 950 );
     window.scrollTo({ top: 950, left: 0, behavior: 'smooth' });
     setState('review');
-    // onReviewClick();
-    console.log('=> onReviewClick()', id);
+    // onClickLabel();
+    console.log('=> onClickLabel()', id);
   };
 
   const returnStarElement = (index) => {
@@ -85,7 +85,7 @@ export const Rating = ({
     );
   };
   const renderFeedback = () => {
-    if (!onReviewClick) {
+    if (!onClickLabel) {
       return (
         <span className='rating__feedback'>{feedback(ratingCard?.[1])}</span>
       );
