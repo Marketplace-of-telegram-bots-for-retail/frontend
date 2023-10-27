@@ -1,7 +1,7 @@
 import React from 'react';
 import './ProductDetails.css';
-import ProductDetail from '../ProductDetail/ProductDetail';
-import ProductPriceBlock from '../ProductPriceBlock/ProductPriceBlock';
+import ProductDetail from '../../ProductDetail/ProductDetail';
+import ProductPriceBlock from '../../ProductPriceBlock/ProductPriceBlock';
 
 const ProductDetails = ({ card, state, setState, star, setStar }) => {
   return (
