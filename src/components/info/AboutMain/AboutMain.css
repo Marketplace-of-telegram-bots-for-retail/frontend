@@ -1,10 +1,14 @@
 .about {
   display: flex;
-  gap: 106px;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 80px;
   /* margin: 68px var(--s-indent) 0; */
   padding: 68px var(--s-indent) 0;
 }
-
+.about__container {
+  max-width: 590px;
+}
 .about__title {
   margin: 0;
   font-size: 40px;
@@ -18,10 +22,9 @@
 .about__subtitle {
   margin: 0;
   font-size: 20px;
+  font-style: normal;
   font-weight: 400;
-  line-height: 30px;
-  letter-spacing: 0em;
-  text-align: left;
+  line-height: normal;
   margin-bottom: 28px;
 }
 
@@ -39,10 +42,76 @@
 }
 
 .about__list-item::marker {
-  color: var(--Primary-Accent, #726EFA);
+  color: var(--Primary-Accent, #726efa);
 }
 
 .about__image {
   width: 458px;
   height: 370px;
+}
+
+.about__wrapper-greetind {
+  position: relative;
+  content: '';
+  margin: 0;
+  padding: 0;
+  min-width: 550px;
+  min-height: 412px;
+  background-image: url('../../../images/vecteezy_3d.png'),
+    url('../../../images/Cart-1.png');
+  background-repeat: no-repeat;
+  background-position: bottom 37px left 161px, bottom 20px right 60px;
+  background-size: 101px 147px, 196px 370.356px;
+}
+.about__wrapper-greetind::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('../../../images/vecteezy_3d.png');
+  background-repeat: no-repeat;
+  background-position: bottom 25px right 175px;
+  background-size: 101px 147px;
+  transform: rotate(-22.786deg);
+}
+.about__greetind {
+  position: absolute;
+  top: 112px;
+  left: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 140px;
+  height: 88px;
+  background-color: var(--Primary-White);
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+  color: var(--Primary-Black);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-transform: capitalize;
+}
+.about__greetind::before,
+.about__greetind::after {
+  position: absolute;
+  content: '';
+  background-color: var(--Primary-White);
+  box-shadow: 0px 0px 20px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 50%;
+}
+.about__greetind::before {
+  bottom: -16px;
+  right: 0;
+  width: 16px;
+  height: 16px;
+}
+.about__greetind::after {
+  bottom: -28px;
+  right: -8px;
+  width: 8px;
+  height: 8px;
 }

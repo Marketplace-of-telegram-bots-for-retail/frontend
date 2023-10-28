@@ -16,6 +16,7 @@
 }
 
 .preview {
+  position: relative;
   margin: 0;
   border: none;
   box-sizing: border-box;
@@ -26,8 +27,7 @@
 }
 
 .preview__text {
-  position: relative;
-  /* width: 12.25rem; */
+  max-width: 235px;
   width: min-content;
   text-align: center;
   padding: 8px 12px;
@@ -40,19 +40,20 @@
   font-weight: 400;
   line-height: 1.25rem;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-.preview__text:before,
-.preview__text:after {
+.preview :before,
+.preview :after {
   content: ' ';
   position: absolute;
   width: 0;
   height: 0;
 }
-.preview__text:before,
-.preview__text:after {
-  left: 28px;
-  bottom: -24px;
+.preview :before {
+  /* left: 86px; */
+  bottom: 124px;
   width: 12px;
   height: 12px;
   background-color: var(--Primary-White);
@@ -60,11 +61,12 @@
   -moz-border-radius: 50%;
   border-radius: 50%;
 }
-.preview__text:after {
+.preview :after {
   width: 8px;
   height: 8px;
-  left: 40px;
-  bottom: -36px;
+  /* left: 98px; */
+  bottom: 112px;
+  background-color: var(--Primary-White);
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   border-radius: 50%;
@@ -72,4 +74,18 @@
 .preview:hover {
   box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.25s;
+}
+
+.preview:nth-of-type(odd) :before {
+  right: 86px;
+}
+.preview:nth-of-type(odd) :after {
+  right: 98px;
+}
+
+.card:nth-of-type(even) .preview :before {
+  left: 86px;
+}
+.card:nth-of-type(even) .preview :after {
+  left: 98px;
 }
