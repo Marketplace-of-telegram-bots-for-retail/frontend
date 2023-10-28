@@ -6,13 +6,11 @@ import ProductPhotos from '../ProductPhotos/ProductPhotos';
 import award from '../../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
-import { selectors } from '../../../store';
+import { getProductCardData } from '../../../store';
 import { setShowDescription } from '../../../store/productCardDataSlice';
 
 const ProductDetail = ({ scrollRef }) => {
-  const { productReviews, isShowDescription } = useSelector(
-    selectors.getProductCardData
-  );
+  const { productReviews, isShowDescription } = useSelector(getProductCardData);
   const dispatch = useDispatch();
 
   return (

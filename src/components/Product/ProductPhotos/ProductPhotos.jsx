@@ -4,12 +4,11 @@ import { setShowProductImagesPopup } from '../../../store/productCardDataSlice';
 import './ProductPhotos.css';
 import icon from '../../../images/arcticons_photo-and-picture-resizer.svg';
 import testPhoto from '../../../images/Picture.jpg';
+import { getProductCardData } from '../../../store';
 
 const ProductPhotos = () => {
   const dispatch = useDispatch();
-  const { productCard, productImages } = useSelector(
-    (state) => state.productCardData
-  );
+  const { productCard, productImages } = useSelector(getProductCardData);
   const [offset, setOffset] = useState(0);
   const [visible, setVisible] = useState('initial');
   const imageSize = 162;

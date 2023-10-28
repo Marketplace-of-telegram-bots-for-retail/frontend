@@ -4,21 +4,14 @@ import { useSelector } from 'react-redux';
 import './Cart.css';
 import CartItem from './CartItem/CartItem';
 import CartEmpty from './CartEmpty/CartEmpty';
-// import CartTemp from './CartTemp';
+import { getCartData } from '../../store';
 
-function Cart({ isAuthorized }) {
-  // const dispatch = useDispatch();
-  const {
-    items
-  } = useSelector((state) => state.dataCart);
+function Cart() {
+  const { items } = useSelector(getCartData);
 
   return (
-    <section className='cart'>
-      {items.length !== 0 ? (
-        <CartItem />
-      ) : (
-        <CartEmpty isAuthorized={isAuthorized} />
-      )}
+    <section className='content__cart cart'>
+      {items.length !== 0 ? <CartItem /> : <CartEmpty />}
     </section>
   );
 }

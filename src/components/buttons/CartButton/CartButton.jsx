@@ -7,10 +7,11 @@ import {
   addProductCart,
   reduceProductCart,
 } from '../../../store/dataCartSlice';
+import { getCartData } from '../../../store';
 
 const CartButton = ({ parentClass, card }) => {
   const dispatch = useDispatch();
-  const { items, is_loading } = useSelector((state) => state.dataCart);
+  const { items, is_loading } = useSelector(getCartData);
   const [currentQuantity, setQuantity] = useState(0);
   useEffect(() => {
     if (!card.quantity) {
@@ -66,7 +67,7 @@ const CartButton = ({ parentClass, card }) => {
   const cartButton = (
     <button
       className='cart-button__button'
-      type='submit'
+      type='button'
       onClick={() => {
         handleAddProductCart();
       }}

@@ -1,6 +1,6 @@
 import React from 'react';
 import './AboutMain.css';
-import ImageHello from '../../../images/pic_main-cart.png';
+// import ImageHello from '../../../images/pic_main-cart.png';
 
 const AboutMain = () => {
   return (
@@ -17,11 +17,9 @@ const AboutMain = () => {
           <li className='about__list-item'>профессиональная поддержка</li>
         </ul>
       </div>
-      <img
-        className='about__image'
-        src={ImageHello}
-        alt='картинка с приветсвием'
-      ></img>
+      <div className='about__wrapper-greetind'>
+        <div className='about__greetind'>hello</div>
+      </div>
     </section>
   );
 };

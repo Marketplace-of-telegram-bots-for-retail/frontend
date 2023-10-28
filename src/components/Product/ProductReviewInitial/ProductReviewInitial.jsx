@@ -10,7 +10,7 @@ import {
   deleteProductReview,
   sendProductReview,
 } from '../../../store/productCardDataSlice';
-import { selectors } from '../../../store';
+import { getAuthorisationData } from '../../../store';
 
 const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -18,7 +18,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
   const [star, setStar] = useState();
-  const { is_Authorised } = useSelector(selectors.getAuthorisation);
+  const { is_Authorised } = useSelector(getAuthorisationData);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
   // заменить на userID
@@ -44,12 +44,16 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
 
   useEffect(() => {
     if (currentReview) {
-      currentReview.text !== values.text || currentReview.rating !== star
+      (currentReview.text !== values.text || currentReview.rating !== star) &&
+      values.text &&
+      values.text.length > 5
         ? setIsDataChanged(true)
         : setIsDataChanged(false);
     }
     if (!currentReview) {
-      setIsDataChanged(true);
+      values.text && values.text.length > 5
+        ? setIsDataChanged(true)
+        : setIsDataChanged(false);
     }
   }, [currentReview, values.text, star]);
 
@@ -80,7 +84,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
     } else {
       sendFeedback(id, {
         modified: new Date().toJSON(),
-        rating: star,
+        rating: star || 5,
         text: values.text,
       });
       setValues('');

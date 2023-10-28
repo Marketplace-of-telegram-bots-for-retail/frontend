@@ -1,10 +1,10 @@
 import { useSelector } from 'react-redux';
 import { REQUEST_OPTIONS } from '../utils/constants';
+import { getSearchFormData } from '../store';
 
 export const useQueryParameter = () => {
-  const { search, categories, prices, sorting } = useSelector(
-    (state) => state.dataSearchForm
-  );
+  const { search, categories, prices, sorting } =
+    useSelector(getSearchFormData);
 
   const formArry = [];
 

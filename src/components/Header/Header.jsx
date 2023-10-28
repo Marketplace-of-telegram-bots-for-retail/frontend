@@ -11,6 +11,7 @@ import { useScroll } from '../../hooks/useScroll';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { getProducts } from '../../store/dataProductsStateSlice';
 import { useQueryParameter } from '../../hooks/useQueryParameter';
+import { getCartData, getProductsData } from '../../store';
 
 const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -18,8 +19,8 @@ const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
   const { values, handleChange } = useForm();
   const { formRequest } = useQueryParameter();
   const dispatch = useDispatch();
-  const { favoritesCount } = useSelector((state) => state.dataProductsState);
-  const { items } = useSelector((state) => state.dataCart);
+  const { favoritesCount } = useSelector(getProductsData);
+  const { items } = useSelector(getCartData);
   const locatoin = useLocation();
   const navigate = useNavigate();
 

@@ -107,7 +107,7 @@
   line-height: 20px;
 }
 
-.cart-card {
+.cart {
   display: flex;
   flex-direction: column;
   margin: 0;
