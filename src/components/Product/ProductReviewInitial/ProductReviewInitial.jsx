@@ -44,7 +44,9 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
 
   useEffect(() => {
     if (currentReview) {
-      currentReview.text !== values.text || currentReview.rating !== star
+      (currentReview.text !== values.text || currentReview.rating !== star) &&
+      values.text &&
+      values.text.length > 5
         ? setIsDataChanged(true)
         : setIsDataChanged(false);
     }
