@@ -63,7 +63,7 @@ export const deleteProductReview = createAsyncThunk(
     try {
       const res = await api.deleteProductReview(id, reviewId);
       if (res.status === 204) {
-        dispatch(clearCartsState());
+        dispatch(cleanMyProductReview());
       } else {
         dispatch(setMyProductReview(res));
       }

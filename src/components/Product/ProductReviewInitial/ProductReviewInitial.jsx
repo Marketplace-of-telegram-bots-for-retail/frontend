@@ -17,7 +17,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
-  const [star, setStar] = useState();
+  const [star, setStar] = useState(null);
   const { is_Authorised } = useSelector(getAuthorisationData);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
@@ -51,7 +51,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
         : setIsDataChanged(false);
     }
     if (!currentReview) {
-      values.text && values.text.length > 5
+      (values.text && values.text.length > 5) && star
         ? setIsDataChanged(true)
         : setIsDataChanged(false);
     }
@@ -77,14 +77,14 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
       const reviewId = currentReview.id;
       editFeedback(id, reviewId, {
         modified: new Date().toJSON(),
-        rating: star || 5,
+        rating: star,
         text: values.text,
       });
       setValues('');
     } else {
       sendFeedback(id, {
         modified: new Date().toJSON(),
-        rating: star || 5,
+        rating: star,
         text: values.text,
       });
       setValues('');
@@ -140,7 +140,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
       {isShown && (
         <form className='product__review-block'>
           <Rating
-            feedbackStars={currentReview?.rating || 5}
+            feedbackStars={currentReview?.rating || 0}
             onClickStar={(i) => {
               console.log(i);
               setStar(i);
