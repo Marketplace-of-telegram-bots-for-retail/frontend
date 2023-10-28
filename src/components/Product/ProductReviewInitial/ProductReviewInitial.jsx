@@ -10,7 +10,7 @@ import {
   deleteProductReview,
   sendProductReview,
 } from '../../../store/productCardDataSlice';
-import { selectors } from '../../../store';
+import { getAuthorisationData } from '../../../store';
 
 const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -18,7 +18,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
   const [star, setStar] = useState();
-  const { is_Authorised } = useSelector(selectors.getAuthorisation);
+  const { is_Authorised } = useSelector(getAuthorisationData);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
   // заменить на userID

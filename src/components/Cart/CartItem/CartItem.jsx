@@ -15,6 +15,7 @@ import {
   addPromocodeCart,
 } from '../../../store/dataCartSlice';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
+import { getCartData } from '../../../store';
 
 function CartItem() {
   const [isChecked, setIsChecked] = useState(true);
@@ -30,7 +31,7 @@ function CartItem() {
     status,
     error,
     is_loading,
-  } = useSelector((state) => state.dataCart);
+  } = useSelector(getCartData);
 
   const isAllChecked = useMemo(
     () => items.every((item) => item.is_selected),

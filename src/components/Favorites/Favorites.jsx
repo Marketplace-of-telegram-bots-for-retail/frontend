@@ -5,11 +5,11 @@ import Cards from '../Cards/Cards';
 import EmptyPage from '../EmptyPage/EmptyPage';
 import { useScroll } from '../../hooks/useScroll';
 import { getMoreFavorites } from '../../store/dataProductsStateSlice';
+import { getProductsData } from '../../store';
 
 const Favorites = () => {
-  const { favoritesNext, favoritesResults, is_loading } = useSelector(
-    (state) => state.dataProductsState
-  );
+  const { favoritesNext, favoritesResults, is_loading } =
+    useSelector(getProductsData);
   const dispatch = useDispatch();
   const { scroll } = useScroll();
 

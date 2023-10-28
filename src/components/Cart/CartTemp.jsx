@@ -13,6 +13,7 @@ import {
   addPromocodeCart,
 } from '../../store/dataCartSlice';
 import CartCard from './CartCard/CartCard';
+import { getCartData } from '../../store';
 
 const CartTemp = () => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const CartTemp = () => {
     status,
     error,
     is_loading,
-  } = useSelector((state) => state.dataCart);
+  } = useSelector(getCartData);
 
   useEffect(() => {
     console.log(

@@ -14,14 +14,14 @@ import {
   getProductsReviews,
   setShowDescription,
 } from '../../store/productCardDataSlice';
-import { selectors } from '../../store';
 import { useScroll } from '../../hooks/useScroll';
+import { getProductCardData } from '../../store';
 
 const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const { productCard, isShowProductImagesPopup, myReview, Images } =
-    useSelector(selectors.getProductCardData);
+    useSelector(getProductCardData);
   // загружаем данные карточки
   useEffect(() => {
     dispatch(getProductCard(id));

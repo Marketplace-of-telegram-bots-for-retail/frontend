@@ -5,9 +5,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Box, Slider } from '@mui/material';
 import { collecPrices } from '../../../store/dataSearchFormSlice';
 import './PriceSlider.css';
+import { getSearchFormData } from '../../../store';
 
 const PriceSlider = () => {
-  const { prices, min_max } = useSelector((state) => state.dataSearchForm);
+  const { prices, min_max } = useSelector(getSearchFormData);
   const { price__min, price__max } = min_max;
   const [value, setValue] = useState([price__min, price__max]);
   const [valueOnBlur, setValueOnBlur] = useState(value);

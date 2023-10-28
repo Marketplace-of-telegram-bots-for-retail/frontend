@@ -4,10 +4,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { CATEGORY_OPTIONS } from '../../../utils/constants';
 import { collectCategories } from '../../../store/dataSearchFormSlice';
 import './Categories.css';
+import { getSearchFormData } from '../../../store';
 
 const Categories = () => {
   const dispatch = useDispatch();
-  const { categories } = useSelector((state) => state.dataSearchForm);
+  const { categories } = useSelector(getSearchFormData);
   const handleCheckboxChange = (event) => {
     const { id, checked } = event.target;
     dispatch(collectCategories({ [id]: checked }));

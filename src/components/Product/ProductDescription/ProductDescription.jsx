@@ -1,12 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './ProductDescription.css';
-// import testVideo from '../../../images/video.jpg';
+import { getProductCardData } from '../../../store';
 
 const ProductDescription = () => {
-  const { description, video } = useSelector(
-    (state) => state.productCardData.productCard
-  );
+  const { description, video } = useSelector(getProductCardData).productCard;
 
   return (
     <div className='product__description'>
