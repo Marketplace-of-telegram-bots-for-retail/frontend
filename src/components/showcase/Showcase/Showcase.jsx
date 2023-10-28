@@ -10,11 +10,11 @@ import Filters from '../Filters/Filters';
 import ErrorPage from '../../ErrorPage/ErrorPage';
 import { useScroll } from '../../../hooks/useScroll';
 import { getMoreProducts } from '../../../store/dataProductsStateSlice';
+import { getProductsData } from '../../../store';
 
 const Showcase = () => {
-  const { next, count, previous, results, is_loading } = useSelector(
-    (state) => state.dataProductsState
-  );
+  const { next, count, previous, results, is_loading } =
+    useSelector(getProductsData);
   const dispatch = useDispatch();
   const { scroll } = useScroll();
   const [isMoreButton, setMoreButtom] = useState(true);

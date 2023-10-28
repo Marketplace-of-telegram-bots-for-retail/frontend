@@ -4,22 +4,14 @@ import { useSelector } from 'react-redux';
 import './Cart.css';
 import CartItem from './CartItem/CartItem';
 import CartEmpty from './CartEmpty/CartEmpty';
-// import CartTemp from './CartTemp';
+import { getCartData } from '../../store';
 
 function Cart() {
-  // const dispatch = useDispatch();
-  const {
-    items
-  } = useSelector((state) => state.dataCart);
-  console.log(items);
-  console.log(items.length);
+  const { items } = useSelector(getCartData);
+
   return (
-    <section className='cart'>
-      {items.length !== 0 ? (
-        <CartItem />
-      ) : (
-        <CartEmpty />
-      )}
+    <section className='content__cart cart'>
+      {items.length !== 0 ? <CartItem /> : <CartEmpty />}
     </section>
   );
 }

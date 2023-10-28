@@ -1,17 +1,24 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './ProductDescription.css';
-import testVideo from '../../../images/video.jpg';
+import { getProductCardData } from '../../../store';
 
-const ProductDescription = ({ card }) => {
-  const { video } = card;
+const ProductDescription = () => {
+  const { description, video } = useSelector(getProductCardData).productCard;
 
   return (
     <div className='product__description'>
-      <p className="product__description-text">{card.description}</p>
-      {video !== '' && (
+      <p className='product__description-text'>{description}</p>
+      {video && (
         <div className='product__description-videos'>
           <h2 className='product__description-heading'>Видеообзор</h2>
-          <iframe className='product__description-link' title='product-video' src={card.video || testVideo} frameBorder='0' allowFullScreen></iframe>
+          <iframe
+            className='product__description-link'
+            title='product-video'
+            src={video}
+            frameBorder='0'
+            allowFullScreen
+          ></iframe>
         </div>
       )}
     </div>

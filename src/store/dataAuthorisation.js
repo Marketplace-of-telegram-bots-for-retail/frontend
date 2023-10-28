@@ -13,8 +13,11 @@ const dataAuthorisation = createSlice({
     logOut(state) {
       state.is_Authorised = false;
     },
+    toggleAuthorise(state) {
+      state.is_Authorised = !state.is_Authorised;
+    },
   },
 });
 
-export const { logOut, authorise } = dataAuthorisation.actions;
+export const { logOut, authorise, toggleAuthorise } = dataAuthorisation.actions;
 export default dataAuthorisation.reducer;

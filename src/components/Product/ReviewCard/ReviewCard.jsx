@@ -1,20 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './ReviewCard.css';
 import { Rating } from '../../Rating/Rating';
 import avatar from '../../../images/Group.svg';
 
 const ReviewCard = ({ review }) => {
-  const [ratingFeedback, setRatingFeedback] = useState('show');
   const date = new Date(review.modified).toLocaleString('ru', {
     day: 'numeric',
     month: 'long',
-    year: 'numeric'
+    year: 'numeric',
   });
   const formattedDate = `${date}`;
-
-  useEffect(() => {
-    setRatingFeedback('without');
-  }, [setRatingFeedback]);
 
   return (
     <li className='product__review'>
@@ -25,10 +20,7 @@ const ReviewCard = ({ review }) => {
         </div>
         <div className='product__review-set'>
           <span className='product__review-date'>{formattedDate}</span>
-          <Rating
-            ratingCard={review.rating}
-            ratingFeedback={ratingFeedback}
-          />
+          <Rating feedbackStars={review.rating} />
         </div>
       </div>
       <p className='product__review-text'>{review.text}</p>

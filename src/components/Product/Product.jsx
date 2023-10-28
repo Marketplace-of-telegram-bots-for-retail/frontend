@@ -1,97 +1,66 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 import './Product.css';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import ProductTitle from './ProductTitle/ProductTitle';
-import ProductInfo from './ProductInfo/ProductInfo';
-import ProductDetails from './ProductDetails/ProductDetails';
 import PopupImage from '../PopupImage/PopupImage';
-import { api } from '../../utils/Api';
+import ProductDetail from './ProductDetail/ProductDetail';
+import ProductPriceBlock from './ProductPriceBlock/ProductPriceBlock';
+import { LikeButton } from '../buttons';
+import { Rating } from '../Rating/Rating';
+import {
+  getProductCard,
+  getProductsReviews,
+  setShowDescription,
+} from '../../store/productCardDataSlice';
+import { useScroll } from '../../hooks/useScroll';
+import { getProductCardData } from '../../store';
 
-const Product = ({ onLike }) => {
+const Product = () => {
   const { id } = useParams();
-  const [card, setCard] = useState({});
-  const [reviews, setReviews] = useState([]);
-  const [review, setReview] = useState({});
-  const [editReview, setEditReview] = useState({});
-  const [showProductPopup, setShowProductPopup] = useState(false);
-  const [state, setState] = useState('description');
-  const [star, setStar] = useState();
-
+  const dispatch = useDispatch();
+  const { productCard, isShowProductImagesPopup, myReview, Images } =
+    useSelector(getProductCardData);
+  // загружаем данные карточки
   useEffect(() => {
-    // заменить на входящий пропсом cb
-    api
-      .getProductId(id)
-      .then((res) => {
-        setCard(res);
-      })
-      .catch(console.error);
+    dispatch(getProductCard(id));
   }, [id]);
 
+  // загрузить или обновить
   useEffect(() => {
-    api
-      .getProductsReviews(id)
-      .then((res) => {
-        setReviews(res);
-      })
-      .catch(console.error);
-  }, [id]);
+    dispatch(getProductsReviews(id));
+  }, [id, myReview]);
 
-  function handleFullScreenClick() {
-    setShowProductPopup(true);
-  }
+  const { executeScroll, elRef } = useScroll();
 
-  function closePopup() {
-    setShowProductPopup(false);
-  }
+  const handleClickRating = useCallback(() => {
+    dispatch(setShowDescription(false));
+    executeScroll();
+  }, [dispatch, executeScroll]);
 
-  function sendFeedback(id, data) {
-    api.postProductsReview(id, data)
-      .then((newReview) => {
-        setReview(newReview);
-        console.log(review);
-      })
-      .catch(console.error);
-  }
-
-  function editFeedback(id, reviewId, data) {
-    api.putProductReviewId(id, reviewId, data)
-      .then((newReview) => {
-        setEditReview(newReview);
-        console.log(editReview);
-      })
-      .catch(console.error);
-  }
-
-  function deleteFeedback(id, reviewId,) {
-    api.deleteProductReview(id, reviewId,)
-      .then(() => {
-        const feedback = reviews.filter((c) => c.id !== id);
-        setReview(feedback);
-      })
-      .catch(console.error);
-  }
-
+  console.log(Images);
   return (
     <section className='product'>
-      <BreadCrumbs card={card} />
-      <ProductTitle card={card} />
-      <ProductInfo card={card} onLike={onLike} setState={setState} setStar={setStar} />
-      <ProductDetails
-        card={card}
-        showProductPopup={showProductPopup}
-        setShowProductPopup={setShowProductPopup}
-        handleFullScreenClick={handleFullScreenClick}
-        reviews={reviews}
-        sendFeedback={sendFeedback}
-        editFeedback={editFeedback}
-        deleteFeedback={deleteFeedback}
-        state={state}
-        setState={setState}
-        star={star}
-        setStar={setStar}
-      />
-      {showProductPopup && <PopupImage card={card} onClose={closePopup} />}
+      <BreadCrumbs />
+      <ProductTitle card={productCard} />
+      <div className='product__good-info'>
+        <Rating
+          ratingCard={productCard.rating}
+          onClickStar={(i) => {
+            handleClickRating(i);
+          }}
+          onClickLabel={() => {
+            handleClickRating();
+          }}
+        />
+        <LikeButton parentClass='product' card={productCard} />
+      </div>
+      <div className='product__good-details'>
+        <ProductDetail scrollRef={elRef} />
+        <ProductPriceBlock card={productCard} />
+      </div>
+      {isShowProductImagesPopup && <PopupImage card={productCard} />}
     </section>
   );
 };

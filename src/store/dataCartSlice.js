@@ -75,7 +75,7 @@ export const selectAllProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.selectAllProductsCart();
-      // console.log(data);
+      console.log(data);
       dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
@@ -88,8 +88,8 @@ export const unselectAllProductsCart = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.unselectAllProductsCart();
-      // console.log(data);
-      dispatch(editCareditCartsStatetsState(data));
+      console.log(data);
+      dispatch(editCartsState(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -128,9 +128,9 @@ export const addPromocodeCart = createAsyncThunk(
 
 const setError = (state, action) => {
   // console.log(action);
-  const errMessage = action.payload.detail || action.payload.message;
+  const errMessage = action.payload.detail || action.payload.message || action.payload;
   console.log(errMessage);
-  state.statu = 'rejected';
+  state.status = 'rejected';
   state.error = errMessage;
 };
 const SetPending = (state) => {
@@ -148,7 +148,8 @@ const dataCartSlice = createSlice({
     cart_id: null,
     total_cost: null,
     total_amount: null,
-    discount_sum: null,
+    discount_amount: null,
+    discount: null,
     items: [],
     status: null,
     error: null,
@@ -159,21 +160,26 @@ const dataCartSlice = createSlice({
       state.cart_id = action.payload[0]?.id || null;
       state.total_cost = action.payload[0]?.total_cost || 0;
       state.total_amount = action.payload[0]?.total_amount || 0;
-      state.discount_sum = action.payload[0]?.discount_sum || null;
+      state.discount_amount = action.payload[0]?.discount_amount || null;
+      state.discount = action.payload[0]?.discount || null;
+
       state.items = action.payload[0]?.items || [];
     },
     editCartsState(state, action) {
       state.cart_id = action.payload.id || null;
       state.total_cost = action.payload.total_cost || 0;
       state.total_amount = action.payload.total_amount || 0;
-      state.discount_sum = action.payload.discount_sum || null;
+      state.discount_amount = action.payload.discount_amount || null;
+      state.discount = action.payload.discount || null;
+
       state.items = action.payload.items || [];
     },
     clearCartsState(state) {
       state.cart_id = null;
       state.total_cost = null;
       state.total_amount = null;
-      state.discount_sum = null;
+      state.discount_amount = null;
+      state.discount = null;
       state.items = [];
     },
   },
