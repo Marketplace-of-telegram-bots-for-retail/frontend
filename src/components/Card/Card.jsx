@@ -3,6 +3,7 @@ import './Card.css';
 import { Rating } from '../Rating/Rating';
 import { CartButton, LikeButton } from '../buttons';
 import PreviewImage from '../PreviewImage/PreviewImage';
+import { convertToLocaleStringRub } from '../../utils/convertToLocaleStringRub';
 
 const Card = ({ card }) => {
   return (
@@ -20,7 +21,7 @@ const Card = ({ card }) => {
         </p>
       </div>
       <div className='card__wrapper'>
-        <p className='card__price'>{`${card?.price.toLocaleString('ru-RU')} ₽`}</p>
+        <p className='card__price'>{convertToLocaleStringRub(card?.price)}</p>
         <CartButton parentClass='card' card={card} />
       </div>
     </div>

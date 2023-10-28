@@ -17,11 +17,11 @@
 .poster__title {
   margin: 0;
   padding: 0;
-  font-size: 1.75rem;
+  font-size: 28px;
   font-style: normal;
   font-weight: 400;
-  line-height: 2.5rem; /* 142.857% */
-  letter-spacing: -0.035rem;
+  line-height: 40px; /* 142.857% */
+  letter-spacing: -0.56px;
 }
 .poster__wrapper {
   width: 100%;
@@ -29,11 +29,11 @@
   display: flex;
   flex-direction: row;
   justify-content: center;
-  margin: 0.625rem 0;
+  margin: 10px 0;
   background-color: #e7e7ffb2;
-  border-radius: 1rem;
+  border-radius: 16px;
   padding: 0;
-  gap: 7.5rem;
+  gap: 80px;
 }
 
 .poster__text-wrapper {
@@ -81,14 +81,25 @@
   background-size: 90px 123px, 74px 103px, 56px 78px, cover;
 }
 .poster__button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0;
+  padding: 0;
+  content: '';
   position: absolute;
-  top: 1rem;
-  right: 1rem;
-  width: 1.5rem;
-  height: 1.5rem;
+  top: 16px;
+  right: 16px;
+  width: 24px;
+  height: 24px;
   margin: 0;
   border: none;
   background: none;
+}
+.poster__button:focus {
+  outline: 0;
+  border-radius: 8px;
+  border: 2px solid var(--Secondary-Accent-Blue-Dark);
 }
 .poster__button-svg {
   fill: var(--Gray-Dark);

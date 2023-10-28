@@ -33,10 +33,15 @@
   --Card-Gray: #dddcdf;
   --Error: #ff2455;
   --Rating: #f1c644;
-  --BG-Purple: #F8F8FF;
+  --BG-Purple: #f8f8ff;
 }
 
 * {
   box-sizing: border-box;
   /* outline: 1px solid pink; */
+}
+
+*:focus {
+  border-radius: 8px;
+  outline: 2px solid var(--Secondary-Accent-Blue-Dark);
 }

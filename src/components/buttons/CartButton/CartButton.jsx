@@ -67,7 +67,7 @@ const CartButton = ({ parentClass, card }) => {
   const cartButton = (
     <button
       className='cart-button__button'
-      type='submit'
+      type='button'
       onClick={() => {
         handleAddProductCart();
       }}

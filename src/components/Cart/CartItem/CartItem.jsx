@@ -16,6 +16,7 @@ import {
 } from '../../../store/dataCartSlice';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { getCartData } from '../../../store';
+import { convertToLocaleStringRub } from '../../../utils/convertToLocaleStringRub';
 
 function CartItem() {
   const [isChecked, setIsChecked] = useState(true);
@@ -118,7 +119,7 @@ function CartItem() {
               </button>
             </div>
           </div>
-          <ul className='cart-card'>
+          <ul className='cart'>
             {items.map((item) => {
               return <CartCard key={item.id} item={item} />;
             })}
@@ -128,9 +129,15 @@ function CartItem() {
           <div className='cart-item__order-price'>
             <div className='cart-item__order-row'>
               <p className='cart-item__price'>Итого:</p>
-              <div className="cart-item__price-block">
-                <span className='cart-item__sum'>{`${(total).toLocaleString('ru-RU')} ₽`}</span>
-                {discount_amount && <span className='cart-item__sum-old'>{`${(total_cost).toLocaleString('ru-RU')} ₽`}</span>}
+              <div className='cart-item__price-block'>
+                <span className='cart-item__sum'>
+                  {convertToLocaleStringRub(total)}
+                </span>
+                {discount_amount && (
+                  <span className='cart-item__sum-old'>
+                    {convertToLocaleStringRub(total_cost)}
+                  </span>
+                )}
               </div>
             </div>
             <p className='cart-item__amount'>{`Бот x ${total_amount}`}</p>
@@ -147,13 +154,19 @@ function CartItem() {
               autoComplete='off'
             ></input>
             <button
-              className={`cart-item__promo-button ${!isValid && 'cart-item__promo-button_disabled'}`}
+              className={`cart-item__promo-button ${
+                !isValid && 'cart-item__promo-button_disabled'
+              }`}
               type='submit'
               onClick={handlePromo}
               disabled={!isValid}
             ></button>
             <span
-              className={`cart-item__promo-error ${discount !== null ? 'cart-item__promo-error_type_green' : 'cart-item__promo-error_type_red'}`}
+              className={`cart-item__promo-error ${
+                discount !== null
+                  ? 'cart-item__promo-error_type_green'
+                  : 'cart-item__promo-error_type_red'
+              }`}
             >
               {discount !== null && message}
               {discount === null && error}
