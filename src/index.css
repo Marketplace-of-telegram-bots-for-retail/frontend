@@ -41,7 +41,7 @@
   /* outline: 1px solid pink; */
 }
 
-*:focus {
+/* *:focus {
   border-radius: 8px;
   outline: 2px solid var(--Secondary-Accent-Blue-Dark);
-}
+} */
