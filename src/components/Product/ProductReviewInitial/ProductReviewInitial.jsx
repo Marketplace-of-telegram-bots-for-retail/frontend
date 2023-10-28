@@ -49,7 +49,9 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
         : setIsDataChanged(false);
     }
     if (!currentReview) {
-      setIsDataChanged(true);
+      values.text && values.text.length > 50
+        ? setIsDataChanged(true)
+        : setIsDataChanged(false);
     }
   }, [currentReview, values.text, star]);
 
@@ -80,7 +82,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
     } else {
       sendFeedback(id, {
         modified: new Date().toJSON(),
-        rating: star,
+        rating: star || 5,
         text: values.text,
       });
       setValues('');
