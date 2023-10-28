@@ -49,7 +49,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
         : setIsDataChanged(false);
     }
     if (!currentReview) {
-      values.text && values.text.length > 50
+      values.text && values.text.length > 5
         ? setIsDataChanged(true)
         : setIsDataChanged(false);
     }
