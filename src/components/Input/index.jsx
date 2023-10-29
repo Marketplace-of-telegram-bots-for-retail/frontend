@@ -23,6 +23,7 @@ export default function Input(props) {
         disabled={props.disabled}
         required={props.required}
       ></input>
+      {props.hint && <div className='input__hint'></div>}
       <span className={`input__message ${props.error ? 'input__message_type_error' : 'input__message_type_hint'}`}>
         {props.error
           ? props.error

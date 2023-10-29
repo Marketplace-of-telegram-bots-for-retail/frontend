@@ -33,6 +33,7 @@ import Salesman from '../Salesman/Salesman';
 import { authorise, logOut } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../profile/user/ProfileForm';
+import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -304,7 +305,11 @@ const App = () => {
             <Route path='/profile/returns' />
             <Route path='/profile/reviews' />
             {/* Роуты продавца. Обернуть в защищенный роут? */}
-            <Route path='/profile/legal-info' />
+            <Route
+              path='/profile/legal-info'
+              // element={<ProfileLegalForm bUpdateProfile={cbUpdateProfile} />}
+              element={<ProfileLegalForm />}
+            />
             <Route path='/profile/products' />
             <Route path='/profile/statistics' />
             <Route path='/profile/promocodes' />
