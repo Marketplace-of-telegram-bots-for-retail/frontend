@@ -1,0 +1,117 @@
+.profile-legal-form__dropdown {
+  margin-bottom: 32px;
+}
+
+.profile-legal-form__dropdown-container {
+  width: 396px;
+  height: 42px;
+  display: flex;
+  justify-content: space-between;
+  cursor: pointer;
+  border: 1px solid rgba(159, 161, 165, 1);
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-top: 5px;
+  position: relative;
+}
+
+.profile-legal-form__dropdown-button {
+  padding: 0;
+  border: none;
+  background: none;
+  color: #1e1e1e;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile-legal-form__dropdown-button-container {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  align-items: center;
+}
+
+.profile-legal-form__dropdown-button-icon {
+  width: 24px;
+  height: 24px;
+  background: center no-repeat url(../../../../images/ic_chevron-down-24.svg);
+}
+
+.profile-legal-form__dropdown-button-hint {
+  width: 20px;
+  height: 20px;
+  background: url(../../../../images/Help.svg), no-repeat, center;
+}
+
+.profile-legal-form__dropdown-list {
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  /* width: 396px; */
+  border-radius: 8px;
+  background: rgba(253, 253, 253, 1);
+  box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.15);
+  margin: 4px 0 0;
+  padding: 0;
+  position: absolute;
+  left: 0px;
+  top: 38px;
+}
+
+.profile-legal-form__dropdown-list-item {
+  z-index: 10;
+  box-sizing: border-box;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 396px;
+  height: 42px;
+  padding: 4px 0 4px 12px;
+  border-bottom: 1px solid var(--Gray-Light, #8e8e8e);
+  background: none;
+  color: #1e1e1e;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  cursor: pointer;
+}
+.profile-legal-form__dropdown-list-item:last-child {
+  border-bottom: none;
+  border-radius: 0px 0px 8px 8px;
+}
+.profile-legal-form__dropdown-list-item:first-child {
+  border-top: none;
+  border-radius: 8px 8px 0px 0px;
+}
+
+.profile-legal-form__dropdown-list-item:hover {
+  background: rgba(178, 176, 255, 1);
+}
+
+.profile-legal-form__dropdown-list-item-title{
+  color: var(--Primary-Black, #1E1E1E);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+}
+
+.profile-legal-form__dropdown-list-item-subtitle{
+  color: var(--Primary-Black, #1E1E1E);
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px; /* 133.333% */
+}
+
+.profile-legal-form__dropdown-list-item-icon {
+  width: 24px;
+  height: 24px;
+  background: center no-repeat url(../../../../images/ic_check-24.svg);
+  position: absolute;
+  right: 12px;
+}

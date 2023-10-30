@@ -3,21 +3,8 @@
 import React, { useState } from 'react';
 
 import './ProfileLegalDropdown.css';
-// import Input from '../../../Input';
-// import ProfileFormButtons from '../../user/ProfileFormButtons';
-
-// import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
-
-// import getChangedData from '../../../../utils/getChangedData';
 
 function ProfileLegalDropdown(props) {
-  // const { values, setValues, onBlur, handleChange, errors, resetForm } =
-  //   useFormWithValidation();
-  // const [isEditing, setIsEditing] = useState(false);
-  // const [userphoto, setUserphoto] = useState(null);
-  // const [isHint, setIsHint] = useState(false);
-  // const [value, setValue] = useState('');
-  // const [organization, setOrganization] = useState(false);
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(0);
 
@@ -25,10 +12,10 @@ function ProfileLegalDropdown(props) {
     setDropdown(index);
   };
 
-  function handleChangeList(evt) {
-    // setValue(evt.target.values);
-    props.setValue(evt);
-  }
+  // function handleChangeList(evt) {
+  //   // setValue(evt.target.values);
+  //   props.setValue(evt);
+  // }
 
   function handleOpen() {
     setOpen(!open);
@@ -42,41 +29,45 @@ function ProfileLegalDropdown(props) {
   };
 
   return (
-    <li className='profile__inputs-list'>
-      <div className={`showcase__dropdown `}>
+    <div className='profile-legal-form__dropdown'>
+      <span className='profile-legal-form__dropdown-input input__name'>{props.inputName}</span>
+      <div className='profile-legal-form__dropdown-container' onClick={() => handleOpen()}>
         <button
-          onClick={() => handleOpen()}
+          // onClick={() => handleOpen()}
           type='button'
-          className='dropdown__button'
+          className='profile-legal-form__dropdown-button'
           // value={props.value}
         >
           {props.dropdown[dropdown].title}
-          <span className='dropdown__button-icon'></span>
-          {props.hint && <span className='input__hint'></span>}
         </button>
+        <div className='profile-legal-form__dropdown-button-container'>
+          <div className='profile-legal-form__dropdown-button-icon'></div>
+          {props.hint && <div className='profile-legal-form__dropdown-button-hint'></div>}
+        </div>
         {open ?
           <ul
-            className={`dropdown__list ${open && 'dropdown_is-open'}`}
-            // className='dropdown__list'
+            className={`profile-legal-form__dropdown-list ${open && 'dropdown_is-open'}`}
             onClick={(e) => {
               handleOverlay(e);
             }}
           >
             {props.organization ?
-              props.dropdown.map((type, b) => (
-                <li className='dropdown__item' key={b} onClick={() => dropdownListClick(b)} value={type.title}>
-                  <div>{type.title}</div>
-                  <span>{type.fullTitle}</span>
+              props.dropdown.map((type, i) => (
+                <li className='profile-legal-form__dropdown-list-item' key={i} onClick={() => dropdownListClick(i)} value={type.title}>
+                  <div className='profile-legal-form__dropdown-list-item-title'>{type.title}</div>
+                  <span className='profile-legal-form__dropdown-list-item-subtitle'>{type.fullTitle}</span>
+                  {props.dropdown[dropdown].title === type.title && <span className='profile-legal-form__dropdown-list-item-icon'></span>}
                 </li>))
               :
-              props.dropdown.map((bank, b) => (
-                <li className='dropdown__item' key={b} onClick={() => dropdownListClick(b)} value={bank.title}>
-                  {bank.title}
+              props.dropdown.map((bank, i) => (
+                <li className='profile-legal-form__dropdown-list-item' key={i} onClick={() => dropdownListClick(i)} value={bank.title}>
+                  <div className='profile-legal-form__dropdown-list-item-title'>{bank.title}</div>
+                  {props.dropdown[dropdown].title === bank.title && <span className='profile-legal-form__dropdown-list-item-icon'></span>}
                 </li>))}
           </ul>
           : null}
       </div>
-    </li>
+    </div>
   );
 }
 

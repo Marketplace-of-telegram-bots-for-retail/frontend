@@ -171,8 +171,17 @@ function ProfileLegalForm() {
             hint={!isHint}
           />
         </li>
-        <li>
-          <Input
+        <li className='profile__inputs-list'>
+          <ProfileLegalDropdown
+            hint={!isHint}
+            organization={!organization}
+            dropdown={typeOfLegal}
+            value={values.type}
+            setValue={handleChangeList}
+            inputName='Тип организации'
+          >
+          </ProfileLegalDropdown>
+          {/* <Input
             name='typeLegal'
             type='text'
             error={errors.typeLegal}
@@ -182,7 +191,7 @@ function ProfileLegalForm() {
             inputName='Тип организации'
             disabled={isEditing}
             hint={!isHint}
-          />
+          /> */}
         </li>
         <li>
           <Input
@@ -198,7 +207,16 @@ function ProfileLegalForm() {
           />
         </li>
         <li>
-          <Input
+          <ProfileLegalDropdown
+            hint={!isHint}
+            organization={organization}
+            dropdown={banks}
+            value={values.bank}
+            inputName='Название банка'
+            setValue={handleChangeList}
+          >
+          </ProfileLegalDropdown>
+          {/* <Input
             name='bank'
             type='text'
             error={errors.bank}
@@ -208,7 +226,7 @@ function ProfileLegalForm() {
             inputName='Название банка'
             disabled={isEditing}
             hint={!isHint}
-          />
+          /> */}
         </li>
         <li>
           <Input
@@ -288,8 +306,6 @@ function ProfileLegalForm() {
             hint={!isHint}
           />
         </li>
-        <ProfileLegalDropdown hint={!isHint} organization={organization} dropdown={banks} value={value} setValue={handleChangeList}></ProfileLegalDropdown>
-        <ProfileLegalDropdown hint={!isHint} organization={!organization} dropdown={typeOfLegal} value={value} setValue={handleChangeList}></ProfileLegalDropdown>
       </ul>
       <button className='profile__legal-add-button' type='button' onClick={handleAddProve}>
         <div className='profile__legal-add-image'></div>
