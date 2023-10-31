@@ -67,10 +67,11 @@ const dataSearchFormSlice = createSlice({
       state.prices = [state.min_max.price__min, state.min_max.price__max];
     },
   },
-  extraReducers: {
-    [getMinMaxCost.pending]: SetPending,
-    [getMinMaxCost.fulfilled]: setFulfilled,
-    [getMinMaxCost.rejected]: setError,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getMinMaxCost.pending, SetPending)
+      .addCase(getMinMaxCost.fulfilled, setFulfilled)
+      .addCase(getMinMaxCost.rejected, setError);
   },
 });
 export const {

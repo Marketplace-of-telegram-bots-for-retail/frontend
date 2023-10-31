@@ -31,7 +31,6 @@ const CartButton = ({ parentClass, card }) => {
       ? dispatch(reduceProductCart(card.id))
       : dispatch(deleteProductCart(card.id));
   };
-  console.log(is_loading, currentCardId);
   const [isDisabled, setDiasabled] = useState(false);
   useEffect(() => {
     is_loading && currentCardId === card.id

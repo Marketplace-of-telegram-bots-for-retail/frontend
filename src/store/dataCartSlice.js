@@ -133,7 +133,7 @@ export const addPromocodeCart = createAsyncThunk(
 const setError = (state, action) => {
   // console.log(action);
   const errMessage =
-    action.payload.detail || action.payload.message || action.payload;
+    action.payload?.detail || action.payload?.message || action?.payload;
   console.log(errMessage);
   state.status = 'rejected';
   state.error = errMessage;
@@ -177,7 +177,7 @@ const dataCartSlice = createSlice({
       state.discount = action.payload[0]?.discount || null;
 
       state.items = action.payload[0]?.items || [];
-      if (action.payload[0].items) {
+      if (action.payload[0]?.items) {
         state.total_quantity = action.payload[0]?.items
           .map((item) => item.quantity)
           .reduce((partialSum, a) => partialSum + a, 0);
@@ -207,42 +207,43 @@ const dataCartSlice = createSlice({
       state.total_quantity = null;
     },
   },
-  extraReducers: {
-    [getCart.pending]: SetPending,
-    [getCart.fulfilled]: setFulfilled,
-    [getCart.rejected]: setError,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCart.pending, SetPending)
+      .addCase(getCart.fulfilled, setFulfilled)
+      .addCase(getCart.rejected, setError)
 
-    [addProductCart.pending]: SetPending,
-    [addProductCart.rejected]: setError,
-    [addProductCart.fulfilled]: setFulfilled,
+      .addCase(addProductCart.pending, SetPending)
+      .addCase(addProductCart.rejected, setError)
+      .addCase(addProductCart.fulfilled, setFulfilled)
 
-    [deleteProductCart.pending]: SetPending,
-    [deleteProductCart.fulfilled]: setFulfilled,
-    [deleteProductCart.rejected]: setError,
+      .addCase(deleteProductCart.pending, SetPending)
+      .addCase(deleteProductCart.fulfilled, setFulfilled)
+      .addCase(deleteProductCart.rejected, setError)
 
-    [reduceProductCart.pending]: SetPending,
-    [reduceProductCart.fulfilled]: setFulfilled,
-    [reduceProductCart.rejected]: setError,
+      .addCase(reduceProductCart.pending, SetPending)
+      .addCase(reduceProductCart.fulfilled, setFulfilled)
+      .addCase(reduceProductCart.rejected, setError)
 
-    [selectProductCart.pending]: SetPending,
-    [selectProductCart.fulfilled]: setFulfilled,
-    [selectProductCart.rejected]: setError,
+      .addCase(selectProductCart.pending, SetPending)
+      .addCase(selectProductCart.fulfilled, setFulfilled)
+      .addCase(selectProductCart.rejected, setError)
 
-    [selectAllProductsCart.pending]: SetPending,
-    [selectAllProductsCart.fulfilled]: setFulfilled,
-    [selectAllProductsCart.rejected]: setError,
+      .addCase(selectAllProductsCart.pending, SetPending)
+      .addCase(selectAllProductsCart.fulfilled, setFulfilled)
+      .addCase(selectAllProductsCart.rejected, setError)
 
-    [unselectAllProductsCart.pending]: SetPending,
-    [unselectAllProductsCart.fulfilled]: setFulfilled,
-    [unselectAllProductsCart.rejected]: setError,
+      .addCase(unselectAllProductsCart.pending, SetPending)
+      .addCase(unselectAllProductsCart.fulfilled, setFulfilled)
+      .addCase(unselectAllProductsCart.rejected, setError)
 
-    [deleteSelectedProductsCart.pending]: SetPending,
-    [deleteSelectedProductsCart.fulfilled]: setFulfilled,
-    [deleteSelectedProductsCart.rejected]: setError,
+      .addCase(deleteSelectedProductsCart.pending, SetPending)
+      .addCase(deleteSelectedProductsCart.fulfilled, setFulfilled)
+      .addCase(deleteSelectedProductsCart.rejected, setError)
 
-    [addPromocodeCart.pending]: SetPending,
-    [addPromocodeCart.fulfilled]: setFulfilled,
-    [addPromocodeCart.rejected]: setError,
+      .addCase(addPromocodeCart.pending, SetPending)
+      .addCase(addPromocodeCart.fulfilled, setFulfilled)
+      .addCase(addPromocodeCart.rejected, setError);
   },
 });
 

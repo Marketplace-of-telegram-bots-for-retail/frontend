@@ -22,7 +22,7 @@
   width: 603px;
   height: 180px;
   background: no-repeat url('../../../images/frame-291.svg');
-  background-size: 497px 180px;
+  background-size: 603px 180px;
   padding: 35px 0 0 77px;
   margin: 25px 34px 47px 0;
 }
@@ -72,12 +72,12 @@
   align-self: flex-start;
 }
 .aft-poster__icon-link {
-  width: 20px;
-  height: 20px;
+  width: 36px;
+  height: 36px;
   margin: 0;
   padding: 0;
   background: center no-repeat url('../../../images/guidance_up-arrow.svg');
-  background-size: 20px 20px;
+  background-size: 36px 36px;
 }
 
 .aft-poster__bot-icon {

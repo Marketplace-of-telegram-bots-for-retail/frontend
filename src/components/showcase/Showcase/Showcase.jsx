@@ -47,7 +47,7 @@ const Showcase = () => {
       <div className='showcase__wrapper'>
         <Filters />
         <div className='showcase__wrap'>
-          {results?.length !== 0 ? (
+          {results.length !== 0 ? (
             <>
               <Dropdown />
               <Cards cards={results} />

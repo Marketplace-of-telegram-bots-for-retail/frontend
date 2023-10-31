@@ -47,7 +47,7 @@ const SearchInputBox = () => {
       />
       {values?.search ? (
         <button
-          class='search__input-clear'
+          className='search__input-clear'
           type='button'
           aria-label='Очистить форму поиска'
           title='Очистить форму поиска'
