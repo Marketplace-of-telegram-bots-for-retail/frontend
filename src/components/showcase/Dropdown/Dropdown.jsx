@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './Dropdown.css';
 import { SORTING_OPTIONS } from '../../../utils/constants';
-import { collecSorting } from '../../../store/dataSearchFormSlice';
+import { setSorting } from '../../../store/dataSearchFormSlice';
 
 const Dropdown = () => {
   const [dropdown, setDropdown] = useState(0);
@@ -18,7 +18,7 @@ const Dropdown = () => {
 
   // Обновляем стейт Redux
   useEffect(() => {
-    dispatch(collecSorting(SORTING_OPTIONS[dropdown].value));
+    dispatch(setSorting(SORTING_OPTIONS[dropdown].value));
   }, [dropdown, dispatch]);
   const handleOverlay = (e) => {
     if (e.target === e.currentTarget) {
@@ -38,7 +38,7 @@ const Dropdown = () => {
         onClick={() => handleOpen()}
       >
         {SORTING_OPTIONS[dropdown].labelName}
-        <span className='dropdown__button-icon'></span>
+        <span className={`dropdown__button-icon ${open && 'dropdown__button-icon_open'}`}></span>
       </button>
       {open ? (
         <ul

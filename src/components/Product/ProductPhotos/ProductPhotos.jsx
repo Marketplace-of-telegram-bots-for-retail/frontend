@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setShowProductImagesPopup } from '../../../store/productCardDataSlice';
@@ -8,7 +9,8 @@ import { getProductCardData } from '../../../store';
 
 const ProductPhotos = () => {
   const dispatch = useDispatch();
-  const { productCard, productImages } = useSelector(getProductCardData);
+  const { productCard, productImages, images } =
+    useSelector(getProductCardData);
   const [offset, setOffset] = useState(0);
   const [visible, setVisible] = useState('initial');
   const imageSize = 162;
@@ -46,23 +48,37 @@ const ProductPhotos = () => {
   }
   return (
     <div className='product-photos'>
-      {productImages.length !== 0 && (
+      {(images.length !== 0 || productImages.length !== 0) && (
         <>
           <ul className='product-photos__photos'>
-            {productImages.length !== 0 &&
-              productImages?.map((item, index) => {
-                return (
-                  <div key={index + Object.keys(item)}>
-                    <img
-                      className='product-photos__photo-small product-photos__photo-small_active'
-                      style={{ transform: `translateY(${offset}px)` }}
-                      src={item[Object.keys(item)]}
-                      onClick={handleSmallImageClick}
-                      alt='Скриншот'
-                    />
-                  </div>
-                );
-              })}
+            {images.length !== 0
+              ? images?.map((item) => {
+                  return (
+                    <div key={item.id}>
+                      <img
+                        className='product-photos__photo-small product-photos__photo-small_active'
+                        style={{ transform: `translateY(${offset}px)` }}
+                        src={item.image}
+                        onClick={handleSmallImageClick}
+                        alt='Скриншот'
+                      />
+                    </div>
+                  );
+                })
+              : productImages.length !== 0 &&
+                productImages?.map((item, index) => {
+                  return (
+                    <div key={index + Object.keys(item)}>
+                      <img
+                        className='product-photos__photo-small product-photos__photo-small_active'
+                        style={{ transform: `translateY(${offset}px)` }}
+                        src={item[Object.keys(item)]}
+                        onClick={handleSmallImageClick}
+                        alt='Скриншот'
+                      />
+                    </div>
+                  );
+                })}
           </ul>
           {visible === 'scroll' && (
             <button
@@ -83,7 +99,7 @@ const ProductPhotos = () => {
             <img
               className='product-photos__photo-big'
               id='product-photos__photo-big'
-              src={productCard.image_1 || testPhoto}
+              src={productCard?.image_1 || images[0]?.image || testPhoto}
               alt={productCard.name}
             />
             <img

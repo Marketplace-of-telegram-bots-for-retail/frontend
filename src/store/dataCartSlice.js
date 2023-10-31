@@ -20,6 +20,7 @@ export const getCart = createAsyncThunk(
 export const addProductCart = createAsyncThunk(
   'dataCart/addProductCart',
   async (id, { rejectWithValue, dispatch }) => {
+    dispatch(setCardIdIsLoading(id));
     try {
       const data = await api.postProductCart(id);
       // console.log(data);
@@ -34,6 +35,7 @@ export const addProductCart = createAsyncThunk(
 export const deleteProductCart = createAsyncThunk(
   'dataCart/deleteProductCart',
   async (id, { rejectWithValue, dispatch }) => {
+    dispatch(setCardIdIsLoading(id));
     try {
       const data = await api.deleteProductCart(id);
       // console.log(data);
@@ -47,6 +49,7 @@ export const deleteProductCart = createAsyncThunk(
 export const reduceProductCart = createAsyncThunk(
   'dataCart/reduceProductCart',
   async (id, { rejectWithValue, dispatch }) => {
+    dispatch(setCardIdIsLoading(id));
     try {
       const data = await api.reduceProductCart(id);
       // console.log(data);
@@ -60,6 +63,7 @@ export const reduceProductCart = createAsyncThunk(
 export const selectProductCart = createAsyncThunk(
   'dataCart/selectProductCart',
   async (id, { rejectWithValue, dispatch }) => {
+    dispatch(setCardIdIsLoading(id));
     try {
       const data = await api.selectProductCart(id);
       // console.log(data);
@@ -128,18 +132,22 @@ export const addPromocodeCart = createAsyncThunk(
 
 const setError = (state, action) => {
   // console.log(action);
-  const errMessage = action.payload.detail || action.payload.message || action.payload;
+  const errMessage =
+    action.payload?.detail || action.payload?.message || action?.payload;
   console.log(errMessage);
   state.status = 'rejected';
   state.error = errMessage;
+  state.currentCardId = null;
 };
 const SetPending = (state) => {
+  // console.log(state, action);
   state.status = 'loading';
   state.is_loading = true;
   state.error = null;
 };
 const setFulfilled = (state) => {
   state.is_loading = false;
+  state.currentCardId = null;
 };
 
 const dataCartSlice = createSlice({
@@ -154,8 +162,13 @@ const dataCartSlice = createSlice({
     status: null,
     error: null,
     is_loading: false,
+    currentCardId: null,
+    total_quantity: null,
   },
   reducers: {
+    setCardIdIsLoading(state, action) {
+      state.currentCardId = action.payload;
+    },
     setCartsState(state, action) {
       state.cart_id = action.payload[0]?.id || null;
       state.total_cost = action.payload[0]?.total_cost || 0;
@@ -164,6 +177,11 @@ const dataCartSlice = createSlice({
       state.discount = action.payload[0]?.discount || null;
 
       state.items = action.payload[0]?.items || [];
+      if (action.payload[0]?.items) {
+        state.total_quantity = action.payload[0]?.items
+          .map((item) => item.quantity)
+          .reduce((partialSum, a) => partialSum + a, 0);
+      }
     },
     editCartsState(state, action) {
       state.cart_id = action.payload.id || null;
@@ -173,6 +191,11 @@ const dataCartSlice = createSlice({
       state.discount = action.payload.discount || null;
 
       state.items = action.payload.items || [];
+      if (action.payload.items) {
+        state.total_quantity = action.payload?.items
+          .map((item) => item.quantity)
+          .reduce((partialSum, a) => partialSum + a, 0);
+      }
     },
     clearCartsState(state) {
       state.cart_id = null;
@@ -181,47 +204,53 @@ const dataCartSlice = createSlice({
       state.discount_amount = null;
       state.discount = null;
       state.items = [];
+      state.total_quantity = null;
     },
   },
-  extraReducers: {
-    [getCart.pending]: SetPending,
-    [getCart.fulfilled]: setFulfilled,
-    [getCart.rejected]: setError,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getCart.pending, SetPending)
+      .addCase(getCart.fulfilled, setFulfilled)
+      .addCase(getCart.rejected, setError)
 
-    [addProductCart.pending]: SetPending,
-    [addProductCart.rejected]: setError,
-    [addProductCart.fulfilled]: setFulfilled,
+      .addCase(addProductCart.pending, SetPending)
+      .addCase(addProductCart.rejected, setError)
+      .addCase(addProductCart.fulfilled, setFulfilled)
 
-    [deleteProductCart.pending]: SetPending,
-    [deleteProductCart.fulfilled]: setFulfilled,
-    [deleteProductCart.rejected]: setError,
+      .addCase(deleteProductCart.pending, SetPending)
+      .addCase(deleteProductCart.fulfilled, setFulfilled)
+      .addCase(deleteProductCart.rejected, setError)
 
-    [reduceProductCart.pending]: SetPending,
-    [reduceProductCart.fulfilled]: setFulfilled,
-    [reduceProductCart.rejected]: setError,
+      .addCase(reduceProductCart.pending, SetPending)
+      .addCase(reduceProductCart.fulfilled, setFulfilled)
+      .addCase(reduceProductCart.rejected, setError)
 
-    [selectProductCart.pending]: SetPending,
-    [selectProductCart.fulfilled]: setFulfilled,
-    [selectProductCart.rejected]: setError,
+      .addCase(selectProductCart.pending, SetPending)
+      .addCase(selectProductCart.fulfilled, setFulfilled)
+      .addCase(selectProductCart.rejected, setError)
 
-    [selectAllProductsCart.pending]: SetPending,
-    [selectAllProductsCart.fulfilled]: setFulfilled,
-    [selectAllProductsCart.rejected]: setError,
+      .addCase(selectAllProductsCart.pending, SetPending)
+      .addCase(selectAllProductsCart.fulfilled, setFulfilled)
+      .addCase(selectAllProductsCart.rejected, setError)
 
-    [unselectAllProductsCart.pending]: SetPending,
-    [unselectAllProductsCart.fulfilled]: setFulfilled,
-    [unselectAllProductsCart.rejected]: setError,
+      .addCase(unselectAllProductsCart.pending, SetPending)
+      .addCase(unselectAllProductsCart.fulfilled, setFulfilled)
+      .addCase(unselectAllProductsCart.rejected, setError)
 
-    [deleteSelectedProductsCart.pending]: SetPending,
-    [deleteSelectedProductsCart.fulfilled]: setFulfilled,
-    [deleteSelectedProductsCart.rejected]: setError,
+      .addCase(deleteSelectedProductsCart.pending, SetPending)
+      .addCase(deleteSelectedProductsCart.fulfilled, setFulfilled)
+      .addCase(deleteSelectedProductsCart.rejected, setError)
 
-    [addPromocodeCart.pending]: SetPending,
-    [addPromocodeCart.fulfilled]: setFulfilled,
-    [addPromocodeCart.rejected]: setError,
+      .addCase(addPromocodeCart.pending, SetPending)
+      .addCase(addPromocodeCart.fulfilled, setFulfilled)
+      .addCase(addPromocodeCart.rejected, setError);
   },
 });
 
-export const { setCartsState, editCartsState, clearCartsState } =
-  dataCartSlice.actions;
+export const {
+  setCartsState,
+  editCartsState,
+  clearCartsState,
+  setCardIdIsLoading,
+} = dataCartSlice.actions;
 export default dataCartSlice.reducer;

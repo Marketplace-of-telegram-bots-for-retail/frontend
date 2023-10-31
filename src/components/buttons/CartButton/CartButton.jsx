@@ -5,13 +5,14 @@ import IconPlus from '../../../images/ic_plus-24.svg';
 import IconMinus from '../../../images/ic_minus-24.svg';
 import {
   addProductCart,
+  deleteProductCart,
   reduceProductCart,
 } from '../../../store/dataCartSlice';
 import { getCartData } from '../../../store';
 
 const CartButton = ({ parentClass, card }) => {
   const dispatch = useDispatch();
-  const { items, is_loading } = useSelector(getCartData);
+  const { items, is_loading, currentCardId } = useSelector(getCartData);
   const [currentQuantity, setQuantity] = useState(0);
   useEffect(() => {
     if (!card.quantity) {
@@ -26,8 +27,16 @@ const CartButton = ({ parentClass, card }) => {
     dispatch(addProductCart(card.id));
   };
   const handleReduceProductCart = () => {
-    dispatch(reduceProductCart(card.id));
+    currentQuantity > 1
+      ? dispatch(reduceProductCart(card.id))
+      : dispatch(deleteProductCart(card.id));
   };
+  const [isDisabled, setDiasabled] = useState(false);
+  useEffect(() => {
+    is_loading && currentCardId === card.id
+      ? setDiasabled(true)
+      : setDiasabled(false);
+  }, [is_loading, currentCardId, card]);
 
   const cartButtonCounter = (
     <>
@@ -39,7 +48,9 @@ const CartButton = ({ parentClass, card }) => {
         onClick={() => {
           handleReduceProductCart();
         }}
-        disabled={currentQuantity === 1 || is_loading}
+        disabled={
+          isDisabled || (currentQuantity === 1 && parentClass === 'cart')
+        }
       >
         <img alt='минус' src={IconMinus} />
       </button>
@@ -58,7 +69,7 @@ const CartButton = ({ parentClass, card }) => {
         onClick={() => {
           handleAddProductCart();
         }}
-        disabled={is_loading}
+        disabled={isDisabled}
       >
         <img alt='плюс' src={IconPlus} />
       </button>
@@ -71,7 +82,7 @@ const CartButton = ({ parentClass, card }) => {
       onClick={() => {
         handleAddProductCart();
       }}
-      disabled={is_loading}
+      disabled={isDisabled}
     >
       В корзину
     </button>

@@ -20,7 +20,7 @@ import { getProductCardData } from '../../store';
 const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { productCard, isShowProductImagesPopup, myReview, Images } =
+  const { productCard, isShowProductImagesPopup, myReview } =
     useSelector(getProductCardData);
   // загружаем данные карточки
   useEffect(() => {
@@ -39,7 +39,6 @@ const Product = () => {
     executeScroll();
   }, [dispatch, executeScroll]);
 
-  console.log(Images);
   return (
     <section className='product'>
       <BreadCrumbs />

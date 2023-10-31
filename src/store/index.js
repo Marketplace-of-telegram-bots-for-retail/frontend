@@ -5,15 +5,6 @@ import dataCartSliceReducer from './dataCartSlice';
 import dataAuthorisationReducer from './dataAuthorisation';
 import productCardDataReducer from './productCardDataSlice';
 
-export {
-  getProductCardData,
-  getAuthorisationData,
-  getCartData,
-  getProductsData,
-  getSearchFormData,
-} from './selectors';
-export * as selectors from './selectors';
-
 export default configureStore({
   reducer: {
     dataSearchForm: dataSearchFormReducer,
@@ -23,3 +14,11 @@ export default configureStore({
     productCardData: productCardDataReducer,
   },
 });
+export {
+  getProductCardData,
+  getAuthorisationData,
+  getCartData,
+  getProductsData,
+  getSearchFormData,
+} from './selectors';
+export * as selectors from './selectors';
