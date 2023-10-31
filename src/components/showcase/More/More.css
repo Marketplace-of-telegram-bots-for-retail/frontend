@@ -1,12 +1,13 @@
 .more {
-  margin: 2rem auto 1rem;
-  display: grid;
-  justify-content: space-between;
-  gap: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 53px 0 0;
+  height: 24px;
 }
 
 .more__button {
-  font-size: 1rem;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -18,25 +19,9 @@
   padding: 0;
   text-decoration: none;
   cursor: pointer;
-}
-.more__button_back {
-  grid-column: 1;
-}
-.more__button_next {
-  grid-column: 3;
+  transition: all 0.2s;
 }
 .more__button:hover {
   color: var(--Secondary-Accent-Blue-Dark);
-}
-
-.more__page-number {
-  grid-column: 2;
-  margin: 0;
-  padding: 0;
-  font-size: 1rem;
-  font-style: normal;
-  font-weight: 500;
-  line-height: normal;
-  color: var(--Primary-Black);
-  align-items: center;
+  transition: all 0.2s;
 }

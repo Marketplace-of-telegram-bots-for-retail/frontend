@@ -44,18 +44,18 @@ const dataSearchFormSlice = createSlice({
     },
   },
   reducers: {
-    collecSearch(state, action) {
+    setSearch(state, action) {
       state.search = action.payload;
     },
-    collectCategories(state, action) {
+    setCategories(state, action) {
       const newState = action.payload;
       const { categories } = state;
       state.categories = { ...categories, ...newState };
     },
-    collecPrices(state, action) {
+    setPrices(state, action) {
       state.prices = action.payload;
     },
-    collecSorting(state, action) {
+    setSorting(state, action) {
       state.sorting = action.payload;
     },
     ressetFiltersState(state) {
@@ -74,10 +74,10 @@ const dataSearchFormSlice = createSlice({
   },
 });
 export const {
-  collecSearch,
-  collectCategories,
-  collecPrices,
-  collecSorting,
+  setSearch,
+  setCategories,
+  setPrices,
+  setSorting,
   ressetFiltersState,
   setMinMaxCost,
 } = dataSearchFormSlice.actions;

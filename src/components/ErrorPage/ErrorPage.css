@@ -4,6 +4,26 @@
   flex-direction: column;
   margin: 0 auto;
   padding: 64px 0;
+  max-width: 500px;
+  height: 510px;
+}
+.error-page__icon {
+  width: 188px;
+  height: 172px;
+  object-position: bottom;
+  object-fit: contain;
+  margin: 0;
+  padding: 0;
+}
+.error-page__text {
+  margin: 20px 0;
+  padding: 0;
+  color: var(--Primary-Black);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  text-align: center;
 }
 
 .error-page__button-lagre {
@@ -11,7 +31,7 @@
   width: 292px;
   height: 52px;
   padding: 14px 16px;
-  margin: 0;
+  margin: 20px 0;
   justify-content: center;
   align-items: center;
   border-radius: 0.5rem;
@@ -41,12 +61,4 @@
   font-style: normal;
   font-weight: 700;
   line-height: normal;
-}
-
-.error-page__icon {
-  width: 188px;
-  height: 172px;
-  object-fit: cover;
-  margin: 0;
-  padding: 0;
 }

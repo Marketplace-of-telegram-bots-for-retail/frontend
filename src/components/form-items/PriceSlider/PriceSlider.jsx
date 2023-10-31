@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Slider } from '@mui/material';
-import { collecPrices } from '../../../store/dataSearchFormSlice';
+import { setPrices } from '../../../store/dataSearchFormSlice';
 import './PriceSlider.css';
 import { getSearchFormData } from '../../../store';
 
@@ -11,11 +11,15 @@ const PriceSlider = () => {
   const { prices, min_max } = useSelector(getSearchFormData);
   const { price__min, price__max } = min_max;
   const [value, setValue] = useState([price__min, price__max]);
-  const [valueOnBlur, setValueOnBlur] = useState(value);
+  // const [valueOnBlur, setValueOnBlur] = useState(value);
   const dispatch = useDispatch();
 
   const handleChangeSlider = (event, newValue) => {
-    dispatch(collecPrices(newValue));
+    setValue(newValue);
+  };
+
+  const handleOnBlourSleder = () => {
+    dispatch(setPrices(value));
   };
   const handleChange = (e, index) => {
     let inputValue = Number(e.target.value);
@@ -48,9 +52,9 @@ const PriceSlider = () => {
         } else if (index === 1 && updatedValue[0] > updatedValue[1]) {
           updatedValue[0] = updatedValue[1];
         }
-        setValueOnBlur(updatedValue);
+        // setValueOnBlur(updatedValue);
         setValue(updatedValue);
-        dispatch(collecPrices(updatedValue));
+        dispatch(setPrices(updatedValue));
       }
     } else {
       inputValue = 0;
@@ -66,7 +70,7 @@ const PriceSlider = () => {
 
   useEffect(() => {
     setValue(prices);
-    setValueOnBlur(prices);
+    // setValueOnBlur(prices);
   }, [prices]);
   return (
     <div className='filters__price-slider price-slider'>
@@ -74,8 +78,9 @@ const PriceSlider = () => {
 
       <Box className='price-slider__box'>
         <Slider
-          value={valueOnBlur}
+          value={value}
           onChange={handleChangeSlider}
+          onClickCapture={handleOnBlourSleder}
           valueLabelDisplay='off'
           max={price__max}
           min={price__min}
