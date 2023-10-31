@@ -55,7 +55,9 @@ const Showcase = () => {
           ) : (
             count === 0 && <SearchError />
           )}
-          {isMoreButton && <More onClick={() => handleOnMore()} />}
+          {isMoreButton && (
+            <More onClick={() => handleOnMore()} is_loading={is_loading} />
+          )}
           <AftPoster onClick={() => onClickAftPoster()} />
         </div>
       </div>

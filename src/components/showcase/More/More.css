@@ -25,3 +25,7 @@
   color: var(--Secondary-Accent-Blue-Dark);
   transition: all 0.2s;
 }
+.more__button:disabled {
+  color: var(--Secondary-Purple-Light);
+  transition: all 0.2s;
+}
