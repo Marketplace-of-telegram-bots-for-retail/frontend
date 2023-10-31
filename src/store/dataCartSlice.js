@@ -106,7 +106,7 @@ export const deleteSelectedProductsCart = createAsyncThunk(
     try {
       const data = await api.deleteSelectedProductsCart();
       if (data.status === 204) {
-        dispatch(clearCartsState());
+        dispatch(clearCarts());
       } else {
         // console.log(data);
         dispatch(editCartsState(data));
@@ -173,31 +173,30 @@ const dataCartSlice = createSlice({
       state.cart_id = action.payload[0]?.id || null;
       state.total_cost = action.payload[0]?.total_cost || 0;
       state.total_amount = action.payload[0]?.total_amount || 0;
+      state.total_quantity = action.payload[0]?.total_quantity || 0;
       state.discount_amount = action.payload[0]?.discount_amount || null;
       state.discount = action.payload[0]?.discount || null;
-
       state.items = action.payload[0]?.items || [];
-      if (action.payload[0]?.items) {
-        state.total_quantity = action.payload[0]?.items
-          .map((item) => item.quantity)
-          .reduce((partialSum, a) => partialSum + a, 0);
-      }
     },
     editCartsState(state, action) {
-      state.cart_id = action.payload.id || null;
-      state.total_cost = action.payload.total_cost || 0;
-      state.total_amount = action.payload.total_amount || 0;
-      state.discount_amount = action.payload.discount_amount || null;
-      state.discount = action.payload.discount || null;
-
-      state.items = action.payload.items || [];
-      if (action.payload.items) {
-        state.total_quantity = action.payload?.items
-          .map((item) => item.quantity)
-          .reduce((partialSum, a) => partialSum + a, 0);
-      }
+      const {
+        id,
+        total_cost,
+        total_amount,
+        total_quantity,
+        discount_amount,
+        discount,
+        items,
+      } = action.payload;
+      state.cart_id = id || null;
+      state.total_cost = total_cost || 0;
+      state.total_amount = total_amount || 0;
+      state.total_quantity = total_quantity || 0;
+      state.discount_amount = discount_amount || null;
+      state.discount = discount || null;
+      state.items = items || [];
     },
-    clearCartsState(state) {
+    clearCarts(state) {
       state.cart_id = null;
       state.total_cost = null;
       state.total_amount = null;
@@ -250,7 +249,7 @@ const dataCartSlice = createSlice({
 export const {
   setCartsState,
   editCartsState,
-  clearCartsState,
+  clearCarts,
   setCardIdIsLoading,
 } = dataCartSlice.actions;
 export default dataCartSlice.reducer;

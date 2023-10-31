@@ -7,7 +7,7 @@ import {
   cleanLike,
 } from '../../store/dataProductsStateSlice';
 import { getMinMaxCost } from '../../store/dataSearchFormSlice';
-import { getCart } from '../../store/dataCartSlice';
+import { clearCarts, getCart } from '../../store/dataCartSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';
@@ -52,6 +52,22 @@ const App = () => {
   const [queryMessage, setQueryMessage] = useState('');
   const [registerStep, setRegisterStep] = useState(1);
 
+  // очистить очистить хранилище
+  const clearStorage = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+  };
+  // очистить стейты авторизации
+  const clearStates = () => {
+    clearStorage();
+    // заменить на  dispatch(logOut());
+    setAuthorized(false);
+    dispatch(logOut());
+    setCurrentUser({});
+    // сбросить стейты избранного
+    dispatch(cleanLike());
+    dispatch(clearCarts());
+  };
   // Загрузить начальные данные
   const getInitialData = useCallback(() => {
     dispatch(getMinMaxCost());
@@ -64,29 +80,36 @@ const App = () => {
     dispatch(getCart());
   }, [dispatch, getInitialData]);
 
+  const cbGetInitialsData = useCallback(() => {
+    if (checkToken()) {
+      getFullData();
+    } else {
+      getInitialData();
+    }
+  }, [getFullData, getInitialData]);
+
   // Чекнуть токен, произвести загрузку данных пользователя, избранных (корзина не добавлена)
   const cbTokenCheck = useCallback(async () => {
     setPreloader(true);
     try {
-      if (checkToken()) {
+      if (!checkToken()) {
+        clearStates();
+      } else {
         const userData = await api.getUserMe();
         if (userData) {
           setCurrentUser(userData);
           setAuthorized(true);
           dispatch(authorise());
-          // Загрузить данные
-          getFullData();
         }
       }
     } catch (err) {
       console.log('cbTokenCheck => getUserMe =>', err); // Консоль
-      setAuthorized(false);
-      dispatch(logOut());
-      getInitialData();
+      clearStates();
     } finally {
+      cbGetInitialsData();
       setPreloader(false);
     }
-  }, [getInitialData, getFullData]);
+  }, [clearStorage, cbGetInitialsData]);
 
   // Выполнить первичную проверку по токену и загрузить данные
   useEffect(() => {
@@ -104,8 +127,8 @@ const App = () => {
     try {
       const res = await api.postLogIn(data);
       setToken(res.auth_token, data.rememberMe);
-      cbTokenCheck();
       // загрузить данные пользователя и чекнуть jwt
+      cbTokenCheck();
     } catch (err) {
       console.log('cbAuth => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -144,20 +167,14 @@ const App = () => {
     setPreloader(true);
     try {
       await api.postLogOut();
-      localStorage.clear();
-      sessionStorage.clear();
-      setAuthorized(false);
-      setCurrentUser({});
-      // загрузить данные пользователя и чекнуть jwt
-      cbTokenCheck();
-      // // Обновить стейты
-      // Загрузить избранные
-      dispatch(cleanLike());
-      // Обновить стейт
-      dispatch(getProducts());
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
+      // очистить хранилище
+      clearStates();
+      // загрузить данные пользователя и чекнуть jwt
+      cbTokenCheck();
+      getInitialData();
       setPreloader(false);
     }
   };

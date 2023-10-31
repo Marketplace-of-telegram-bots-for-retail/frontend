@@ -5,9 +5,7 @@ import { api } from '../utils/Api';
 // обработчик загрузки карточек
 export const getProducts = createAsyncThunk(
   'dataProductsState/getProducts',
-  async (params, { rejectWithValue, dispatch, getState }) => {
-    const { is_loading, status } = getState().dataProductsState;
-    console.log('getProducts', is_loading, status);
+  async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
       dispatch(setProductsState(data));
@@ -19,12 +17,10 @@ export const getProducts = createAsyncThunk(
 // обработчик подгрузки карточек
 export const getMoreProducts = createAsyncThunk(
   'dataProductsState/getMoreProducts',
-  async (params, { rejectWithValue, dispatch, getState }) => {
-    const { is_loading, status } = getState().dataProductsState;
-    console.log('getMoreProducts', is_loading, status);
+  async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
-      dispatch(changeMoreProducts(data));
+      dispatch(setMoreProducts(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -136,13 +132,20 @@ const dataProductsStateSlice = createSlice({
       state.previous = previous;
       state.results = results;
     },
-    changeMoreProducts(state, action) {
+    setMoreProducts(state, action) {
       const { count, next, previous, results } = action.payload;
       state.count = count;
       state.next = next;
       state.previous = previous;
-      state.results.push(...results);
-      // state.results = state.results.concat(results);
+
+      // state.results.push(...results);
+      // защита от дубля карточек
+      const nextPagesResult = results.filter(
+        (item) => !state.results.some((element) => element.id === item.id)
+      );
+      console.log('// защита от дубля карточек', nextPagesResult);
+      // state.results.push(...nextPagesResult);
+      state.results = state.results.concat(nextPagesResult);
     },
     setFavoritesAllStates(state, action) {
       const { count, next, previous, results } = action.payload;
@@ -156,7 +159,15 @@ const dataProductsStateSlice = createSlice({
       state.favoritesCount = count;
       state.favoritesNext = next;
       state.favoritesPrevious = previous;
-      state.favoritesResults.push(...results);
+
+      // state.favoritesResults.push(...results);
+      // защита от дубля карточек
+      const nextPagesResult = results.filter(
+        (item) =>
+          !state.favoritesResults.some((element) => element.id === item.id)
+      );
+      console.log('// защита от дубля карточек', nextPagesResult);
+      state.favoritesResults.push(...nextPagesResult);
     },
     cleanLike(state) {
       state.favoritesCount = 0;
@@ -189,7 +200,7 @@ export const {
   toggleLike,
   deleteLikeInFavorites,
   setProductsState,
-  changeMoreProducts,
+  setMoreProducts,
   setFavoritesAllStates,
   setMoreFavorites,
   cleanLike,
