@@ -7,15 +7,11 @@ import './ProfileLegalDropdown.css';
 function ProfileLegalDropdown(props) {
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(0);
+  const [showToolTip, setShowToolTip] = useState(false);
 
   const dropdownListClick = (index) => {
     setDropdown(index);
   };
-
-  // function handleChangeList(evt) {
-  //   // setValue(evt.target.values);
-  //   props.setValue(evt);
-  // }
 
   function handleOpen() {
     setOpen(!open);
@@ -28,21 +24,28 @@ function ProfileLegalDropdown(props) {
     handleOpen();
   };
 
+  const onMouseEnterHandler = () => {
+    setShowToolTip(true);
+  };
+  const onMouseLeaveHandler = () => {
+    setShowToolTip(false);
+  };
+
   return (
     <div className='profile-legal-form__dropdown'>
       <span className='profile-legal-form__dropdown-input input__name'>{props.inputName}</span>
       <div className='profile-legal-form__dropdown-container' onClick={() => handleOpen()}>
         <button
-          // onClick={() => handleOpen()}
           type='button'
           className='profile-legal-form__dropdown-button'
-          // value={props.value}
         >
           {props.dropdown[dropdown].title}
         </button>
         <div className='profile-legal-form__dropdown-button-container'>
           <div className='profile-legal-form__dropdown-button-icon'></div>
-          {props.hint && <div className='profile-legal-form__dropdown-button-hint'></div>}
+          {props.hint && <div className='profile-legal-form__dropdown-button-hint' onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
+            {showToolTip && <div className='profile-legal-form__dropdown-button-tooltip'>{props.text}</div>}
+            </div>}
         </div>
         {open ?
           <ul

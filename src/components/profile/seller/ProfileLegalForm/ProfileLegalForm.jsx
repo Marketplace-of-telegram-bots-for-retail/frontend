@@ -9,7 +9,7 @@ import ProfileAvatar from '../../user/ProfileAvatar';
 import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import ProfileLegalDropdown from '../ProfileLegalDropDown/ProfileLegalDropdown';
-// import getChangedData from '../../../../utils/getChangedData';
+import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
 
 function ProfileLegalForm() {
   const currentUser = useContext(CurrentUserContext);
@@ -27,53 +27,6 @@ function ProfileLegalForm() {
   function handleChangeList(evt) {
     setValue(evt.target.values);
   }
-  const typeOfLegal = [
-    {
-      title: 'ООО',
-      fullTitle: 'Общество с ограниченной ответственностью'
-    },
-    {
-      title: 'ИП',
-      fullTitle: 'Индивидуальный предприниматель'
-    },
-    {
-      title: 'ОАО',
-      fullTitle: 'Открытое акционерное общество'
-    },
-    {
-      title: 'АО',
-      fullTitle: 'Акционерное общество'
-    },
-    {
-      title: 'ПАО',
-      fullTitle: 'Публичное акционерное общество'
-    },
-    {
-      title: 'ПК',
-      fullTitle: 'Производственный кооператив'
-    }
-  ];
-
-  const banks = [
-    {
-      title: 'Сбербанк',
-    },
-    {
-      title: 'Тинькофф банк',
-    },
-    {
-      title: 'Альфа-Банк',
-    },
-    {
-      title: 'ВТБ банк',
-    },
-    {
-      title: 'Газпромбанк',
-    },
-    {
-      title: 'Райффайзен Банк',
-    }
-  ];
 
   useEffect(() => {
     resetForm();
@@ -131,7 +84,6 @@ function ProfileLegalForm() {
             onBlur={onBlur}
             inputName='Имя'
             disabled={!isEditing}
-            // hint={() => setIsHint(true)}
           />
         </li>
         <li>
@@ -169,6 +121,8 @@ function ProfileLegalForm() {
             inputName='Название магазина'
             disabled={isEditing}
             hint={!isHint}
+            text={textTooltip.nameShop}
+            requared
           />
         </li>
         <li className='profile__inputs-list'>
@@ -179,19 +133,9 @@ function ProfileLegalForm() {
             value={values.type}
             setValue={handleChangeList}
             inputName='Тип организации'
+            text={textTooltip.typeLegal}
           >
           </ProfileLegalDropdown>
-          {/* <Input
-            name='typeLegal'
-            type='text'
-            error={errors.typeLegal}
-            value={values.typeLegal ?? ''}
-            onChange={handleChange}
-            onBlur={onBlur}
-            inputName='Тип организации'
-            disabled={isEditing}
-            hint={!isHint}
-          /> */}
         </li>
         <li>
           <Input
@@ -204,6 +148,8 @@ function ProfileLegalForm() {
             inputName='Название организации'
             disabled={isEditing}
             hint={!isHint}
+            text={textTooltip.nameLegal}
+            required
           />
         </li>
         <li>
@@ -214,19 +160,9 @@ function ProfileLegalForm() {
             value={values.bank}
             inputName='Название банка'
             setValue={handleChangeList}
+            text={textTooltip.bank}
           >
           </ProfileLegalDropdown>
-          {/* <Input
-            name='bank'
-            type='text'
-            error={errors.bank}
-            value={values.bank ?? ''}
-            onChange={handleChange}
-            onBlur={onBlur}
-            inputName='Название банка'
-            disabled={isEditing}
-            hint={!isHint}
-          /> */}
         </li>
         <li>
           <Input
@@ -239,6 +175,8 @@ function ProfileLegalForm() {
             inputName='ИНН'
             disabled={isEditing}
             hint={!isHint}
+            required
+            text={textTooltip.inn}
           />
         </li>
         <li>
@@ -252,6 +190,7 @@ function ProfileLegalForm() {
             inputName='КПП'
             disabled={isEditing}
             hint={!isHint}
+            text={textTooltip.kpp}
           />
         </li>
         <li>
@@ -265,6 +204,7 @@ function ProfileLegalForm() {
             inputName='ОГРН'
             disabled={isEditing}
             hint={!isHint}
+            required
           />
         </li>
         <li>
@@ -278,6 +218,8 @@ function ProfileLegalForm() {
             inputName='Расчетный счет'
             disabled={isEditing}
             hint={!isHint}
+            required
+            text={textTooltip.bankAccount}
           />
         </li>
         <li>
@@ -291,6 +233,8 @@ function ProfileLegalForm() {
             inputName='Корреспондентский счет'
             disabled={isEditing}
             hint={!isHint}
+            required
+            text={textTooltip.korrAccount}
           />
         </li>
         <li>
@@ -304,6 +248,7 @@ function ProfileLegalForm() {
             inputName='БИК'
             disabled={isEditing}
             hint={!isHint}
+            required
           />
         </li>
       </ul>

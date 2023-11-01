@@ -6,7 +6,6 @@
 .profile__legal-input {
   width: 16px;
   height: 16px;
-  /* border-radius: 4px; */
   background-color: var(--Primary-Accent, #726EFA);
   cursor: pointer;
 }
