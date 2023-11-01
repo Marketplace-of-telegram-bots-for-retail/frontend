@@ -34,6 +34,7 @@ import { authorise, logOut } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../profile/user/ProfileForm';
 import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
+import Goods from '../profile/goods/Goods';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -327,7 +328,7 @@ const App = () => {
               // element={<ProfileLegalForm bUpdateProfile={cbUpdateProfile} />}
               element={<ProfileLegalForm />}
             />
-            <Route path='/profile/products' />
+            <Route path='/profile/products' element={<Goods />} />
             <Route path='/profile/statistics' />
             <Route path='/profile/promocodes' />
           </Route>
