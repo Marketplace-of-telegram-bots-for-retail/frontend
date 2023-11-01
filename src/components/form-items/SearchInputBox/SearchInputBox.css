@@ -1,0 +1,89 @@
+.search {
+  position: relative;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 52px;
+  box-sizing: border-box;
+}
+.search__input::-webkit-search-cancel-button,
+.search__input::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+.search__input {
+  padding: 14px 16px 14px 16px;
+  border-radius: 8px;
+  border: 2px solid var(--Primary-Accent);
+  color: var(--Primary-Black);
+  width: 100%;
+  height: 100%;
+  text-align: left;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  transition: all 0.2s;
+  min-height: 22px;
+}
+.search__input:focus,
+.search__input:hover {
+  outline: 0;
+  border-radius: 8px;
+  border: 2px solid var(--Secondary-Accent-Blue-Dark);
+  transition: all 0.2s;
+}
+.search__input::placeholder {
+  color: var(--Gray-Medium);
+  padding-left: 38px;
+  background: 0 50% no-repeat url(../../../images/images-new/ic_search-24.svg);
+  background-size: 24px;
+  transition: all 0.2s;
+}
+.search__input:hover::placeholder {
+  transition: all 0.2s;
+  background: 0 50% no-repeat
+    url(../../../images/images-new/ic_search-24_blue-dark.svg);
+}
+.search__input:focus::placeholder {
+  color: transparent;
+}
+.search__input:focus::-webkit-input-placeholder {
+  color: transparent;
+  background: none;
+}
+.search__input:focus:-moz-placeholder {
+  color: transparent;
+  background: none;
+} /* FF 4-18 */
+.search__input:focus::-moz-placeholder {
+  color: transparent;
+  background: none;
+} /* FF 19+ */
+.search__input:focus:-ms-input-placeholder {
+  color: transparent;
+  background: none;
+} /* IE 10+ */
+
+.search__input-clear {
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  content: '';
+  top: 17px;
+  right: 17px;
+  height: 18px;
+  width: 18px;
+  border: none;
+  outline: none;
+  background: 0 center no-repeat
+    url(../../../images/images-new/ic_cross-18-Gray-Additional.svg);
+  background-size: 18px 18px;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.search__input-clear:hover {
+  background: 0 center no-repeat
+    url(../../../images/images-new/ic_cross-18-Gray-Dark.svg);
+  transition: all 0.2s;
+}

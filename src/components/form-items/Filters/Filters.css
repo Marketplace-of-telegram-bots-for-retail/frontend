@@ -16,8 +16,8 @@
   width: 100%;
   padding: 10px;
   border-radius: 8px;
-  border: 2px solid var(--Secondary-Purple-Light);
-  color: var(--Secondary-Purple-Light);
+  border: 2px solid var(--Primary-Accent);
+  color: var(--Primary-Accent);
   text-align: center;
   font-size: 18px;
   font-style: normal;
@@ -27,11 +27,14 @@
   cursor: pointer;
 }
 
-.filters__submit-button:hover {
+.filters__submit-button:hover,
+.filters__submit-button:focus {
+  outline: none;
   color: var(--Secondary-Accent-Blue-Dark);
   border: 2px solid var(--Secondary-Accent-Blue-Dark);
 }
 .filters__submit-button:disabled {
   color: var(--Secondary-Purple-Light);
   border: 2px solid var(--Secondary-Purple-Light);
+  cursor: default;
 }

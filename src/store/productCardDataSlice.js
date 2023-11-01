@@ -94,7 +94,7 @@ const productCardDataSlice = createSlice({
   initialState: {
     productCard: {},
     productImages: [],
-    Images: [],
+    images: [],
     productReviews: [],
     myReview: {},
     isShowProductImagesPopup: false,
@@ -111,9 +111,9 @@ const productCardDataSlice = createSlice({
       state.isShowProductImagesPopup = false;
       state.isShowDescription = true;
       // получить массив ссылок на изображение
+      state.images = action.payload?.images;
+      console.log(action.payload?.images);
       const newImages = Object.keys(action.payload)
-        // .filter((key) => key.includes('image_') && action.payload[key] !== null)
-        // .map((key) => action.payload[key]);
         .filter((key) => key.includes('image_') && action.payload[key] !== null)
         .map((key) => {
           return { [key]: action.payload[key] };
@@ -139,26 +139,27 @@ const productCardDataSlice = createSlice({
       state.isShowDescription = action.payload;
     },
   },
-  extraReducers: {
-    [getProductCard.pending]: SetPending,
-    [getProductCard.fulfilled]: setFulfilled,
-    [getProductCard.rejected]: setError,
+  extraReducers: (builder) => {
+    builder
+      .addCase(getProductCard.pending, SetPending)
+      .addCase(getProductCard.fulfilled, setFulfilled)
+      .addCase(getProductCard.rejected, setError)
 
-    [getProductsReviews.pending]: SetPending,
-    [getProductsReviews.fulfilled]: setFulfilled,
-    [getProductsReviews.rejected]: setError,
+      .addCase(getProductsReviews.pending, SetPending)
+      .addCase(getProductsReviews.fulfilled, setFulfilled)
+      .addCase(getProductsReviews.rejected, setError)
 
-    [sendProductReview.pending]: SetPending,
-    [sendProductReview.fulfilled]: setFulfilled,
-    [sendProductReview.rejected]: setError,
+      .addCase(sendProductReview.pending, SetPending)
+      .addCase(sendProductReview.fulfilled, setFulfilled)
+      .addCase(sendProductReview.rejected, setError)
 
-    [changeProductReview.pending]: SetPending,
-    [changeProductReview.fulfilled]: setFulfilled,
-    [changeProductReview.rejected]: setError,
+      .addCase(changeProductReview.pending, SetPending)
+      .addCase(changeProductReview.fulfilled, setFulfilled)
+      .addCase(changeProductReview.rejected, setError)
 
-    [deleteProductReview.pending]: SetPending,
-    [deleteProductReview.fulfilled]: setFulfilled,
-    [deleteProductReview.rejected]: setError,
+      .addCase(deleteProductReview.pending, SetPending)
+      .addCase(deleteProductReview.fulfilled, setFulfilled)
+      .addCase(deleteProductReview.rejected, setError);
   },
 });
 

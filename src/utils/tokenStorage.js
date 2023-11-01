@@ -20,7 +20,8 @@ export const setToken = (token, rememberMe) => {
 export const checkToken = () => {
   const jwt = getToken();
   if (!jwt) {
-    throw new Error('Ошибка, нет токена');
+    // throw new Error('Ошибка, нет токена');
+    return false;
   }
   return jwt;
 };

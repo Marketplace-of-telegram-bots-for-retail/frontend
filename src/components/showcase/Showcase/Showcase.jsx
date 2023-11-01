@@ -4,10 +4,10 @@ import './Showcase.css';
 import Dropdown from '../Dropdown/Dropdown';
 import Cards from '../../Cards/Cards';
 import More from '../More/More';
+import SearchError from '../../errorPages/SearchError/SearchError';
 import { AftPoster } from '../../posters';
 import Title from '../../Title/Title';
-import Filters from '../Filters/Filters';
-import ErrorPage from '../../ErrorPage/ErrorPage';
+import Filters from '../../form-items/Filters/Filters';
 import { useScroll } from '../../../hooks/useScroll';
 import { getMoreProducts } from '../../../store/dataProductsStateSlice';
 import { getProductsData } from '../../../store';
@@ -47,16 +47,18 @@ const Showcase = () => {
       <div className='showcase__wrapper'>
         <Filters />
         <div className='showcase__wrap'>
-          {results?.length !== 0 ? (
+          {results.length !== 0 ? (
             <>
               <Dropdown />
               <Cards cards={results} />
             </>
           ) : (
-            count === 0 && !is_loading && <ErrorPage botNotFound />
+            count === 0 && <SearchError />
           )}
-          {isMoreButton && <More onClick={() => handleOnMore()} />}
-          {!is_loading && <AftPoster onClick={() => onClickAftPoster()} />}
+          {isMoreButton && (
+            <More onClick={() => handleOnMore()} is_loading={is_loading} />
+          )}
+          <AftPoster onClick={() => onClickAftPoster()} />
         </div>
       </div>
     </section>
