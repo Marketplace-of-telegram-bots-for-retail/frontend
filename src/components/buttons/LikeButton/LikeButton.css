@@ -5,8 +5,8 @@
   z-index: 2;
   margin: 0;
   padding: 0;
-  width: 1.5rem;
-  height: 1.5rem;
+  width: 24px;
+  height: 24px;
 }
 
 .like-button {
@@ -28,10 +28,16 @@
   background: none;
 }
 .like-button__icon {
-  width: 1.25rem;
-  height: 1.25rem;
   margin: 0;
   padding: 0;
+}
+.like-button__icon_big {
+  width: 24px;
+  height: 24px;
+}
+.like-button__icon_small {
+  width: 20px;
+  height: 20px;
 }
 .like-button__icon_default {
   fill: var(--Primary-Accent);
@@ -52,7 +58,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  /* Caption 14 */
   font-size: 0.875rem;
   font-style: normal;
   font-weight: 400;

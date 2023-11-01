@@ -27,7 +27,7 @@ const Showcase = () => {
 
   // отслеживание слеживание скрола и загрузка еще
   useEffect(() => {
-    if (!isMoreButton && next && scroll > 70 && !is_loading) {
+    if (!isMoreButton && next && scroll > 75 && !is_loading) {
       handleOnMore();
     }
   }, [scroll]);

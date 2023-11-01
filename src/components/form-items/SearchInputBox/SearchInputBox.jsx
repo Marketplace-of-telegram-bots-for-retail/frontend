@@ -39,7 +39,7 @@ const SearchInputBox = () => {
       <input
         type='search'
         className='search__input'
-        placeholder='Искать бота'
+        placeholder='Поиск бота'
         value={values?.search || ''}
         name='search'
         onChange={handleChange}
