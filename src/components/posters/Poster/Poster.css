@@ -1,11 +1,23 @@
 .content__poster {
-  margin: 1rem var(--s-indent);
+  margin: 16px var(--s-indent);
 }
 
 .poster {
   display: flex;
   flex-direction: row;
   padding: 0;
+}
+.poster__wrapper {
+  width: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 10px 0 14px;
+  background-color: #e7e7ffb2;
+  border-radius: 16px;
+  padding: 0 84px 0 75px;
+  gap: 10px;
 }
 
 .poster__inner-wrapper {
@@ -21,19 +33,7 @@
   font-style: normal;
   font-weight: 400;
   line-height: 40px; /* 142.857% */
-  letter-spacing: -0.56px;
-}
-.poster__wrapper {
-  width: 100%;
-  position: relative;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  margin: 10px 0;
-  background-color: #e7e7ffb2;
-  border-radius: 16px;
-  padding: 0;
-  gap: 80px;
+  letter-spacing: -0.4px;
 }
 
 .poster__text-wrapper {
@@ -41,7 +41,7 @@
   flex-direction: row;
   align-items: center;
   flex-wrap: nowrap;
-  gap: 2rem;
+  gap: 32px;
   margin: 0;
   padding: 0;
 }
@@ -50,11 +50,11 @@
   padding: 0;
   color: var(--Secondary-Accent-Blue-Dark);
   font-family: 'Caveat';
-  font-size: 2.5rem;
+  font-size: 40px;
   font-style: normal;
   font-weight: 400;
-  line-height: 2.5rem; /* 100% */
-  letter-spacing: -0.05rem;
+  line-height: 40px; /* 100% */
+  letter-spacing: -0.8px;
 }
 .poster__curly-icon {
   /* content: ''; */
@@ -70,7 +70,7 @@
   content: '';
   min-width: 410px;
   height: 152px;
-  margin: -0.625rem 0;
+  margin: -10px 0 -14px;
   padding: 0;
   background-image: url('../../../images/vecteezy_3d.png'),
     url('../../../images/vecteezy_3d.png'),
@@ -78,7 +78,8 @@
     url('../../../images/ellipse-30.svg');
   background-repeat: no-repeat;
   background-position: 67px 8px, 165px 28px, 247px 52px, 0 0;
-  background-size: 90px 123px, 74px 103px, 56px 78px, cover;
+  background-size: 90px auto, 74px auto, 56px auto, cover;
+  background-clip: border-box;
 }
 .poster__button {
   display: flex;

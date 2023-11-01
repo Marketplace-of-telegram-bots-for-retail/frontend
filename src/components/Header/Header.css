@@ -18,12 +18,11 @@
 
 .header__link {
   margin: 0;
-  padding: 0;
+  padding: 4px 0;
   text-decoration: none;
-  letter-spacing: var(--letter-space);
   color: var(--Primary-Black);
   text-align: center;
-  font-size: 1rem;
+  font-size: 16px;
   font-style: normal;
   font-weight: 500;
   line-height: normal;
@@ -92,6 +91,7 @@
   margin: 0;
   padding: 0;
   cursor: pointer;
+  object-fit: cover;
 }
 
 .logo {
@@ -108,7 +108,8 @@
   justify-content: center;
   align-items: center;
   gap: 8px;
-  height: 52px;
+  min-height: 52px;
+  min-width: 134px;
   padding: 14px 16px;
   border-radius: 8px;
   background: var(--Primary-Accent);
@@ -116,6 +117,7 @@
   transition: all 0.25s;
   cursor: pointer;
   text-decoration: none;
+  
 }
 .header__button-medium:hover {
   background: var(--Secondary-Accent-Blue-Dark);
@@ -134,7 +136,6 @@
 }
 .header__catalog-text {
   color: var(--Primary-White);
-  letter-spacing: var(--letter-space);
   text-align: center;
   font-size: 18px;
   font-style: normal;
@@ -259,5 +260,4 @@
   font-style: normal;
   font-weight: 700;
   line-height: 20px;
-  letter-spacing: -0.5px;
 }

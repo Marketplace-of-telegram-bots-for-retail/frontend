@@ -4,6 +4,7 @@ import dataProductsStateReduser from './dataProductsStateSlice';
 import dataCartSliceReducer from './dataCartSlice';
 import dataAuthorisationReducer from './dataAuthorisation';
 import productCardDataReducer from './productCardDataSlice';
+import userOrdersDataReducer from './userOrdersDataSlice';
 
 export default configureStore({
   reducer: {
@@ -12,6 +13,7 @@ export default configureStore({
     dataCart: dataCartSliceReducer,
     authorisation: dataAuthorisationReducer,
     productCardData: productCardDataReducer,
+    userOrdersData: userOrdersDataReducer,
   },
 });
 export {

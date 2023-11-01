@@ -158,12 +158,13 @@ const dataCartSlice = createSlice({
     total_amount: null,
     discount_amount: null,
     discount: null,
+    total_quantity: null,
     items: [],
+    itemsForOrder: [],
     status: null,
     error: null,
     is_loading: false,
     currentCardId: null,
-    total_quantity: null,
   },
   reducers: {
     setCardIdIsLoading(state, action) {
@@ -177,6 +178,9 @@ const dataCartSlice = createSlice({
       state.discount_amount = action.payload[0]?.discount_amount || null;
       state.discount = action.payload[0]?.discount || null;
       state.items = action.payload[0]?.items || [];
+      state.itemsForOrder = action.payload[0]?.items.filter(
+        (item) => item.is_selected === true
+      );
     },
     editCartsState(state, action) {
       const {
@@ -195,6 +199,7 @@ const dataCartSlice = createSlice({
       state.discount_amount = discount_amount || null;
       state.discount = discount || null;
       state.items = items || [];
+      state.itemsForOrder = items.filter((item) => item.is_selected === true);
     },
     clearCarts(state) {
       state.cart_id = null;
@@ -204,6 +209,7 @@ const dataCartSlice = createSlice({
       state.discount = null;
       state.items = [];
       state.total_quantity = null;
+      state.itemsForOrder = [];
     },
   },
   extraReducers: (builder) => {
@@ -246,10 +252,6 @@ const dataCartSlice = createSlice({
   },
 });
 
-export const {
-  setCartsState,
-  editCartsState,
-  clearCarts,
-  setCardIdIsLoading,
-} = dataCartSlice.actions;
+export const { setCartsState, editCartsState, clearCarts, setCardIdIsLoading } =
+  dataCartSlice.actions;
 export default dataCartSlice.reducer;
