@@ -2,6 +2,17 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../utils/Api';
 
+const initialState = {
+  allOrders: [],
+  paidOrders: [],
+  unpaidOrders: [],
+  currentOrder: [],
+  newOrder: [],
+  status: null,
+  error: null,
+  is_loading: false,
+};
+
 // обработчик загрузки карточек
 export const getOrdersList = createAsyncThunk(
   'userOrdersData/getOrdersList',
@@ -84,16 +95,7 @@ const setFulfilled = (state) => {
 
 const userOrdersDataSlice = createSlice({
   name: 'userOrdersData',
-  initialState: {
-    allOrders: [],
-    paidOrders: [],
-    unpaidOrders: [],
-    currentOrder: [],
-    newOrder: [],
-    status: null,
-    error: null,
-    is_loading: false,
-  },
+  initialState,
   reducers: {
     setAllOrders(state, action) {
       state.allOrders = action.payload;

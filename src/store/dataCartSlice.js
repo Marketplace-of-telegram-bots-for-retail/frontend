@@ -2,6 +2,21 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../utils/Api';
 
+const initialState = {
+  cart_id: null,
+  total_cost: null,
+  total_amount: null,
+  discount_amount: null,
+  discount: null,
+  total_quantity: null,
+  items: [],
+  itemsForOrder: [],
+  status: null,
+  error: null,
+  is_loading: false,
+  currentCardId: null,
+};
+
 // обработчик загрузки карточек
 export const getCart = createAsyncThunk(
   'dataCart/getCart',
@@ -152,53 +167,50 @@ const setFulfilled = (state) => {
 
 const dataCartSlice = createSlice({
   name: 'dataCart',
-  initialState: {
-    cart_id: null,
-    total_cost: null,
-    total_amount: null,
-    discount_amount: null,
-    discount: null,
-    total_quantity: null,
-    items: [],
-    itemsForOrder: [],
-    status: null,
-    error: null,
-    is_loading: false,
-    currentCardId: null,
-  },
+  initialState,
   reducers: {
     setCardIdIsLoading(state, action) {
       state.currentCardId = action.payload;
     },
     setCartsState(state, action) {
-      state.cart_id = action.payload[0]?.id || null;
-      state.total_cost = action.payload[0]?.total_cost || 0;
-      state.total_amount = action.payload[0]?.total_amount || 0;
-      state.total_quantity = action.payload[0]?.total_quantity || 0;
-      state.discount_amount = action.payload[0]?.discount_amount || null;
-      state.discount = action.payload[0]?.discount || null;
-      state.items = action.payload[0]?.items || [];
-      state.itemsForOrder = action.payload[0]?.items.filter(
-        (item) => item.is_selected === true
-      );
+      const [res] = action.payload;
+      const {
+        id = null,
+        total_cost = null,
+        total_amount = null,
+        total_quantity = null,
+        discount_amount = null,
+        discount = null,
+        items = [],
+      } = res || {};
+
+      state.cart_id = id;
+      state.total_cost = total_cost;
+      state.total_amount = total_amount;
+      state.total_quantity = total_quantity;
+      state.discount_amount = discount_amount;
+      state.discount = discount;
+      state.items = items;
+      state.itemsForOrder = items.filter((item) => item.is_selected === true);
     },
     editCartsState(state, action) {
       const {
-        id,
-        total_cost,
-        total_amount,
-        total_quantity,
-        discount_amount,
-        discount,
-        items,
-      } = action.payload;
-      state.cart_id = id || null;
-      state.total_cost = total_cost || 0;
-      state.total_amount = total_amount || 0;
-      state.total_quantity = total_quantity || 0;
-      state.discount_amount = discount_amount || null;
-      state.discount = discount || null;
-      state.items = items || [];
+        id = null,
+        total_cost = null,
+        total_amount = null,
+        total_quantity = null,
+        discount_amount = null,
+        discount = null,
+        items = [],
+      } = action.payload || {};
+
+      state.cart_id = id;
+      state.total_cost = total_cost;
+      state.total_amount = total_amount;
+      state.total_quantity = total_quantity;
+      state.discount_amount = discount_amount;
+      state.discount = discount;
+      state.items = items;
       state.itemsForOrder = items.filter((item) => item.is_selected === true);
     },
     clearCarts(state) {

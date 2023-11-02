@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Box, Slider } from '@mui/material';
-import { setPrices } from '../../../store/dataSearchFormSlice';
+import { setPrices } from '../../../store/searchFormDataSlice';
 import './PriceSlider.css';
 import { getSearchFormData } from '../../../store';
 

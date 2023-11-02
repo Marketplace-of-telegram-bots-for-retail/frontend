@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './Filters.css';
 import { getSearchFormData } from '../../../store';
-import { ressetFiltersState } from '../../../store/dataSearchFormSlice';
+import { ressetFiltersState } from '../../../store/searchFormDataSlice';
 
 import Categories from '../Categories/Categories';
 import PriceSlider from '../PriceSlider/PriceSlider';

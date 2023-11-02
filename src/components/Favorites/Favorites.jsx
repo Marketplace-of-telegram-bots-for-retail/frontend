@@ -4,7 +4,7 @@ import './Favorites.css';
 import Cards from '../Cards/Cards';
 import EmptyPage from '../EmptyPage/EmptyPage';
 import { useScroll } from '../../hooks/useScroll';
-import { getMoreFavorites } from '../../store/dataProductsStateSlice';
+import { getMoreFavorites } from '../../store/productsDataSlice';
 import { getProductsData } from '../../store';
 
 const Favorites = () => {

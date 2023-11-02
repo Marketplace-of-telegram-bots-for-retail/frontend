@@ -83,14 +83,14 @@ class Api {
   // подставится автоматически из поля email текущего юзера.
   postOrders = () => this._makeRequest('/orders/', 'POST');
   // Получить заказ.
-  getOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'GET');
+  getOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'GET');
   // Удалить заказ.
-  deleteOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'DELETE');
+  deleteOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'DELETE');
 
   // Обновить заказ (в разработке).
-  putOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'PUT');
+  putOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'PUT');
   // Обновить заказ (в разработке).
-  patchOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'PATCH');
+  patchOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'PATCH');
 
   // Вьюсет для модели продуктов.
   getProducts = (params) =>

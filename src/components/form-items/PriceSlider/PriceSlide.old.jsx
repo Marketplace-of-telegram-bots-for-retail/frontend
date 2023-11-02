@@ -4,7 +4,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Box from '@mui/material/Box';
 import Slider from '@mui/material/Slider';
-import { setPrices } from '../../../store/dataSearchFormSlice';
+import { setPrices } from '../../../store/searchFormDataSlice';
 import './PriceSlider.css';
 import { PRICE_LIMIT } from '../../../utils/constants';
 
