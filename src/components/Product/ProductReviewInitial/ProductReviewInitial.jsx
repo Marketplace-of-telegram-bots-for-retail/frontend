@@ -18,7 +18,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
   const [star, setStar] = useState(null);
-  const { is_Authorised } = useSelector(getAuthorisationData);
+  const { isAuthorised } = useSelector(getAuthorisationData);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
   // заменить на userID
@@ -106,7 +106,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
           <span className='product__review-question'>Вам понравился бот?</span>
         )}
         {!isShown &&
-          is_Authorised &&
+          isAuthorised &&
           (!currentReview ? (
             <button
               className='product__review-open'
