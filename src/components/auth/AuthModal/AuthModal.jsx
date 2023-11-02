@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux/es/hooks/useSelector';
 import { useDispatch } from 'react-redux';
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
@@ -56,9 +56,12 @@ const AuthModal = ({
           !isLoginModal ? 'modal__content_type_register' : ''
         }`}
       >
+        {location.pathname === '/reset-password' && (
+          <Link className='modal__link-back' to={-1}></Link>
+        )}
         <h2 className='modal__title'>
           {location.pathname === '/reset-password'
-            ? 'Восстановление пароля'
+            ? 'Восстановление доступа'
             : authTitle}
         </h2>
         <Close className='modal__button_type_close' onClick={onClose} />
@@ -78,6 +81,9 @@ const AuthModal = ({
             queryMessage={queryMessage}
             onClose={onClose}
             setQueryMessage={setQueryMessage}
+            goBack={() => {
+              setGoBack(true);
+            }}
           />
         ) : (
           authModal

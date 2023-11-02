@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import successMessage from '../../../images/pic_letter.svg';
+import successMessage from '../../../images/letter.svg';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import './RegisterSuccessMessage.css';
 
@@ -15,6 +15,7 @@ const RegisterSuccessMessage = (props) => {
         <p className='modal__success-message-caption'>
           Мы отправили подтверждение на вашу почту
         </p>
+        <p className='modal__success-message-email'>{props.value}</p>
         {location.pathname === '/reset-password' &&
           <button
             className='modal__success-message-button'
