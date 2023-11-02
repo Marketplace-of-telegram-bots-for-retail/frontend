@@ -1,5 +1,5 @@
 .filters__price-slider {
-  margin: 16px 0 24px;
+  margin: 0 0 31px;
 }
 .price-slider {
   padding: 0;
@@ -28,7 +28,8 @@
 }
 
 .price-slider__input {
-  padding: 8px 16px;
+  padding: 7px 15px;
+  height: 36px;
   width: 112px;
   color: var(--Primary-Black);
   border-radius: 8px;
@@ -36,7 +37,7 @@
   font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 20px; /* 125% */
+  line-height: 20px;
   transition: all 0.2s;
 }
 .price-slider__input::placeholder {
