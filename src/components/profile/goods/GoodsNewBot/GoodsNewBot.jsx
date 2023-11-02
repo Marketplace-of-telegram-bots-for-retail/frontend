@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import './GoodsNewBot.css';
 import info from '../../../../images/Help.svg';
 import { CATEGORY_OPTIONS } from '../../../../utils/constants';
-import { setCategories } from '../../../../store/dataSearchFormSlice';
 import { getSearchFormData } from '../../../../store';
+import { setCategories } from '../../../../store/searchFormDataSlice';
 
 const GoodsNewBot = () => {
   const dispatch = useDispatch();
