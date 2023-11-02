@@ -30,7 +30,7 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
-import { authorise, logOut } from '../../store/dataAuthorisation';
+import { authorise, logOut, setRegisterStep } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../profile/user/ProfileForm';
 import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
@@ -52,7 +52,6 @@ const App = () => {
   useModal(showAuthModal, setShowAuthModal);
 
   const [queryMessage, setQueryMessage] = useState('');
-  const [registerStep, setRegisterStep] = useState(1);
 
   // очистить очистить хранилище
   const clearStorage = () => {
@@ -66,6 +65,7 @@ const App = () => {
     setAuthorized(false);
     dispatch(logOut());
     setCurrentUser({});
+    dispatch(setRegisterStep(1));
     // сбросить стейты избранного
     dispatch(cleanLike());
     dispatch(clearCarts());
@@ -154,7 +154,7 @@ const App = () => {
       await api.postUser(data);
       cbAuth(data);
       localStorage.removeItem('registerFormData');
-      setRegisterStep(3);
+      dispatch(setRegisterStep(3));
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -260,8 +260,6 @@ const App = () => {
           setShowAuthModal={setShowAuthModal}
           queryMessage={queryMessage}
           setQueryMessage={setQueryMessage}
-          registerStep={registerStep}
-          setRegisterStep={setRegisterStep}
         />
       )}
       <Routes>
@@ -341,8 +339,6 @@ const App = () => {
                 cbRegister={cbRegister}
                 queryMessage={queryMessage}
                 setQueryMessage={setQueryMessage}
-                registerStep={registerStep}
-                setRegisterStep={setRegisterStep}
               />
             }
           />

@@ -26,8 +26,6 @@ const Salesman = (props) => {
           cbRegister={props.cbRegister}
           queryMessage={props.queryMessage}
           setQueryMessage={props.setQueryMessage}
-          registerStep={props.registerStep}
-          setRegisterStep={props.setRegisterStep}
         />
       </div>
     </div>

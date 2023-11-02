@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
+import { getAuthorisationData } from '../../../store';
 
 const AuthForm = ({ children, ...props }) => {
   useEffect(() => {
@@ -10,34 +12,33 @@ const AuthForm = ({ children, ...props }) => {
   }, []);
 
   const location = useLocation();
+  const { registerStep, isLoginModal } = useSelector(getAuthorisationData);
 
-  const buttonSubmitText = props.isLogin
+  const buttonSubmitText = isLoginModal
     ? 'Войти'
-    : (props.registerStep === 1 && 'Далее') ||
-      (props.registerStep === 2 && 'Зарегистрироваться');
+    : (registerStep === 1 && 'Далее') ||
+      (registerStep === 2 && 'Зарегистрироваться');
 
   return (
     <>
-      {!props.isLogin && (
-        <RegisterStepsScale registerStep={props.registerStep} />
-      )}
+      {!isLoginModal && <RegisterStepsScale registerStep={registerStep} />}
       <form className='modal__form' noValidate>
         <div
           className={`modal__inputs ${
-            !props.isLogin && props.registerStep === 1
+            !isLoginModal && registerStep === 1
               ? 'modal__inputs_type_register'
               : ''
           }`}
         >
           {children}
-          {props.isLogin ? (
+          {isLoginModal ? (
             <AuthCheckbox
               checkboxType='remember-me'
               isCheckboxChecked={props.isCheckboxChecked}
               setIsCheckboxChecked={props.setIsCheckboxChecked}
             />
           ) : (
-            props.registerStep === 2 && (
+            registerStep === 2 && (
               <AuthCheckbox
                 checkboxType='privacy-policy'
                 isCheckboxChecked={props.isCheckboxChecked}
@@ -52,8 +53,7 @@ const AuthForm = ({ children, ...props }) => {
           type='submit'
           onClick={props.handleSubmit}
           disabled={
-            !props.isValid ||
-            (props.registerStep === 2 && !props.isCheckboxChecked)
+            !props.isValid || (registerStep === 2 && !props.isCheckboxChecked)
           }
         >
           {location.pathname === '/reset-password'
