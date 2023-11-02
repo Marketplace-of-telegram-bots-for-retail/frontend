@@ -1,16 +1,19 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import './ToggleAuthForm.css';
+import { getAuthorisationData } from '../../../store';
 
-const ToggleAuthForm = ({ isLogin, onClick }) => {
+const ToggleAuthForm = (props) => {
+  const { isLoginModal } = useSelector(getAuthorisationData);
   return (
     <div className='modal__toggle-form'>
       <span className='modal__span'>
-        {isLogin ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
+        {isLoginModal ? 'Нет аккаунта?' : 'Уже есть аккаунт?'}
         <span
           className='modal__span modal__span_link modal__span_type_auth-link'
-          onClick={onClick}
+          onClick={props.onClick}
         >
-          {isLogin ? 'Зарегистрироваться' : 'Войти'}
+          {isLoginModal ? 'Зарегистрироваться' : 'Войти'}
         </span>
       </span>
     </div>

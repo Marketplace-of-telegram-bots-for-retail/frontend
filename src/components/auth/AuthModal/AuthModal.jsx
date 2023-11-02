@@ -9,12 +9,13 @@ import Register from '../Register/Register';
 import './AuthModal.css';
 import Forgot from '../ForgotPassword/ForgotPassword';
 import { getAuthorisationData } from '../../../store';
-import { setRegisterStep } from '../../../store/dataAuthorisation';
+import {
+  setRegisterStep,
+  setIsLoginModal,
+} from '../../../store/dataAuthorisation';
 
 const AuthModal = ({
   onClose,
-  isLogin,
-  setIsLogin,
   cbLogIn,
   cbRegister,
   queryMessage,
@@ -22,27 +23,25 @@ const AuthModal = ({
 }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { registerStep } = useSelector(getAuthorisationData);
+  const { registerStep, isLoginModal } = useSelector(getAuthorisationData);
 
   function handleToggleFormClick() {
-    setIsLogin(false);
+    dispatch(setIsLoginModal(false));
     navigate('/', { replace: true });
   }
 
   const location = useLocation();
-  const authTitle = isLogin ? 'Вход' : 'Регистрация';
-  const authModal = isLogin ? (
+  const authTitle = isLoginModal ? 'Вход' : 'Регистрация';
+  const authModal = isLoginModal ? (
     <Login
-      isLogin={isLogin}
-      onToggleFormClick={() => setIsLogin(false)}
+      onToggleFormClick={() => dispatch(setIsLoginModal(false))}
       cbLogIn={cbLogIn}
       queryMessage={queryMessage}
       setQueryMessage={setQueryMessage}
     />
   ) : (
     <Register
-      isLogin={isLogin}
-      onToggleFormClick={() => setIsLogin(true)}
+      onToggleFormClick={() => dispatch(setIsLoginModal(true))}
       cbRegister={cbRegister}
       onClose={onClose}
       queryMessage={queryMessage}
@@ -54,7 +53,7 @@ const AuthModal = ({
     <div className='modal__container modal'>
       <div
         className={`modal__content ${
-          !isLogin ? 'modal__content_type_register' : ''
+          !isLoginModal ? 'modal__content_type_register' : ''
         }`}
       >
         <h2 className='modal__title'>
@@ -63,7 +62,7 @@ const AuthModal = ({
             : authTitle}
         </h2>
         <Close className='modal__button_type_close' onClick={onClose} />
-        {!isLogin && registerStep === 2 && (
+        {!isLoginModal && registerStep === 2 && (
           <Back
             className='modal__button_type_back'
             onClick={() => {
@@ -74,7 +73,7 @@ const AuthModal = ({
         )}
         {location.pathname === '/reset-password' ? (
           <Forgot
-            isLogin={isLogin}
+            isLogin={isLoginModal}
             onToggleFormClick={handleToggleFormClick}
             queryMessage={queryMessage}
             onClose={onClose}

@@ -31,7 +31,6 @@ const Login = (props) => {
     <>
       <AuthForm
         handleSubmit={handleSubmit}
-        isLogin={props.isLogin}
         isValid={isValid}
         isCheckboxChecked={isCheckboxChecked}
         setIsCheckboxChecked={setIsCheckboxChecked}
@@ -69,7 +68,6 @@ const Login = (props) => {
         Забыли пароль?
       </Link>
       <ToggleAuthForm
-        isLogin={props.isLogin}
         onClick={props.onToggleFormClick}
       />
     </>

@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
 import { ReactComponent as Triangle } from '../../../images/triangle.svg';
+import { setIsLoginModal } from '../../../store/dataAuthorisation';
 
 const AuthButtons = (props) => {
-  const [isLogin, setIsLogin] = useState(true); // true for login, false for signup
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleCloseModal = () => {
     props.setShowAuthButtons(false);
@@ -15,7 +17,7 @@ const AuthButtons = (props) => {
   };
   const handleClickButton = (stateButton) => {
     // stateButton - true for login, false for signup
-    setIsLogin(stateButton);
+    dispatch(setIsLoginModal(stateButton));
     props.setShowAuthModal(true);
     // закрываем предыдущий попап
     props.setShowAuthButtons(false);
@@ -58,8 +60,6 @@ const AuthButtons = (props) => {
     )
   ) : (
     <AuthModal
-      isLogin={isLogin}
-      setIsLogin={setIsLogin}
       onClose={handleCloseModal}
       cbLogIn={props.cbLogIn}
       cbRegister={props.cbRegister}

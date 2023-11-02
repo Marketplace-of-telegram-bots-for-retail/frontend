@@ -6,6 +6,7 @@ const dataAuthorisation = createSlice({
   initialState: {
     is_Authorised: false,
     registerStep: 1,
+    isLoginModal: true,
   },
   reducers: {
     authorise(state) {
@@ -20,8 +21,12 @@ const dataAuthorisation = createSlice({
     setRegisterStep(state, action) {
       state.registerStep = action.payload;
     },
+    setIsLoginModal(state, action) {
+      state.isLoginModal = action.payload;
+    },
   },
 });
 
-export const { logOut, authorise, toggleAuthorise, setRegisterStep } = dataAuthorisation.actions;
+export const { logOut, authorise, toggleAuthorise, setRegisterStep, setIsLoginModal } =
+  dataAuthorisation.actions;
 export default dataAuthorisation.reducer;

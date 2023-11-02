@@ -56,7 +56,6 @@ const Register = (props) => {
             (registerStep === 1 && handleStepOne) ||
             (registerStep === 2 && handleSubmit)
           }
-          isLogin={props.isLogin}
           isValid={isValid}
           registerStep={registerStep}
           isCheckboxChecked={isCheckboxChecked}
@@ -144,7 +143,6 @@ const Register = (props) => {
       )}
       {registerStep !== 3 && (
         <ToggleAuthForm
-          isLogin={props.isLogin}
           onClick={props.onToggleFormClick}
         />
       )}
