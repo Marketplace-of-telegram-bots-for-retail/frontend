@@ -5,7 +5,10 @@ import Input from '../../Input';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 import RegisterSuccessMessage from '../RegisterSuccessMessage/RegisterSuccessMessage';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
-import { setRegisterStep } from '../../../store/dataAuthorisation';
+import {
+  setRegisterStep,
+  setAuthErrorMessage,
+} from '../../../store/dataAuthorisation';
 import { getAuthorisationData } from '../../../store';
 
 const Register = (props) => {
@@ -18,7 +21,7 @@ const Register = (props) => {
 
   const handleInput = (e) => {
     handleChange(e);
-    props.setQueryMessage('');
+    dispatch(setAuthErrorMessage(''));
   };
 
   const handleStepOne = (e) => {
@@ -60,8 +63,6 @@ const Register = (props) => {
           registerStep={registerStep}
           isCheckboxChecked={isCheckboxChecked}
           setIsCheckboxChecked={setIsCheckboxChecked}
-          queryMessage={props.queryMessage}
-          setQueryMessage={props.setQueryMessage}
         >
           {registerStep === 1 && (
             <>
@@ -142,9 +143,7 @@ const Register = (props) => {
         <RegisterSuccessMessage handleClose={props.onClose} />
       )}
       {registerStep !== 3 && (
-        <ToggleAuthForm
-          onClick={props.onToggleFormClick}
-        />
+        <ToggleAuthForm onClick={props.onToggleFormClick} />
       )}
     </>
   );

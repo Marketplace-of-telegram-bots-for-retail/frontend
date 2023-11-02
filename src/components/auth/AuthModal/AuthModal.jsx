@@ -11,15 +11,10 @@ import { getAuthorisationData } from '../../../store';
 import {
   setRegisterStep,
   setIsLoginModal,
+  setAuthErrorMessage,
 } from '../../../store/dataAuthorisation';
 
-const AuthModal = ({
-  onClose,
-  cbLogIn,
-  cbRegister,
-  queryMessage,
-  setQueryMessage,
-}) => {
+const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { registerStep, isLoginModal } = useSelector(getAuthorisationData);
@@ -35,16 +30,12 @@ const AuthModal = ({
     <Login
       onToggleFormClick={() => dispatch(setIsLoginModal(false))}
       cbLogIn={cbLogIn}
-      queryMessage={queryMessage}
-      setQueryMessage={setQueryMessage}
     />
   ) : (
     <Register
       onToggleFormClick={() => dispatch(setIsLoginModal(true))}
       cbRegister={cbRegister}
       onClose={onClose}
-      queryMessage={queryMessage}
-      setQueryMessage={setQueryMessage}
     />
   );
 
@@ -66,7 +57,7 @@ const AuthModal = ({
             className='modal__button_type_back'
             onClick={() => {
               dispatch(setRegisterStep(1));
-              setQueryMessage('');
+              dispatch(setAuthErrorMessage(''));
             }}
           />
         )}
@@ -74,9 +65,7 @@ const AuthModal = ({
           <Forgot
             isLogin={isLoginModal}
             onToggleFormClick={handleToggleFormClick}
-            queryMessage={queryMessage}
             onClose={onClose}
-            setQueryMessage={setQueryMessage}
           />
         ) : (
           authModal

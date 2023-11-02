@@ -24,8 +24,6 @@ const Salesman = (props) => {
           isLogin={false}
           onClose={handleCloseModal}
           cbRegister={props.cbRegister}
-          queryMessage={props.queryMessage}
-          setQueryMessage={props.setQueryMessage}
         />
       </div>
     </div>

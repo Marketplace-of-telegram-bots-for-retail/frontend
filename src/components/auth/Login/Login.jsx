@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import AuthForm from '../AuthForm/AuthForm';
 import Input from '../../Input';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
+import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
 
 const Login = (props) => {
+  const dispatch = useDispatch();
   const { values, onBlur, handleChange, errors, isValid } =
     useFormWithValidation();
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
 
   const handleInput = (e) => {
     handleChange(e);
-    props.setQueryMessage('');
+    dispatch(setAuthErrorMessage(''));
   };
 
   const handleSubmit = (e) => {
@@ -34,8 +37,6 @@ const Login = (props) => {
         isValid={isValid}
         isCheckboxChecked={isCheckboxChecked}
         setIsCheckboxChecked={setIsCheckboxChecked}
-        queryMessage={props.queryMessage}
-        setQueryMessage={props.setQueryMessage}
       >
         <Input
           name='email'
@@ -46,7 +47,7 @@ const Login = (props) => {
           onBlur={onBlur}
           inputName='Почта'
           autoFocus
-          queryMessage={props.queryMessage}
+          // queryMessage={props.queryMessage}
           required
         />
         <Input
@@ -57,7 +58,7 @@ const Login = (props) => {
           onChange={handleInput}
           onBlur={onBlur}
           inputName='Пароль'
-          queryMessage={props.queryMessage}
+          // queryMessage={props.queryMessage}
           required
         />
       </AuthForm>
@@ -67,9 +68,7 @@ const Login = (props) => {
       >
         Забыли пароль?
       </Link>
-      <ToggleAuthForm
-        onClick={props.onToggleFormClick}
-      />
+      <ToggleAuthForm onClick={props.onToggleFormClick} />
     </>
   );
 };

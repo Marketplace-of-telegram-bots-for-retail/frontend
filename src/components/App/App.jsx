@@ -33,6 +33,7 @@ import Salesman from '../Salesman/Salesman';
 import {
   setIsAuthorized,
   setRegisterStep,
+  setAuthErrorMessage,
 } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../profile/user/ProfileForm';
@@ -45,7 +46,7 @@ const App = () => {
 
   const [isPreloader, setPreloader] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
-  const { isAuthorized } = useSelector(getAuthorisationData);
+  const { isAuthorized, isLoginModal } = useSelector(getAuthorisationData);
 
   const dispatch = useDispatch();
 
@@ -54,8 +55,6 @@ const App = () => {
 
   const [showAuthModal, setShowAuthModal] = useState(false);
   useModal(showAuthModal, setShowAuthModal);
-
-  const [queryMessage, setQueryMessage] = useState('');
 
   // очистить очистить хранилище
   const clearStorage = () => {
@@ -133,10 +132,15 @@ const App = () => {
       setToken(res.auth_token, data.rememberMe);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
+      // если мы в модалке логина, то закрываем ее при успешной авторизации
+      if (isLoginModal) {
+        setShowAuthButtons(false);
+        setShowAuthModal(false);
+      }
     } catch (err) {
       console.log('cbAuth => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -145,8 +149,8 @@ const App = () => {
   // Логин
   const cbLogIn = (data) => {
     cbAuth(data);
-    setShowAuthButtons(false);
-    setShowAuthModal(false);
+    // setShowAuthButtons(false);
+    // setShowAuthModal(false);
   };
 
   // Регистрация
@@ -160,7 +164,7 @@ const App = () => {
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -192,7 +196,7 @@ const App = () => {
     } catch (err) {
       console.log('cbChangePassword => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -211,7 +215,7 @@ const App = () => {
     } catch (err) {
       console.log('cbUpdateProfile => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -226,7 +230,7 @@ const App = () => {
     } catch (err) {
       console.log('cbUpdateEmail => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     }
   };
 
@@ -239,7 +243,7 @@ const App = () => {
     } catch (err) {
       console.log('cbDeleteUser => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -259,8 +263,6 @@ const App = () => {
           setShowAuthButtons={setShowAuthButtons}
           showAuthModal={showAuthModal}
           setShowAuthModal={setShowAuthModal}
-          queryMessage={queryMessage}
-          setQueryMessage={setQueryMessage}
         />
       )}
       <Routes>
@@ -334,13 +336,7 @@ const App = () => {
           <Route
             path='/salesman'
             // стоит заглушка
-            element={
-              <Salesman
-                cbRegister={cbRegister}
-                queryMessage={queryMessage}
-                setQueryMessage={setQueryMessage}
-              />
-            }
+            element={<Salesman cbRegister={cbRegister} />}
           />
           <Route
             path='/return'
