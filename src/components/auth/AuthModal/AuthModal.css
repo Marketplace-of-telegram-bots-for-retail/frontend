@@ -98,3 +98,12 @@
   margin-left: 8px;
   font-size: 14px;
 }
+
+.modal__link-back {
+  background: no-repeat center url('../../../images/ic_arrow-24.svg');
+  width: 24px;
+  height: 24px;
+  position: absolute;
+  top: 36px;
+  left: 36px;
+}

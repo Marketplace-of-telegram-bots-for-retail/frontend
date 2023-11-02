@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';
@@ -54,7 +54,8 @@ const AuthModal = ({
           !isLogin ? 'modal__content_type_register' : ''
         }`}
       >
-        <h2 className='modal__title'>{location.pathname === '/reset-password' ? 'Восстановление пароля' : authTitle}</h2>
+        {location.pathname === '/reset-password' && <Link className='modal__link-back' to={-1}></Link>}
+        <h2 className='modal__title'>{location.pathname === '/reset-password' ? 'Восстановление доступа' : authTitle}</h2>
         <Close className='modal__button_type_close' onClick={onClose} />
         {registerStep === 2 && (
           <Back
@@ -69,7 +70,11 @@ const AuthModal = ({
             queryMessage={queryMessage}
             onClose={onClose}
             setQueryMessage={setQueryMessage}
-          /> : (authModal)}
+            goBack={() => {
+              setGoBack(true);
+            }}
+          /> :
+          (authModal)}
         {/* {isLogin ? (
           <Login
             isLogin={isLogin}

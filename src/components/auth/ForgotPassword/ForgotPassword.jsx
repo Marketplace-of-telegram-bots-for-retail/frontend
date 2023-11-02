@@ -30,6 +30,7 @@ const Forgot = (props) => {
       ? <RegisterSuccessMessage
           handleClose={props.onClose}
           handleSubmit={handleSubmit}
+          value={values.email}
       />
       : <>
         <AuthForm
@@ -49,6 +50,7 @@ const Forgot = (props) => {
             onBlur={onBlur}
             inputName='Почта'
             autoFocus
+            placeholder='введите e-mail'
             queryMessage={props.queryMessage}
           />
         </AuthForm>
