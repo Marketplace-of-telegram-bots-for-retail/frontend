@@ -1,11 +1,15 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+import { useDispatch } from 'react-redux';
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './AuthModal.css';
 import Forgot from '../ForgotPassword/ForgotPassword';
+import { getAuthorisationData } from '../../../store';
+import { setRegisterStep } from '../../../store/dataAuthorisation';
 
 const AuthModal = ({
   onClose,
@@ -15,10 +19,10 @@ const AuthModal = ({
   cbRegister,
   queryMessage,
   setQueryMessage,
-  registerStep,
-  setRegisterStep,
 }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { registerStep } = useSelector(getAuthorisationData);
 
   function handleToggleFormClick() {
     setIsLogin(false);
@@ -41,8 +45,6 @@ const AuthModal = ({
       onToggleFormClick={() => setIsLogin(true)}
       cbRegister={cbRegister}
       onClose={onClose}
-      registerStep={registerStep}
-      setRegisterStep={setRegisterStep}
       queryMessage={queryMessage}
       setQueryMessage={setQueryMessage}
     />
@@ -65,7 +67,7 @@ const AuthModal = ({
           <Back
             className='modal__button_type_back'
             onClick={() => {
-              setRegisterStep(1);
+              dispatch(setRegisterStep(1));
               setQueryMessage('');
             }}
           />
