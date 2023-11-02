@@ -4,19 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const dataAuthorisation = createSlice({
   name: 'authorisation',
   initialState: {
-    is_Authorised: false,
+    isAuthorized: false,
     registerStep: 1,
     isLoginModal: true,
   },
   reducers: {
-    authorise(state) {
-      state.is_Authorised = true;
-    },
-    logOut(state) {
-      state.is_Authorised = false;
-    },
-    toggleAuthorise(state) {
-      state.is_Authorised = !state.is_Authorised;
+    setIsAuthorized(state, action) {
+      state.isAuthorized = action.payload;
     },
     setRegisterStep(state, action) {
       state.registerStep = action.payload;
@@ -27,6 +21,6 @@ const dataAuthorisation = createSlice({
   },
 });
 
-export const { logOut, authorise, toggleAuthorise, setRegisterStep, setIsLoginModal } =
+export const { setIsAuthorized, setRegisterStep, setIsLoginModal } =
   dataAuthorisation.actions;
 export default dataAuthorisation.reducer;

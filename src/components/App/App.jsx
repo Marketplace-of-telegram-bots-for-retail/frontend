@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getProducts,
   getFavorites,
@@ -30,18 +30,22 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
-import { authorise, logOut, setRegisterStep } from '../../store/dataAuthorisation';
+import {
+  setIsAuthorized,
+  setRegisterStep,
+} from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../profile/user/ProfileForm';
 import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
 import Goods from '../profile/goods/Goods';
+import { getAuthorisationData } from '../../store';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
 
   const [isPreloader, setPreloader] = useState(false);
-  const [isAuthorized, setAuthorized] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const { isAuthorized } = useSelector(getAuthorisationData);
 
   const dispatch = useDispatch();
 
@@ -62,8 +66,7 @@ const App = () => {
   const clearStates = () => {
     clearStorage();
     // заменить на  dispatch(logOut());
-    setAuthorized(false);
-    dispatch(logOut());
+    dispatch(setIsAuthorized(false));
     setCurrentUser({});
     dispatch(setRegisterStep(1));
     // сбросить стейты избранного
@@ -100,8 +103,7 @@ const App = () => {
         const userData = await api.getUserMe();
         if (userData) {
           setCurrentUser(userData);
-          setAuthorized(true);
-          dispatch(authorise());
+          dispatch(setIsAuthorized(true));
         }
       }
     } catch (err) {
@@ -253,7 +255,6 @@ const App = () => {
         <AuthButtons
           cbLogIn={cbLogIn}
           cbRegister={cbRegister}
-          isAuthorized={isAuthorized}
           showAuthButtons={showAuthButtons}
           setShowAuthButtons={setShowAuthButtons}
           showAuthModal={showAuthModal}
@@ -270,7 +271,6 @@ const App = () => {
             <>
               <Header
                 setShowAuthButtons={setShowAuthButtons}
-                isAuthorized={isAuthorized}
                 isPreloader={isPreloader}
               />
               <Main>

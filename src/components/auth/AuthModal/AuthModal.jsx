@@ -1,7 +1,6 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';

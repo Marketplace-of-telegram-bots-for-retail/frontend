@@ -1,14 +1,16 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
 import { ReactComponent as Triangle } from '../../../images/triangle.svg';
 import { setIsLoginModal } from '../../../store/dataAuthorisation';
+import { getAuthorisationData } from '../../../store';
 
 const AuthButtons = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { isAuthorized } = useSelector(getAuthorisationData);
 
   const handleCloseModal = () => {
     props.setShowAuthButtons(false);
@@ -24,7 +26,7 @@ const AuthButtons = (props) => {
   };
 
   return !props.showAuthModal ? (
-    !props.isAuthorized && (
+    !isAuthorized && (
       <div
         className='auth-buttons page__modal modal'
         onClick={() => {

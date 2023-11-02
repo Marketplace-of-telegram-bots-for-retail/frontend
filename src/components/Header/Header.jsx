@@ -8,13 +8,14 @@ import SearchInputBox from '../form-items/SearchInputBox/SearchInputBox';
 import logo from '../../images/images-new/logo-botmarket.png';
 import { useScroll } from '../../hooks/useScroll';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
-import { getCartData, getProductsData } from '../../store';
+import { getCartData, getProductsData, getAuthorisationData } from '../../store';
 
-const Header = ({ setShowAuthButtons, isAuthorized }) => {
+const Header = ({ setShowAuthButtons }) => {
   const currentUser = useContext(CurrentUserContext);
   const { scrollPosition } = useScroll();
   const { favoritesCount } = useSelector(getProductsData);
   const { total_quantity } = useSelector(getCartData);
+  const { isAuthorized } = useSelector(getAuthorisationData);
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
