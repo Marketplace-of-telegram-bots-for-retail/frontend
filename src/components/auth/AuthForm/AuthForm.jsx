@@ -1,48 +1,43 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
-import { getAuthorisationData } from '../../../store';
-import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
 
 const AuthForm = ({ children, ...props }) => {
-  const dispatch = useDispatch();
-
   useEffect(() => {
-    dispatch(setAuthErrorMessage(''));
+    props.setQueryMessage('');
   }, []);
 
   const location = useLocation();
-  const { registerStep, isLoginModal, authErrorMessage } =
-    useSelector(getAuthorisationData);
 
-  const buttonSubmitText = isLoginModal
+  const buttonSubmitText = props.isLogin
     ? 'Войти'
-    : (registerStep === 1 && 'Далее') ||
-      (registerStep === 2 && 'Зарегистрироваться');
+    : (props.registerStep === 1 && 'Далее') ||
+      (props.registerStep === 2 && 'Зарегистрироваться');
 
   return (
     <>
-      {!isLoginModal && <RegisterStepsScale registerStep={registerStep} />}
+      {!props.isLogin && (
+        <RegisterStepsScale registerStep={props.registerStep} />
+      )}
       <form className='modal__form' noValidate>
         <div
           className={`modal__inputs ${
-            !isLoginModal && registerStep === 1
+            !props.isLogin && props.registerStep === 1
               ? 'modal__inputs_type_register'
               : ''
           }`}
         >
           {children}
-          {isLoginModal ? (
+          {props.isLogin ? (
             <AuthCheckbox
               checkboxType='remember-me'
               isCheckboxChecked={props.isCheckboxChecked}
               setIsCheckboxChecked={props.setIsCheckboxChecked}
             />
           ) : (
-            registerStep === 2 && (
+            props.registerStep === 2 && (
               <AuthCheckbox
                 checkboxType='privacy-policy'
                 isCheckboxChecked={props.isCheckboxChecked}
@@ -51,13 +46,14 @@ const AuthForm = ({ children, ...props }) => {
             )
           )}
         </div>
-        <span className='modal__query-error'>{authErrorMessage}</span>
+        <span className='modal__query-error'>{props.queryMessage}</span>
         <button
           className='modal__button_type_submit'
           type='submit'
           onClick={props.handleSubmit}
           disabled={
-            !props.isValid || (registerStep === 2 && !props.isCheckboxChecked)
+            !props.isValid ||
+            (props.registerStep === 2 && !props.isCheckboxChecked)
           }
         >
           {location.pathname === '/reset-password'
