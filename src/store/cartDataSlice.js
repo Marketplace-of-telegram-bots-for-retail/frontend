@@ -2,9 +2,24 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../utils/Api';
 
+const initialState = {
+  cart_id: null,
+  total_cost: null,
+  total_amount: null,
+  discount_amount: null,
+  discount: null,
+  total_quantity: null,
+  items: [],
+  itemsForOrder: [],
+  status: null,
+  error: null,
+  is_loading: false,
+  currentCardId: null,
+};
+
 // обработчик загрузки карточек
 export const getCart = createAsyncThunk(
-  'dataCart/getCart',
+  'cartData/getCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getCart();
@@ -18,7 +33,7 @@ export const getCart = createAsyncThunk(
 
 // обработчик добавления продукта в корзину или увеличения на 1
 export const addProductCart = createAsyncThunk(
-  'dataCart/addProductCart',
+  'cartData/addProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -33,7 +48,7 @@ export const addProductCart = createAsyncThunk(
 );
 // обработчик удаления продукта из корзины
 export const deleteProductCart = createAsyncThunk(
-  'dataCart/deleteProductCart',
+  'cartData/deleteProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -47,7 +62,7 @@ export const deleteProductCart = createAsyncThunk(
 );
 // обработчик уменьшения продукта в корзине на 1
 export const reduceProductCart = createAsyncThunk(
-  'dataCart/reduceProductCart',
+  'cartData/reduceProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -61,7 +76,7 @@ export const reduceProductCart = createAsyncThunk(
 );
 // Изменить состояние товаров в корзине выбран/не выбран
 export const selectProductCart = createAsyncThunk(
-  'dataCart/selectProductCart',
+  'cartData/selectProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -75,7 +90,7 @@ export const selectProductCart = createAsyncThunk(
 );
 // Выбор всех товаров в корзине
 export const selectAllProductsCart = createAsyncThunk(
-  'dataCart/selectAllProductsCart',
+  'cartData/selectAllProductsCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.selectAllProductsCart();
@@ -88,7 +103,7 @@ export const selectAllProductsCart = createAsyncThunk(
 );
 // Снять выделение со всех товаров в корзине
 export const unselectAllProductsCart = createAsyncThunk(
-  'dataCart/unselectAllProductsCart',
+  'cartData/unselectAllProductsCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.unselectAllProductsCart();
@@ -101,7 +116,7 @@ export const unselectAllProductsCart = createAsyncThunk(
 );
 // Удалить все выбраные товары
 export const deleteSelectedProductsCart = createAsyncThunk(
-  'dataCart/deleteSelectedProductsCart',
+  'cartData/deleteSelectedProductsCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.deleteSelectedProductsCart();
@@ -118,7 +133,7 @@ export const deleteSelectedProductsCart = createAsyncThunk(
 );
 // Ввести промокод
 export const addPromocodeCart = createAsyncThunk(
-  'dataCart/addPromocodeCart',
+  'cartData/addPromocodeCart',
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.addPromocodeCart(data);
@@ -150,55 +165,52 @@ const setFulfilled = (state) => {
   state.currentCardId = null;
 };
 
-const dataCartSlice = createSlice({
-  name: 'dataCart',
-  initialState: {
-    cart_id: null,
-    total_cost: null,
-    total_amount: null,
-    discount_amount: null,
-    discount: null,
-    total_quantity: null,
-    items: [],
-    itemsForOrder: [],
-    status: null,
-    error: null,
-    is_loading: false,
-    currentCardId: null,
-  },
+const cartDataSlice = createSlice({
+  name: 'cartData',
+  initialState,
   reducers: {
     setCardIdIsLoading(state, action) {
       state.currentCardId = action.payload;
     },
     setCartsState(state, action) {
-      state.cart_id = action.payload[0]?.id || null;
-      state.total_cost = action.payload[0]?.total_cost || 0;
-      state.total_amount = action.payload[0]?.total_amount || 0;
-      state.total_quantity = action.payload[0]?.total_quantity || 0;
-      state.discount_amount = action.payload[0]?.discount_amount || null;
-      state.discount = action.payload[0]?.discount || null;
-      state.items = action.payload[0]?.items || [];
-      state.itemsForOrder = action.payload[0]?.items.filter(
-        (item) => item.is_selected === true
-      );
+      const [res] = action.payload;
+      const {
+        id = null,
+        total_cost = null,
+        total_amount = null,
+        total_quantity = null,
+        discount_amount = null,
+        discount = null,
+        items = [],
+      } = res || {};
+
+      state.cart_id = id;
+      state.total_cost = total_cost;
+      state.total_amount = total_amount;
+      state.total_quantity = total_quantity;
+      state.discount_amount = discount_amount;
+      state.discount = discount;
+      state.items = items;
+      state.itemsForOrder = items.filter((item) => item.is_selected === true);
     },
     editCartsState(state, action) {
       const {
-        id,
-        total_cost,
-        total_amount,
-        total_quantity,
-        discount_amount,
-        discount,
-        items,
-      } = action.payload;
-      state.cart_id = id || null;
-      state.total_cost = total_cost || 0;
-      state.total_amount = total_amount || 0;
-      state.total_quantity = total_quantity || 0;
-      state.discount_amount = discount_amount || null;
-      state.discount = discount || null;
-      state.items = items || [];
+        id = null,
+        total_cost = null,
+        total_amount = null,
+        total_quantity = null,
+        discount_amount = null,
+        discount = null,
+        items = [],
+      } = action.payload || {};
+
+      state.cart_id = id;
+      state.total_cost = total_cost;
+      state.total_amount = total_amount;
+      state.total_quantity = total_quantity;
+      state.discount_amount = discount_amount;
+      state.discount = discount;
+      state.items = items;
       state.itemsForOrder = items.filter((item) => item.is_selected === true);
     },
     clearCarts(state) {
@@ -253,5 +265,5 @@ const dataCartSlice = createSlice({
 });
 
 export const { setCartsState, editCartsState, clearCarts, setCardIdIsLoading } =
-  dataCartSlice.actions;
-export default dataCartSlice.reducer;
+  cartDataSlice.actions;
+export default cartDataSlice.reducer;

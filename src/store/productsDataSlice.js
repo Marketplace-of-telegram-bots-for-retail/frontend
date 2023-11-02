@@ -2,9 +2,23 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../utils/Api';
 
+const initialState = {
+  count: 0,
+  next: null,
+  previous: null,
+  results: [],
+  favoritesCount: 0,
+  favoritesNext: null,
+  favoritesPrevious: null,
+  favoritesResults: [],
+  status: null,
+  error: null,
+  is_loading: false,
+};
+
 // обработчик загрузки карточек
 export const getProducts = createAsyncThunk(
-  'dataProductsState/getProducts',
+  'productsData/getProducts',
   async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
@@ -16,7 +30,7 @@ export const getProducts = createAsyncThunk(
 );
 // обработчик подгрузки карточек
 export const getMoreProducts = createAsyncThunk(
-  'dataProductsState/getMoreProducts',
+  'productsData/getMoreProducts',
   async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
@@ -28,7 +42,7 @@ export const getMoreProducts = createAsyncThunk(
 );
 // обработчик загрузки избранных
 export const getFavorites = createAsyncThunk(
-  'dataProductsState/getFavorites',
+  'productsData/getFavorites',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts('?is_favorited=True');
@@ -40,7 +54,7 @@ export const getFavorites = createAsyncThunk(
 );
 // обработчик подгрузки избранных
 export const getMoreFavorites = createAsyncThunk(
-  'dataProductsState/getMoreFavorites',
+  'productsData/getMoreFavorites',
   async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
@@ -52,7 +66,7 @@ export const getMoreFavorites = createAsyncThunk(
 );
 // обработчик лайков и дизлайков
 export const onLike = createAsyncThunk(
-  'dataProductsState/onLike',
+  'productsData/onLike',
   async (card, { rejectWithValue, dispatch }) => {
     let isLiked = card.is_favorited;
     try {
@@ -92,21 +106,9 @@ const setFulfilled = (state) => {
   state.is_loading = false;
 };
 
-const dataProductsStateSlice = createSlice({
-  name: 'dataProductsState',
-  initialState: {
-    count: 0,
-    next: null,
-    previous: null,
-    results: [],
-    favoritesCount: 0,
-    favoritesNext: null,
-    favoritesPrevious: null,
-    favoritesResults: [],
-    status: null,
-    error: null,
-    is_loading: false,
-  },
+const productsDataSlice = createSlice({
+  name: 'productsData',
+  initialState,
   reducers: {
     toggleLike(state, action) {
       // const productCard = state.results.find(
@@ -204,5 +206,5 @@ export const {
   setFavoritesAllStates,
   setMoreFavorites,
   cleanLike,
-} = dataProductsStateSlice.actions;
-export default dataProductsStateSlice.reducer;
+} = productsDataSlice.actions;
+export default productsDataSlice.reducer;

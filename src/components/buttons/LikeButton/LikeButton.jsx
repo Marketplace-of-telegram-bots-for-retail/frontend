@@ -2,7 +2,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { onLike } from '../../../store/dataProductsStateSlice';
+import { onLike } from '../../../store/productsDataSlice';
 import './LikeButton.css';
 import { getAuthorisationData } from '../../../store';
 

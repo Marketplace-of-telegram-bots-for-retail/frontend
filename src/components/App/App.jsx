@@ -5,9 +5,9 @@ import {
   getProducts,
   getFavorites,
   cleanLike,
-} from '../../store/dataProductsStateSlice';
-import { getMinMaxCost } from '../../store/dataSearchFormSlice';
-import { clearCarts, getCart } from '../../store/dataCartSlice';
+} from '../../store/productsDataSlice';
+import { getMinMaxCost } from '../../store/searchFormDataSlice';
+import { clearCarts, getCart } from '../../store/cartDataSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';

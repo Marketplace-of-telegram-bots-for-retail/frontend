@@ -2,6 +2,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../utils/Api';
 
+const initialState = {
+  productCard: {},
+  productImages: [],
+  images: [],
+  productReviews: [],
+  myReview: {},
+  isShowProductImagesPopup: false,
+  isShowDescription: true,
+  reviewsDisplay: false,
+  status: null,
+  error: null,
+  is_loading: false,
+};
 // Получить данные карточки товара
 export const getProductCard = createAsyncThunk(
   'productCardData/getProductCard',
@@ -91,19 +104,7 @@ const setFulfilled = (state) => {
 
 const productCardDataSlice = createSlice({
   name: 'productCardData',
-  initialState: {
-    productCard: {},
-    productImages: [],
-    images: [],
-    productReviews: [],
-    myReview: {},
-    isShowProductImagesPopup: false,
-    isShowDescription: true,
-    reviewsDisplay: false,
-    status: null,
-    error: null,
-    is_loading: false,
-  },
+  initialState,
   reducers: {
     setProductCardState(state, action) {
       state.productCard = action.payload;

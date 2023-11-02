@@ -3,9 +3,20 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { PRICE_LIMIT } from '../utils/constants';
 import { api } from '../utils/Api';
 
+const initialState = {
+  search: null,
+  categories: { 1: false, 2: false, 3: false, 4: false },
+  prices: [0, 0],
+  sorting: null,
+  min_max: {
+    price__min: PRICE_LIMIT.min,
+    price__max: PRICE_LIMIT.max,
+  },
+};
+
 // обработчик загрузки карточек
 export const getMinMaxCost = createAsyncThunk(
-  'dataProductsState/getProducts',
+  'searchFormData/getMinMaxCost',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getMinMaxCost();
@@ -31,18 +42,9 @@ const setFulfilled = (state) => {
   state.is_loading = false;
 };
 
-const dataSearchFormSlice = createSlice({
-  name: 'dataSearchForm',
-  initialState: {
-    search: null,
-    categories: { 1: false, 2: false, 3: false, 4: false },
-    prices: [0, 0],
-    sorting: null,
-    min_max: {
-      price__min: PRICE_LIMIT.min,
-      price__max: PRICE_LIMIT.max,
-    },
-  },
+const searchFormDataSlice = createSlice({
+  name: 'searchFormData',
+  initialState,
   reducers: {
     setSearch(state, action) {
       state.search = action.payload;
@@ -81,5 +83,5 @@ export const {
   setSorting,
   ressetFiltersState,
   setMinMaxCost,
-} = dataSearchFormSlice.actions;
-export default dataSearchFormSlice.reducer;
+} = searchFormDataSlice.actions;
+export default searchFormDataSlice.reducer;
