@@ -1,18 +1,21 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import AuthForm from '../AuthForm/AuthForm';
 import AuthInput from '../AuthInput/AuthInput';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import RegisterSuccessMessage from '../RegisterSuccessMessage/RegisterSuccessMessage';
+import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
 
 const Forgot = (props) => {
+  const dispatch = useDispatch();
   const [successMessage, setSuccessMessage] = useState(false);
   const { values, onBlur, handleChange, errors, isValid } =
     useFormWithValidation();
 
   const handleInput = (e) => {
     handleChange(e);
-    props.setQueryMessage('');
+    dispatch(setAuthErrorMessage(''));
   };
 
   const handleSubmit = (e) => {
@@ -25,6 +28,7 @@ const Forgot = (props) => {
     console.log(formData);
     // props.cbLogIn(formData);
   };
+  
   return (
     successMessage
       ? <RegisterSuccessMessage
@@ -37,8 +41,6 @@ const Forgot = (props) => {
           handleSubmit={handleSubmit}
           isLogin={props.isLogin}
           isValid={isValid}
-          queryMessage={props.queryMessage}
-          setQueryMessage={props.setQueryMessage}
         >
           <AuthInput
             htmlFor='email'
@@ -51,7 +53,7 @@ const Forgot = (props) => {
             inputName='Почта'
             autoFocus
             placeholder='введите e-mail'
-            queryMessage={props.queryMessage}
+            // queryMessage={props.queryMessage}
           />
         </AuthForm>
         <ToggleAuthForm
