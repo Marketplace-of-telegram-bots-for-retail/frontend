@@ -1,5 +1,5 @@
 .filters__categories {
-  margin: 0 0 16px;
+  margin: 0 0 32px;
 }
 
 .categories {
@@ -11,26 +11,27 @@
   font-size: 24px;
   font-style: normal;
   font-weight: 700;
-  line-height: normal;
+  line-height: 36px;
 }
 .categories__input-container {
   display: flex;
   align-items: center;
   height: 39px;
-  max-height: 52px;
+  max-height: 44px;
   margin: 0;
   padding: 0;
 }
 
 .categories__label {
+  margin: 0;
+  padding: 10px 0 10px;
   color: var(--Primary-Black);
   text-overflow: ellipsis;
   overflow: hidden;
   font-size: 16px;
   font-style: normal;
   font-weight: 500;
-  line-height: normal;
-  padding: 8px 0 7px;
+  line-height: 19px;
 }
 
 .categories__input {
