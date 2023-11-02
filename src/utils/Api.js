@@ -72,32 +72,32 @@ class Api {
   changePassword = (data) =>
     this._makeRequest('/users/set_password/', 'POST', data);
 
-  // Получить список заказов (в разработке).
-  getOrders = () => this._makeRequest('/orders/', 'GET');
-
-  // Создать заказ (в разработке).
+  // Получить список заказов.
+  // есть фильтр https://botmarketplace.ru/api/orders/?is_paid=True
+  // is_paid=True - вернет все оплаченные заказы, is_paid=False вернёт неоплаченные
+  getOrders = (data) => this._makeRequest('/orders/', 'GET', data);
+  // сформирует заказ из корзины текущего юзера
+  // (только товары из корзины с чекбоксом is_selected=True).
+  // В теле запроса нужно передать pay_method(принимает только два значения - “card” или “sbp”).
+  //  Поле send_to в запросе можно не передавать, тогда email(кому слать бота)
+  // подставится автоматически из поля email текущего юзера.
   postOrders = () => this._makeRequest('/orders/', 'POST');
-
-  // Получить заказ (в разработке).
-  getOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'GET');
-
-  // Обновить заказ (в разработке).
-  putOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'PUT');
+  // Получить заказ.
+  getOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'GET');
+  // Удалить заказ.
+  deleteOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'DELETE');
 
   // Обновить заказ (в разработке).
-  patchOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'PATCH');
-
-  // Удалить заказ (в разработке).
-  deleteOrdersId = (id) => this._makeRequest(`/orders/${id}`, 'DELETE');
+  putOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'PUT');
+  // Обновить заказ (в разработке).
+  patchOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'PATCH');
 
   // Вьюсет для модели продуктов.
   getProducts = (params) =>
     this._makeRequest('/products/', 'GET', undefined, params);
-
-  // Вьюсет для модели продуктов.
+  // Добавить новый товар.
   postProduct = () => this._makeRequest('/products/', 'POST');
-
-  // Вьюсет для модели продуктов.
+  // получить данные продукта по ID
   getProductId = (id) => this._makeRequest(`/products/${id}/`, 'GET');
 
   // Вьюсет для модели продуктов.
@@ -111,9 +111,10 @@ class Api {
   // Вьюсет для модели продуктов.
   deleteProductId = (id) => this._makeRequest(`/products/${id}/`, 'DELETE');
 
+  // добавить в избранное
   postProductFavorite = (id) =>
     this._makeRequest(`/products/${id}/favorite/`, 'POST');
-
+  // удалить из избранного
   deleteProductFavorite = (id) =>
     this._makeRequest(`/products/${id}/favorite/`, 'DELETE');
 
@@ -151,21 +152,19 @@ class Api {
   // если нет приходит в ответ "Некорректный промокод"
   addPromocodeCart = (data) =>
     this._makeRequest('/cart/promocode/', 'POST', data);
+
   // Загрузить мин-макс цену.
   getMinMaxCost = () => this._makeRequest('/get_min_max_cost/', 'GET');
 
   // Получить отзывы.
   getProductsReviews = (product_id) =>
     this._makeRequest(`/products/${product_id}/reviews/`, 'GET');
-
   // Добавить отзыв.
   postProductsReview = (product_id, data) =>
     this._makeRequest(`/products/${product_id}/reviews/`, 'POST', data);
-
   // Получить отпределенный отзыв.
   getProductReviewId = (product_id, review_id) =>
     this._makeRequest(`/products/${product_id}/reviews/${review_id}/`, 'GET');
-
   // Изменить одно поле отзыва.
   patchProductReviewId = (product_id, review_id, data) =>
     this._makeRequest(
@@ -173,7 +172,6 @@ class Api {
       'PATCH',
       data
     );
-
   // Изменить все поля отзыва.
   putProductReviewId = (product_id, review_id, data) =>
     this._makeRequest(
@@ -181,7 +179,6 @@ class Api {
       'PUT',
       data
     );
-
   // Удалить отзыв.
   deleteProductReview = (product_id, review_id) =>
     this._makeRequest(

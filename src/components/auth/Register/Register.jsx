@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import AuthForm from '../AuthForm/AuthForm';
 import Input from '../../Input';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 import RegisterSuccessMessage from '../RegisterSuccessMessage/RegisterSuccessMessage';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
+import { setRegisterStep } from '../../../store/dataAuthorisation';
+import { getAuthorisationData } from '../../../store';
 
 const Register = (props) => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
+  const dispatch = useDispatch();
+  const { registerStep } = useSelector(getAuthorisationData);
 
   const { values, onBlur, handleChange, errors, isValid } =
     useFormWithValidation();
@@ -27,7 +32,7 @@ const Register = (props) => {
         email,
       })
     );
-    props.setRegisterStep(2);
+    dispatch(setRegisterStep(2));
   };
 
   const handleSubmit = (e) => {
@@ -43,23 +48,22 @@ const Register = (props) => {
 
   return (
     <>
-      {props.registerStep === 1 || props.registerStep === 2 ? (
+      {registerStep === 1 || registerStep === 2 ? (
         <AuthForm
           rememberMe={props.rememberMe}
           setRememberMe={props.setRememberMe}
           handleSubmit={
-            (props.registerStep === 1 && handleStepOne) ||
-            (props.registerStep === 2 && handleSubmit)
+            (registerStep === 1 && handleStepOne) ||
+            (registerStep === 2 && handleSubmit)
           }
-          isLogin={props.isLogin}
           isValid={isValid}
-          registerStep={props.registerStep}
+          registerStep={registerStep}
           isCheckboxChecked={isCheckboxChecked}
           setIsCheckboxChecked={setIsCheckboxChecked}
           queryMessage={props.queryMessage}
           setQueryMessage={props.setQueryMessage}
         >
-          {props.registerStep === 1 && (
+          {registerStep === 1 && (
             <>
               <Input
                 name='name'
@@ -97,7 +101,7 @@ const Register = (props) => {
               />
             </>
           )}
-          {props.registerStep === 2 && (
+          {registerStep === 2 && (
             <>
               <Input
                 name='phone'
@@ -137,9 +141,8 @@ const Register = (props) => {
       ) : (
         <RegisterSuccessMessage handleClose={props.onClose} />
       )}
-      {props.registerStep !== 3 && (
+      {registerStep !== 3 && (
         <ToggleAuthForm
-          isLogin={props.isLogin}
           onClick={props.onToggleFormClick}
         />
       )}

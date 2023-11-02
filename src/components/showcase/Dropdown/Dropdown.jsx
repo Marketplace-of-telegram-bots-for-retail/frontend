@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './Dropdown.css';
 import { SORTING_OPTIONS } from '../../../utils/constants';
-import { setSorting } from '../../../store/dataSearchFormSlice';
+import { setSorting } from '../../../store/searchFormDataSlice';
 
 const Dropdown = () => {
   const [dropdown, setDropdown] = useState(0);

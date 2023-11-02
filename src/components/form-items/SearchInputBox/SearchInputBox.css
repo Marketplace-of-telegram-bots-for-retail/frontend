@@ -14,7 +14,8 @@
 .search__input {
   padding: 14px 16px 14px 16px;
   border-radius: 8px;
-  border: 2px solid var(--Primary-Accent);
+  outline: 2px solid var(--Primary-Accent);
+  border: none;
   color: var(--Primary-Black);
   width: 100%;
   height: 100%;
@@ -28,21 +29,22 @@
 }
 .search__input:focus,
 .search__input:hover {
-  outline: 0;
+  outline: 2px solid var(--Secondary-Accent-Blue-Dark);
   border-radius: 8px;
-  border: 2px solid var(--Secondary-Accent-Blue-Dark);
+  border: none;
   transition: all 0.2s;
 }
 .search__input::placeholder {
   color: var(--Gray-Medium);
-  padding-left: 38px;
-  background: 0 50% no-repeat url(../../../images/images-new/ic_search-24.svg);
-  background-size: 24px;
+  padding-left: 35px;
+  background: 0 -1px no-repeat
+    url(../../../images/images-new/ic_search-24.svg);
+  background-size: 24px 24px ;
   transition: all 0.2s;
 }
 .search__input:hover::placeholder {
   transition: all 0.2s;
-  background: 0 50% no-repeat
+  background: 0 -1px no-repeat
     url(../../../images/images-new/ic_search-24_blue-dark.svg);
 }
 .search__input:focus::placeholder {
@@ -78,7 +80,7 @@
   outline: none;
   background: 0 center no-repeat
     url(../../../images/images-new/ic_cross-18-Gray-Additional.svg);
-  background-size: 18px 18px;
+  background-size: 18px auto;
   transition: all 0.2s;
   cursor: pointer;
 }

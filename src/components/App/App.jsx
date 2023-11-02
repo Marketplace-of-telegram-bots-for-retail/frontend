@@ -5,9 +5,9 @@ import {
   getProducts,
   getFavorites,
   cleanLike,
-} from '../../store/dataProductsStateSlice';
-import { getMinMaxCost } from '../../store/dataSearchFormSlice';
-import { clearCarts, getCart } from '../../store/dataCartSlice';
+} from '../../store/productsDataSlice';
+import { getMinMaxCost } from '../../store/searchFormDataSlice';
+import { clearCarts, getCart } from '../../store/cartDataSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';
@@ -30,9 +30,11 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
-import { authorise, logOut } from '../../store/dataAuthorisation';
+import { authorise, logOut, setRegisterStep } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../profile/user/ProfileForm';
+import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
+import Goods from '../profile/goods/Goods';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -50,7 +52,6 @@ const App = () => {
   useModal(showAuthModal, setShowAuthModal);
 
   const [queryMessage, setQueryMessage] = useState('');
-  const [registerStep, setRegisterStep] = useState(1);
 
   // очистить очистить хранилище
   const clearStorage = () => {
@@ -64,6 +65,7 @@ const App = () => {
     setAuthorized(false);
     dispatch(logOut());
     setCurrentUser({});
+    dispatch(setRegisterStep(1));
     // сбросить стейты избранного
     dispatch(cleanLike());
     dispatch(clearCarts());
@@ -152,7 +154,7 @@ const App = () => {
       await api.postUser(data);
       cbAuth(data);
       localStorage.removeItem('registerFormData');
-      setRegisterStep(3);
+      dispatch(setRegisterStep(3));
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -258,8 +260,6 @@ const App = () => {
           setShowAuthModal={setShowAuthModal}
           queryMessage={queryMessage}
           setQueryMessage={setQueryMessage}
-          registerStep={registerStep}
-          setRegisterStep={setRegisterStep}
         />
       )}
       <Routes>
@@ -321,8 +321,12 @@ const App = () => {
             <Route path='/profile/returns' />
             <Route path='/profile/reviews' />
             {/* Роуты продавца. Обернуть в защищенный роут? */}
-            <Route path='/profile/legal-info' />
-            <Route path='/profile/products' />
+            <Route
+              path='/profile/legal-info'
+              // element={<ProfileLegalForm bUpdateProfile={cbUpdateProfile} />}
+              element={<ProfileLegalForm />}
+            />
+            <Route path='/profile/products' element={<Goods />} />
             <Route path='/profile/statistics' />
             <Route path='/profile/promocodes' />
           </Route>
@@ -335,8 +339,6 @@ const App = () => {
                 cbRegister={cbRegister}
                 queryMessage={queryMessage}
                 setQueryMessage={setQueryMessage}
-                registerStep={registerStep}
-                setRegisterStep={setRegisterStep}
               />
             }
           />

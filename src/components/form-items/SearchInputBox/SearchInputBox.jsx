@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { setSearch } from '../../../store/dataSearchFormSlice';
+import { setSearch } from '../../../store/searchFormDataSlice';
 import { useQueryParameter } from '../../../hooks/useQueryParameter';
 import { useForm } from '../../../hooks/useForm';
 import './SearchInputBox.css';
-import { getProducts } from '../../../store/dataProductsStateSlice';
+import { getProducts } from '../../../store/productsDataSlice';
 
 const SearchInputBox = () => {
   const locatoin = useLocation();
@@ -39,7 +39,7 @@ const SearchInputBox = () => {
       <input
         type='search'
         className='search__input'
-        placeholder='Искать бота'
+        placeholder='Поиск бота'
         value={values?.search || ''}
         name='search'
         onChange={handleChange}

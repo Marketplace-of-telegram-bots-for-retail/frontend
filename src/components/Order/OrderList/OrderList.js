@@ -8,7 +8,7 @@ const OrderList = () => {
   const dispatch = useDispatch();
   const {
     items
-  } = useSelector((state) => state.dataCart);
+  } = useSelector((state) => state.cartData);
 
   return (
     <div className="order__block order__block_type_info">

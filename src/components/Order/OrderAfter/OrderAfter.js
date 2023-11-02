@@ -7,7 +7,7 @@ const OrderAfter = () => {
   const currentUser = useContext(CurrentUserContext);
   const dispatch = useDispatch();
   const { total_cost, discount_amount } =
-    useSelector((state) => state.dataCart);
+    useSelector((state) => state.cartData);
   const total = discount_amount || total_cost;
 
   return (

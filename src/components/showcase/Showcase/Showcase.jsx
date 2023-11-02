@@ -9,7 +9,7 @@ import { AftPoster } from '../../posters';
 import Title from '../../Title/Title';
 import Filters from '../../form-items/Filters/Filters';
 import { useScroll } from '../../../hooks/useScroll';
-import { getMoreProducts } from '../../../store/dataProductsStateSlice';
+import { getMoreProducts } from '../../../store/productsDataSlice';
 import { getProductsData } from '../../../store';
 
 const Showcase = () => {
@@ -27,7 +27,7 @@ const Showcase = () => {
 
   // отслеживание слеживание скрола и загрузка еще
   useEffect(() => {
-    if (!isMoreButton && next && scroll > 70 && !is_loading) {
+    if (!isMoreButton && next && scroll > 75 && !is_loading) {
       handleOnMore();
     }
   }, [scroll]);
