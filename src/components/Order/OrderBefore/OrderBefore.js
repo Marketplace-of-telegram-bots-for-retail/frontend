@@ -12,7 +12,7 @@ const OrderBefore = ({ onClickInput, onPay }) => {
   const [isCard, setIsCard] = useState(true);
   const dispatch = useDispatch();
   const { cart_id, total_cost, total_amount, discount_amount, items, status } =
-    useSelector((state) => state.dataCart);
+    useSelector((state) => state.cartData);
   const total = discount_amount || total_cost;
 
   return (

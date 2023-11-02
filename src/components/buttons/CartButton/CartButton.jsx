@@ -7,7 +7,7 @@ import {
   addProductCart,
   deleteProductCart,
   reduceProductCart,
-} from '../../../store/dataCartSlice';
+} from '../../../store/cartDataSlice';
 import { getCartData } from '../../../store';
 
 const CartButton = ({ parentClass, card }) => {

@@ -7,7 +7,7 @@ import {
   cleanLike,
 } from '../../store/productsDataSlice';
 import { getMinMaxCost } from '../../store/searchFormDataSlice';
-import { clearCarts, getCart } from '../../store/dataCartSlice';
+import { clearCarts, getCart } from '../../store/cartDataSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';

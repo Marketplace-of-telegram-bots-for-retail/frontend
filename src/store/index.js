@@ -1,7 +1,7 @@
 import { configureStore } from '@reduxjs/toolkit';
 import searchFormDataReducer from './searchFormDataSlice';
 import productsDataReduser from './productsDataSlice';
-import dataCartSliceReducer from './dataCartSlice';
+import cartDataReducer from './cartDataSlice';
 import dataAuthorisationReducer from './dataAuthorisation';
 import productCardDataReducer from './productCardDataSlice';
 import userOrdersDataReducer from './userOrdersDataSlice';
@@ -10,7 +10,7 @@ export default configureStore({
   reducer: {
     searchFormData: searchFormDataReducer,
     productsData: productsDataReduser,
-    dataCart: dataCartSliceReducer,
+    cartData: cartDataReducer,
     authorisation: dataAuthorisationReducer,
     productCardData: productCardDataReducer,
     userOrdersData: userOrdersDataReducer,

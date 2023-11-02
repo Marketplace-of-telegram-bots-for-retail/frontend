@@ -19,7 +19,7 @@ const initialState = {
 
 // обработчик загрузки карточек
 export const getCart = createAsyncThunk(
-  'dataCart/getCart',
+  'cartData/getCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getCart();
@@ -33,7 +33,7 @@ export const getCart = createAsyncThunk(
 
 // обработчик добавления продукта в корзину или увеличения на 1
 export const addProductCart = createAsyncThunk(
-  'dataCart/addProductCart',
+  'cartData/addProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -48,7 +48,7 @@ export const addProductCart = createAsyncThunk(
 );
 // обработчик удаления продукта из корзины
 export const deleteProductCart = createAsyncThunk(
-  'dataCart/deleteProductCart',
+  'cartData/deleteProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -62,7 +62,7 @@ export const deleteProductCart = createAsyncThunk(
 );
 // обработчик уменьшения продукта в корзине на 1
 export const reduceProductCart = createAsyncThunk(
-  'dataCart/reduceProductCart',
+  'cartData/reduceProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -76,7 +76,7 @@ export const reduceProductCart = createAsyncThunk(
 );
 // Изменить состояние товаров в корзине выбран/не выбран
 export const selectProductCart = createAsyncThunk(
-  'dataCart/selectProductCart',
+  'cartData/selectProductCart',
   async (id, { rejectWithValue, dispatch }) => {
     dispatch(setCardIdIsLoading(id));
     try {
@@ -90,7 +90,7 @@ export const selectProductCart = createAsyncThunk(
 );
 // Выбор всех товаров в корзине
 export const selectAllProductsCart = createAsyncThunk(
-  'dataCart/selectAllProductsCart',
+  'cartData/selectAllProductsCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.selectAllProductsCart();
@@ -103,7 +103,7 @@ export const selectAllProductsCart = createAsyncThunk(
 );
 // Снять выделение со всех товаров в корзине
 export const unselectAllProductsCart = createAsyncThunk(
-  'dataCart/unselectAllProductsCart',
+  'cartData/unselectAllProductsCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.unselectAllProductsCart();
@@ -116,7 +116,7 @@ export const unselectAllProductsCart = createAsyncThunk(
 );
 // Удалить все выбраные товары
 export const deleteSelectedProductsCart = createAsyncThunk(
-  'dataCart/deleteSelectedProductsCart',
+  'cartData/deleteSelectedProductsCart',
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.deleteSelectedProductsCart();
@@ -133,7 +133,7 @@ export const deleteSelectedProductsCart = createAsyncThunk(
 );
 // Ввести промокод
 export const addPromocodeCart = createAsyncThunk(
-  'dataCart/addPromocodeCart',
+  'cartData/addPromocodeCart',
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.addPromocodeCart(data);
@@ -165,8 +165,8 @@ const setFulfilled = (state) => {
   state.currentCardId = null;
 };
 
-const dataCartSlice = createSlice({
-  name: 'dataCart',
+const cartDataSlice = createSlice({
+  name: 'cartData',
   initialState,
   reducers: {
     setCardIdIsLoading(state, action) {
@@ -265,5 +265,5 @@ const dataCartSlice = createSlice({
 });
 
 export const { setCartsState, editCartsState, clearCarts, setCardIdIsLoading } =
-  dataCartSlice.actions;
-export default dataCartSlice.reducer;
+  cartDataSlice.actions;
+export default cartDataSlice.reducer;

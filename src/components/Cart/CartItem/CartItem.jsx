@@ -13,7 +13,7 @@ import {
   unselectAllProductsCart,
   deleteSelectedProductsCart,
   addPromocodeCart,
-} from '../../../store/dataCartSlice';
+} from '../../../store/cartDataSlice';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { getCartData } from '../../../store';
 import { convertToLocaleStringRub } from '../../../utils/convertToLocaleStringRub';
