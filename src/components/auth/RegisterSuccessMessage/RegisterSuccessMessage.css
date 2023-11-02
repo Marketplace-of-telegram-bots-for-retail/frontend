@@ -23,10 +23,18 @@
 
 .modal__success-message-caption {
   margin: 0 auto;
-  max-width: 245px;
+  max-width: 396px;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
+}
+
+.modal__success-message-email {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 16px 0 0;
 }
 
 .modal__success-message-button {
