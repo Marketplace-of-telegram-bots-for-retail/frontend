@@ -1,6 +1,7 @@
 import React from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';
@@ -46,9 +47,12 @@ const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
           !isLoginModal ? 'modal__content_type_register' : ''
         }`}
       >
+        {location.pathname === '/reset-password' && (
+          <Link className='modal__link-back' to={-1}></Link>
+        )}
         <h2 className='modal__title'>
           {location.pathname === '/reset-password'
-            ? 'Восстановление пароля'
+            ? 'Восстановление доступа'
             : authTitle}
         </h2>
         <Close className='modal__button_type_close' onClick={onClose} />
@@ -66,6 +70,9 @@ const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
             isLogin={isLoginModal}
             onToggleFormClick={handleToggleFormClick}
             onClose={onClose}
+            goBack={() => {
+              setGoBack(true);
+            }}
           />
         ) : (
           authModal
