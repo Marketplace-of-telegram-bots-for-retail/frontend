@@ -1,20 +1,48 @@
-import React, { useState, useContext } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { useSelector } from 'react-redux';
-import './Header.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { collecSearch } from '../../store/dataSearchFormSlice';
 import { ARR_NAV } from '../../utils/constants';
-import SearchInputBox from '../form-items/SearchInputBox/SearchInputBox';
+import './Header.css';
 import logo from '../../images/logo-color.png';
+import { useForm } from '../../hooks/useForm';
 import { useScroll } from '../../hooks/useScroll';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
+import { getProducts } from '../../store/dataProductsStateSlice';
+import { useQueryParameter } from '../../hooks/useQueryParameter';
 import { getCartData, getProductsData } from '../../store';
 
-const Header = ({ setShowAuthButtons, isAuthorized }) => {
+const Header = ({ setShowAuthButtons, isAuthorized, isPreloader }) => {
   const currentUser = useContext(CurrentUserContext);
   const { scrollPosition } = useScroll();
+  const { values, handleChange } = useForm();
+  const { formRequest } = useQueryParameter();
+  const dispatch = useDispatch();
   const { favoritesCount } = useSelector(getProductsData);
-  const { total_quantity } = useSelector(getCartData);
+  const { items } = useSelector(getCartData);
+  const locatoin = useLocation();
+  const navigate = useNavigate();
+
+  // Обновляем стейт Redux
+  useEffect(() => {
+    dispatch(collecSearch(values?.search));
+  }, [values, dispatch]);
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    dispatch(getProducts(formRequest));
+    if (locatoin.pathname !== '/') {
+      console.log(locatoin);
+      navigate('/');
+      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+    }
+  };
+  const handleOnBlur = () => {
+    // event.preventDefault();
+    dispatch(getProducts(formRequest));
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+  };
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
@@ -49,15 +77,31 @@ const Header = ({ setShowAuthButtons, isAuthorized }) => {
                 <span className='header__catalog-icon'></span>
                 <span className='header__catalog-text'>Каталог</span>
               </HashLink>
-              <SearchInputBox />
+              <form className='header__search-form' onSubmit={handleSubmit}>
+                <input
+                  type='search'
+                  className='header__search-input'
+                  placeholder='Искать бота'
+                  value={values?.search || ''}
+                  name='search'
+                  onChange={handleChange}
+                  onBlur={handleOnBlur}
+                ></input>
+                <button
+                  className='header__search-button'
+                  type='submit'
+                  placeholder='Искать'
+                  disabled={isPreloader}
+                >
+                  <span className='header__search-icon'></span>
+                </button>
+              </form>
             </div>
             <div className='header__navbar'>
               <Link to='/cart' className='header__menu-button-icon'>
                 <span className='header__button-icon header__button-icon_cart'></span>
-                {total_quantity ? (
-                  <span className='header__badge-counter'>
-                    {total_quantity}
-                  </span>
+                {items.length > 0 ? (
+                  <span className='header__badge-counter'>{items.length}</span>
                 ) : null}
                 <span className='header__button-text'>Корзина</span>
               </Link>

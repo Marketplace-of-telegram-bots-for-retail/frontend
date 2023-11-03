@@ -50,78 +50,6 @@ export const useFormWithValidation = () => {
     return phone.startsWith('9') ? `+7${phone}` : phone;
   };
 
-  const _addInn = (inn) => {
-    return inn;
-  };
-
-  const _addKpp = (kpp) => {
-    return kpp;
-  };
-
-  const _addOgrn = (ogrn) => {
-    return ogrn;
-  };
-
-  const _addBankAccount = (bankAccount) => {
-    return bankAccount;
-  };
-
-  const _addKorrAccount = (korrAccount) => {
-    return korrAccount;
-  };
-
-  const _addBic = (bic) => {
-    return bic;
-  };
-
-  const _isValidInn = (inn) => {
-    const innRegex = /[0-9]{10,12}/;
-    if (!innRegex.test(inn) || inn.length > 12) {
-      return 'ИНН должен содержать не менее 10 и не более 12 цифр';
-    }
-    return '';
-  };
-
-  const _isValidKpp = (kpp) => {
-    const kppRegex = /\d{9}/;
-    if (!kppRegex.test(kpp) || kpp.length > 9) {
-      return 'КПП должен содержать 9-значный номер';
-    }
-    return '';
-  };
-
-  const _isValidOgrn = (ogrn) => {
-    const ogrnRegex = /[0-9]{13,15}/;
-    if (!ogrnRegex.test(ogrn) || ogrn.length > 15) {
-      return 'ОГРН должен содержать не менее 13 и не более 15 цифр';
-    }
-    return '';
-  };
-
-  const _isValidBankAccount = (bankAccount) => {
-    const bankAccountRegex = /\d{20}/;
-    if (!bankAccountRegex.test(bankAccount) || bankAccount.length > 20) {
-      return 'Расчетый счет должен содержать 20-значный номер';
-    }
-    return '';
-  };
-
-  const _isValidKorrAccount = (korrAccount) => {
-    const korrAccountRegex = /\d{20}/;
-    if (!korrAccountRegex.test(korrAccount) || korrAccount.length > 20) {
-      return 'Корреспондентский счет должен содержать 20-значный номер';
-    }
-    return '';
-  };
-
-  const _isValidBic = (bic) => {
-    const bicRegex = /\d{9}/;
-    if (!bicRegex.test(bic) || bic.length > 9) {
-      return 'КПП должен содержать 9-значный номер';
-    }
-    return '';
-  };
-
   const _isValidNewPassword = (newPassword, password, email) => {
     if (newPassword === password) {
       return 'Новый пароль должен отличаться от старого';
@@ -185,30 +113,6 @@ export const useFormWithValidation = () => {
       if (name === 'phone') {
         value = _addCountryCode(value);
         validationMessage = _isValidPhone(value);
-      }
-      if (name === 'inn') {
-        value = _addInn(value);
-        validationMessage = _isValidInn(value);
-      }
-      if (name === 'kpp') {
-        value = _addKpp(value);
-        validationMessage = _isValidKpp(value);
-      }
-      if (name === 'ogrn') {
-        value = _addOgrn(value);
-        validationMessage = _isValidOgrn(value);
-      }
-      if (name === 'bankAccount') {
-        value = _addBankAccount(value);
-        validationMessage = _isValidBankAccount(value);
-      }
-      if (name === 'korrAccount') {
-        value = _addKorrAccount(value);
-        validationMessage = _isValidKorrAccount(value);
-      }
-      if (name === 'bic') {
-        value = _addBic(value);
-        validationMessage = _isValidBic(value);
       }
     }
 

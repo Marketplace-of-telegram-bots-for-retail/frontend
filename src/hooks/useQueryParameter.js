@@ -57,7 +57,5 @@ export const useQueryParameter = () => {
   const formRequest =
     formArry.length !== 0 ? ['?'].concat(formArry).join('&') : null;
   // Консолька запроса
-  // console.log(formRequest);
-
   return { formRequest };
 };

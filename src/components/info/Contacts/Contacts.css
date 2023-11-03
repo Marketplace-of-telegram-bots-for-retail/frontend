@@ -1,5 +1,31 @@
-/* .content__contacts {
-} */
 .contacts {
   padding: 100px var(--s-indent) 0;
+}
+
+.contacts__heading {
+  color: var(--Primary-Black, #1e1e1e);
+  font-size: 40px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin: 0 0 62px 0;
+}
+
+.contacts__input {
+  margin: 0 0 162px 0;
+}
+
+.contacts__textarea {
+  width: 396px;
+  min-height: 160px;
+  /* all: unset; */
+  margin: 0;
+  padding: 8px 12px;
+  color: var(--Primary-Black);
+  border-radius: 8px;
+  border: 1px solid var(--Gray-Additional);
+  text-align: left;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
 }

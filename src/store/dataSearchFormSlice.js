@@ -44,18 +44,18 @@ const dataSearchFormSlice = createSlice({
     },
   },
   reducers: {
-    setSearch(state, action) {
+    collecSearch(state, action) {
       state.search = action.payload;
     },
-    setCategories(state, action) {
+    collectCategories(state, action) {
       const newState = action.payload;
       const { categories } = state;
       state.categories = { ...categories, ...newState };
     },
-    setPrices(state, action) {
+    collecPrices(state, action) {
       state.prices = action.payload;
     },
-    setSorting(state, action) {
+    collecSorting(state, action) {
       state.sorting = action.payload;
     },
     ressetFiltersState(state) {
@@ -67,18 +67,17 @@ const dataSearchFormSlice = createSlice({
       state.prices = [state.min_max.price__min, state.min_max.price__max];
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getMinMaxCost.pending, SetPending)
-      .addCase(getMinMaxCost.fulfilled, setFulfilled)
-      .addCase(getMinMaxCost.rejected, setError);
+  extraReducers: {
+    [getMinMaxCost.pending]: SetPending,
+    [getMinMaxCost.fulfilled]: setFulfilled,
+    [getMinMaxCost.rejected]: setError,
   },
 });
 export const {
-  setSearch,
-  setCategories,
-  setPrices,
-  setSorting,
+  collecSearch,
+  collectCategories,
+  collecPrices,
+  collecSorting,
   ressetFiltersState,
   setMinMaxCost,
 } = dataSearchFormSlice.actions;

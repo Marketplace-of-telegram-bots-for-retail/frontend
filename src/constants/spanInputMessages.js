@@ -3,5 +3,8 @@ const spanInputMessages = {
     знаки.`,
   name: 'Только кириллица',
   surname: 'Только кириллица',
+  // Anna: добавила для раздела Контакты
+  nameGuest: '',
+  message: '',
 };
 export default spanInputMessages;

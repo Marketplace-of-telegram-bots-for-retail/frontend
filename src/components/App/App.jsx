@@ -7,7 +7,7 @@ import {
   cleanLike,
 } from '../../store/dataProductsStateSlice';
 import { getMinMaxCost } from '../../store/dataSearchFormSlice';
-import { clearCarts, getCart } from '../../store/dataCartSlice';
+import { getCart } from '../../store/dataCartSlice';
 import './App.css';
 import { api } from '../../utils/Api';
 import { checkToken, setToken } from '../../utils/tokenStorage';
@@ -33,8 +33,6 @@ import Salesman from '../Salesman/Salesman';
 import { authorise, logOut } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../profile/user/ProfileForm';
-import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
-import Goods from '../profile/goods/Goods';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -54,22 +52,6 @@ const App = () => {
   const [queryMessage, setQueryMessage] = useState('');
   const [registerStep, setRegisterStep] = useState(1);
 
-  // очистить очистить хранилище
-  const clearStorage = () => {
-    localStorage.clear();
-    sessionStorage.clear();
-  };
-  // очистить стейты авторизации
-  const clearStates = () => {
-    clearStorage();
-    // заменить на  dispatch(logOut());
-    setAuthorized(false);
-    dispatch(logOut());
-    setCurrentUser({});
-    // сбросить стейты избранного
-    dispatch(cleanLike());
-    dispatch(clearCarts());
-  };
   // Загрузить начальные данные
   const getInitialData = useCallback(() => {
     dispatch(getMinMaxCost());
@@ -82,36 +64,29 @@ const App = () => {
     dispatch(getCart());
   }, [dispatch, getInitialData]);
 
-  const cbGetInitialsData = useCallback(() => {
-    if (checkToken()) {
-      getFullData();
-    } else {
-      getInitialData();
-    }
-  }, [getFullData, getInitialData]);
-
   // Чекнуть токен, произвести загрузку данных пользователя, избранных (корзина не добавлена)
   const cbTokenCheck = useCallback(async () => {
     setPreloader(true);
     try {
-      if (!checkToken()) {
-        clearStates();
-      } else {
+      if (checkToken()) {
         const userData = await api.getUserMe();
         if (userData) {
           setCurrentUser(userData);
           setAuthorized(true);
           dispatch(authorise());
+          // Загрузить данные
+          getFullData();
         }
       }
     } catch (err) {
-      console.log('cbTokenCheck => getUserMe =>', err); // Консоль
-      clearStates();
+      // console.log('cbTokenCheck => getUserMe =>', err); // Консоль
+      setAuthorized(false);
+      dispatch(logOut());
+      getInitialData();
     } finally {
-      cbGetInitialsData();
       setPreloader(false);
     }
-  }, [clearStorage, cbGetInitialsData]);
+  }, [getInitialData, getFullData]);
 
   // Выполнить первичную проверку по токену и загрузить данные
   useEffect(() => {
@@ -129,8 +104,8 @@ const App = () => {
     try {
       const res = await api.postLogIn(data);
       setToken(res.auth_token, data.rememberMe);
-      // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
+      // загрузить данные пользователя и чекнуть jwt
     } catch (err) {
       console.log('cbAuth => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -169,14 +144,20 @@ const App = () => {
     setPreloader(true);
     try {
       await api.postLogOut();
+      localStorage.clear();
+      sessionStorage.clear();
+      setAuthorized(false);
+      setCurrentUser({});
+      // загрузить данные пользователя и чекнуть jwt
+      cbTokenCheck();
+      // // Обновить стейты
+      // Загрузить избранные
+      dispatch(cleanLike());
+      // Обновить стейт
+      dispatch(getProducts());
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
-      // очистить хранилище
-      clearStates();
-      // загрузить данные пользователя и чекнуть jwt
-      cbTokenCheck();
-      getInitialData();
       setPreloader(false);
     }
   };
@@ -323,12 +304,8 @@ const App = () => {
             <Route path='/profile/returns' />
             <Route path='/profile/reviews' />
             {/* Роуты продавца. Обернуть в защищенный роут? */}
-            <Route
-              path='/profile/legal-info'
-              // element={<ProfileLegalForm bUpdateProfile={cbUpdateProfile} />}
-              element={<ProfileLegalForm />}
-            />
-            <Route path='/profile/products' element={<Goods />} />
+            <Route path='/profile/legal-info' />
+            <Route path='/profile/products' />
             <Route path='/profile/statistics' />
             <Route path='/profile/promocodes' />
           </Route>

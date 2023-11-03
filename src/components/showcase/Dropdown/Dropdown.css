@@ -25,23 +25,11 @@
   line-height: normal;
   cursor: pointer;
 }
-.dropdown__button:hover {
-  border: 1px solid var(--Secondary-Accent-Blue-Dark);
-}
+
 .dropdown__button-icon {
-  content: '';
-  margin: 0;
-  padding: o;
   width: 24px;
   height: 24px;
   background: center no-repeat url(../../../images/ic_chevron-down-24.svg);
-  transform: rotateX(0);
-  transition: all 0.3s ease-out;
-}
-.dropdown__button-icon_open {
-  /* transform: rotate(180deg); */
-  transform: rotateX(3.142rad);
-  transition: all 0.3s ease-out;
 }
 
 .dropdown__item-icon {

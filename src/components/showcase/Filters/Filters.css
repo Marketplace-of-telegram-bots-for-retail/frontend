@@ -1,0 +1,37 @@
+.showcase__filters {
+  margin: 0;
+}
+.filters {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  width: 272px;
+  background: none;
+  border: none;
+}
+
+.filters__submit-button {
+  margin: 0;
+  height: 52px;
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  border: 2px solid var(--Secondary-Purple-Light);
+  color: var(--Secondary-Purple-Light);
+  text-align: center;
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22px;
+  background: none;
+  cursor: pointer;
+}
+
+.filters__submit-button:hover {
+  color: var(--Secondary-Accent-Blue-Dark);
+  border: 2px solid var(--Secondary-Accent-Blue-Dark);
+}
+.filters__submit-button:disabled {
+  color: var(--Secondary-Purple-Light);
+  border: 2px solid var(--Secondary-Purple-Light);
+}

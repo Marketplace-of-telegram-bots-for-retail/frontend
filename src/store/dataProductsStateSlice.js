@@ -8,7 +8,7 @@ export const getProducts = createAsyncThunk(
   async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
-      dispatch(setProductsState(data));
+      dispatch(changeProductsAllStates(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -20,7 +20,7 @@ export const getMoreProducts = createAsyncThunk(
   async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
-      dispatch(setMoreProducts(data));
+      dispatch(changeMoreProducts(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -32,7 +32,7 @@ export const getFavorites = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts('?is_favorited=True');
-      dispatch(setFavoritesAllStates(data));
+      dispatch(changeFavoritesAllStates(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -44,7 +44,7 @@ export const getMoreFavorites = createAsyncThunk(
   async (params, { rejectWithValue, dispatch }) => {
     try {
       const data = await api.getProducts(params);
-      dispatch(setMoreFavorites(data));
+      dispatch(changeMoreFavorites(data));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -77,8 +77,7 @@ export const onLike = createAsyncThunk(
 );
 
 const setError = (state, action) => {
-  const errMessage =
-    action.payload?.detail || action.payload?.message || action?.payload;
+  const errMessage = action.payload.detail || action.payload.message;
   console.log(errMessage);
   state.status = 'rejected';
   state.error = errMessage;
@@ -125,49 +124,36 @@ const dataProductsStateSlice = createSlice({
       );
       state.favoritesCount -= 1;
     },
-    setProductsState(state, action) {
-      const { count, next, previous, results } = action.payload;
-      state.count = count;
-      state.next = next;
-      state.previous = previous;
-      state.results = results;
-    },
-    setMoreProducts(state, action) {
-      const { count, next, previous, results } = action.payload;
-      state.count = count;
-      state.next = next;
-      state.previous = previous;
 
-      // state.results.push(...results);
-      // защита от дубля карточек
-      const nextPagesResult = results.filter(
-        (item) => !state.results.some((element) => element.id === item.id)
-      );
-      console.log('// защита от дубля карточек', nextPagesResult);
-      // state.results.push(...nextPagesResult);
-      state.results = state.results.concat(nextPagesResult);
+    changeProductsResults(state, action) {
+      state.results = action.payload;
     },
-    setFavoritesAllStates(state, action) {
-      const { count, next, previous, results } = action.payload;
-      state.favoritesCount = count;
-      state.favoritesNext = next;
-      state.favoritesPrevious = previous;
-      state.favoritesResults = results;
+    changeProductsAllStates(state, action) {
+      state.count = action.payload.count;
+      state.next = action.payload.next;
+      state.previous = action.payload.previous;
+      state.results = action.payload.results;
     },
-    setMoreFavorites(state, action) {
-      const { count, next, previous, results } = action.payload;
-      state.favoritesCount = count;
-      state.favoritesNext = next;
-      state.favoritesPrevious = previous;
-
-      // state.favoritesResults.push(...results);
-      // защита от дубля карточек
-      const nextPagesResult = results.filter(
-        (item) =>
-          !state.favoritesResults.some((element) => element.id === item.id)
-      );
-      console.log('// защита от дубля карточек', nextPagesResult);
-      state.favoritesResults.push(...nextPagesResult);
+    changeMoreProducts(state, action) {
+      state.count = action.payload.count;
+      state.next = action.payload.next;
+      state.previous = action.payload.previous;
+      state.results.push(...action.payload.results);
+    },
+    changeFavoritesResults(state, action) {
+      state.favoritesResults = action.payload;
+    },
+    changeFavoritesAllStates(state, action) {
+      state.favoritesCount = action.payload.count;
+      state.favoritesNext = action.payload.next;
+      state.favoritesPrevious = action.payload.previous;
+      state.favoritesResults = action.payload.results;
+    },
+    changeMoreFavorites(state, action) {
+      state.favoritesCount = action.payload.count;
+      state.favoritesNext = action.payload.next;
+      state.favoritesPrevious = action.payload.previous;
+      state.favoritesResults.push(...action.payload.results);
     },
     cleanLike(state) {
       state.favoritesCount = 0;
@@ -176,33 +162,34 @@ const dataProductsStateSlice = createSlice({
       state.favoritesResults = [];
     },
   },
-  extraReducers: (builder) => {
-    builder
-      .addCase(getProducts.pending, SetPending)
-      .addCase(getProducts.fulfilled, setFulfilled)
-      .addCase(getProducts.rejected, setError)
+  extraReducers: {
+    [getProducts.pending]: SetPending,
+    [getProducts.fulfilled]: setFulfilled,
+    [getProducts.rejected]: setError,
 
-      .addCase(getMoreProducts.pending, SetPending)
-      .addCase(getMoreProducts.fulfilled, setFulfilled)
-      .addCase(getMoreProducts.rejected, setError)
+    [getMoreProducts.pending]: SetPending,
+    [getMoreProducts.fulfilled]: setFulfilled,
+    [getMoreProducts.rejected]: setError,
 
-      .addCase(getFavorites.pending, SetPending)
-      .addCase(getFavorites.fulfilled, setFulfilled)
-      .addCase(getFavorites.rejected, setError)
+    [getFavorites.pending]: SetPending,
+    [getFavorites.fulfilled]: setFulfilled,
+    [getFavorites.rejected]: setError,
 
-      .addCase(getMoreFavorites.pending, SetPending)
-      .addCase(getMoreFavorites.fulfilled, setFulfilled)
-      .addCase(getMoreFavorites.rejected, setError);
+    [getMoreFavorites.pending]: SetPending,
+    [getMoreFavorites.fulfilled]: setFulfilled,
+    [getMoreFavorites.rejected]: setError,
   },
 });
 
 export const {
   toggleLike,
   deleteLikeInFavorites,
-  setProductsState,
-  setMoreProducts,
-  setFavoritesAllStates,
-  setMoreFavorites,
+  changeProductsResults,
+  changeProductsAllStates,
+  changeMoreProducts,
+  changeFavoritesResults,
+  changeFavoritesAllStates,
+  changeMoreFavorites,
   cleanLike,
 } = dataProductsStateSlice.actions;
 export default dataProductsStateSlice.reducer;
