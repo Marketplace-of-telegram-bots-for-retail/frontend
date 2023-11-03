@@ -2,6 +2,7 @@
 import { React, useState, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
+import { getCartData } from '../../../store/selectors';
 import subicon from '../../../images/order__subicon.svg';
 import iconblue from '../../../images/order_chevron_blue.svg';
 import btn_card from '../../../images/order_btn1.svg';
@@ -11,8 +12,8 @@ const OrderBefore = ({ onClickInput, onPay }) => {
   const currentUser = useContext(CurrentUserContext);
   const [isCard, setIsCard] = useState(true);
   const dispatch = useDispatch();
-  const { cart_id, total_cost, total_amount, discount_amount, items, status } =
-    useSelector((state) => state.cartData);
+  const { total_cost, total_amount, discount_amount, itemsForOrder } =
+    useSelector(getCartData);
   const total = discount_amount || total_cost;
 
   return (
@@ -71,9 +72,9 @@ const OrderBefore = ({ onClickInput, onPay }) => {
         <div className='order__final'>
           <div className='order__text-block'>
             <p className='order__final-text'>Итого:</p>
-            <p className='order__text'>{`Бот x ${total_amount}`}</p>
+            <p className='order__summ'>{`${total.toLocaleString('ru-RU')} ₽`}</p>
           </div>
-          <p className='order__summ'>{`${total.toLocaleString('ru-RU')} ₽`}</p>
+          <p className='order__amount-text'>{`Бот x ${total_amount}`}</p>
         </div>
         <button type='button' className='order__final-btn' onClick={onPay}>
           Оплатить
