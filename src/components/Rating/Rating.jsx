@@ -77,8 +77,11 @@ export const Rating = ({
   const renderFeedback = () => {
     if (onClickLabel) {
       return (
-        <span className='rating__feedback' onClick={() => onClickLabel()}>
-          {feedback(ratingCard?.[1])}
+        <span
+          className='rating__feedback rating__feedback_big'
+          onClick={() => onClickLabel()}
+        >
+          {ratingCard?.[1] > 0 ? feedback(ratingCard?.[1]) : 'Оставить отзыв'}
         </span>
       );
     }
@@ -87,7 +90,9 @@ export const Rating = ({
     }
 
     return (
-      <span className='rating__feedback'>{feedback(ratingCard?.[1])}</span>
+      <span className='rating__feedback rating__feedback_small'>
+        {feedback(ratingCard?.[1])}
+      </span>
     );
   };
 

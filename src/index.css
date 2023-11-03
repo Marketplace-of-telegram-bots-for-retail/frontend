@@ -38,7 +38,7 @@
 
 * {
   box-sizing: border-box;
-  /* outline: 0.1px solid pink; */
+  outline: 0.1px solid pink;
 }
 
 /* *:focus {

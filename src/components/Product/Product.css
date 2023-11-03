@@ -8,9 +8,10 @@
 .product__good-info {
   display: flex;
   flex-direction: row;
-  height: 30px;
-  margin: 13px 0 26px;
-  gap: 15px;
+  height: 32px;
+  margin: 19px 0 24px;
+  padding: 4px 0 8px;
+  gap: 16px;
 }
 
 .product__good-details {
