@@ -26,22 +26,32 @@
 }
 
 .images__nav-swiper .swiper-slide-thumb-active {
-  width: 186px;
-  height: 143px;
   border: 1px solid #726efa;
   opacity: 1;
 }
 
 .swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #d9d9d9;
-  border-radius: 16px;
   display: flex;
   justify-content: center;
-  object-fit: cover;
   align-items: center;
-  background: none;
+  border-radius: 16px;
+  box-sizing: border-box;
+}
+.images__swiper .swiper-slide-prev {
+  position: relative;
+  border-radius: 16px;
+}
+.images__swiper .swiper-slide-prev::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  left: 0;
+  bottom: 0;
+  background: gray;
+  opacity: 0.05;
+  border-radius: 16px;
+  transition: background 1s;
 }
 
 .images__image {
@@ -49,10 +59,7 @@
   width: 100%;
   height: 100%;
   border-radius: 16px;
-  background-size: cover;
-  background-position: center;
   background: #f4f4f4;
-  /* background: none; */
   object-fit: contain;
 }
 
@@ -60,6 +67,24 @@
   width: 708px;
   height: 544px;
   border-radius: 16px;
+}
+.images__swiper .swiper-slide:hover::before {
+  position: relative;
+}
+.images__swiper .swiper-slide:hover::before {
+  display: block;
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  content: '';
+  background-image: url(../../../images/arcticons_photo-and-picture-resizer.svg);
+  background-size: 28px 28px;
+  background-repeat: no-repeat;
+  bottom: 20px;
+  right: 20px;
+  background-position: right bottom;
+  z-index: 100;
+  opacity: 1;
 }
 
 .images__modal {
@@ -103,8 +128,6 @@
 .modal__swiper {
   width: 1280px;
   height: 780px;
-  /* width: 100%;
-  height: 100%; */
   margin: auto;
   z-index: 20;
 }
@@ -112,20 +135,18 @@
 .swiper-button-next,
 .swiper-button-prev {
   background-color: none;
-  width: 90px;
-  height: 100%;
+  width: 80px;
+  height: 585px;
   padding: 0;
-  margin: 0;
+  margin: auto 0;
+  top: 0;
+  bottom: 0;
 }
 .swiper-button-next {
   right: 0;
-  top: 0;
-  bottom: 0;
   border-radius: 16px 0 0 16px;
 }
 .swiper-button-prev {
   left: 0;
-  top: 0;
-  bottom: 0;
   border-radius: 0 16px 16px 0;
 }

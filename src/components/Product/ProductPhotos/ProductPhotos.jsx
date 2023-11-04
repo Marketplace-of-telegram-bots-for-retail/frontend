@@ -19,13 +19,15 @@ import {
   FreeMode,
   Navigation,
   Thumbs,
-  EffectFade,
+  EffectCreative,
   Controller,
   Pagination,
   Mousewheel,
   Keyboard,
 } from 'swiper/modules';
 import { getProductCardData } from '../../../store';
+// импорт SVG
+import { ReactComponent as CloseModalImagesSvg } from '../../../images/ic_cross-24-circle.svg';
 
 export default function ProductPhotos() {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
@@ -33,7 +35,7 @@ export default function ProductPhotos() {
 
   const { images } = useSelector(getProductCardData);
   const [isOpen, setOpen] = useState(false);
-
+  const decorationSpeed = 900;
   useEffect(() => {
     console.log(isOpen);
   }, [isOpen]);
@@ -73,6 +75,7 @@ export default function ProductPhotos() {
           className='images__nav-swiper'
           direction='vertical'
           modules={[FreeMode, Thumbs, Mousewheel]}
+          speed={decorationSpeed}
           spaceBetween={20}
           slidesPerView={3.41}
           onSwiper={setThumbsSwiper}
@@ -86,16 +89,21 @@ export default function ProductPhotos() {
             </SwiperSlide>
           ))}
         </Swiper>
-
         <Swiper
-          modules={[EffectFade, Navigation, Thumbs, Controller]}
+          modules={[EffectCreative, Navigation, Thumbs, Controller]}
           watchSlidesProgress={true}
           controller={{ control: controlledSwiper }}
-          coverflowEffect={{
-            shadow: true,
+          effect='creative'
+          creativeEffect={{
+            prev: {
+              translate: [0, 0, -100],
+            },
+            next: {
+              translate: ['100%', 0, 0],
+            },
           }}
-          effect='fade'
           spaceBetween={10}
+          speed={decorationSpeed}
           thumbs={{
             swiper:
               thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
@@ -125,34 +133,7 @@ export default function ProductPhotos() {
               setOpen((state) => !state);
             }}
           >
-            <svg
-              xmlns='http://www.w3.org/2000/svg'
-              width='28'
-              height='28'
-              viewBox='0 0 28 28'
-              fill='none'
-            >
-              {/* <g cliPath='url(#clip0_713_6228)'> */}
-              <circle cx='14' cy='14' r='14' fill='#F8F8FF' />
-              <path
-                fillRule='evenodd'
-                clipRule='evenodd'
-                d='M7.07107 21.0711C6.77066 20.7707 6.77066 20.2836 7.07107 19.9832L20.1253 6.92893C20.4257 6.62853 20.9128 6.62853 21.2132 6.92893C21.5136 7.22934 21.5136 7.71639 21.2132 8.01679L8.15892 21.0711C7.85852 21.3715 7.37147 21.3715 7.07107 21.0711Z'
-                fill='#1E1E1E'
-              />
-              <path
-                fillRule='evenodd'
-                clipRule='evenodd'
-                d='M21.2132 21.0711C20.9128 21.3715 20.4257 21.3715 20.1253 21.0711L7.07107 8.01679C6.77066 7.71639 6.77066 7.22934 7.07107 6.92893C7.37147 6.62853 7.85852 6.62853 8.15892 6.92893L21.2132 19.9832C21.5136 20.2836 21.5136 20.7707 21.2132 21.0711Z'
-                fill='#1E1E1E'
-              />
-              {/* </g> */}
-              {/* <defs>
-                <clipPath id='clip0_713_6228'>
-                  <rect width='28' height='28' fill='white' />
-                </clipPath>
-              </defs> */}
-            </svg>
+            <CloseModalImagesSvg />
           </button>
           <Swiper
             className='modal__swiper'
@@ -168,13 +149,31 @@ export default function ProductPhotos() {
               '--swiper-pagination-bullet-horizontal-gap': '8px',
               '--swiper-pagination-bottom': '32px',
             }}
-            modules={[Navigation, Controller, Pagination, Keyboard]}
+            modules={[
+              EffectCreative,
+              Navigation,
+              Controller,
+              Pagination,
+              Keyboard,
+            ]}
+            effect='creative'
+            creativeEffect={{
+              prev: {
+                shadow: true,
+                translate: ['-120%', 0, -400],
+              },
+              next: {
+                shadow: true,
+                translate: ['120%', 0, -400],
+              },
+            }}
             onSwiper={setControlledSwiper}
             slidesPerView={1.2}
             slidesPerGroupSkip={1}
             watchSlidesProgress={true}
             grabCursor={true}
             centeredSlides={true}
+            speed={decorationSpeed}
             keyboard={{
               enabled: true,
             }}
