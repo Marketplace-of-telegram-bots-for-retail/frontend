@@ -7,4 +7,32 @@
 .profile__container {
   display: flex;
   gap: 104px;
+  gap: 62px;
+}
+
+.profile__button-links {
+  display: flex;
+  gap: 20px;
+}
+
+.profile__button-link {
+  width: 396px;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  padding: 32px 32px;
+  height: 71px;
+  text-decoration: none;
+  border: none;
+  background-color: #fff;
+  color: var(--Primary-Black, #1E1E1E);
+  cursor: pointer;
+}
+
+.profile__button-link_active {
+  background-color: var(--BG-Purple, #F8F8FF);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  border-bottom: 2px solid var(--Primary-Accent, #726EFA);
 }

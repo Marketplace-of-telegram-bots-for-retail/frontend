@@ -55,7 +55,7 @@ export default function ProfileForm(props) {
 
   return (
     <form className='profile__form' noValidate>
-      <h2 className='profile__form-title'>Персональные данные</h2>
+      {/* <h2 className='profile__form-title'>Персональные данные</h2> */}
       <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
       <ul className='profile__inputs-list'>
         <li>

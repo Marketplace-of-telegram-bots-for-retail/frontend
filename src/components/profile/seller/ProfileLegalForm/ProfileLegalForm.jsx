@@ -79,7 +79,7 @@ function ProfileLegalForm() {
   return (
     location.pathname === '/profile/legal-info' ?
       <form className='profile__form' noValidate>
-        <h2 className='profile__form-title'>Юридическая информация</h2>
+        {/* <h2 className='profile__form-title'>Юридическая информация</h2> */}
         <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
         <ul className='profile__inputs-list'>
           <li>
