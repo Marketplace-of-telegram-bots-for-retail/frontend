@@ -23,7 +23,7 @@ const Goods = () => {
       >
         Добавить новый
       </button>
-      {isShown && (
+      {!isShown && (
         <GoodsNewBot />
       )}
     </section>
