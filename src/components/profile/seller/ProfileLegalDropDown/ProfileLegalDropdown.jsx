@@ -11,6 +11,7 @@ function ProfileLegalDropdown(props) {
 
   const dropdownListClick = (index) => {
     setDropdown(index);
+    props.onIndexChange(index);
   };
 
   function handleOpen() {
