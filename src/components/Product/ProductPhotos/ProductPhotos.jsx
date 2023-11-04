@@ -31,9 +31,7 @@ export default function ProductPhotos({ images }) {
 
   const [isOpen, setOpen] = useState(false);
   const decorationSpeed = 750;
-  useEffect(() => {
-    console.log(isOpen);
-  }, [isOpen]);
+
   // указываем `useEffect` для обработчика `Escape`
   useEffect(() => {
     if (!isOpen) return;
