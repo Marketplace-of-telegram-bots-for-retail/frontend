@@ -7,7 +7,7 @@ import { getAuthorisationData } from '../../../store';
 import CartEmptyImg from '../../../images/shopping_basket 2.svg';
 
 const CartEmpty = () => {
-  const { isAuthorised } = useSelector(getAuthorisationData);
+  const { isAuthorized } = useSelector(getAuthorisationData);
   return (
     <div className='cart-empty'>
       <img
@@ -16,7 +16,7 @@ const CartEmpty = () => {
         alt='тележка покупателя'
       />
       <h2 className='cart-empty__title'>Корзина пуста</h2>
-      {!isAuthorised ? (
+      {!isAuthorized ? (
         <>
           <p className='cart-empty__text'>
             Если&nbsp;в&nbsp;корзине&nbsp;были&nbsp;товары&nbsp;&mdash;

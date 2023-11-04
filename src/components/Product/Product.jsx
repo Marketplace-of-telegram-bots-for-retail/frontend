@@ -43,7 +43,7 @@ const Product = () => {
     <section className='product'>
       <BreadCrumbs />
       <ProductTitle card={productCard} />
-      <div className='product__good-info'>
+      <div className='product__info'>
         <Rating
           ratingCard={productCard.rating}
           onClickStar={(i) => {
@@ -55,7 +55,7 @@ const Product = () => {
         />
         <LikeButton parentClass='product' card={productCard} />
       </div>
-      <div className='product__good-details'>
+      <div className='product__details'>
         <ProductDetail scrollRef={elRef} />
         <ProductPriceBlock card={productCard} />
       </div>

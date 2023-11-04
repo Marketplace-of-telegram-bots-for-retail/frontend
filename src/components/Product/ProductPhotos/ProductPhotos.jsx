@@ -1,8 +1,5 @@
 /* eslint-disable import/no-unresolved */
-/* eslint-disable react/jsx-boolean-value */
-/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
 // Import Swiper React components
 import { Swiper, SwiperSlide } from 'swiper/react';
 // Import Swiper styles
@@ -25,17 +22,15 @@ import {
   Mousewheel,
   Keyboard,
 } from 'swiper/modules';
-import { getProductCardData } from '../../../store';
 // импорт SVG
 import { ReactComponent as CloseModalImagesSvg } from '../../../images/ic_cross-24-circle.svg';
 
-export default function ProductPhotos() {
+export default function ProductPhotos({ images }) {
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [controlledSwiper, setControlledSwiper] = useState(null);
 
-  const { images } = useSelector(getProductCardData);
   const [isOpen, setOpen] = useState(false);
-  const decorationSpeed = 900;
+  const decorationSpeed = 750;
   useEffect(() => {
     console.log(isOpen);
   }, [isOpen]);
@@ -74,16 +69,21 @@ export default function ProductPhotos() {
         <Swiper
           className='images__nav-swiper'
           direction='vertical'
-          modules={[FreeMode, Thumbs, Mousewheel]}
+          modules={[FreeMode, Thumbs, Mousewheel, Navigation]}
           speed={decorationSpeed}
           spaceBetween={20}
           slidesPerView={3.41}
           onSwiper={setThumbsSwiper}
-          freeMode={true}
-          watchSlidesProgress={true}
-          mousewheel={true}
+          freeMode
+          watchSlidesProgress
+          mousewheel
+          keyboard={{
+            enabled: true,
+          }}
+          navigation
+          pagination={{ clickable: true }}
         >
-          {images.map((image) => (
+          {images?.map((image) => (
             <SwiperSlide key={image.id}>
               <img className='images__image' src={image.image} alt='Скриншот' />
             </SwiperSlide>
@@ -91,7 +91,7 @@ export default function ProductPhotos() {
         </Swiper>
         <Swiper
           modules={[EffectCreative, Navigation, Thumbs, Controller]}
-          watchSlidesProgress={true}
+          watchSlidesProgress
           controller={{ control: controlledSwiper }}
           effect='creative'
           creativeEffect={{
@@ -110,7 +110,7 @@ export default function ProductPhotos() {
           }}
           className='images__swiper'
         >
-          {images.map((image) => (
+          {images?.map((image) => (
             <SwiperSlide key={image.id}>
               <img
                 className='images__image'
@@ -170,9 +170,9 @@ export default function ProductPhotos() {
             onSwiper={setControlledSwiper}
             slidesPerView={1.2}
             slidesPerGroupSkip={1}
-            watchSlidesProgress={true}
-            grabCursor={true}
-            centeredSlides={true}
+            watchSlidesProgress
+            grabCursor
+            centeredSlides
             speed={decorationSpeed}
             keyboard={{
               enabled: true,
@@ -181,7 +181,7 @@ export default function ProductPhotos() {
             pagination={{ clickable: true }}
             spaceBetween={20}
           >
-            {images.map((image) => (
+            {images?.map((image) => (
               <SwiperSlide key={image.id}>
                 <img
                   className='images__image'

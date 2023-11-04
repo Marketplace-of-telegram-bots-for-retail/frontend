@@ -5,7 +5,7 @@
   flex-direction: column;
 }
 
-.product__good-info {
+.product__info {
   display: flex;
   flex-direction: row;
   height: 32px;
@@ -14,7 +14,7 @@
   gap: 16px;
 }
 
-.product__good-details {
+.product__details {
   display: grid;
   grid-template-columns: minmax(min-content, 916px) minmax(min-content, 292px);
   gap: 20px;

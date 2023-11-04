@@ -132,8 +132,8 @@
   z-index: 20;
 }
 
-.swiper-button-next,
-.swiper-button-prev {
+.images__modal .swiper-button-next,
+.images__modal .swiper-button-prev {
   background-color: none;
   width: 80px;
   height: 585px;
@@ -142,11 +142,34 @@
   top: 0;
   bottom: 0;
 }
-.swiper-button-next {
+.images__modal .swiper-button-next {
   right: 0;
   border-radius: 16px 0 0 16px;
 }
-.swiper-button-prev {
+.images__modal .swiper-button-prev {
   left: 0;
   border-radius: 0 16px 16px 0;
+}
+
+.images__nav-swiper [class^='swiper-button'] {
+  width: 28px;
+  height: 28px;
+  top: initial;
+  left: initial;
+  right: initial;
+  bottom: initial;
+  margin: 0;
+}
+
+.images__nav-swiper .swiper-button-prev {
+  top: 5px;
+  left: 80px;
+  background-image: url(../../../images/ep_arrow-down.svg);
+  transform: rotate(180deg);
+}
+.images__nav-swiper .swiper-button-next {
+  bottom: 5px;
+  left: 80px;
+  background-image: url(../../../images/ep_arrow-down.svg);
+  transform: rotate(0);
 }

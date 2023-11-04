@@ -5,7 +5,7 @@ import ProductPriceBlock from '../../ProductPriceBlock/ProductPriceBlock';
 
 const ProductDetails = ({ card, state, setState, star, setStar }) => {
   return (
-    <div className='product__good-details'>
+    <div className='product__details'>
       <ProductDetail
         state={state}
         setState={setState}

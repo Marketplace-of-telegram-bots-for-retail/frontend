@@ -7,13 +7,13 @@ const ProductDescription = () => {
   const { description, video } = useSelector(getProductCardData).productCard;
 
   return (
-    <div className='product__description'>
-      <p className='product__description-text'>{description}</p>
+    <div className='product__description description'>
+      <p className='description__text'>{description}</p>
       {video && (
-        <div className='product__description-videos'>
-          <h2 className='product__description-heading'>Видеообзор</h2>
+        <div className='description__videos'>
+          <h2 className='description__heading'>Видеообзор</h2>
           <iframe
-            className='product__description-link'
+            className='description__link'
             title='product-video'
             src={video}
             frameBorder='0'
