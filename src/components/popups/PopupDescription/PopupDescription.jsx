@@ -1,13 +1,13 @@
 import React from 'react';
-import './PopupCategory.css';
+import './PopupDescription.css';
 import { goodsHint } from '../../../utils/constants';
 import { usePopupClose } from '../../../hooks/usePopupClose';
 
-function PopupCategory({ isOpen, onClose }) {
+function PopupDescription({ isOpen, onClose }) {
   usePopupClose(isOpen, onClose);
   return (
     <div
-      className={`popup__category ${isOpen && 'popup__category_opened'}`}
+      className={`popup__description ${isOpen && 'popup__description_opened'}`}
     >
       <svg xmlns="http://www.w3.org/2000/svg" width="389" height="188" viewBox="0 0 389 188" fill="none">
         <g filter="url(#filter0_d_2031_11127)">
@@ -27,16 +27,17 @@ function PopupCategory({ isOpen, onClose }) {
           </filter>
         </defs>
       </svg>
-      <div className='popup__group-category'>
-        <p className='popup__text-category'>
+      <div className='popup__group-description'>
+        <p className='popup__text-description'>
           {goodsHint.requiredField}
           <br />
-          {goodsHint.category}
-          <span className='popup__text-category popup__text_type_span'>{goodsHint.categorySpan}</span>
+          {goodsHint.descriptionFirst}
+          <br />
+          {goodsHint.descriptionSecond}
         </p>
       </div>
     </div>
   );
 }
 
-export default PopupCategory;
+export default PopupDescription;

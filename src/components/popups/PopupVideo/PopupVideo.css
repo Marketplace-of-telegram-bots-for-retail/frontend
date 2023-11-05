@@ -1,26 +1,26 @@
-.popup__category {
+.popup__video {
   position: absolute;
   display: flex;
-  padding-left: 144px;
+  padding-left: 67px;
   visibility: hidden;
   opacity: 0;
   transition: visability 0.2s, opacity 0.2s ease-in;
   z-index: 3;
 }
-
-.popup__category_opened {
+    
+.popup__video_opened {
   visibility: visible;
   opacity: 1;
 }
-
-.popup__group-category {
+    
+.popup__group-video {
   position: absolute;
   width: 320px;
   padding-top: 44px;
   padding-left: 50px;
 }
-
-.popup__text-category {
+    
+.popup__text-video {
   margin: 0;
   padding: 0;
   width: 288px;
@@ -31,8 +31,4 @@
   font-weight: 400;
   line-height: 20px; 
   z-index: 3;
-}
-
-.popup__text_type_span {
-  color: var(--Primary-Accent, #726EFA);
 }
