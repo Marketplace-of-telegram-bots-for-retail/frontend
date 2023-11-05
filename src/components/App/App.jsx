@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   getProducts,
   getFavorites,
@@ -19,7 +19,7 @@ import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import Cart from '../Cart/Cart';
 import Order from '../Order/Order';
-import Profile from '../profile';
+import Profile from '../personal';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import Favorites from '../Favorites/Favorites';
@@ -30,18 +30,30 @@ import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
-import { authorise, logOut, setRegisterStep } from '../../store/dataAuthorisation';
+import {
+  setIsAuthorized,
+  setRegisterStep,
+  setAuthErrorMessage,
+} from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
-import ProfileForm from '../profile/user/ProfileForm';
-import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
-import Goods from '../profile/goods/Goods';
+import ProfileForm from '../personal/user/ProfileForm';
+// import Goods from '../personal/goods/Goods';
+import { getAuthorisationData } from '../../store';
+import MyOrders from '../personal/user/MyOrders';
+import MyReviews from '../personal/user/MyReviews';
+import MyRefunds from '../personal/user/MyRefunds';
+import SellerLegalData from '../personal/seller/SellerLegalData';
+import SellerPersonalData from '../personal/seller/SellerPersonalData';
+import MyGoods from '../personal/seller/MyGoods';
+import MyPromoCodes from '../personal/seller/MyPromoCodes';
+import Statistics from '../personal/seller/Statistics';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
 
   const [isPreloader, setPreloader] = useState(false);
-  const [isAuthorized, setAuthorized] = useState(false);
   const [currentUser, setCurrentUser] = useState({});
+  const { isAuthorized, isLoginModal } = useSelector(getAuthorisationData);
 
   const dispatch = useDispatch();
 
@@ -50,8 +62,6 @@ const App = () => {
 
   const [showAuthModal, setShowAuthModal] = useState(false);
   useModal(showAuthModal, setShowAuthModal);
-
-  const [queryMessage, setQueryMessage] = useState('');
 
   // очистить очистить хранилище
   const clearStorage = () => {
@@ -62,8 +72,7 @@ const App = () => {
   const clearStates = () => {
     clearStorage();
     // заменить на  dispatch(logOut());
-    setAuthorized(false);
-    dispatch(logOut());
+    dispatch(setIsAuthorized(false));
     setCurrentUser({});
     dispatch(setRegisterStep(1));
     // сбросить стейты избранного
@@ -100,8 +109,7 @@ const App = () => {
         const userData = await api.getUserMe();
         if (userData) {
           setCurrentUser(userData);
-          setAuthorized(true);
-          dispatch(authorise());
+          dispatch(setIsAuthorized(true));
         }
       }
     } catch (err) {
@@ -131,10 +139,15 @@ const App = () => {
       setToken(res.auth_token, data.rememberMe);
       // загрузить данные пользователя и чекнуть jwt
       cbTokenCheck();
+      // если мы в модалке логина, то закрываем ее при успешной авторизации
+      if (isLoginModal) {
+        setShowAuthButtons(false);
+        setShowAuthModal(false);
+      }
     } catch (err) {
       console.log('cbAuth => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -143,8 +156,8 @@ const App = () => {
   // Логин
   const cbLogIn = (data) => {
     cbAuth(data);
-    setShowAuthButtons(false);
-    setShowAuthModal(false);
+    // setShowAuthButtons(false);
+    // setShowAuthModal(false);
   };
 
   // Регистрация
@@ -158,7 +171,7 @@ const App = () => {
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -190,7 +203,7 @@ const App = () => {
     } catch (err) {
       console.log('cbChangePassword => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -209,7 +222,7 @@ const App = () => {
     } catch (err) {
       console.log('cbUpdateProfile => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -224,7 +237,7 @@ const App = () => {
     } catch (err) {
       console.log('cbUpdateEmail => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     }
   };
 
@@ -237,7 +250,7 @@ const App = () => {
     } catch (err) {
       console.log('cbDeleteUser => err', err); // Консоль
       const errMessage = Object.values(err)[0];
-      setQueryMessage(errMessage);
+      dispatch(setAuthErrorMessage(errMessage));
     } finally {
       setPreloader(false);
     }
@@ -253,13 +266,10 @@ const App = () => {
         <AuthButtons
           cbLogIn={cbLogIn}
           cbRegister={cbRegister}
-          isAuthorized={isAuthorized}
           showAuthButtons={showAuthButtons}
           setShowAuthButtons={setShowAuthButtons}
           showAuthModal={showAuthModal}
           setShowAuthModal={setShowAuthModal}
-          queryMessage={queryMessage}
-          setQueryMessage={setQueryMessage}
         />
       )}
       <Routes>
@@ -270,7 +280,6 @@ const App = () => {
             <>
               <Header
                 setShowAuthButtons={setShowAuthButtons}
-                isAuthorized={isAuthorized}
                 isPreloader={isPreloader}
               />
               <Main>
@@ -301,7 +310,7 @@ const App = () => {
             />
           )}
           <Route
-            path='/profile'
+            path='/personal/'
             element={
               <Profile
                 cbLogout={cbLogout}
@@ -312,46 +321,46 @@ const App = () => {
               </Profile>
             }
           >
+            {/* 3 Уровень вложенности */}
             <Route
-              path='/profile/user'
+              path='/personal/profile/'
               element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
-            />
-            {/* Роуты пользователя */}
-            <Route path='/profile/orders' />
-            <Route path='/profile/returns' />
-            <Route path='/profile/reviews' />
-            {/* Роуты продавца. Обернуть в защищенный роут? */}
-            <Route
-              path='/profile/legal-info'
-              // element={<ProfileLegalForm bUpdateProfile={cbUpdateProfile} />}
-              element={<ProfileLegalForm />}
-            />
-            <Route path='/profile/products' element={<Goods />} />
-            <Route path='/profile/statistics' />
-            <Route path='/profile/promocodes' />
+            ></Route>
+            <Route path='/personal/orders/' element={<MyOrders />}></Route>
+            <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
+            <Route path='/personal/reviews/' element={<MyReviews />}></Route>
+            <Route path='/personal/seller/' element={<Outlet />}>
+              {/* 4 Уровень вложенности */}
+              <Route
+                index
+                path='/personal/seller/legal-data/'
+                element={<SellerLegalData />}
+              ></Route>
+              <Route
+                path='/personal/seller/personal-data/'
+                element={<SellerPersonalData />}
+              ></Route>
+              <Route
+                path='/personal/seller/goods/'
+                element={<MyGoods />}
+              ></Route>
+              <Route
+                path='/personal/seller/promo-codes/'
+                element={<MyPromoCodes />}
+              ></Route>
+              <Route
+                path='/personal/seller/statistics/'
+                element={<Statistics />}
+              ></Route>
+            </Route>
           </Route>
+
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route
             path='/salesman'
-            // стоит заглушка
-            element={
-              <Salesman
-                cbRegister={cbRegister}
-                queryMessage={queryMessage}
-                setQueryMessage={setQueryMessage}
-              />
-            }
+            element={<Salesman cbRegister={cbRegister} />}
           />
-          <Route
-            path='/return'
-            // стоит заглушка
-            element={<ErrorPage />}
-          />
-          <Route
-            path='/promo'
-            // стоит заглушка
-            element={<Promo />}
-          />
+          <Route path='/promo' element={<Promo />} />
         </Route>
       </Routes>
     </CurrentUserContext.Provider>

@@ -1,4 +1,4 @@
-.product__good-info {
+.product__info {
     display: flex;
     flex-direction: row;
     height: 30px;
@@ -6,7 +6,7 @@
     gap: 15px;
 }
 
-.product__good-raiting {
+.product__raiting {
     width: 236px;
     display: flex;
     flex-direction: row;
@@ -15,7 +15,7 @@
     cursor: pointer;
 }
 
-.product__good-rewiew {
+.product__rewiew {
     margin: 0;
     padding: 0;
     color: var(--Gray-Dark);
@@ -27,11 +27,11 @@
     cursor: pointer;
 }
 
-.product__good-rewiew:hover {
+.product__rewiew:hover {
     color: var(--Secondary-Accent-Blue-Dark);
 }
 
-.product__good-like {
+.product__like {
     width: 20px;
     height: 20px;
     background: url(../../../images/ic_heart-24_blue.svg);
@@ -41,15 +41,15 @@
     cursor: pointer;
 }
 
-.product__good-like:hover {
+.product__like:hover {
     background: url(../../../images/ic_heart-24-hover.svg);
 }
 
-.product__good-like_active {
+.product__like_active {
     background: url(../../../images/ic_heart-solid-24-magenta.svg);
 }
 
-.product__good-add {
+.product__add {
     margin: 0;
     padding: 0;
     color: var(--Gray-Dark);
@@ -61,6 +61,6 @@
     cursor: pointer;
 }
 
-.product__good-add:hover {
+.product__add:hover {
     color: var(--Secondary-Accent-Blue-Dark);
 }

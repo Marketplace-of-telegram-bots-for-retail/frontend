@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { getProductsData } from '../../../store';
 import './SearchError.css';
-import MagnifyingIcon from '../../../images/images-new/magnifying-search.png';
+import MagnifyingIcon from '../../../images/magnifying-search.png';
 
 const SearchError = () => {
   const { is_loading } = useSelector(getProductsData);

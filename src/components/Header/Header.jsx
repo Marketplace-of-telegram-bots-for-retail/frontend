@@ -5,16 +5,21 @@ import { useSelector } from 'react-redux';
 import './Header.css';
 import { ARR_NAV } from '../../utils/constants';
 import SearchInputBox from '../form-items/SearchInputBox/SearchInputBox';
-import logo from '../../images/images-new/logo-botmarket.png';
+import logo from '../../images/logo-botmarket.png';
 import { useScroll } from '../../hooks/useScroll';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
-import { getCartData, getProductsData } from '../../store';
+import {
+  getCartData,
+  getProductsData,
+  getAuthorisationData,
+} from '../../store';
 
-const Header = ({ setShowAuthButtons, isAuthorized }) => {
+const Header = ({ setShowAuthButtons }) => {
   const currentUser = useContext(CurrentUserContext);
   const { scrollPosition } = useScroll();
   const { favoritesCount } = useSelector(getProductsData);
   const { total_quantity } = useSelector(getCartData);
+  const { isAuthorized } = useSelector(getAuthorisationData);
 
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
@@ -79,7 +84,10 @@ const Header = ({ setShowAuthButtons, isAuthorized }) => {
                   Войти
                 </button>
               ) : (
-                <Link to='/profile' className='header__menu-button-icon '>
+                <Link
+                  to='/personal/profile/'
+                  className='header__menu-button-icon '
+                >
                   <span className='header__button-icon header__button-icon_profile'></span>
                   <span className='header__button-text'>
                     {currentUser.first_name}

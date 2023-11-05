@@ -12,9 +12,9 @@
 .product__price-item {
     margin: 0;
     padding: 0;
-    color: #1E1E1E;
+    color: var(--Primary-Black);
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
-    line-height: normal;
+    line-height: 39px;
 }

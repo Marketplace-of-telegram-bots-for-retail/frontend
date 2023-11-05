@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import './ErrorPage.css';
-import ToolsIcon from '../../images/images-new/gears-repair.png';
-import PageNotFoundIcon from '../../images/images-new/404-error.png';
+import ToolsIcon from '../../images/gears-repair.png';
+import PageNotFoundIcon from '../../images/404-error.png';
 
 const ErrorPage = ({ pageNotFound }) => {
   const params = {

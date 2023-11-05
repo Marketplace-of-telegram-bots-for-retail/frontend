@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux/es/hooks/useSelector';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { ReactComponent as Close } from '../../../images/close-icon.svg';
 import { ReactComponent as Back } from '../../../images/fluent_ios-arrow-24-regular.svg';
 import Login from '../Login/Login';
@@ -12,15 +12,10 @@ import { getAuthorisationData } from '../../../store';
 import {
   setRegisterStep,
   setIsLoginModal,
+  setAuthErrorMessage,
 } from '../../../store/dataAuthorisation';
 
-const AuthModal = ({
-  onClose,
-  cbLogIn,
-  cbRegister,
-  queryMessage,
-  setQueryMessage,
-}) => {
+const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { registerStep, isLoginModal } = useSelector(getAuthorisationData);
@@ -36,16 +31,12 @@ const AuthModal = ({
     <Login
       onToggleFormClick={() => dispatch(setIsLoginModal(false))}
       cbLogIn={cbLogIn}
-      queryMessage={queryMessage}
-      setQueryMessage={setQueryMessage}
     />
   ) : (
     <Register
       onToggleFormClick={() => dispatch(setIsLoginModal(true))}
       cbRegister={cbRegister}
       onClose={onClose}
-      queryMessage={queryMessage}
-      setQueryMessage={setQueryMessage}
     />
   );
 
@@ -70,7 +61,7 @@ const AuthModal = ({
             className='modal__button_type_back'
             onClick={() => {
               dispatch(setRegisterStep(1));
-              setQueryMessage('');
+              dispatch(setAuthErrorMessage(''));
             }}
           />
         )}
@@ -78,9 +69,7 @@ const AuthModal = ({
           <Forgot
             isLogin={isLoginModal}
             onToggleFormClick={handleToggleFormClick}
-            queryMessage={queryMessage}
             onClose={onClose}
-            setQueryMessage={setQueryMessage}
             goBack={() => {
               setGoBack(true);
             }}

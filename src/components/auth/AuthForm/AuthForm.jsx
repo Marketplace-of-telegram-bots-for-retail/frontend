@@ -1,20 +1,24 @@
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
 import { getAuthorisationData } from '../../../store';
+import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
 
 const AuthForm = ({ children, ...props }) => {
+  const dispatch = useDispatch();
+
   useEffect(() => {
-    props.setQueryMessage('');
+    dispatch(setAuthErrorMessage(''));
   }, []);
 
   const location = useLocation();
-  const { registerStep, isLoginModal } = useSelector(getAuthorisationData);
+  const { registerStep, isLoginModal, authErrorMessage } =
+    useSelector(getAuthorisationData);
 
-  const buttonSubmitText = isLoginModal
+  const buttonSubmitText = props.isLogin
     ? 'Войти'
     : (registerStep === 1 && 'Далее') ||
       (registerStep === 2 && 'Зарегистрироваться');
@@ -47,7 +51,7 @@ const AuthForm = ({ children, ...props }) => {
             )
           )}
         </div>
-        <span className='modal__query-error'>{props.queryMessage}</span>
+        <span className='modal__query-error'>{authErrorMessage}</span>
         <button
           className='modal__button_type_submit'
           type='submit'
