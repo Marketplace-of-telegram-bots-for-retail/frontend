@@ -64,7 +64,7 @@ export const ARR_NAV = [
   { label: 'Контакты', link: '/promo#contacts' },
   { label: 'FAQ', link: '/promo#faq' },
   { label: 'Возврат', link: '/return#' },
-  { label: 'Стать продавцом', path: '/salesman#' },
+  { label: 'Стать продавцом', link: '/salesman#' },
 ];
 
 export const FOOTER_LINKS = [
