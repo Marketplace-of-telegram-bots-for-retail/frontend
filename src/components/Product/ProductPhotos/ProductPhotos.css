@@ -90,10 +90,10 @@
 .images__modal {
   width: 1280px;
   height: 780px;
-  position: fixed;
+  position: absolute;
   margin: 0 auto;
   left: 0;
-  top: auto;
+  top: 15%;
   right: 0;
   z-index: 15;
 }

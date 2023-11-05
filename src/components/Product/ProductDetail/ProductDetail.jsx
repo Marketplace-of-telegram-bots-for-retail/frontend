@@ -24,7 +24,7 @@ const ProductDetail = ({ scrollRef }) => {
       <div className='product__tabs' ref={scrollRef}>
         <h3
           className={`product__tab ${
-            isShowDescription ? 'product__tab_active' : 'product__tab '
+            isShowDescription ? 'product__tab_active' : ''
           }`}
           onClick={() => dispatch(setShowDescription(true))}
         >
@@ -32,7 +32,7 @@ const ProductDetail = ({ scrollRef }) => {
         </h3>
         <h3
           className={`product__tab ${
-            !isShowDescription ? 'product__tab_active' : 'product__tab '
+            !isShowDescription ? 'product__tab_active' : ''
           }`}
           onClick={() => dispatch(setShowDescription(false))}
         >{`Отзывы (${productReviews?.length || 0})`}</h3>

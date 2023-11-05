@@ -16,8 +16,11 @@ class Api {
       const data = await res.json();
       return data;
     }
+    if (res.status === 404) {
+      throw res;
+    }
     const err = await res.json();
-    return Promise.reject(err);
+    throw err;
   };
 
   // Делаем запрос на сервер

@@ -6,7 +6,7 @@
   margin-bottom: 16px;
 }
 
-.product__review-open {
+.product__review-btn-open {
   display: flex;
   width: 396px;
   height: 52px;
@@ -27,26 +27,17 @@
   cursor: pointer;
 }
 
-.product__review-open:hover {
-  background: var(--Secondary-Accent-Blue-Dark);
-}
-
-.product__review-open:disabled {
-  background: var(--Secondary-Purple-Light);
-}
-
 .product__review-question {
   margin: 0;
   padding: 0;
   color: var(--Primary-Black);
-  font-size: 14px;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 20px;
-  letter-spacing: 0.2px;
+  font-weight: 500;
+  line-height: normal;
 }
 
-.product__review-show {
+.product__review-btn-show {
   margin: 0;
   padding: 0;
   background: #fff;
@@ -59,10 +50,6 @@
   letter-spacing: 0.5px;
   border: none;
   cursor: pointer;
-}
-
-.product__review-show:hover {
-  color: var(--Secondary-Accent-Blue-Dark);
 }
 
 .product__review-block {
@@ -99,7 +86,10 @@
   font-weight: 400;
   line-height: 22px;
 }
-
+.product__review-input:focus {
+  outline: none;
+  border: 1px solid var(--Secondary-Accent-Blue-Dark);
+}
 .product__review-buttons {
   margin-top: 8px;
   display: flex;
@@ -109,7 +99,7 @@
   gap: 48px;
 }
 
-.product__review-send {
+.product__review-btn-send {
   display: flex;
   width: 396px;
   height: 52px;
@@ -131,15 +121,7 @@
   cursor: pointer;
 }
 
-.product__review-send:hover {
-  background: var(--Secondary-Accent-Blue-Dark);
-}
-
-.product__review-send:disabled {
-  background: var(--Secondary-Purple-Light);
-}
-
-.product__review-delete {
+.product__review-btn-delete {
   margin: 0;
   padding: 0;
   background: #fff;
@@ -191,7 +173,26 @@
   height: 17.723px;
 }
 
-.product__button-wrapper:has(.product__review-open[disabled]:hover)
+.product__button-wrapper:has(.product__review-btn-open[disabled]:hover)
   .product__popover {
   visibility: visible;
+}
+
+.product__review-btn-show:hover,
+.product__review-btn-delete:hover {
+  color: var(--Secondary-Accent-Blue-Dark);
+}
+.product__review-btn-show:hover {
+  color: var(--Secondary-Accent-Blue-Dark);
+}
+
+.product__review-btn-open:hover,
+.product__review-btn-send:hover {
+  background: var(--Secondary-Accent-Blue-Dark);
+}
+
+.product__review-btn-open:disabled,
+.product__review-btn-send:disabled {
+  background: var(--Secondary-Purple-Light);
+  cursor: auto;
 }
