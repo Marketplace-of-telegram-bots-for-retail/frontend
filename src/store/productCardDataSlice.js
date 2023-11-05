@@ -49,7 +49,7 @@ export const sendProductReview = createAsyncThunk(
   async ({ id, data }, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.postProductsReview(id, data);
-      console.log(res);
+      // console.log(res);
       dispatch(setMyProductReview(res));
     } catch (err) {
       return rejectWithValue(err);
@@ -62,7 +62,7 @@ export const changeProductReview = createAsyncThunk(
   async ({ id, reviewId, data }, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.putProductReviewId(id, reviewId, data);
-      console.log(res);
+      // console.log(res);
       dispatch(setMyProductReview(res));
     } catch (err) {
       return rejectWithValue(err);
@@ -113,7 +113,7 @@ const productCardDataSlice = createSlice({
       state.isShowDescription = true;
       // получить массив ссылок на изображение
       state.images = action.payload?.images;
-      console.log(action.payload?.images);
+      // console.log(action.payload?.images);
       const newImages = Object.keys(action.payload)
         .filter((key) => key.includes('image_') && action.payload[key] !== null)
         .map((key) => {

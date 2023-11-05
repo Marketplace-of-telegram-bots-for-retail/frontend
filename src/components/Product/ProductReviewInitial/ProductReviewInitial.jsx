@@ -10,7 +10,8 @@ import {
   deleteProductReview,
   sendProductReview,
 } from '../../../store/productCardDataSlice';
-import { getAuthorisationData } from '../../../store';
+import { getAuthorisationData, getProductCardData } from '../../../store';
+import { ReactComponent as PolygonSVG } from '../../../images/Polygon-2.svg';
 
 const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -18,9 +19,10 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
   const [star, setStar] = useState(null);
-  const { is_Authorised } = useSelector(getAuthorisationData);
+  const { isAuthorized } = useSelector(getAuthorisationData);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
+  const { is_Bought } = useSelector(getProductCardData).productCard;
   // заменить на userID
   const currentReview = reviews.filter(
     (c) => c.user === currentUser.username
@@ -51,7 +53,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
         : setIsDataChanged(false);
     }
     if (!currentReview) {
-      (values.text && values.text.length > 5) && star
+      values.text && values.text.length > 5 && star
         ? setIsDataChanged(true)
         : setIsDataChanged(false);
     }
@@ -98,7 +100,16 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
     deleteFeedback(id, reviewId);
     setIsShown(false);
   }
-
+  const PopoverHint = (
+    <div className='product__popover'>
+      <p className='popover__text'>
+        {!isAuthorized
+          ? 'Сначала авторизуйтесь'
+          : !is_Bought && 'Отзыв можно оставить только после покупки бота'}
+      </p>
+      <PolygonSVG className='popover__svg' />
+    </div>
+  );
   return (
     <>
       <div className='product__review-initial'>
@@ -106,16 +117,20 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
           <span className='product__review-question'>Вам понравился бот?</span>
         )}
         {!isShown &&
-          is_Authorised &&
           (!currentReview ? (
-            <button
-              className='product__review-open'
-              type='button'
-              onClick={() => handleFeedbackClick()}
-              aria-label='Оставить отзыв'
-            >
-              Оставить отзыв
-            </button>
+            <div className='product__button-wrapper'>
+              <button
+                className='product__review-open'
+                type='button'
+                onClick={() => handleFeedbackClick()}
+                aria-label='Оставить отзыв'
+                // disabled={!isAuthorized || !is_Bought}
+                disabled={!isAuthorized}
+              >
+                Оставить отзыв
+              </button>
+              {PopoverHint}
+            </div>
           ) : (
             <button
               className='product__review-open'
@@ -137,48 +152,60 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
           </button>
         )}
       </div>
+
       {isShown && (
-        <form className='product__review-block'>
-          <Rating
-            feedbackStars={currentReview?.rating || 0}
-            onClickStar={(i) => {
-              console.log(i);
-              setStar(i);
-            }}
-          />
-          <textarea
-            className='product__review-input'
-            value={values.text || ''}
-            onChange={handleChange}
-            type='text'
-            id='feedback'
-            name='text'
-            placeholder='сюда можно написать отзыв'
-            autoComplete='off'
-            maxLength={500}
-          />
-          <div className='product__review-buttons'>
-            <button
-              className='product__review-send'
-              type='submit'
-              aria-label='Оставить отзыв'
-              disabled={!isDataChanged}
-              onClick={handleSendClick}
-            >
-              Оставить отзыв
-            </button>
-            {currentReview && (
+        <div
+          className='product__review-wrapper'
+          style={{ outline: '1px solid gray' }}
+          onClick={(e) => {
+            console.log(e.target, e.currentTarget);
+            if (e.target === e.currentTarget) {
+              setIsShown(false);
+            }
+          }}
+        >
+          <form className='product__review-block'>
+            <Rating
+              feedbackStars={currentReview?.rating || 0}
+              onClickStar={(i) => {
+                console.log(i);
+                setStar(i);
+              }}
+            />
+            <textarea
+              className='product__review-input'
+              value={values.text || ''}
+              onChange={handleChange}
+              type='text'
+              id='feedback'
+              name='text'
+              placeholder='сюда можно написать отзыв'
+              autoComplete='off'
+              maxLength={500}
+            />
+            <div className='product__review-buttons'>
               <button
-                className='product__review-delete'
+                className='product__review-send'
                 type='submit'
                 aria-label='Оставить отзыв'
-                onClick={handleDeleteClick}
+                disabled={!isDataChanged}
+                onClick={handleSendClick}
               >
-                Удалить отзыв
+                Оставить отзыв
               </button>
-            )}
-          </div>
-        </form>
+              {currentReview && (
+                <button
+                  className='product__review-delete'
+                  type='submit'
+                  aria-label='Оставить отзыв'
+                  onClick={handleDeleteClick}
+                >
+                  Удалить отзыв
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
       )}
     </>
   );

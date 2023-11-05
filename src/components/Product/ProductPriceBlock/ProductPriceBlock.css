@@ -1,7 +1,7 @@
 .product__price-block {
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  gap: 37px;
 }
 
 .price-block__information {

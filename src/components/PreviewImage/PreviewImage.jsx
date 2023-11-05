@@ -12,12 +12,10 @@ const PreviewImage = ({ card, parentClass }) => {
       to={`/products/${card.id}`}
       className={`${parentClass}__preview preview`}
       onClick={() => handleCardClick()}
-      style={{ backgroundColor: COLORS_PREVIEW[card?.category[0]?.id] }}
+      style={{ backgroundColor: COLORS_PREVIEW[card?.category?.id] }}
       state={card}
     >
-      <p className='preview__text'>
-        {card?.category[0]?.name || 'Без категории'}
-      </p>
+      <p className='preview__text'>{card?.category?.name || 'Без категории'}</p>
     </Link>
   );
 };

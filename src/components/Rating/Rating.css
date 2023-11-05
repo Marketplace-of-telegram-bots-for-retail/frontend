@@ -3,7 +3,6 @@
   align-items: center;
   gap: 0.5rem;
   flex-direction: row;
-
 }
 
 .rating__stars {
@@ -32,11 +31,19 @@
 
 .rating__feedback {
   color: var(--Primary-Black);
-  font-size: 0.875rem;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.25rem;
   margin: 0;
   padding: 0;
   cursor: pointer;
+}
+.rating__feedback_small {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+.rating__feedback_big {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
 }

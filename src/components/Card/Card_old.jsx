@@ -15,6 +15,10 @@ const Card = ({ card }) => {
           {card?.name || 'Название бота, которое может занимать 2 строки'}
         </p>
         <Rating ratingCard={card?.rating} />
+        <p className='card__about'>
+          {card?.description ||
+            'Описание бота, которое может занимать 3 строки. Описание бота, которое может занимать 3 строки.'}
+        </p>
       </div>
       <div className='card__wrapper'>
         <p className='card__price'>{convertToLocaleStringRub(card?.price)}</p>
