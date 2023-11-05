@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
 import { React, useContext } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getCartData } from '../../../store/selectors';
 import { CurrentUserContext } from '../../../contexts/currentUserContext';
 
 const OrderAfter = () => {
   const currentUser = useContext(CurrentUserContext);
   const dispatch = useDispatch();
   const { total_cost, discount_amount } =
-    useSelector((state) => state.cartData);
+    useSelector(getCartData);
   const total = discount_amount || total_cost;
 
   return (

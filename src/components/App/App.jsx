@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -39,6 +40,7 @@ import {
 import ProfileForm from '../profile/user/ProfileForm';
 import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
 import Goods from '../profile/goods/Goods';
+import UserOrders from '../profile/orders/UserOrders';
 import { getAuthorisationData } from '../../store';
 
 const App = () => {
@@ -296,12 +298,8 @@ const App = () => {
           <Route path='*' element={<ErrorPage pageNotFound />} />
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
-          {isAuthorized && (
-            <Route
-              path='/order'
-              element={<Order cbUpdateEmail={cbUpdateEmail} />}
-            />
-          )}
+          {/* пометка: позже защитить авторизацией */}
+          <Route path='/orders/:id' element={<Order cbUpdateEmail={cbUpdateEmail} />} />
           <Route
             path='/profile'
             element={
@@ -319,7 +317,7 @@ const App = () => {
               element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
             />
             {/* Роуты пользователя */}
-            <Route path='/profile/orders' />
+            <Route path='/profile/orders' element={<UserOrders />} />
             <Route path='/profile/returns' />
             <Route path='/profile/reviews' />
             {/* Роуты продавца. Обернуть в защищенный роут? */}

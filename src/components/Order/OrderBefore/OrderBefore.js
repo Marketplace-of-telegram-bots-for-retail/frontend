@@ -8,12 +8,17 @@ import iconblue from '../../../images/order_chevron_blue.svg';
 import btn_card from '../../../images/order_btn1.svg';
 import btn_sbp from '../../../images/order_btn2.svg';
 
+// компонент неоплаченного заказа
+
 const OrderBefore = ({ onClickInput, onPay }) => {
   const currentUser = useContext(CurrentUserContext);
   const [isCard, setIsCard] = useState(true);
   const dispatch = useDispatch();
-  const { total_cost, total_amount, discount_amount, itemsForOrder } =
+
+  // данные для компонентов в заказе
+  const { total_cost, total_amount, discount_amount } =
     useSelector(getCartData);
+
   const total = discount_amount || total_cost;
 
   return (
@@ -72,7 +77,11 @@ const OrderBefore = ({ onClickInput, onPay }) => {
         <div className='order__final'>
           <div className='order__text-block'>
             <p className='order__final-text'>Итого:</p>
-            <p className='order__summ'>{`${total.toLocaleString('ru-RU')} ₽`}</p>
+            <p className='order__summ'>
+              {`${total.toLocaleString(
+                'ru-RU'
+              )} ₽`}
+            </p>
           </div>
           <p className='order__amount-text'>{`Бот x ${total_amount}`}</p>
         </div>
