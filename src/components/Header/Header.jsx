@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 import './Header.css';
 import { ARR_NAV } from '../../utils/constants';
 import SearchInputBox from '../form-items/SearchInputBox/SearchInputBox';
-import logo from '../../images/images-new/logo-botmarket.png';
+import logo from '../../images/logo-botmarket.png';
 import { useScroll } from '../../hooks/useScroll';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import {

@@ -14,6 +14,8 @@ const initialState = {
   status: null,
   error: null,
   is_loading: false,
+  resStatus: null,
+  resStatusText: null,
 };
 // Получить данные карточки товара
 export const getProductCard = createAsyncThunk(
@@ -86,12 +88,13 @@ export const deleteProductReview = createAsyncThunk(
   }
 );
 const setError = (state, action) => {
-  // console.log(action);
-  const errMessage =
-    action.payload.detail || action.payload.message || action.payload;
-  console.log(errMessage);
-  state.statu = 'rejected';
-  state.error = errMessage;
+  if (action.payload.detail) {
+    state.error = action.payload.detail;
+  }
+  const { statusText, status } = action.payload;
+  state.status = action.error.message;
+  state.resStatusText = statusText;
+  state.resStatus = status;
 };
 const SetPending = (state) => {
   state.status = 'loading';
@@ -100,6 +103,8 @@ const SetPending = (state) => {
 };
 const setFulfilled = (state) => {
   state.is_loading = false;
+  state.resStatusText = null;
+  state.resStatus = null;
 };
 
 const productCardDataSlice = createSlice({

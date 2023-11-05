@@ -120,7 +120,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
           (!currentReview ? (
             <div className='product__button-wrapper'>
               <button
-                className='product__review-open'
+                className='product__review-btn-open'
                 type='button'
                 onClick={() => handleFeedbackClick()}
                 aria-label='Оставить отзыв'
@@ -133,7 +133,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
             </div>
           ) : (
             <button
-              className='product__review-open'
+              className='product__review-btn-open'
               type='button'
               onClick={() => handleEditFeedbackClick()}
               aria-label='Оставить отзыв'
@@ -143,7 +143,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
           ))}
         {limit && (
           <button
-            className='product__review-show'
+            className='product__review-btn-show'
             type='button'
             onClick={() => onShowAllReviews()}
             aria-label='Показать все'
@@ -156,7 +156,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
       {isShown && (
         <div
           className='product__review-wrapper'
-          style={{ outline: '1px solid gray' }}
+          // style={{ outline: '1px solid gray' }}
           onClick={(e) => {
             console.log(e.target, e.currentTarget);
             if (e.target === e.currentTarget) {
@@ -185,7 +185,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
             />
             <div className='product__review-buttons'>
               <button
-                className='product__review-send'
+                className='product__review-btn-send'
                 type='submit'
                 aria-label='Оставить отзыв'
                 disabled={!isDataChanged}
@@ -195,7 +195,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
               </button>
               {currentReview && (
                 <button
-                  className='product__review-delete'
+                  className='product__review-btn-delete'
                   type='submit'
                   aria-label='Оставить отзыв'
                   onClick={handleDeleteClick}
