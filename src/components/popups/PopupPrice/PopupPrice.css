@@ -1,16 +1,8 @@
 .popup__price {
   position: absolute;
   display: flex;
-  visibility: hidden;
-  padding-left: 56px;
-  opacity: 0;
-  transition: visability 0.2s, opacity 0.2s ease-in;
-  z-index: 3;
-}
-    
-.popup__price_opened {
-  visibility: visible;
-  opacity: 1;
+  top: 1170px;
+  left: 470px;
 }
     
 .popup__group-price {

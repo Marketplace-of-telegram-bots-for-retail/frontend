@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './GoodsNewBot.css';
 import info from '../../../../images/Help.svg';
@@ -11,9 +11,10 @@ import PopupCategory from '../../../popups/PopupCategory/PopupCategory';
 import PopupName from '../../../popups/PopupName/PopupName';
 import PopupDescription from '../../../popups/PopupDescription/PopupDescription';
 import PopupFunction from '../../../popups/PopupFunction/PopupFunction';
-import PopupPrice from '../../../popups/PopupPrice/PopupPrice';
 import PopupPhoto from '../../../popups/PopupPhoto/PopupPhoto';
 import PopupVideo from '../../../popups/PopupVideo/PopupVideo';
+import PopupPriceBot from '../../../popups/PopupPrice/PopupPriceBot';
+import { useForm } from '../../../../hooks/useForm';
 
 const GoodsNewBot = () => {
   const dispatch = useDispatch();
@@ -29,6 +30,11 @@ const GoodsNewBot = () => {
   const [showPricePopup, setShowPricePopup] = useState(false);
   const [showPhotoPopup, setShowPhotoPopup] = useState(false);
   const [showVideoPopup, setShowVideoPopup] = useState(false);
+  const { values, setValues, handleChange } = useForm({});
+
+  useEffect(() => {
+    setValues('');
+  }, [setValues]);
 
   function handleCategoryPopupClick() {
     setShowCategoryPopup(true);
@@ -80,10 +86,6 @@ const GoodsNewBot = () => {
             onClick={handleCategoryPopupClick}
             id='category'
           />
-          <PopupCategory
-            isOpen={showCategoryPopup}
-            onClose={closeAllPopups}
-          />
         </div>
         {CATEGORY_OPTIONS.map((input, i) => {
           const { id, labelName } = input;
@@ -110,20 +112,21 @@ const GoodsNewBot = () => {
             alt='информация'
             onClick={handleNamePopupClick}
           />
-          <PopupName isOpen={showNamePopup} onClose={closeAllPopups} />
         </div>
         <input
           className='new-bot__name'
           type='text'
           id='name'
           name='name'
+          value={values.name || ''}
+          onChange={handleChange}
           placeholder='Название может содержать от 20 до 70 символов. Только строчные буквы.'
           autoComplete='off'
           minLength={20}
           maxLength={70}
           required
         />
-        <span className='new-bot__span'>0/70</span>
+        <span className='new-bot__name-span'>0/70</span>
         <div className='new-bot__row'>
           <h3 className='new-bot__title'>Описание бота</h3>
           <img
@@ -132,13 +135,14 @@ const GoodsNewBot = () => {
             alt='информация'
             onClick={handleDescriptionPopupClick}
           />
-          <PopupDescription isOpen={showDescriptionPopup} onClose={closeAllPopups} />
         </div>
         <textarea
           className='new-bot__description'
           type='text'
           id='description'
           name='description'
+          value={values.description || ''}
+          onChange={handleChange}
           placeholder='Описание может содержать от 50 до 500 символов. Только строчные буквы.'
           autoComplete='off'
           minLength={50}
@@ -154,13 +158,14 @@ const GoodsNewBot = () => {
             alt='информация'
             onClick={handleFunctionPopupClick}
           />
-          <PopupFunction isOpen={showFunctionPopup} onClose={closeAllPopups} />
         </div>
         <input
           className='new-bot__function'
           type='text'
           id='function'
           name='function'
+          value={values.function || ''}
+          onChange={handleChange}
           placeholder='Описание функции может содержать до 200 символов. Только строчные буквы.'
           autoComplete='off'
           maxLength={200}
@@ -178,13 +183,14 @@ const GoodsNewBot = () => {
             alt='информация'
             onClick={handlePricePopupClick}
           />
-          <PopupPrice isOpen={showPricePopup} onClick={closeAllPopups} />
         </div>
         <input
           className='new-bot__price'
           type='number'
           id='price'
           name='price'
+          value={values.price || ''}
+          onChange={handleChange}
           placeholder='0 ₽'
           autoComplete='off'
           required
@@ -197,7 +203,6 @@ const GoodsNewBot = () => {
             alt='информация'
             onClick={handlePhotoPopupClick}
           />
-          <PopupPhoto isOpen={showPhotoPopup} onClose={closeAllPopups} />
         </div>
         <button className='new-bot__button-add new-bot__button-add_type_photo' type='button' aria-label='Добавить фото'>
           <img className='new-bot__icon-16' src={plus} alt='плюс добавить' />
@@ -211,13 +216,14 @@ const GoodsNewBot = () => {
             alt='информация'
             onClick={handleVideoPopupClick}
           />
-          <PopupVideo isOpen={showVideoPopup} onClose={closeAllPopups} />
         </div>
         <input
           className='new-bot__video'
           type='url'
           id='video'
           name='video'
+          value={values.video || ''}
+          onChange={handleChange}
           placeholder='Загрузите ссылку вида https://www.youtube.com/ABCDEF'
           autoComplete='off'
         />
@@ -238,6 +244,13 @@ const GoodsNewBot = () => {
           </button>
         </div>
       </form>
+      <PopupCategory isOpen={showCategoryPopup} onClose={closeAllPopups} />
+      <PopupName isOpen={showNamePopup} onClose={closeAllPopups} />
+      <PopupDescription isOpen={showDescriptionPopup} onClose={closeAllPopups} />
+      <PopupFunction isOpen={showFunctionPopup} onClose={closeAllPopups} />
+      <PopupPhoto isOpen={showPhotoPopup} onClose={closeAllPopups} />
+      <PopupVideo isOpen={showVideoPopup} onClose={closeAllPopups} />
+      <PopupPriceBot isOpen={showPricePopup} onClose={closeAllPopups} />
     </section>
   );
 };
