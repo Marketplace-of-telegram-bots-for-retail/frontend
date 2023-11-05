@@ -10,25 +10,11 @@ import { getCartData, getUserOrdersData } from '../../store/selectors';
 import { postOrder } from '../../store/userOrdersDataSlice';
 
 import PopupWithEmail from './PopupWithEmail/PopupWithEmail';
-import getChangedData from '../../utils/getChangedData';
 import OrderBefore from './OrderBefore/OrderBefore';
 import OrderAfter from './OrderAfter/OrderAfter';
 import OrderList from './OrderList/OrderList';
 
-// общий компонент заказа
-// данные: айди заказа через useParams, данные из корзины при нажатии "к оформлению" - массив itemsForOrder
-
-function Order({ cbUpdateEmail }) {
-  // НЕНУЖНЫЕ данные, если заказ создаётся при нажатии на оплату
-  // айди самого заказа
-  // const { id } = useParams();
-  // данные о самом заказе
-  // const { getOrder } = useSelector(getUserOrdersData);
-  // загружаем данные заказа
-  // useEffect(() => {
-  //   dispatch(getOrder(id));
-  // }, [id]);
-
+function Order() {
   const dispatch = useDispatch();
   const currentUser = useContext(CurrentUserContext);
   const [isPaid, setIsPaid] = useState(false);
@@ -39,9 +25,6 @@ function Order({ cbUpdateEmail }) {
   // данные для компонентов в заказе
   const { itemsForOrder } =
     useSelector(getCartData);
-
-  const { newOrder } = useSelector(getUserOrdersData);
-  // console.log('newOrder', newOrder);
 
   const handleClickInput = () => {
     setIsPopupEmailOpen(!isPopupEmailOpen);
