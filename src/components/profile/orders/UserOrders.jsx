@@ -8,9 +8,6 @@ import { getCartData, getUserOrdersData } from '../../../store/selectors';
 
 import OrdersList from './OrdersList/OrdersList';
 
-import down from '../../../images/orders_down.svg';
-import up from '../../../images/orders_up.svg';
-
 // блок "мои заказы" в лк пользователя
 // данные из корзины при нажатии "к оформлению" - массив itemsForOrder
 

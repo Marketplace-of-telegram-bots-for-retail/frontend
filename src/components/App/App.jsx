@@ -299,7 +299,8 @@ const App = () => {
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
           {/* пометка: позже защитить авторизацией */}
-          <Route path='/orders/:id' element={<Order cbUpdateEmail={cbUpdateEmail} />} />
+          <Route path='/order' element={<Order cbUpdateEmail={cbUpdateEmail} />} />
+          {/* <Route path='/orders/:id' element={<Order cbUpdateEmail={cbUpdateEmail} />} /> */}
           <Route
             path='/profile'
             element={

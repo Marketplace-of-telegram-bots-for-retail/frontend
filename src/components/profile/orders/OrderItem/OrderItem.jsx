@@ -4,6 +4,9 @@ import { useParams, Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCartData, getUserOrdersData } from '../../../../store/selectors';
 
+import down from '../../../../images/orders_down.svg';
+import up from '../../../../images/orders_up.svg';
+
 function OrderItem({ item }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();

@@ -10,9 +10,10 @@ import btn_sbp from '../../../images/order_btn2.svg';
 
 // компонент неоплаченного заказа
 
-const OrderBefore = ({ onClickInput, onPay }) => {
+const OrderBefore = ({ onClickInput, onPay, payMethod, setPayMethod }) => {
   const currentUser = useContext(CurrentUserContext);
   const [isCard, setIsCard] = useState(true);
+
   const dispatch = useDispatch();
 
   // данные для компонентов в заказе
@@ -20,6 +21,17 @@ const OrderBefore = ({ onClickInput, onPay }) => {
     useSelector(getCartData);
 
   const total = discount_amount || total_cost;
+
+  // иконка карты
+  const handleCard = () => {
+    setIsCard(true);
+    setPayMethod('card');
+  };
+  // иконка сбп
+  const handleSbp = () => {
+    setIsCard(false);
+    setPayMethod('sbp');
+  };
 
   return (
     <div className='order__main-block'>
@@ -56,7 +68,7 @@ const OrderBefore = ({ onClickInput, onPay }) => {
             className={`order__payment-btn ${
               isCard && 'order__payment-btn_type_active'
             }`}
-            onClick={() => setIsCard(true)}
+            onClick={() => handleCard()}
           >
             <img src={btn_card} alt='Иконка оплаты картой' />
             Картой
@@ -66,7 +78,7 @@ const OrderBefore = ({ onClickInput, onPay }) => {
             className={`order__payment-btn ${
               !isCard && 'order__payment-btn_type_active'
             }`}
-            onClick={() => setIsCard(false)}
+            onClick={() => handleSbp()}
           >
             <img src={btn_sbp} alt='Иконка оплатой системой быстрых платежей' />
             СБП

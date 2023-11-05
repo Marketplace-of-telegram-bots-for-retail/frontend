@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import icon from '../../images/order_chevron.svg';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { getCartData, getUserOrdersData } from '../../store/selectors';
+import { postOrder } from '../../store/userOrdersDataSlice';
 
 import PopupWithEmail from './PopupWithEmail/PopupWithEmail';
 import getChangedData from '../../utils/getChangedData';
@@ -31,12 +32,16 @@ function Order({ cbUpdateEmail }) {
   const dispatch = useDispatch();
   const currentUser = useContext(CurrentUserContext);
   const [isPaid, setIsPaid] = useState(false);
+  const [payMethod, setPayMethod] = useState('card');
   const [isPopupEmailOpen, setIsPopupEmailOpen] = useState(false);
   const [value, setValue] = useState(currentUser.email);
 
   // данные для компонентов в заказе
   const { itemsForOrder } =
     useSelector(getCartData);
+
+  const { newOrder } = useSelector(getUserOrdersData);
+  // console.log('newOrder', newOrder);
 
   const handleClickInput = () => {
     setIsPopupEmailOpen(!isPopupEmailOpen);
@@ -46,13 +51,18 @@ function Order({ cbUpdateEmail }) {
     const data = {
       email: value,
     };
-    cbUpdateEmail(getChangedData(currentUser, data));
+    // cbUpdateEmail(getChangedData(currentUser, data));
   };
 
   // функциональность оплаты
   const handlePay = () => {
-    setIsPaid(true);
+    // setIsPaid(true);
     // пост-запрос на создание заказа, передать пей_метод и сенд_ту
+    console.log('pay method final -', payMethod, typeof payMethod);
+    dispatch(postOrder({
+      pay_method: payMethod,
+      send_to: value,
+    }));
   };
 
   return (
@@ -64,7 +74,7 @@ function Order({ cbUpdateEmail }) {
       </div>
       <h1 className="order__title">{!isPaid ? 'Оформление заказа' : 'Заказ оплачен'}</h1>
       {!isPaid
-        ? <OrderBefore onClickInput={handleClickInput} onPay={handlePay} />
+        ? <OrderBefore onClickInput={handleClickInput} onPay={handlePay} payMethod={payMethod} setPayMethod={setPayMethod} />
         : <OrderAfter />}
       <OrderList items={itemsForOrder} />
       <PopupWithEmail

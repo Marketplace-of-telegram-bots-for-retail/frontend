@@ -1,8 +1,9 @@
 /* eslint-disable no-unused-vars */
-import { React } from 'react';
+import { React, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrdersData } from '../../../../store/selectors';
 import OrderItem from '../OrderItem/OrderItem';
+import { getOrdersList } from '../../../../store/userOrdersDataSlice';
 
 const items = [
   {
@@ -77,6 +78,10 @@ function OrdersList() {
   // список всех заказов
   const { allOrders } = useSelector(getUserOrdersData);
   console.log('allOrders', allOrders);
+
+  useEffect(() => {
+    dispatch(getOrdersList());
+  }, []);
 
   // в ретурне - перебор списка заказов!!
   // в отдельном компоненте - перебор из item.product_list
