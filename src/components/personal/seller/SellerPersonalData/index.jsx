@@ -1,9 +1,7 @@
-import React from 'react'
+import React from 'react';
 
 const SellerPersonalData = () => {
-  return (
-    <div>SellerPersonalData</div>
-  )
-}
+  return <div>SellerPersonalData</div>;
+};
 
-export default SellerPersonalData
+export default SellerPersonalData;

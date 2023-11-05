@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './index.css';
 import {
@@ -15,6 +15,13 @@ export default function ProfileNavigation(props) {
       ? profileNavigationCustomer
       : profileNavigationSeller;
 
+  useEffect(() => {
+    if (props.userType === 'Покупатель') {
+      navigate('/personal/');
+    } else {
+      navigate('/personal/seller');
+    }
+  }, [props.userType]);
   return (
     <nav className='profile__navigation'>
       <ToggleUserTypeButton

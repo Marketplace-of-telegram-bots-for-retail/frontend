@@ -131,7 +131,8 @@ export const profileNavigationSeller = [
       },
       {
         name: 'Юридическая информация',
-        link: '/personal/seller/legal-data/',
+        link: '/personal/seller/',
+        // link: '/personal/seller/legal-data/',
       },
     ],
   },

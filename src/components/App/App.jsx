@@ -310,33 +310,6 @@ const App = () => {
               element={<Order cbUpdateEmail={cbUpdateEmail} />}
             />
           )}
-          {/* <Route
-            path='/profile'
-            element={
-              <Profile
-                cbLogout={cbLogout}
-                cbUpdateProfile={cbUpdateProfile}
-                cbDeleteUser={cbDeleteUser}
-              >
-                <Outlet />
-              </Profile>
-            }
-          >
-            <Route
-              path='/profile/user'
-              element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
-            />
-            <Route path='/profile/orders' />
-            <Route path='/profile/returns' />
-            <Route path='/profile/reviews' />
-            <Route
-              path='/profile/legal-info'
-              element={<ProfileLegalForm />}
-            />
-            <Route path='/profile/products' element={<Goods />} />
-            <Route path='/profile/statistics' />
-            <Route path='/profile/promocodes' />
-          </Route> */}
           <Route
             path='/personal/'
             element={
@@ -349,6 +322,7 @@ const App = () => {
               </Profile>
             }
           >
+            {/* 3 Уровень вложенности */}
             <Route path='/personal/' element={<Outlet />}>
               <Route
                 index
@@ -357,18 +331,11 @@ const App = () => {
               <Route path='/personal/orders/' element={<MyOrders />}></Route>
               <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
               <Route path='/personal/reviews/' element={<MyReviews />}></Route>
-              <Route
-                path='/personal/seller/'
-                element={
-                  <div>
-                    <div>Продавец</div>
-                    <Outlet />
-                  </div>
-                }
-              >
+              <Route path='/personal/seller/' element={<Outlet />}>
+                {/* 4 Уровень вложенности */}
                 <Route
                   index
-                  path='/personal/seller/legal-data/'
+                  // path='/personal/seller/legal-data/'
                   element={<SellerLegalData />}
                 ></Route>
                 <Route
