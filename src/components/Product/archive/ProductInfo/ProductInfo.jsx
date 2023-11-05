@@ -11,7 +11,7 @@ const ProductInfo = ({ card, setState, setStar }) => {
   }, [setRatingFeedback]);
 
   return (
-    <div className='product__good-info'>
+    <div className='product__info'>
       <Rating
         ratingCard={card.rating}
         onStarClick={() => {

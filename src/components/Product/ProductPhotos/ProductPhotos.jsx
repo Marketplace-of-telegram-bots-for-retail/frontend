@@ -1,117 +1,196 @@
-/* eslint-disable indent */
-import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { setShowProductImagesPopup } from '../../../store/productCardDataSlice';
+/* eslint-disable import/no-unresolved */
+import React, { useEffect, useState } from 'react';
+// Import Swiper React components
+import { Swiper, SwiperSlide } from 'swiper/react';
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/free-mode';
+import 'swiper/css/navigation';
+import 'swiper/css/thumbs';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
+// Стили
 import './ProductPhotos.css';
-import icon from '../../../images/arcticons_photo-and-picture-resizer.svg';
-import testPhoto from '../../../images/Picture.jpg';
-import { getProductCardData } from '../../../store';
+// import required modules
+import {
+  FreeMode,
+  Navigation,
+  Thumbs,
+  EffectCreative,
+  Controller,
+  Pagination,
+  Mousewheel,
+  Keyboard,
+} from 'swiper/modules';
+// импорт SVG
+import { ReactComponent as CloseModalImagesSvg } from '../../../images/ic_cross-24-circle.svg';
 
-const ProductPhotos = () => {
-  const dispatch = useDispatch();
-  const { productCard, productImages, images } =
-    useSelector(getProductCardData);
-  const [offset, setOffset] = useState(0);
-  const [visible, setVisible] = useState('initial');
-  const imageSize = 162;
-  function handleSmallImageClick(event) {
-    const imageBig = document.getElementById('product-photos__photo-big');
-    if (event.target.classList.contains('product-photos__photo-small')) {
-      const allImages = document.querySelectorAll(
-        '.product-photos__photo-small_active'
-      );
-      for (let i = 0; i < allImages.length; i += 1) {
-        allImages[i].classList.remove('product-photos__photo-small_active');
+export default function ProductPhotos({ images }) {
+  const [thumbsSwiper, setThumbsSwiper] = useState(null);
+  const [controlledSwiper, setControlledSwiper] = useState(null);
+
+  const [isOpen, setOpen] = useState(false);
+  const decorationSpeed = 750;
+
+  // указываем `useEffect` для обработчика `Escape`
+  useEffect(() => {
+    if (!isOpen) return;
+    function handleEscapeKey(e) {
+      if (e.code === 'Escape') {
+        setOpen(false);
       }
-      imageBig.src = event.target.src;
-      event.target.classList.add('product-photos__photo-small_active');
     }
-  }
+    document.addEventListener('keydown', handleEscapeKey);
+    return () => document.removeEventListener('keydown', handleEscapeKey);
+  }, [isOpen, setOpen]);
 
-  function handleScrollDownClick() {
-    setOffset((currentOffset) => {
-      const newOffset = currentOffset - imageSize;
-      const maxOffset = -(imageSize * 3);
-      setVisible('scroll');
-      return Math.max(newOffset, maxOffset);
-    });
-  }
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+      document.body.style.paddingRight = '15px';
+    } else {
+      document.body.style.overflow = 'unset';
+      document.body.style.paddingRight = '0px';
+    }
+  }, [isOpen]);
 
-  function handleScrollUpClick() {
-    setOffset((currentOffset) => {
-      const newOffset = currentOffset + imageSize;
-      if (currentOffset === 0) {
-        setVisible('initial');
-      }
-      return Math.min(newOffset, 0);
-    });
-  }
+  // создаем обработчик оверлея
+  const handleOverlay = (e) => {
+    if (e.target === e.currentTarget) {
+      setOpen(false);
+    }
+  };
+
   return (
-    <div className='product-photos'>
-      {(images.length !== 0 || productImages.length !== 0) && (
-        <>
-          <ul className='product-photos__photos'>
-            {images.length !== 0
-              ? images?.map((item) => {
-                  return (
-                    <div key={item.id}>
-                      <img
-                        className='product-photos__photo-small product-photos__photo-small_active'
-                        style={{ transform: `translateY(${offset}px)` }}
-                        src={item.image}
-                        onClick={handleSmallImageClick}
-                        alt='Скриншот'
-                      />
-                    </div>
-                  );
-                })
-              : productImages.length !== 0 &&
-                productImages?.map((item, index) => {
-                  return (
-                    <div key={index + Object.keys(item)}>
-                      <img
-                        className='product-photos__photo-small product-photos__photo-small_active'
-                        style={{ transform: `translateY(${offset}px)` }}
-                        src={item[Object.keys(item)]}
-                        onClick={handleSmallImageClick}
-                        alt='Скриншот'
-                      />
-                    </div>
-                  );
-                })}
-          </ul>
-          {visible === 'scroll' && (
-            <button
-              className='product-photos__button-scroll product-photos__button-scroll_type_up'
-              type='button'
-              onClick={handleScrollUpClick}
-            ></button>
-          )}
+    <>
+      <div className='rpoduct__images images'>
+        <Swiper
+          className='images__nav-swiper'
+          direction='vertical'
+          modules={[FreeMode, Thumbs, Mousewheel, Navigation]}
+          speed={decorationSpeed}
+          spaceBetween={20}
+          slidesPerView={3.41}
+          onSwiper={setThumbsSwiper}
+          freeMode
+          watchSlidesProgress
+          mousewheel
+          keyboard={{
+            enabled: true,
+          }}
+          navigation
+          pagination={{ clickable: true }}
+        >
+          {images?.map((image) => (
+            <SwiperSlide key={image.id}>
+              <img className='images__image' src={image.image} alt='Скриншот' />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+        <Swiper
+          modules={[EffectCreative, Navigation, Thumbs, Controller]}
+          watchSlidesProgress
+          controller={{ control: controlledSwiper }}
+          effect='creative'
+          creativeEffect={{
+            prev: {
+              translate: [0, 0, -100],
+            },
+            next: {
+              translate: ['100%', 0, 0],
+            },
+          }}
+          spaceBetween={10}
+          speed={decorationSpeed}
+          thumbs={{
+            swiper:
+              thumbsSwiper && !thumbsSwiper.destroyed ? thumbsSwiper : null,
+          }}
+          className='images__swiper'
+        >
+          {images?.map((image) => (
+            <SwiperSlide key={image.id}>
+              <img
+                className='images__image'
+                src={image.image}
+                alt='Скриншот'
+                onClick={() => {
+                  setOpen((state) => !state);
+                }}
+              />
+            </SwiperSlide>
+          ))}
+        </Swiper>
+      </div>
+      {isOpen ? (
+        <div className='images__modal' onClick={handleOverlay}>
           <button
-            className='product-photos__button-scroll product-photos__button-scroll_type_down'
             type='button'
-            onClick={handleScrollDownClick}
-          ></button>
-          <div
-            className='product-photos__photo'
-            onClick={() => dispatch(setShowProductImagesPopup(true))}
+            className='modal__close'
+            onClick={() => {
+              setOpen((state) => !state);
+            }}
           >
-            <img
-              className='product-photos__photo-big'
-              id='product-photos__photo-big'
-              src={productCard?.image_1 || images[0]?.image || testPhoto}
-              alt={productCard.name}
-            />
-            <img
-              className='product-photos__photo-icon'
-              src={icon}
-              alt='икoнка развернуть на весь экран'
-            />
-          </div>
-        </>
-      )}
-    </div>
+            <CloseModalImagesSvg />
+          </button>
+          <Swiper
+            className='modal__swiper'
+            style={{
+              '--swiper-navigation-color': '#B2B0FF',
+              '--swiper-pagination-color': '#352DF2',
+              '--swiper-pagination-bullet-size': '12px',
+              '--swiper-pagination-bullet-width': '12px',
+              '--swiper-pagination-bullet-height': '12px',
+              '--swiper-pagination-bullet-inactive-color': '#B2B0FF',
+              '--swiper-pagination-bullet-inactive-opacity': '1',
+              '--swiper-pagination-bullet-opacity': '1',
+              '--swiper-pagination-bullet-horizontal-gap': '8px',
+              '--swiper-pagination-bottom': '32px',
+            }}
+            modules={[
+              EffectCreative,
+              Navigation,
+              Controller,
+              Pagination,
+              Keyboard,
+            ]}
+            effect='creative'
+            creativeEffect={{
+              prev: {
+                shadow: true,
+                translate: ['-120%', 0, -400],
+              },
+              next: {
+                shadow: true,
+                translate: ['120%', 0, -400],
+              },
+            }}
+            onSwiper={setControlledSwiper}
+            slidesPerView={1.2}
+            slidesPerGroupSkip={1}
+            watchSlidesProgress
+            grabCursor
+            centeredSlides
+            speed={decorationSpeed}
+            keyboard={{
+              enabled: true,
+            }}
+            navigation
+            pagination={{ clickable: true }}
+            spaceBetween={20}
+          >
+            {images?.map((image) => (
+              <SwiperSlide key={image.id}>
+                <img
+                  className='images__image'
+                  src={image.image}
+                  alt='Скриншот'
+                />
+              </SwiperSlide>
+            ))}
+          </Swiper>
+        </div>
+      ) : null}
+    </>
   );
-};
-
-export default ProductPhotos;
+}

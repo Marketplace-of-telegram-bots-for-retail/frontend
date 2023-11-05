@@ -1,8 +1,10 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './AboutMain.css';
-// import ImageHello from '../../../images/pic_main-cart.png';
 
 const AboutMain = () => {
+  const navigate = useNavigate();
+
   return (
     <section className='content__about about' id='about'>
       <div className='about__container'>
@@ -16,6 +18,13 @@ const AboutMain = () => {
           <li className='about__list-item'>широкий выбор готовых ботов</li>
           <li className='about__list-item'>профессиональная поддержка</li>
         </ul>
+        <button
+          type='button'
+          className='about__link'
+          onClick={() => navigate('/', { replace: true })}
+        >
+          В каталог
+        </button>
       </div>
       <div className='about__wrapper-greetind'>
         <div className='about__greetind'>hello</div>

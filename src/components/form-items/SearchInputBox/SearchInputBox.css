@@ -38,14 +38,14 @@
   color: var(--Gray-Medium);
   padding-left: 35px;
   background: 0 -1px no-repeat
-    url(../../../images/images-new/ic_search-24.svg);
+    url(../../../images/ic_search-24.svg);
   background-size: 24px 24px ;
   transition: all 0.2s;
 }
 .search__input:hover::placeholder {
   transition: all 0.2s;
   background: 0 -1px no-repeat
-    url(../../../images/images-new/ic_search-24_blue-dark.svg);
+    url(../../../images/ic_search-24_blue-dark.svg);
 }
 .search__input:focus::placeholder {
   color: transparent;
@@ -79,13 +79,13 @@
   border: none;
   outline: none;
   background: 0 center no-repeat
-    url(../../../images/images-new/ic_cross-18-Gray-Additional.svg);
+    url(../../../images/ic_cross-18-Gray-Additional.svg);
   background-size: 18px auto;
   transition: all 0.2s;
   cursor: pointer;
 }
 .search__input-clear:hover {
   background: 0 center no-repeat
-    url(../../../images/images-new/ic_cross-18-Gray-Dark.svg);
+    url(../../../images/ic_cross-18-Gray-Dark.svg);
   transition: all 0.2s;
 }

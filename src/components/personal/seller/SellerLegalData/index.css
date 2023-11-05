@@ -1,0 +1,43 @@
+.profile__legal-container {
+  display: flex;
+  gap: 13px;
+}
+
+.profile__legal-input {
+  width: 16px;
+  height: 16px;
+  background-color: var(--Primary-Accent, #726EFA);
+  cursor: pointer;
+}
+
+.profile__legal-add-button {
+  border: none;
+  background-color: #fff;
+  display: flex;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile__legal-add-image {
+  width: 16px;
+  height: 16px;
+  background-image: url(../../../../images/ic_plus-20.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 20px 20px;
+  margin-right: 16px;
+}
+
+.profile__legal-add-text {
+  margin: 0 0 32px;
+}
+
+.profile__legal-link {
+  color: var(--Primary-Accent, #726EFA);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  cursor: pointer;
+  text-decoration: none;
+}

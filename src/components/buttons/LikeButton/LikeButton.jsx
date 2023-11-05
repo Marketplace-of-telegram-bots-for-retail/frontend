@@ -9,13 +9,13 @@ import { getAuthorisationData } from '../../../store';
 const LikeButton = ({ parentClass, card }) => {
   const [isLiked, setLiked] = useState(card?.is_favorited);
   const dispatch = useDispatch();
-  const { is_Authorised } = useSelector(getAuthorisationData);
+  const { isAuthorized } = useSelector(getAuthorisationData);
   useEffect(() => {
     setLiked(card?.is_favorited);
   }, [card?.is_favorited]);
   const dataCard = { ...card, is_favorited: isLiked };
   const handleLikeClick = async () => {
-    if (is_Authorised) {
+    if (isAuthorized) {
       const resLike = await dispatch(onLike(dataCard));
       const isLike = unwrapResult(resLike);
       setLiked(isLike);

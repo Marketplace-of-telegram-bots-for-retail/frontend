@@ -54,14 +54,14 @@
 .like-button__title {
   margin: 0;
   padding: 0;
-  color: var(--Gray-Dark);
+  color: var(--Primary-Black);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-size: 0.875rem;
+  font-size: 16px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 1.25rem; /* 142.857% */
+  font-weight: 500;
+  line-height: normal;
   transition: all 0.25s;
 }
 

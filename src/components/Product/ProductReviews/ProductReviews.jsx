@@ -12,11 +12,11 @@ const ProductReviews = ({ reviews }) => {
   }
 
   return (
-    <div className='product__rewiews' id='reviews'>
+    <div className='product__reviews reviews' id='reviews'>
       {allReviews === 0 ? (
-        <p className='product__rewiews-none'>У этого бота пока нет отзывов.</p>
+        <p className='reviews__none-text'>У этого бота пока нет отзывов.</p>
       ) : (
-        <ul className='product__reviews-group'>
+        <ul className='reviews__group'>
           {reviews.slice(0, count).map((review) => {
             return <ReviewCard key={review.id} review={review} />;
           })}

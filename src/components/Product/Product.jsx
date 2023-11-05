@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,11 +17,12 @@ import {
 } from '../../store/productCardDataSlice';
 import { useScroll } from '../../hooks/useScroll';
 import { getProductCardData } from '../../store';
+import ErrorPage from '../ErrorPage/ErrorPage';
 
 const Product = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const { productCard, isShowProductImagesPopup, myReview } =
+  const { productCard, isShowProductImagesPopup, myReview, resStatus } =
     useSelector(getProductCardData);
   // загружаем данные карточки
   useEffect(() => {
@@ -42,24 +44,30 @@ const Product = () => {
   return (
     <section className='product'>
       <BreadCrumbs />
-      <ProductTitle card={productCard} />
-      <div className='product__good-info'>
-        <Rating
-          ratingCard={productCard.rating}
-          onClickStar={(i) => {
-            handleClickRating(i);
-          }}
-          onClickLabel={() => {
-            handleClickRating();
-          }}
-        />
-        <LikeButton parentClass='product' card={productCard} />
-      </div>
-      <div className='product__good-details'>
-        <ProductDetail scrollRef={elRef} />
-        <ProductPriceBlock card={productCard} />
-      </div>
-      {isShowProductImagesPopup && <PopupImage card={productCard} />}
+      {resStatus !== 404 ? (
+        <>
+          <ProductTitle card={productCard} />
+          <div className='product__info'>
+            <Rating
+              ratingCard={productCard?.rating}
+              onClickStar={(i) => {
+                handleClickRating(i);
+              }}
+              onClickLabel={() => {
+                handleClickRating();
+              }}
+            />
+            <LikeButton parentClass='product' card={productCard} />
+          </div>
+          <div className='product__details'>
+            <ProductDetail scrollRef={elRef} />
+            <ProductPriceBlock card={productCard} />
+          </div>
+          {isShowProductImagesPopup && <PopupImage card={productCard} />}
+        </>
+      ) : (
+        <ErrorPage pageNotFound />
+      )}
     </section>
   );
 };
