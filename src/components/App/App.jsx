@@ -19,7 +19,7 @@ import Product from '../Product/Product';
 import Footer from '../Footer/Footer';
 import Cart from '../Cart/Cart';
 import Order from '../Order/Order';
-import Profile from '../profile';
+import Profile from '../personal';
 import PrivacyPolicy from '../PrivacyPolicy/PrivacyPolicy';
 import ErrorPage from '../ErrorPage/ErrorPage';
 import Favorites from '../Favorites/Favorites';
@@ -36,10 +36,18 @@ import {
   setAuthErrorMessage,
 } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
-import ProfileForm from '../profile/user/ProfileForm';
-import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
-import Goods from '../profile/goods/Goods';
+import ProfileForm from '../personal/user/ProfileForm';
+// import ProfileLegalForm from '../personal/seller/ProfileLegalForm/ProfileLegalForm';
+// import Goods from '../personal/goods/Goods';
 import { getAuthorisationData } from '../../store';
+import MyOrders from '../personal/user/MyOrders';
+import MyReviews from '../personal/user/MyReviews';
+import MyRefunds from '../personal/user/MyRefunds';
+import SellerLegalData from '../personal/seller/SellerLegalData';
+import SellerPersonalData from '../personal/seller/SellerPersonalData';
+import MyGoods from '../personal/seller/MyGoods';
+import MyPromoCodes from '../personal/seller/MyPromoCodes';
+import Statistics from '../personal/seller/Statistics';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -303,7 +311,7 @@ const App = () => {
             />
           )}
           <Route
-            path='/profile'
+            path='/personal/'
             element={
               <Profile
                 cbLogout={cbLogout}
@@ -314,40 +322,48 @@ const App = () => {
               </Profile>
             }
           >
-            <Route
-              path='/profile/user'
-              element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
-            />
-            {/* Роуты пользователя */}
-            <Route path='/profile/orders' />
-            <Route path='/profile/returns' />
-            <Route path='/profile/reviews' />
-            {/* Роуты продавца. Обернуть в защищенный роут? */}
-            <Route
-              path='/profile/legal-info'
-              // element={<ProfileLegalForm bUpdateProfile={cbUpdateProfile} />}
-              element={<ProfileLegalForm />}
-            />
-            <Route path='/profile/products' element={<Goods />} />
-            <Route path='/profile/statistics' />
-            <Route path='/profile/promocodes' />
+            {/* 3 Уровень вложенности */}
+            <Route path='/personal/' element={<Outlet />}>
+              <Route
+                index
+                element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
+              ></Route>
+              <Route path='/personal/orders/' element={<MyOrders />}></Route>
+              <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
+              <Route path='/personal/reviews/' element={<MyReviews />}></Route>
+              <Route path='/personal/seller/' element={<Outlet />}>
+                {/* 4 Уровень вложенности */}
+                <Route
+                  index
+                  // path='/personal/seller/legal-data/'
+                  element={<SellerLegalData />}
+                ></Route>
+                <Route
+                  path='/personal/seller/personal-data/'
+                  element={<SellerPersonalData />}
+                ></Route>
+                <Route
+                  path='/personal/seller/goods/'
+                  element={<MyGoods />}
+                ></Route>
+                <Route
+                  path='/personal/seller/promo-codes/'
+                  element={<MyPromoCodes />}
+                ></Route>
+                <Route
+                  path='/personal/seller/statistics/'
+                  element={<Statistics />}
+                ></Route>
+              </Route>
+            </Route>
           </Route>
+
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
           <Route
             path='/salesman'
-            // стоит заглушка
             element={<Salesman cbRegister={cbRegister} />}
           />
-          <Route
-            path='/return'
-            // стоит заглушка
-            element={<ErrorPage />}
-          />
-          <Route
-            path='/promo'
-            // стоит заглушка
-            element={<Promo />}
-          />
+          <Route path='/promo' element={<Promo />} />
         </Route>
       </Routes>
     </CurrentUserContext.Provider>

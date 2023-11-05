@@ -8,7 +8,11 @@ import SearchInputBox from '../form-items/SearchInputBox/SearchInputBox';
 import logo from '../../images/images-new/logo-botmarket.png';
 import { useScroll } from '../../hooks/useScroll';
 import { CurrentUserContext } from '../../contexts/currentUserContext';
-import { getCartData, getProductsData, getAuthorisationData } from '../../store';
+import {
+  getCartData,
+  getProductsData,
+  getAuthorisationData,
+} from '../../store';
 
 const Header = ({ setShowAuthButtons }) => {
   const currentUser = useContext(CurrentUserContext);
@@ -80,7 +84,7 @@ const Header = ({ setShowAuthButtons }) => {
                   Войти
                 </button>
               ) : (
-                <Link to='/profile' className='header__menu-button-icon '>
+                <Link to='/personal/' className='header__menu-button-icon '>
                   <span className='header__button-icon header__button-icon_profile'></span>
                   <span className='header__button-text'>
                     {currentUser.first_name}
