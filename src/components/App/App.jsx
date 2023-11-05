@@ -323,38 +323,36 @@ const App = () => {
             }
           >
             {/* 3 Уровень вложенности */}
-            <Route path='/personal/' element={<Outlet />}>
+            <Route
+              path='/personal/profile/'
+              element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
+            ></Route>
+            <Route path='/personal/orders/' element={<MyOrders />}></Route>
+            <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
+            <Route path='/personal/reviews/' element={<MyReviews />}></Route>
+            <Route path='/personal/seller/' element={<Outlet />}>
+              {/* 4 Уровень вложенности */}
               <Route
                 index
-                element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
+                path='/personal/seller/legal-data/'
+                element={<SellerLegalData />}
               ></Route>
-              <Route path='/personal/orders/' element={<MyOrders />}></Route>
-              <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
-              <Route path='/personal/reviews/' element={<MyReviews />}></Route>
-              <Route path='/personal/seller/' element={<Outlet />}>
-                {/* 4 Уровень вложенности */}
-                <Route
-                  index
-                  // path='/personal/seller/legal-data/'
-                  element={<SellerLegalData />}
-                ></Route>
-                <Route
-                  path='/personal/seller/personal-data/'
-                  element={<SellerPersonalData />}
-                ></Route>
-                <Route
-                  path='/personal/seller/goods/'
-                  element={<MyGoods />}
-                ></Route>
-                <Route
-                  path='/personal/seller/promo-codes/'
-                  element={<MyPromoCodes />}
-                ></Route>
-                <Route
-                  path='/personal/seller/statistics/'
-                  element={<Statistics />}
-                ></Route>
-              </Route>
+              <Route
+                path='/personal/seller/personal-data/'
+                element={<SellerPersonalData />}
+              ></Route>
+              <Route
+                path='/personal/seller/goods/'
+                element={<MyGoods />}
+              ></Route>
+              <Route
+                path='/personal/seller/promo-codes/'
+                element={<MyPromoCodes />}
+              ></Route>
+              <Route
+                path='/personal/seller/statistics/'
+                element={<Statistics />}
+              ></Route>
             </Route>
           </Route>
 
