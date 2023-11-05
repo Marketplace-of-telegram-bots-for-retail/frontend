@@ -1,7 +1,8 @@
 import React from 'react';
+import ProfileForm from '../../user/ProfileForm';
 
 const SellerPersonalData = () => {
-  return <div>SellerPersonalData</div>;
+  return <ProfileForm />;
 };
 
 export default SellerPersonalData;
