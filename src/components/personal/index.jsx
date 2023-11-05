@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import './index.css';
 import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
 import ProfileNavigation from './ProfileNavigation';
+import NavTab from './NavTab';
 
 // Компонент профиля пользователя
 const Profile = ({ children, ...props }) => {
@@ -19,7 +20,10 @@ const Profile = ({ children, ...props }) => {
           setUserType={setUserType}
           cbDeleteUser={props.cbDeleteUser}
         />
-        {children}
+        <div>
+          <NavTab />
+          {children}
+        </div>
       </div>
     </div>
   );
