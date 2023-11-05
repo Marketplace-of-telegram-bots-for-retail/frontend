@@ -10,7 +10,6 @@ import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import ProfileLegalDropdown from '../ProfileLegalDropDown/ProfileLegalDropdown';
 import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
-import ProfileForm from '../../user/ProfileForm';
 
 function ProfileLegalForm() {
   const currentUser = useContext(CurrentUserContext);
@@ -77,25 +76,22 @@ function ProfileLegalForm() {
   }
 
   return (
-    location.pathname === '/profile/legal-info' ?
-      <form className='profile__form' noValidate>
-        {/* <h2 className='profile__form-title'>Юридическая информация</h2> */}
-        <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
-        <ul className='profile__inputs-list'>
-          <li>
-            <ProfileLegalDropdown
-              hint={!isHint}
-              organization={!organization}
-              dropdown={typeOfLegal}
-              value={values.type}
-              setValue={handleChangeList}
-              inputName='Тип организации'
-              text={textTooltip.typeLegal}
-              onIndexChange={handleIndexChange}
-            >
-            </ProfileLegalDropdown>
-          </li>
-          {indexTypeOfLegal === 1 &&
+    <form className='profile__form' noValidate>
+      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
+      <ul className='profile__inputs-list'>
+        <li>
+          <ProfileLegalDropdown
+            hint={!isHint}
+            organization={!organization}
+            dropdown={typeOfLegal}
+            value={values.type}
+            setValue={handleChangeList}
+            inputName='Тип организации'
+            text={textTooltip.typeLegal}
+            onIndexChange={handleIndexChange}
+          ></ProfileLegalDropdown>
+        </li>
+        {indexTypeOfLegal === 1 && (
           <>
             <li>
               <Input
@@ -137,177 +133,176 @@ function ProfileLegalForm() {
                 disabled={isEditing}
               />
             </li>
-          </>}
-          <li>
-            <Input
-              name='nameShop'
-              type='text'
-              error={errors.nameShop}
-              value={values.nameShop ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='Название магазина'
-              disabled={isEditing}
-              hint={!isHint}
-              text={textTooltip.nameShop}
-              requared
-            />
-          </li>
-          <li>
-            <Input
-              name='nameLegal'
-              type='text'
-              error={errors.nameLegal}
-              value={values.nameLegal ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='Название организации'
-              disabled={isEditing}
-              hint={!isHint}
-              text={textTooltip.nameLegal}
-              required
-            />
-          </li>
-          <li>
-            <ProfileLegalDropdown
-              hint={!isHint}
-              organization={organization}
-              dropdown={banks}
-              value={values.bank}
-              inputName='Название банка'
-              setValue={handleChangeList}
-              text={textTooltip.bank}
-            >
-            </ProfileLegalDropdown>
-          </li>
-          <li>
-            <Input
-              name='inn'
-              type='text'
-              error={errors.inn}
-              value={values.inn ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='ИНН'
-              disabled={isEditing}
-              hint={!isHint}
-              required
-              text={textTooltip.inn}
-            />
-          </li>
-          <li>
-            <Input
-              name='kpp'
-              type='text'
-              error={errors.kpp}
-              value={values.kpp ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='КПП'
-              disabled={isEditing}
-              hint={!isHint}
-              text={textTooltip.kpp}
-            />
-          </li>
-          <li>
-            <Input
-              name='ogrn'
-              type='text'
-              error={errors.ogrn}
-              value={values.ogrn ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='ОГРН'
-              disabled={isEditing}
-              hint={!isHint}
-              text={textTooltip.ogrn}
-              required
-            />
-          </li>
-          <li>
-            <Input
-              name='bankAccount'
-              type='text'
-              error={errors.bankAccount}
-              value={values.bankAccount ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='Расчетный счет'
-              disabled={isEditing}
-              hint={!isHint}
-              required
-              text={textTooltip.bankAccount}
-            />
-          </li>
-          <li>
-            <Input
-              name='korrAccount'
-              type='text'
-              error={errors.korrAccount}
-              value={values.korrAccount ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='Корреспондентский счет'
-              disabled={isEditing}
-              hint={!isHint}
-              required
-              text={textTooltip.korrAccount}
-            />
-          </li>
-          <li>
-            <Input
-              name='bic'
-              type='text'
-              error={errors.bic}
-              value={values.bic ?? ''}
-              onChange={handleChange}
-              onBlur={onBlur}
-              inputName='БИК'
-              disabled={isEditing}
-              hint={!isHint}
-              text={textTooltip.bic}
-              required
-            />
-          </li>
-        </ul>
-        <button className='profile__legal-add-button' type='button' onClick={handleAddProve}>
-          <div className='profile__legal-add-image'></div>
-          <p className='profile__legal-add-text'>Загрузить документы</p>
-        </button>
-        <div className='profile__legal-container'>
-          <input
-            className='profile__legal-input'
-            type='checkbox'
-            id='legal-checkbox'
-            // checked={categoryValues[id] || false}
-            // checked={false}
-            // onChange={handleCheckboxChange}
-          ></input>
-          <div>
-            <label
-              htmlFor='legal-checkbox'
-              className='profile__legal-checkbox-label'
-            >
-              Я принимаю условия&nbsp;
-              <Link
-                to='/contract'
-                className='profile__legal-link'
-              >
-                Договора-оферты
-              </Link>
-            </label>
-          </div>
+          </>
+        )}
+        <li>
+          <Input
+            name='nameShop'
+            type='text'
+            error={errors.nameShop}
+            value={values.nameShop ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Название магазина'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.nameShop}
+            requared
+          />
+        </li>
+        <li>
+          <Input
+            name='nameLegal'
+            type='text'
+            error={errors.nameLegal}
+            value={values.nameLegal ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Название организации'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.nameLegal}
+            required
+          />
+        </li>
+        <li>
+          <ProfileLegalDropdown
+            hint={!isHint}
+            organization={organization}
+            dropdown={banks}
+            value={values.bank}
+            inputName='Название банка'
+            setValue={handleChangeList}
+            text={textTooltip.bank}
+          ></ProfileLegalDropdown>
+        </li>
+        <li>
+          <Input
+            name='inn'
+            type='text'
+            error={errors.inn}
+            value={values.inn ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='ИНН'
+            disabled={isEditing}
+            hint={!isHint}
+            required
+            text={textTooltip.inn}
+          />
+        </li>
+        <li>
+          <Input
+            name='kpp'
+            type='text'
+            error={errors.kpp}
+            value={values.kpp ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='КПП'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.kpp}
+          />
+        </li>
+        <li>
+          <Input
+            name='ogrn'
+            type='text'
+            error={errors.ogrn}
+            value={values.ogrn ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='ОГРН'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.ogrn}
+            required
+          />
+        </li>
+        <li>
+          <Input
+            name='bankAccount'
+            type='text'
+            error={errors.bankAccount}
+            value={values.bankAccount ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Расчетный счет'
+            disabled={isEditing}
+            hint={!isHint}
+            required
+            text={textTooltip.bankAccount}
+          />
+        </li>
+        <li>
+          <Input
+            name='korrAccount'
+            type='text'
+            error={errors.korrAccount}
+            value={values.korrAccount ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Корреспондентский счет'
+            disabled={isEditing}
+            hint={!isHint}
+            required
+            text={textTooltip.korrAccount}
+          />
+        </li>
+        <li>
+          <Input
+            name='bic'
+            type='text'
+            error={errors.bic}
+            value={values.bic ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='БИК'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.bic}
+            required
+          />
+        </li>
+      </ul>
+      <button
+        className='profile__legal-add-button'
+        type='button'
+        onClick={handleAddProve}
+      >
+        <div className='profile__legal-add-image'></div>
+        <p className='profile__legal-add-text'>Загрузить документы</p>
+      </button>
+      <div className='profile__legal-container'>
+        <input
+          className='profile__legal-input'
+          type='checkbox'
+          id='legal-checkbox'
+          // checked={categoryValues[id] || false}
+          // checked={false}
+          // onChange={handleCheckboxChange}
+        ></input>
+        <div>
+          <label
+            htmlFor='legal-checkbox'
+            className='profile__legal-checkbox-label'
+          >
+            Я принимаю условия&nbsp;
+            <Link to='/contract' className='profile__legal-link'>
+              Договора-оферты
+            </Link>
+          </label>
         </div>
-        <ProfileFormButtons
-          isEditing={!isEditing}
-          setIsEditing={setIsEditing}
-          handleSubmit={handleSubmit}
-          deleteProfile={deleteProfile}
-          resetForm={() => resetForm()}
-        />
-      </form>
-      :
-      <ProfileForm></ProfileForm>
+      </div>
+      <ProfileFormButtons
+        isEditing={!isEditing}
+        setIsEditing={setIsEditing}
+        handleSubmit={handleSubmit}
+        deleteProfile={deleteProfile}
+        resetForm={() => resetForm()}
+      />
+    </form>
   );
 }
 

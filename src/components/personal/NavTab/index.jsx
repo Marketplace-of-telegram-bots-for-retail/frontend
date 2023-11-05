@@ -1,20 +1,18 @@
 import React, { useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 const Seller = () => {
-  const location = useLocation();
   const navigate = useNavigate();
   const [isActiveData, setIsActiveData] = useState(false);
   const [isActiveLegal, setIsActiveLegal] = useState(true);
 
-  console.log(location.pathname);
   function handleChangeLinkData() {
-    navigate('/personal/seller/personal-data/');
+    navigate('/personal/seller/personal-data/', { replace: true });
     setIsActiveLegal(false);
     setIsActiveData(!isActiveData);
   }
   function handleChangeLinkLegal() {
-    navigate('/personal/seller/legal-data/');
+    navigate('/personal/seller/legal-data/', { replace: true });
     setIsActiveData(false);
     setIsActiveLegal(!isActiveLegal);
   }

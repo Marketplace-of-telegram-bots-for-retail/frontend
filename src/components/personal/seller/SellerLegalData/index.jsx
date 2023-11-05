@@ -1,54 +1,364 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import ProfileLegalForm from '../ProfileLegalForm/ProfileLegalForm';
-import ProfileForm from '../../user/ProfileForm';
+/* eslint-disable no-unused-vars */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useEffect, useContext, useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './index.css';
+import Input from '../../../Input';
+import ProfileFormButtons from '../../user/ProfileFormButtons';
+import ProfileAvatar from '../../user/ProfileAvatar';
+import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
+import { CurrentUserContext } from '../../../../contexts/currentUserContext';
+import ProfileLegalDropdown from '../ProfileLegalDropDown/ProfileLegalDropdown';
+import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
 
-const SellerLegalData = () => {
-  const navigate = useNavigate();
-  const [isActiveData, setIsActiveData] = useState(false);
-  const [isActiveLegal, setIsActiveLegal] = useState(true);
+function SellerLegalData() {
+  const currentUser = useContext(CurrentUserContext);
+  const { values, setValues, onBlur, handleChange, errors, resetForm } =
+    useFormWithValidation();
+  const [isEditing, setIsEditing] = useState(false);
+  const [userphoto, setUserphoto] = useState(null);
+  const [isHint, setIsHint] = useState(false);
+  const [value, setValue] = useState('');
+  const [organization, setOrganization] = useState(false);
+  const [indexTypeOfLegal, setIndexTypeOfLegal] = useState(0);
+  const location = useLocation();
 
-  function handleChangeLinkData() {
-    navigate('/profile/user');
-    setIsActiveLegal(false);
-    setIsActiveData(!isActiveData);
+  const handleIndexChange = (dropdownIndex) => {
+    setIndexTypeOfLegal(dropdownIndex);
+  };
+
+  function handleAddProve() {
+    console.log('добавить документы');
   }
-  function handleChangeLinkLegal() {
-    navigate('/profile/legal-info');
-    setIsActiveData(false);
-    setIsActiveLegal(!isActiveLegal);
+  function handleChangeList(evt) {
+    setValue(evt.target.values);
+  }
+
+  useEffect(() => {
+    resetForm();
+    setValues({
+      name: currentUser.first_name,
+      surname: currentUser.last_name,
+      email: currentUser.email,
+      phone: currentUser.phone,
+      user: currentUser.username,
+    });
+    if (!isEditing) localStorage.removeItem('avatar');
+  }, [currentUser, isEditing]);
+
+  function handleSubmit(e) {
+    // resetForm();
+    e.preventDefault();
+
+    const formData = {
+      nameShop: values.nameShop,
+      typeLegal: values.typeLegal,
+      nameLegal: values.nameLegal,
+      bank: values.bank,
+      inn: values.inn,
+      kpp: values.kpp,
+      ogrn: values.ogrn,
+      bankAccount: values.bankAccount,
+      korrAccount: values.korrAccount,
+      bic: values.bic,
+    };
+
+    if (userphoto) formData.photo = userphoto;
+
+    // props.cbUpdateProfile(getChangedData(currentUser, formData));
+    // setIsEditing(false);
+    localStorage.removeItem('avatar');
+    console.log(formData);
+  }
+
+  function deleteProfile(e) {
+    e.preventDefault();
   }
 
   return (
-    <div className='profile__button-links'>
-      <div>
-        <button
-          to='/profile/legal-info'
-          className={`profile__button-link ${
-            isActiveLegal ? 'profile__button-link_active' : ''
-          }`}
-          type='button'
-          onClick={handleChangeLinkLegal}
-          disabled={isActiveLegal}
-        >
-          Юридическая информация
-        </button>
-        {isActiveLegal === true ? <ProfileLegalForm /> : <ProfileForm />}
+    <form className='profile__form' noValidate>
+      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
+      <ul className='profile__inputs-list'>
+        <li>
+          <ProfileLegalDropdown
+            hint={!isHint}
+            organization={!organization}
+            dropdown={typeOfLegal}
+            value={values.type}
+            setValue={handleChangeList}
+            inputName='Тип организации'
+            text={textTooltip.typeLegal}
+            onIndexChange={handleIndexChange}
+          ></ProfileLegalDropdown>
+        </li>
+        {indexTypeOfLegal === 1 && (
+          <>
+            <li>
+              <Input
+                name='name'
+                type='text'
+                error={errors.name}
+                value={values.name ?? ''}
+                onChange={handleChange}
+                onBlur={onBlur}
+                inputName='Имя'
+                disabled={!isEditing}
+                hint={!isHint}
+                text={textTooltip.name}
+              />
+            </li>
+            <li>
+              <Input
+                name='surname'
+                type='text'
+                error={errors.surname}
+                value={values.surname ?? ''}
+                onChange={handleChange}
+                onBlur={onBlur}
+                inputName='Фамилия'
+                disabled={!isEditing}
+                hint={!isHint}
+                text={textTooltip.name}
+              />
+            </li>
+            <li>
+              <Input
+                name='surname2'
+                type='text'
+                error={errors.surname2}
+                value={values.surname2 ?? ''}
+                onChange={handleChange}
+                onBlur={onBlur}
+                inputName='Отчество'
+                disabled={isEditing}
+              />
+            </li>
+          </>
+        )}
+        <li>
+          <Input
+            name='nameShop'
+            type='text'
+            error={errors.nameShop}
+            value={values.nameShop ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Название магазина'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.nameShop}
+            requared
+          />
+        </li>
+        <li>
+          <Input
+            name='nameLegal'
+            type='text'
+            error={errors.nameLegal}
+            value={values.nameLegal ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Название организации'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.nameLegal}
+            required
+          />
+        </li>
+        <li>
+          <ProfileLegalDropdown
+            hint={!isHint}
+            organization={organization}
+            dropdown={banks}
+            value={values.bank}
+            inputName='Название банка'
+            setValue={handleChangeList}
+            text={textTooltip.bank}
+          ></ProfileLegalDropdown>
+        </li>
+        <li>
+          <Input
+            name='inn'
+            type='text'
+            error={errors.inn}
+            value={values.inn ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='ИНН'
+            disabled={isEditing}
+            hint={!isHint}
+            required
+            text={textTooltip.inn}
+          />
+        </li>
+        <li>
+          <Input
+            name='kpp'
+            type='text'
+            error={errors.kpp}
+            value={values.kpp ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='КПП'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.kpp}
+          />
+        </li>
+        <li>
+          <Input
+            name='ogrn'
+            type='text'
+            error={errors.ogrn}
+            value={values.ogrn ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='ОГРН'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.ogrn}
+            required
+          />
+        </li>
+        <li>
+          <Input
+            name='bankAccount'
+            type='text'
+            error={errors.bankAccount}
+            value={values.bankAccount ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Расчетный счет'
+            disabled={isEditing}
+            hint={!isHint}
+            required
+            text={textTooltip.bankAccount}
+          />
+        </li>
+        <li>
+          <Input
+            name='korrAccount'
+            type='text'
+            error={errors.korrAccount}
+            value={values.korrAccount ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='Корреспондентский счет'
+            disabled={isEditing}
+            hint={!isHint}
+            required
+            text={textTooltip.korrAccount}
+          />
+        </li>
+        <li>
+          <Input
+            name='bic'
+            type='text'
+            error={errors.bic}
+            value={values.bic ?? ''}
+            onChange={handleChange}
+            onBlur={onBlur}
+            inputName='БИК'
+            disabled={isEditing}
+            hint={!isHint}
+            text={textTooltip.bic}
+            required
+          />
+        </li>
+      </ul>
+      <button
+        className='profile__legal-add-button'
+        type='button'
+        onClick={handleAddProve}
+      >
+        <div className='profile__legal-add-image'></div>
+        <p className='profile__legal-add-text'>Загрузить документы</p>
+      </button>
+      <div className='profile__legal-container'>
+        <input
+          className='profile__legal-input'
+          type='checkbox'
+          id='legal-checkbox'
+          // checked={categoryValues[id] || false}
+          // checked={false}
+          // onChange={handleCheckboxChange}
+        ></input>
+        <div>
+          <label
+            htmlFor='legal-checkbox'
+            className='profile__legal-checkbox-label'
+          >
+            Я принимаю условия&nbsp;
+            <Link to='/contract' className='profile__legal-link'>
+              Договора-оферты
+            </Link>
+          </label>
+        </div>
       </div>
-      <div>
-        <button
-          className={`profile__button-link ${
-            isActiveData ? 'profile__button-link_active' : ''
-          }`}
-          type='button'
-          onClick={handleChangeLinkData}
-          disabled={isActiveData}
-        >
-          Персональные данные
-        </button>
-      </div>
-    </div>
+      <ProfileFormButtons
+        isEditing={!isEditing}
+        setIsEditing={setIsEditing}
+        handleSubmit={handleSubmit}
+        deleteProfile={deleteProfile}
+        resetForm={() => resetForm()}
+      />
+    </form>
   );
-};
+}
 
 export default SellerLegalData;
+
+// import React, { useState } from 'react';
+// import { useNavigate } from 'react-router-dom';
+// import ProfileLegalForm from '../ProfileLegalForm/ProfileLegalForm';
+// import ProfileForm from '../../user/ProfileForm';
+
+// const SellerLegalData = () => {
+//   const navigate = useNavigate();
+//   const [isActiveData, setIsActiveData] = useState(false);
+//   const [isActiveLegal, setIsActiveLegal] = useState(true);
+
+//   function handleChangeLinkData() {
+//     navigate('/profile/user');
+//     setIsActiveLegal(false);
+//     setIsActiveData(!isActiveData);
+//   }
+//   function handleChangeLinkLegal() {
+//     navigate('/profile/legal-info');
+//     setIsActiveData(false);
+//     setIsActiveLegal(!isActiveLegal);
+//   }
+
+//   return (
+//     <div className='profile__button-links'>
+//       <div>
+//         <button
+//           to='/profile/legal-info'
+//           className={`profile__button-link ${
+//             isActiveLegal ? 'profile__button-link_active' : ''
+//           }`}
+//           type='button'
+//           onClick={handleChangeLinkLegal}
+//           disabled={isActiveLegal}
+//         >
+//           Юридическая информация
+//         </button>
+//         {isActiveLegal === true ? <ProfileLegalForm /> : <ProfileForm />}
+//       </div>
+//       <div>
+//         <button
+//           className={`profile__button-link ${
+//             isActiveData ? 'profile__button-link_active' : ''
+//           }`}
+//           type='button'
+//           onClick={handleChangeLinkData}
+//           disabled={isActiveData}
+//         >
+//           Персональные данные
+//         </button>
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default SellerLegalData;

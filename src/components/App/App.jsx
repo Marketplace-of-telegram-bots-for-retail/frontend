@@ -37,7 +37,6 @@ import {
 } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../personal/user/ProfileForm';
-// import ProfileLegalForm from '../personal/seller/ProfileLegalForm/ProfileLegalForm';
 // import Goods from '../personal/goods/Goods';
 import { getAuthorisationData } from '../../store';
 import MyOrders from '../personal/user/MyOrders';
