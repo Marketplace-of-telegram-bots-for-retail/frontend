@@ -1,0 +1,28 @@
+.profile__nav-tabs {
+  display: flex;
+  gap: 20px;
+}
+
+.profile__nav-tab {
+  width: 396px;
+  height: 75px;
+  padding: 25px 20px;
+  text-decoration: none;
+  border: none;
+  border-bottom: 2px solid var(--Secondary-Purple-Light, #b2b0ff);
+  border-top-left-radius: 16px;
+  border-top-right-radius: 16px;
+  background-color: var(--Primary-White, #fdfdfd);
+  color: var(--Primary-Black, #1e1e1e);
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: 29px;
+  cursor: pointer;
+}
+
+.profile__nav-tab_select {
+  background-color: var(--BG-Purple, #f8f8ff);
+  border-bottom: 2px solid var(--Primary-Accent, #726efa);
+  cursor: auto;
+}

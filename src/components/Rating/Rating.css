@@ -33,7 +33,6 @@
   color: var(--Primary-Black);
   margin: 0;
   padding: 0;
-  cursor: pointer;
 }
 .rating__feedback_small {
   font-size: 14px;
@@ -46,4 +45,8 @@
   font-style: normal;
   font-weight: 500;
   line-height: 20px;
+  cursor: pointer;
+}
+.rating__feedback_big:hover {
+  color: var(--Secondary-Accent-Blue-Dark);
 }
