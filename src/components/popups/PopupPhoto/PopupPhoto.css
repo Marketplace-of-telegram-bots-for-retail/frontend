@@ -1,18 +1,10 @@
 .popup__photo {
   position: absolute;
   display: flex;
-  padding-left: 56px;
-  visibility: hidden;
-  opacity: 0;
-  transition: visability 0.2s, opacity 0.2s ease-in;
-  z-index: 3;
+  top: 1265px;
+  left: 470px;
 }
-  
-.popup__photo_opened {
-  visibility: visible;
-  opacity: 1;
-}
-  
+ 
 .popup__group-photo {
   position: absolute;
   width: 320px;

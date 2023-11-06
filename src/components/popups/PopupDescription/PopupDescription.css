@@ -1,16 +1,8 @@
 .popup__description {
   position: absolute;
   display: flex;
-  padding-left: 140px;
-  visibility: hidden;
-  opacity: 0;
-  transition: visability 0.2s, opacity 0.2s ease-in;
-  z-index: 3;
-}
-  
-.popup__description_opened {
-  visibility: visible;
-  opacity: 1;
+  top: 790px;
+  left: 550px;
 }
   
 .popup__group-description {

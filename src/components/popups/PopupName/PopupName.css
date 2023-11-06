@@ -1,16 +1,8 @@
 .popup__name {
   position: absolute;
   display: flex;
-  visibility: hidden;
-  padding-left: 140px;
-  opacity: 0;
-  transition: visability 0.2s, opacity 0.2s ease-in;
-  z-index: 3;
-}
-  
-.popup__name_opened {
-  visibility: visible;
-  opacity: 1;
+  top: 715px;
+  left: 550px;
 }
   
 .popup__group-name {

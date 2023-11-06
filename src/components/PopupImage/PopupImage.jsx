@@ -45,7 +45,7 @@ function PopupImage({ card }) {
   }
 
   return (
-    <div className='popup'>
+    <div className='pop-up'>
       <div className='popup__container'>
         <button
           className='popup__close'

@@ -1,15 +1,15 @@
 import React from 'react';
-import './PopupName.css';
+import './PopupPrice.css';
 import { goodsHint } from '../../../utils/constants';
 import { usePopupClose } from '../../../hooks/usePopupClose';
 
-function PopupName({ isOpen, onClose }) {
+function PopupPriceBot({ isOpen, onClose }) {
   usePopupClose(isOpen, onClose);
   return (
     <div
       className={`popup ${isOpen && 'popup_opened'}`}
     >
-      <div className='popup__name'>
+      <div className='popup__price'>
         <svg xmlns="http://www.w3.org/2000/svg" width="394" height="109" viewBox="0 0 394 109" fill="none">
           <g filter="url(#filter0_d_2031_11318)">
             <path d="M37.9973 40C37.9973 35.5817 41.5791 32 45.9973 32H350C354.418 32 358 35.5817 358 40V69C358 73.4183 354.418 77 350 77H45.9973C41.5791 77 37.9973 73.4183 37.9973 69V57.4847L28 54.7296L37.9973 51.9745V40Z" fill="#FDFDFD" />
@@ -28,8 +28,8 @@ function PopupName({ isOpen, onClose }) {
             </filter>
           </defs>
         </svg>
-        <div className='popup__group-name'>
-          <p className='popup__text-name'>
+        <div className='popup__group-price'>
+          <p className='popup__text-price'>
             {goodsHint.requiredField}
           </p>
         </div>
@@ -38,4 +38,4 @@ function PopupName({ isOpen, onClose }) {
   );
 }
 
-export default PopupName;
+export default PopupPriceBot;
