@@ -98,9 +98,9 @@
     line-height: normal;
     cursor: pointer;
   }
-  .orders-dropdown__item_active {
+  /* .orders-dropdown__item_active {
     background-color: var(--Secondary-Purple-Light);
-  }
+  } */
   .orders-dropdown__item:last-child {
     border-bottom: none;
     border-radius: 0px 0px 8px 8px;

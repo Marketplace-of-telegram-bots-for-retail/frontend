@@ -9,6 +9,8 @@ import { CurrentUserContext } from '../../contexts/currentUserContext';
 import { getCartData, getUserOrdersData } from '../../store/selectors';
 import { postOrder } from '../../store/userOrdersDataSlice';
 
+import { deleteSelectedProductsCart } from '../../store/cartDataSlice';
+
 import PopupWithEmail from './PopupWithEmail/PopupWithEmail';
 import OrderBefore from './OrderBefore/OrderBefore';
 import OrderAfter from './OrderAfter/OrderAfter';
@@ -22,30 +24,29 @@ function Order() {
   const [isPopupEmailOpen, setIsPopupEmailOpen] = useState(false);
   const [value, setValue] = useState(currentUser.email);
 
-  // данные для компонентов в заказе
-  const { itemsForOrder } =
-    useSelector(getCartData);
+  // // данные для компонентов в заказе
+  // const { itemsForOrder } =
+  //   useSelector(getCartData);
+  const { newOrder } = useSelector(getUserOrdersData);
 
   const handleClickInput = () => {
     setIsPopupEmailOpen(!isPopupEmailOpen);
   };
 
   const handleChangeEmail = () => {
-    const data = {
-      email: value,
-    };
-    // cbUpdateEmail(getChangedData(currentUser, data));
+    setValue(value);
   };
 
   // функциональность оплаты
   const handlePay = () => {
-    // setIsPaid(true);
     // пост-запрос на создание заказа, передать пей_метод и сенд_ту
-    console.log('pay method final -', payMethod, typeof payMethod);
+    // console.log('pay method final -', payMethod, typeof payMethod);
     dispatch(postOrder({
       pay_method: payMethod,
       send_to: value,
     }));
+    setIsPaid(true);
+    // dispatch(deleteSelectedProductsCart());
   };
 
   return (
@@ -57,9 +58,9 @@ function Order() {
       </div>
       <h1 className="order__title">{!isPaid ? 'Оформление заказа' : 'Заказ оплачен'}</h1>
       {!isPaid
-        ? <OrderBefore onClickInput={handleClickInput} onPay={handlePay} payMethod={payMethod} setPayMethod={setPayMethod} />
-        : <OrderAfter />}
-      <OrderList items={itemsForOrder} />
+        ? <OrderBefore value={value} onClickInput={handleClickInput} onPay={handlePay} payMethod={payMethod} setPayMethod={setPayMethod} />
+        : <OrderAfter payMethod={payMethod} value={value} />}
+      {/* <OrderList items={itemsForOrder} /> */}
       <PopupWithEmail
         isOpen={isPopupEmailOpen}
         onClose={() => setIsPopupEmailOpen(false)}

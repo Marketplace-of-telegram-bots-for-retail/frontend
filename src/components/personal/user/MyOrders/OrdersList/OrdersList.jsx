@@ -8,6 +8,10 @@ function OrdersList({ orders, setOrders }) {
 
   useEffect(() => {
     setOrders(orders);
+  }, []);
+
+  useEffect(() => {
+    setOrders(orders);
   }, [orders]);
 
   return (

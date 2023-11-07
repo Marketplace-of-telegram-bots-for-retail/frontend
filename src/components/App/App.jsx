@@ -48,6 +48,7 @@ import SellerPersonalData from '../personal/seller/SellerPersonalData';
 import MyGoods from '../personal/seller/MyGoods';
 import MyPromoCodes from '../personal/seller/MyPromoCodes';
 import Statistics from '../personal/seller/Statistics';
+import OrderAfter from '../Order/OrderAfter/OrderAfter';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -305,6 +306,7 @@ const App = () => {
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
           {isAuthorized && <Route path='/order' element={<Order />} />}
+          <Route path='/orders/:id' element={<OrderAfter />} />
           <Route
             path='/personal/'
             element={
