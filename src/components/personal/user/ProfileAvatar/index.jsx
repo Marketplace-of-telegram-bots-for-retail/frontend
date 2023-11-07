@@ -1,11 +1,14 @@
 import React, { useState, useContext } from 'react';
+import { useDispatch } from 'react-redux';
 import './index.css';
 import avatar from '../../../../images/Avatar.png';
 import avatarEdit from '../../../../images/Avatar-edit.svg';
 import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import getBase64 from '../../../../utils/getBase64';
+import { setUserPhoto } from '../../../../store/userSlice';
 
 export default function ProfileAvatar(props) {
+  const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const currentUser = useContext(CurrentUserContext);
 
@@ -19,7 +22,7 @@ export default function ProfileAvatar(props) {
   function handleChange(e) {
     const file = e.target.files[0];
     getBase64(file, (result) => {
-      props.setUserphoto(result);
+      dispatch(setUserPhoto(result));
       localStorage.setItem('avatar', result);
       setShowModal(false);
     });
@@ -56,7 +59,7 @@ export default function ProfileAvatar(props) {
           <button
             type='button'
             className='profile__avatar-button profile__avatar-button_type_delete'
-            onClick={props.setUserphoto(null)}
+            onClick={() => dispatch(setUserPhoto(null))}
           >
             Удалить фото
           </button>

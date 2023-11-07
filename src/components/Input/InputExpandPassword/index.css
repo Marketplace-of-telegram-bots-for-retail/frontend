@@ -1,0 +1,11 @@
+.input__expand-password-button {
+  background-image: url(../../../images/edit_icon.svg);
+  position: absolute;
+  right: 12px;
+  top: 35%;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  border: none;
+  background-color: transparent;
+}

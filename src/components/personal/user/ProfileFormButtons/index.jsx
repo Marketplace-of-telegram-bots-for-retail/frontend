@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './index.css';
 import { useLocation } from 'react-router-dom';
-import { setIsEditing } from '../../../../store/userSlice';
+import { setIsEditing, setIsPasswordExpanded } from '../../../../store/userSlice';
 import { getUserData } from '../../../../store';
 
 export default function ProfileFormButtons(props) {
@@ -30,6 +30,7 @@ export default function ProfileFormButtons(props) {
                 : (e) => {
                   e.preventDefault();
                   dispatch(setIsEditing(false));
+                  dispatch(setIsPasswordExpanded(false));
                 }
             }
           >
