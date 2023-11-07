@@ -250,3 +250,21 @@ export const goodsHint = {
   videoFirst: 'Вы можете разместить видеообзор функционала бота.',
   videoSecond: 'Необходима ссылка на YouTube видео.',
 };
+
+export const ORDERS_SORTING = [
+  {
+    id: 1,
+    value: 'all',
+    labelName: 'Все',
+  },
+  {
+    id: 2,
+    value: 'paid',
+    labelName: 'Оплаченные',
+  },
+  {
+    id: 3,
+    value: 'unpaid',
+    labelName: 'Неоплаченные',
+  },
+];
