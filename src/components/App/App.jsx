@@ -37,10 +37,8 @@ import {
   setAuthErrorMessage,
 } from '../../store/dataAuthorisation';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
-import ProfileForm from '../profile/user/ProfileForm';
-import ProfileLegalForm from '../profile/seller/ProfileLegalForm/ProfileLegalForm';
-import Goods from '../profile/goods/Goods';
-import UserOrders from '../profile/orders/UserOrders';
+import ProfileForm from '../personal/user/ProfileForm';
+// import Goods from '../personal/goods/Goods';
 import { getAuthorisationData } from '../../store';
 import MyOrders from '../personal/user/MyOrders';
 import MyReviews from '../personal/user/MyReviews';
@@ -306,8 +304,7 @@ const App = () => {
           <Route path='*' element={<ErrorPage pageNotFound />} />
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
-          {/* пометка: позже защитить авторизацией */}
-          <Route path='/order' element={<Order />} />
+          {isAuthorized && <Route path='/order' element={<Order />} />}
           <Route
             path='/personal/'
             element={
@@ -324,20 +321,34 @@ const App = () => {
             <Route
               path='/personal/profile/'
               element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
-            />
-            {/* Роуты пользователя */}
-            <Route path='/profile/orders' element={<UserOrders />} />
-            <Route path='/profile/returns' />
-            <Route path='/profile/reviews' />
-            {/* Роуты продавца. Обернуть в защищенный роут? */}
-            <Route
-              path='/profile/legal-info'
-              // element={<ProfileLegalForm bUpdateProfile={cbUpdateProfile} />}
-              element={<ProfileLegalForm />}
-            />
-            <Route path='/profile/products' element={<Goods />} />
-            <Route path='/profile/statistics' />
-            <Route path='/profile/promocodes' />
+            ></Route>
+            <Route path='/personal/orders/' element={<MyOrders />}></Route>
+            <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
+            <Route path='/personal/reviews/' element={<MyReviews />}></Route>
+            <Route path='/personal/seller/' element={<Outlet />}>
+              {/* 4 Уровень вложенности */}
+              <Route
+                index
+                path='/personal/seller/legal-data/'
+                element={<SellerLegalData />}
+              ></Route>
+              <Route
+                path='/personal/seller/personal-data/'
+                element={<SellerPersonalData />}
+              ></Route>
+              <Route
+                path='/personal/seller/goods/'
+                element={<MyGoods />}
+              ></Route>
+              <Route
+                path='/personal/seller/promo-codes/'
+                element={<MyPromoCodes />}
+              ></Route>
+              <Route
+                path='/personal/seller/statistics/'
+                element={<Statistics />}
+              ></Route>
+            </Route>
           </Route>
 
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />

@@ -1,0 +1,120 @@
+.orders__container {
+    width: 100%;
+    padding-bottom: 146px;
+}
+
+.orders__list {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    padding: 0;
+    margin: 32px 0 0;
+}
+
+.orders__item {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* gap: 52px; */
+    padding: 24px 35px 32px 24px;
+    box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.10);
+    border-radius: 16px;
+    background-color: var(--Primary-White);
+}
+
+.orders__up-block {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.orders__left-part {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.orders__right-part {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 208px;
+}
+
+.orders__item-title {
+    color: var(--Primary-Black);
+font-family: Inter;
+font-size: 18px;
+font-style: normal;
+font-weight: 600;
+line-height: 24px;
+margin: 0;
+padding: 0;
+}
+
+.orders__text {
+    color: var(--Primary-Black);
+font-family: Inter;
+font-size: 16px;
+font-style: normal;
+font-weight: 400;
+line-height: 20px;
+margin: 0;
+padding: 0;
+}
+
+.orders__summ {
+    color: var(--Primary-Black);
+    font-family: Inter;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 24px;
+    margin: 0;
+    padding: 0;
+    text-align: right;
+}
+
+.orders__summ_type_unpaid {
+    color: var(--Gray-Additional);
+}
+
+.orders__open-products {
+display: flex;
+gap: 8px;
+align-items: center;
+    cursor: pointer;
+}
+
+.orders__open-products-link {
+    color: var(--Primary-Accent);
+font-size: 16px;
+font-weight: 500;
+margin: 0;
+padding: 0;
+}
+
+.orders__chevron {
+    width: 24px;
+    object-fit: contain;
+}
+
+.orders__product-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    opacity: 0;
+    max-height: 0px;
+    transition: all 0.2s ease;
+}
+
+.orders__product-list_visible {
+    margin-top: 52px;
+    opacity: 1;
+    max-height: 100%;
+    transition: all 0.2s ease;
+}
+
+/* ДРОПДАУН */
+
