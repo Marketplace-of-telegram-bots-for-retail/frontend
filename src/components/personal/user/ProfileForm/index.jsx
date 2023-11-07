@@ -1,4 +1,5 @@
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useContext } from 'react';
+import { useSelector } from 'react-redux';
 import './index.css';
 import Input from '../../../Input';
 import ProfileFormButtons from '../ProfileFormButtons';
@@ -6,13 +7,14 @@ import ProfileAvatar from '../ProfileAvatar';
 import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import getChangedData from '../../../../utils/getChangedData';
+import { getUserData } from '../../../../store';
 
 export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
   const { values, setValues, onBlur, handleChange, errors, resetForm } =
     useFormWithValidation();
-  const [isEditing, setIsEditing] = useState(false);
-  const [userphoto, setUserphoto] = useState(null);
+
+  const { isEditing, userPhoto, isPasswordExpanded } = useSelector(getUserData);
 
   useEffect(() => {
     resetForm();
@@ -26,6 +28,16 @@ export default function ProfileForm(props) {
     if (!isEditing) localStorage.removeItem('avatar');
   }, [currentUser, isEditing]);
 
+  function definePasswordInputName(isEditing, isPasswordExpanded) {
+    if (!isEditing) {
+      return 'passwordWithoutEye';
+    }
+    if (!isPasswordExpanded) {
+      return 'passwordWithExpand';
+    }
+    return 'password';
+  }
+
   function handleSubmit(e) {
     e.preventDefault();
 
@@ -37,7 +49,7 @@ export default function ProfileForm(props) {
       username: values.user,
     };
 
-    if (userphoto) formData.photo = userphoto;
+    if (userPhoto) formData.photo = userPhoto;
 
     if (values.newPassword && values.password) {
       formData.new_password = values.newPassword;
@@ -45,7 +57,6 @@ export default function ProfileForm(props) {
     }
 
     props.cbUpdateProfile(getChangedData(currentUser, formData));
-    setIsEditing(false);
     localStorage.removeItem('avatar');
   }
 
@@ -56,7 +67,7 @@ export default function ProfileForm(props) {
   return (
     <form className='profile__form' noValidate>
       {/* <h2 className='profile__form-title'>Персональные данные</h2> */}
-      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
+      <ProfileAvatar isEditing={isEditing} />
       <ul className='profile__inputs-list'>
         <li>
           <Input
@@ -120,7 +131,7 @@ export default function ProfileForm(props) {
         </li>
         <li>
           <Input
-            name='password'
+            name={definePasswordInputName(isEditing, isPasswordExpanded)}
             type='password'
             error={errors.password}
             value={values.password ?? ''}
@@ -131,7 +142,7 @@ export default function ProfileForm(props) {
             placeholder={isEditing && 'введите текущий пароль'}
           />
         </li>
-        {isEditing && (
+        {isPasswordExpanded && (
           <>
             <li>
               <Input
@@ -162,8 +173,6 @@ export default function ProfileForm(props) {
         )}
       </ul>
       <ProfileFormButtons
-        isEditing={isEditing}
-        setIsEditing={setIsEditing}
         handleSubmit={handleSubmit}
         deleteProfile={deleteProfile}
       />

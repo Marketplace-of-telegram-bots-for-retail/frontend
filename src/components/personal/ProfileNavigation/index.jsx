@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './index.css';
 import {
@@ -6,9 +6,17 @@ import {
   profileNavigationSeller,
 } from '../../../utils/constants';
 import ToggleUserTypeButton from '../ToggleUserTypeButton';
+import useModal from '../../../hooks/useModal';
+import ConfirmLogoutModal from '../../Modal/ConfirmLogoutModal';
+import ConfirmDeleteProfileModal from '../../Modal/ConfirmDeleteProfileModal';
 
 export default function ProfileNavigation(props) {
   const navigate = useNavigate();
+  const [showLogoutModal, setShowLogoutModal] = useState(false);
+  useModal(showLogoutModal, setShowLogoutModal);
+
+  const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
+  useModal(showDeleteProfileModal, setShowDeleteProfileModal);
 
   const profileNavigation =
     props.userType === 'Покупатель'
@@ -47,8 +55,7 @@ export default function ProfileNavigation(props) {
           type='button'
           className='profile__nav-button profile__nav-button_type_logout button'
           onClick={() => {
-            props.cbLogout();
-            navigate('/');
+            setShowLogoutModal(true);
           }}
         >
           Выйти из аккаунта
@@ -56,11 +63,31 @@ export default function ProfileNavigation(props) {
         <button
           type='button'
           className='profile__nav-button profile__nav-button_type_delete-profile button'
-          onClick={props.cbDeleteUser}
+          onClick={() => {
+            setShowDeleteProfileModal(true);
+          }}
         >
           Удалить аккаунт
         </button>
       </div>
+
+      {showLogoutModal && (
+        <ConfirmLogoutModal
+          onClose={() => {
+            setShowLogoutModal(false);
+          }}
+          logout={() => props.cbLogout()}
+        />
+      )}
+
+      {showDeleteProfileModal && (
+        <ConfirmDeleteProfileModal
+          onClose={() => {
+            setShowDeleteProfileModal(false);
+          }}
+          deleteProfile={() => props.cbDeleteUser()}
+        />
+      )}
     </nav>
   );
 }

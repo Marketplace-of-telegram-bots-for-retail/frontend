@@ -35,6 +35,7 @@ import {
   setRegisterStep,
   setAuthErrorMessage,
 } from '../../store/dataAuthorisation';
+import { setIsEditing } from '../../store/userSlice';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../personal/user/ProfileForm';
 // import Goods from '../personal/goods/Goods';
@@ -182,6 +183,7 @@ const App = () => {
     setPreloader(true);
     try {
       await api.postLogOut();
+      navigate('/');
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
@@ -219,6 +221,7 @@ const App = () => {
         new_password: data.new_password,
       });
       cbTokenCheck();
+      dispatch(setIsEditing(false));
     } catch (err) {
       console.log('cbUpdateProfile => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -247,6 +250,7 @@ const App = () => {
     try {
       await api.deleteUserMe();
       cbTokenCheck();
+      navigate('/');
     } catch (err) {
       console.log('cbDeleteUser => err', err); // Консоль
       const errMessage = Object.values(err)[0];
