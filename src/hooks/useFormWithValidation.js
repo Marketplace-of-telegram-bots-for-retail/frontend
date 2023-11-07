@@ -220,8 +220,11 @@ export const useFormWithValidation = () => {
   };
 
   const onBlur = (e) => {
-    const { value } = e.target;
-    value.trim();
+    const { name, value } = e.target;
+    if (name === 'email') {
+      e.target.value = '';
+    }
+    setValues({ ...values, [name]: value.trim() });
   };
 
   const resetForm = useCallback(
