@@ -71,12 +71,35 @@ export const FOOTER_LINKS = [
   { label: 'О маркетплейсе', link: '/promo#about' },
   { label: 'Возврат', link: '/return#' },
   { label: 'Контакты', link: '/promo#contacts' },
-  { label: 'Политика конфиденциальности', link: '/privacy-policy#' },
+  { label: 'Политика конфиденциальности', link: '/privacy-policy' },
   { label: 'FAQ', link: '/promo#faq' },
   { label: 'Команда разработчиков', link: '/promo#developers#' },
 ];
 
 export const PRIVACY_POLICY_URL = 'https://botmarketplace.ru';
+
+export const ROUTER_LINKS = [
+  {
+    name: 'Корзина',
+    link: '/cart',
+  },
+  {
+    name: 'Оформление заказа',
+    link: '/cart/order-placement',
+  },
+  {
+    name: 'Личный кабинет',
+    link: '/personal',
+  },
+  {
+    name: 'Профиль продавца',
+    link: '/personal/seller',
+  },
+  {
+    name: 'Политика конфиденциальности',
+    link: '/privacy-policy',
+  },
+];
 
 export const profileNavigationCustomer = [
   {
@@ -84,7 +107,7 @@ export const profileNavigationCustomer = [
     links: [
       {
         name: 'Персональные данные',
-        link: '/personal/profile/',
+        link: '/personal/profile',
       },
     ],
   },
@@ -93,11 +116,11 @@ export const profileNavigationCustomer = [
     links: [
       {
         name: 'Мои заказы',
-        link: '/personal/orders/',
+        link: '/personal/orders',
       },
       {
         name: 'Мои возвраты',
-        link: '/personal/refunds/',
+        link: '/personal/refunds',
       },
     ],
   },
@@ -106,7 +129,7 @@ export const profileNavigationCustomer = [
     links: [
       {
         name: 'Мои отзывы',
-        link: '/personal/reviews/',
+        link: '/personal/reviews',
       },
     ],
   },
@@ -127,11 +150,11 @@ export const profileNavigationSeller = [
     links: [
       {
         name: 'Юридическая информация',
-        link: '/personal/seller/legal-data/',
+        link: '/personal/seller/legal-data',
       },
       {
         name: 'Персональные данные',
-        link: '/personal/seller/personal-data/',
+        link: '/personal/seller/personal-data',
       },
     ],
   },
@@ -140,7 +163,7 @@ export const profileNavigationSeller = [
     links: [
       {
         name: 'Мои товары',
-        link: '/personal/seller/goods/',
+        link: '/personal/seller/goods',
       },
     ],
   },
@@ -149,11 +172,11 @@ export const profileNavigationSeller = [
     links: [
       {
         name: 'Статистика продаж',
-        link: '/personal/seller/statistics/',
+        link: '/personal/seller/statistics',
       },
       {
         name: 'Мои промокоды',
-        link: '/personal/seller/promo-codes/',
+        link: '/personal/seller/promo-codes',
       },
     ],
   },

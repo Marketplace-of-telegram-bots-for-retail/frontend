@@ -25,9 +25,9 @@ export default function ProfileNavigation(props) {
 
   useEffect(() => {
     if (props.userType === 'Покупатель') {
-      navigate('/personal/profile/');
+      navigate('/personal/profile');
     } else {
-      navigate('/personal/seller/legal-data/');
+      navigate('/personal/seller/legal-data');
     }
   }, [props.userType]);
   return (
