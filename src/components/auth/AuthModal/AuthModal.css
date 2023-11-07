@@ -48,7 +48,7 @@
   cursor: pointer;
 }
 
-.modal__title {
+.auth-modal__title {
   color: var(--Primary-Black);
   text-align: center;
   font-size: 24px;

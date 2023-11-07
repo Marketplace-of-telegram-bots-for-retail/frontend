@@ -23,6 +23,10 @@
   position: relative;
 }
 
+.modal__title {
+  margin: 0;
+}
+
 .modal__close-button {
   position: absolute;
   top: 36px;
@@ -32,7 +36,12 @@
   cursor: pointer;
 }
 
-.modal__close-button_type_confirm-logout {
+.modal__close-button_type_confirm {
   top: 24px;
   right: 24px;
+}
+
+.modal__buttons-container_type_confirm {
+  display: flex;
+  gap: 20px;
 }

@@ -1,0 +1,21 @@
+.modal__title_type_confirm-delete-profile {
+  margin-right: auto;
+  margin-bottom: 24px;
+}
+
+.modal__delete-profile-warning {
+  display: block;
+  text-align: center;
+  color: var(--Error);
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  width: 100%;
+  padding: 12px 16px;
+  border-radius: 8px;
+  background-color: var(--BG-Purple);
+  background-image: url(../../../images/octicon_info-24-red.svg);
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: 16px;
+}

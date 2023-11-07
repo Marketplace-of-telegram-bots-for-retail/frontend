@@ -50,7 +50,7 @@ const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
         {location.pathname === '/reset-password' && (
           <Link className='modal__link-back' to={-1}></Link>
         )}
-        <h2 className='modal__title'>
+        <h2 className='auth-modal__title'>
           {location.pathname === '/reset-password'
             ? 'Восстановление доступа'
             : authTitle}

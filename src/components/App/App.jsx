@@ -182,6 +182,7 @@ const App = () => {
     setPreloader(true);
     try {
       await api.postLogOut();
+      navigate('/');
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
@@ -247,6 +248,7 @@ const App = () => {
     try {
       await api.deleteUserMe();
       cbTokenCheck();
+      navigate('/');
     } catch (err) {
       console.log('cbDeleteUser => err', err); // Консоль
       const errMessage = Object.values(err)[0];

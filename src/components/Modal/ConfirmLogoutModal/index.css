@@ -1,11 +1,4 @@
 .modal__title_type_confirm-logout {
-  margin: 0;
   text-align: center;
   max-width: 300px;
-}
-
-.modal__buttons-container_type_confirm-logout {
-  display: flex;
-  gap: 20px;
-  margin-top: 32px;
 }
