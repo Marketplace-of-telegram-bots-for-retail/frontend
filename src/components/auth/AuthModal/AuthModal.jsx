@@ -41,7 +41,7 @@ const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
   );
 
   return (
-    <div className='modal__container modal'>
+    <div className='auth-modal__container modal'>
       <div
         className={`modal__content ${
           !isLoginModal ? 'modal__content_type_register' : ''
