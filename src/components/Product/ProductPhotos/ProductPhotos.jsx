@@ -97,10 +97,10 @@ export default function ProductPhotos({ images }) {
               translate: [0, 0, -100],
             },
             next: {
-              translate: ['100%', 0, 0],
+              translate: ['100%', 0, 30],
             },
           }}
-          spaceBetween={10}
+          spaceBetween={20}
           speed={decorationSpeed}
           thumbs={{
             swiper:
@@ -136,16 +136,15 @@ export default function ProductPhotos({ images }) {
           <Swiper
             className='modal__swiper'
             style={{
-              '--swiper-navigation-color': '#B2B0FF',
-              '--swiper-pagination-color': '#352DF2',
-              '--swiper-pagination-bullet-size': '12px',
-              '--swiper-pagination-bullet-width': '12px',
-              '--swiper-pagination-bullet-height': '12px',
-              '--swiper-pagination-bullet-inactive-color': '#B2B0FF',
+              // '--swiper-navigation-color': '#B2B0FF',
+              // '--swiper-pagination-color': '#726EFA',
+              // '--swiper-pagination-bullet-size': '12px',
+              // '--swiper-pagination-bullet-width': '12px',
+              // '--swiper-pagination-bullet-height': '12px',
+              // '--swiper-pagination-bullet-inactive-color': '#B2B0FF',
               '--swiper-pagination-bullet-inactive-opacity': '1',
               '--swiper-pagination-bullet-opacity': '1',
-              '--swiper-pagination-bullet-horizontal-gap': '8px',
-              '--swiper-pagination-bottom': '32px',
+              // '--swiper-pagination-bullet-horizontal-gap': '8px',
             }}
             modules={[
               EffectCreative,

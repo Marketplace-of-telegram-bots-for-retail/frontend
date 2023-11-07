@@ -310,7 +310,7 @@ const App = () => {
             />
           )}
           <Route
-            path='/personal/'
+            path='/personal'
             element={
               <Profile
                 cbLogout={cbLogout}
@@ -323,33 +323,33 @@ const App = () => {
           >
             {/* 3 Уровень вложенности */}
             <Route
-              path='/personal/profile/'
+              path='/personal/profile'
               element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
             ></Route>
-            <Route path='/personal/orders/' element={<MyOrders />}></Route>
-            <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
-            <Route path='/personal/reviews/' element={<MyReviews />}></Route>
-            <Route path='/personal/seller/' element={<Outlet />}>
+            <Route path='/personal/orders' element={<MyOrders />}></Route>
+            <Route path='/personal/refunds' element={<MyRefunds />}></Route>
+            <Route path='/personal/reviews' element={<MyReviews />}></Route>
+            <Route path='/personal/seller' element={<Outlet />}>
               {/* 4 Уровень вложенности */}
               <Route
                 index
-                path='/personal/seller/legal-data/'
+                path='/personal/seller/legal-data'
                 element={<SellerLegalData />}
               ></Route>
               <Route
-                path='/personal/seller/personal-data/'
+                path='/personal/seller/personal-data'
                 element={<SellerPersonalData />}
               ></Route>
               <Route
-                path='/personal/seller/goods/'
+                path='/personal/seller/goods'
                 element={<MyGoods />}
               ></Route>
               <Route
-                path='/personal/seller/promo-codes/'
+                path='/personal/seller/promo-codes'
                 element={<MyPromoCodes />}
               ></Route>
               <Route
-                path='/personal/seller/statistics/'
+                path='/personal/seller/statistics'
                 element={<Statistics />}
               ></Route>
             </Route>

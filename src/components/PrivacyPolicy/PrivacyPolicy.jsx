@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './PrivacyPolicy.css';
-import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
+import BreadCrumbs from '../navBreadCrumbs/BreadCrumbs/BreadCrumbs';
 import PrivacyPolicyText from '../PrivacyPolicyText/PrivacyPolicyText';
 import { privacyPolicy } from '../../constants/privacyPolicy';
 

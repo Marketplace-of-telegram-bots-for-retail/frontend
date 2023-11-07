@@ -17,16 +17,16 @@ const NavTab = () => {
   );
 
   // const arr = [
-  //   { name: 'Персональные данные', link: '/personal/profile/' },
-  //   { name: 'Мои заказы', link: '/personal/orders/' },
-  //   { name: 'Мои возвраты', link: '/personal/refunds/' },
-  //   { name: 'Мои отзывы', link: '/personal/reviews/' },
+  //   { name: 'Персональные данные', link: '/personal/profile' },
+  //   { name: 'Мои заказы', link: '/personal/orders' },
+  //   { name: 'Мои возвраты', link: '/personal/refunds' },
+  //   { name: 'Мои отзывы', link: '/personal/reviews' },
   //   { name: 'Связаться с нами', link: '/promo#contacts' },
-  //   { name: 'Персональные данные', link: '/personal/seller/personal-data/' },
-  //   { name: 'Юридическая информация', link: '/personal/seller/legal-data/' },
-  //   { name: 'Мои товары', link: '/personal/seller/goods/' },
-  //   { name: 'Статистика продаж', link: '/personal/seller/statistics/' },
-  //   { name: 'Мои промокоды', link: '/personal/seller/promo-codes/' },
+  //   { name: 'Персональные данные', link: '/personal/seller/personal-data' },
+  //   { name: 'Юридическая информация', link: '/personal/seller/legal-data' },
+  //   { name: 'Мои товары', link: '/personal/seller/goods' },
+  //   { name: 'Статистика продаж', link: '/personal/seller/statistics' },
+  //   { name: 'Мои промокоды', link: '/personal/seller/promo-codes' },
   //   { name: 'Связаться с нами', link: '/promo#contacts' },
   // ];
 
@@ -36,7 +36,6 @@ const NavTab = () => {
     );
     setCurrentTabs(tabs);
   }, [location]);
-
   return (
     <div className='profile__nav-tabs'>
       {currentTabs?.[0]?.links?.map((item) => {
@@ -44,6 +43,7 @@ const NavTab = () => {
         const isCrrentTab = link === location.pathname;
         return (
           <button
+            key={name}
             className={`profile__nav-tab ${
               isCrrentTab ? 'profile__nav-tab_select' : ''
             }`}
