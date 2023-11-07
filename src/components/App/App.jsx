@@ -35,6 +35,7 @@ import {
   setRegisterStep,
   setAuthErrorMessage,
 } from '../../store/dataAuthorisation';
+import { setIsEditing } from '../../store/userSlice';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../personal/user/ProfileForm';
 // import Goods from '../personal/goods/Goods';
@@ -220,6 +221,7 @@ const App = () => {
         new_password: data.new_password,
       });
       cbTokenCheck();
+      dispatch(setIsEditing(false));
     } catch (err) {
       console.log('cbUpdateProfile => err', err); // Консоль
       const errMessage = Object.values(err)[0];
