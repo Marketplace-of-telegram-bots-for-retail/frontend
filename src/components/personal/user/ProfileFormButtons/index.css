@@ -7,3 +7,7 @@
 .profile__form-buttons_type_edit {
     gap: 16px;
 }
+
+.profile__form-button:disabled {
+  background-color: var(--Secondary-Purple-Light);
+}

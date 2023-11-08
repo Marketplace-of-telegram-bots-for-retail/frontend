@@ -11,8 +11,15 @@ import { getUserData } from '../../../../store';
 
 export default function ProfileForm(props) {
   const currentUser = useContext(CurrentUserContext);
-  const { values, setValues, onBlur, handleChange, errors, resetForm } =
-    useFormWithValidation();
+  const {
+    values,
+    setValues,
+    onBlur,
+    handleChange,
+    errors,
+    resetForm,
+    isValid,
+  } = useFormWithValidation();
 
   const { isEditing, userPhoto, isPasswordExpanded } = useSelector(getUserData);
 
@@ -175,6 +182,7 @@ export default function ProfileForm(props) {
       <ProfileFormButtons
         handleSubmit={handleSubmit}
         deleteProfile={deleteProfile}
+        isValid={isValid}
       />
     </form>
   );
