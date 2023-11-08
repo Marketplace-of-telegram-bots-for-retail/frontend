@@ -2,7 +2,7 @@
   border-radius: 0px 16px 0px 0px;
   background-color: #f8f8ff;
   padding: 32px 0 0 26px;
-  min-width: 276px;
+  width: 276px;
 }
 
 .profile__navigation-list {
@@ -12,7 +12,7 @@
   display: flex;
   flex-direction: column;
   gap: 32px;
-  margin: 24px 0 88px;
+  margin: 55px 0 88px;
 }
 
 .profile__links-list {
@@ -64,4 +64,30 @@
   flex-direction: column;
   gap: 24px;
   align-items: flex-start;
+}
+
+.profile__button {
+  display: flex;
+  color: var(--Primary-Black);
+  font-size: 24px;
+  font-weight: 700;
+  padding: 0;
+  margin: 0;
+  text-align: start;
+  font-size: 24px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  width: 196px;
+  justify-content: space-between;
+  border: none;
+  background: none;
+  max-height: 28px;
+  cursor: pointer;
+}
+
+.profile__button_type_toggle-usertype {
+  width: 28px;
+  height: 28px;
+  object-fit: cover;
 }

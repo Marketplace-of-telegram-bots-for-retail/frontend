@@ -1,41 +1,64 @@
 import React, { useEffect, useState } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import './index.css';
 import {
   profileNavigationCustomer,
   profileNavigationSeller,
 } from '../../../utils/constants';
-import ToggleUserTypeButton from '../ToggleUserTypeButton';
 import useModal from '../../../hooks/useModal';
 import ConfirmLogoutModal from '../../Modal/ConfirmLogoutModal';
 import ConfirmDeleteProfileModal from '../../Modal/ConfirmDeleteProfileModal';
+import { ReactComponent as ArrowSVG } from '../../../images/heroicons_arrow-path-20-solid.svg';
+import { ReactComponent as ArrowSellerSVG } from '../../../images/heroicons_arrow-path-20-solid-orange.svg';
 
 export default function ProfileNavigation(props) {
+  const [userType, setUserType] = useState(null);
+  const [isSeller, setIsSeller] = useState(false);
+
   const navigate = useNavigate();
+  const location = useLocation();
   const [showLogoutModal, setShowLogoutModal] = useState(false);
   useModal(showLogoutModal, setShowLogoutModal);
 
   const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
   useModal(showDeleteProfileModal, setShowDeleteProfileModal);
 
-  const profileNavigation =
-    props.userType === 'Покупатель'
-      ? profileNavigationCustomer
-      : profileNavigationSeller;
-
   useEffect(() => {
-    if (props.userType === 'Покупатель') {
-      navigate('/personal/profile');
+    if (location.pathname.search('/personal/seller') === 0) {
+      setIsSeller(true);
+      setUserType('Продавец');
     } else {
-      navigate('/personal/seller/legal-data');
+      setIsSeller(false);
+      setUserType('Покупатель');
     }
-  }, [props.userType]);
+  }, [location]);
+
+  const handleToggleType = () => {
+    if (!isSeller) {
+      navigate('/personal/seller');
+      setUserType('Продавец');
+    } else {
+      navigate('/personal');
+      setUserType('Покупатель');
+    }
+  };
+
+  const profileNavigation = !isSeller
+    ? profileNavigationCustomer
+    : profileNavigationSeller;
+
   return (
     <nav className='profile__navigation'>
-      <ToggleUserTypeButton
-        userType={props.userType}
-        setUserType={props.setUserType}
-      />
+      <button
+        type='button'
+        className='profile__button'
+        onClick={handleToggleType}
+      >
+        {userType}
+        <span className='profile__button_type_toggle-usertype'>
+          {!isSeller ? <ArrowSVG /> : <ArrowSellerSVG />}
+        </span>
+      </button>
       <ul className='profile__navigation-list'>
         {profileNavigation.map((block, i) => (
           <li className='profile__navigation-item' key={i}>

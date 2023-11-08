@@ -1,4 +1,4 @@
-/* eslint-disable react/jsx-curly-newline */
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import './index.css';
 // import BreadCrumbs from '../navBreadCrumbs/BreadCrumbs/BreadCrumbs';
@@ -8,7 +8,7 @@ import { PersanalBreadCrumbs } from '../navBreadCrumbs';
 
 // Компонент профиля пользователя
 const Profile = ({ children, ...props }) => {
-  const [userType, setUserType] = useState('Покупатель');
+  // const [userType, setUserType] = useState('Покупатель');
 
   return (
     <div className='profile'>
@@ -17,8 +17,8 @@ const Profile = ({ children, ...props }) => {
       <div className='profile__container'>
         <ProfileNavigation
           cbLogout={props.cbLogout}
-          userType={userType}
-          setUserType={setUserType}
+          // userType={userType}
+          // setUserType={setUserType}
           cbDeleteUser={props.cbDeleteUser}
         />
         <div>
