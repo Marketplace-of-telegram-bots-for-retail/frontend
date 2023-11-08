@@ -24,21 +24,21 @@ const Product = () => {
   const dispatch = useDispatch();
   const { productCard, isShowProductImagesPopup, myReview, resStatus } =
     useSelector(getProductCardData);
-  // // загружаем данные карточки
-  // useEffect(() => {
-  //   dispatch(getProductCard(id));
-  // }, [id]);
-
-  // // загрузить или обновить
-  // useEffect(() => {
-  //   dispatch(getProductsReviews(id));
-  // }, [id, myReview]);
-
   // загружаем данные карточки
   useEffect(() => {
     dispatch(getProductCard(id));
+  }, [id]);
+
+  // загрузить или обновить
+  useEffect(() => {
     dispatch(getProductsReviews(id));
   }, [id, myReview]);
+
+  // // загружаем данные карточки
+  // useEffect(() => {
+  //   dispatch(getProductCard(id));
+  //   dispatch(getProductsReviews(id));
+  // }, [id, myReview]);
 
   const { executeScroll, elRef } = useScroll();
 
