@@ -145,8 +145,10 @@ export default function ProfileForm(props) {
             onChange={handleChange}
             onBlur={onBlur}
             inputName={!isEditing ? 'Пароль' : 'Старый пароль'}
-            disabled={!isEditing}
-            placeholder={isEditing && 'введите текущий пароль'}
+            disabled={!isPasswordExpanded}
+            placeholder={
+              isPasswordExpanded ? 'введите текущий пароль' : '••••••••'
+            }
           />
         </li>
         {isPasswordExpanded && (
@@ -162,6 +164,7 @@ export default function ProfileForm(props) {
                 inputName='Новый пароль'
                 disabled={!isEditing}
                 placeholder={isEditing && 'введите новый пароль'}
+                required
               />
             </li>
             <li>
@@ -174,6 +177,7 @@ export default function ProfileForm(props) {
                 onBlur={onBlur}
                 inputName='Новый пароль еще раз'
                 disabled={!isEditing}
+                required
               />
             </li>
           </>
