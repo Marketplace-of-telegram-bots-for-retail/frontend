@@ -85,7 +85,7 @@ const Header = ({ setShowAuthButtons }) => {
                 </button>
               ) : (
                 <Link
-                  to='/personal/profile/'
+                  to='/personal'
                   className='header__menu-button-icon '
                 >
                   <span className='header__button-icon header__button-icon_profile'></span>

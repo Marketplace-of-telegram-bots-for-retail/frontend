@@ -107,7 +107,8 @@ export const profileNavigationCustomer = [
     links: [
       {
         name: 'Персональные данные',
-        link: '/personal/profile',
+        // link: '/personal/profile',
+        link: '/personal',
       },
     ],
   },
@@ -150,7 +151,8 @@ export const profileNavigationSeller = [
     links: [
       {
         name: 'Юридическая информация',
-        link: '/personal/seller/legal-data',
+        // link: '/personal/seller/legal-data',
+        link: '/personal/seller',
       },
       {
         name: 'Персональные данные',

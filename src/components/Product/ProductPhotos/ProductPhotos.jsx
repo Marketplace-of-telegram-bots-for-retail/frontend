@@ -21,6 +21,7 @@ import {
   Pagination,
   Mousewheel,
   Keyboard,
+  Scrollbar,
 } from 'swiper/modules';
 // импорт SVG
 import { ReactComponent as CloseModalImagesSvg } from '../../../images/ic_cross-24-circle.svg';
@@ -67,7 +68,7 @@ export default function ProductPhotos({ images }) {
         <Swiper
           className='images__nav-swiper'
           direction='vertical'
-          modules={[FreeMode, Thumbs, Mousewheel, Navigation]}
+          modules={[FreeMode, Thumbs, Mousewheel, Navigation, Scrollbar]}
           speed={decorationSpeed}
           spaceBetween={20}
           slidesPerView={3.41}
@@ -75,6 +76,12 @@ export default function ProductPhotos({ images }) {
           freeMode
           watchSlidesProgress
           mousewheel
+          scrollbar={{
+            hide: true,
+            snapOnRelease: true,
+            draggable: true,
+            enabled: true,
+          }}
           keyboard={{
             enabled: true,
           }}
@@ -88,18 +95,10 @@ export default function ProductPhotos({ images }) {
           ))}
         </Swiper>
         <Swiper
-          modules={[EffectCreative, Navigation, Thumbs, Controller]}
+          direction='vertical'
+          modules={[Navigation, Thumbs, Controller]}
           watchSlidesProgress
           controller={{ control: controlledSwiper }}
-          effect='creative'
-          creativeEffect={{
-            prev: {
-              translate: [0, 0, -100],
-            },
-            next: {
-              translate: ['100%', 0, 30],
-            },
-          }}
           spaceBetween={20}
           speed={decorationSpeed}
           thumbs={{
@@ -110,14 +109,19 @@ export default function ProductPhotos({ images }) {
         >
           {images?.map((image) => (
             <SwiperSlide key={image.id}>
-              <img
-                className='images__image'
-                src={image.image}
-                alt='Скриншот'
+              <div
+                className='images__wrapper'
                 onClick={() => {
                   setOpen((state) => !state);
                 }}
-              />
+              >
+                <img
+                  className='images__image'
+                  src={image.image}
+                  alt='Скриншот'
+                />
+                <span className='images__icon'></span>
+              </div>
             </SwiperSlide>
           ))}
         </Swiper>
@@ -136,15 +140,8 @@ export default function ProductPhotos({ images }) {
           <Swiper
             className='modal__swiper'
             style={{
-              // '--swiper-navigation-color': '#B2B0FF',
-              // '--swiper-pagination-color': '#726EFA',
-              // '--swiper-pagination-bullet-size': '12px',
-              // '--swiper-pagination-bullet-width': '12px',
-              // '--swiper-pagination-bullet-height': '12px',
-              // '--swiper-pagination-bullet-inactive-color': '#B2B0FF',
               '--swiper-pagination-bullet-inactive-opacity': '1',
               '--swiper-pagination-bullet-opacity': '1',
-              // '--swiper-pagination-bullet-horizontal-gap': '8px',
             }}
             modules={[
               EffectCreative,

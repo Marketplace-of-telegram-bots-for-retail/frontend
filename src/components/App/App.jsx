@@ -325,7 +325,8 @@ const App = () => {
           >
             {/* 3 Уровень вложенности */}
             <Route
-              path='/personal/profile'
+              // path='/personal/profile'
+              index
               element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
             ></Route>
             <Route path='/personal/orders' element={<MyOrders />}></Route>
@@ -335,7 +336,7 @@ const App = () => {
               {/* 4 Уровень вложенности */}
               <Route
                 index
-                path='/personal/seller/legal-data'
+                // path='/personal/seller/legal-data'
                 element={<SellerLegalData />}
               ></Route>
               <Route

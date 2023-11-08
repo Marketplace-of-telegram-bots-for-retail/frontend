@@ -29,13 +29,13 @@ const PersanalBreadCrumbs = () => {
   //   setLinks(newArrLinks);
   // }, []);
 
-  console.log(ROUTER_LINKS);
-  console.log(location, location.state);
+  // console.log(ROUTER_LINKS);
+  // console.log(location, location.state);
 
   const ArrLinks = crumbs.flatMap((item) =>
     ROUTER_LINKS.filter((element) => element.link === item)
   );
-  console.log(ArrLinks);
+  // console.log(ArrLinks);
 
   return (
     <div className='bread-crumbs'>
