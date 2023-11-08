@@ -18,7 +18,7 @@ const AuthForm = ({ children, ...props }) => {
   const { registerStep, isLoginModal, authErrorMessage } =
     useSelector(getAuthorisationData);
 
-  const buttonSubmitText = props.isLogin
+  const buttonSubmitText = isLoginModal
     ? 'Войти'
     : (registerStep === 1 && 'Далее') ||
       (registerStep === 2 && 'Зарегистрироваться');
