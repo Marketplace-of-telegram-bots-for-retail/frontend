@@ -37,7 +37,9 @@ export default function ConfirmDeleteProfileModal({ onClose, deleteProfile }) {
           placeholder='введите пароль'
           required
         />
-        <span className="modal__delete-profile-warning">Это действие невозможно будет отменить.</span>
+        <span className='modal__delete-profile-warning'>
+          Это действие невозможно будет отменить.
+        </span>
         <span className='modal__query-error'>{authErrorMessage}</span>
         <div className='modal__buttons-container modal__buttons-container_type_confirm'>
           <button
