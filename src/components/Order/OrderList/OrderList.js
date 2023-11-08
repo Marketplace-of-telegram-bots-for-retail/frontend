@@ -1,15 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { React } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
 import OrderCard from '../OrderCard/OrderCard';
 
-const OrderList = () => {
-  const dispatch = useDispatch();
-  const {
-    items
-  } = useSelector((state) => state.cartData);
-
+const OrderList = ({ items }) => {
   return (
     <div className="order__block order__block_type_info">
       <div className="order__info-heading">

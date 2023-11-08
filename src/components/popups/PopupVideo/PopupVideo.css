@@ -1,16 +1,8 @@
 .popup__video {
   position: absolute;
   display: flex;
-  padding-left: 67px;
-  visibility: hidden;
-  opacity: 0;
-  transition: visability 0.2s, opacity 0.2s ease-in;
-  z-index: 3;
-}
-    
-.popup__video_opened {
-  visibility: visible;
-  opacity: 1;
+  top: 1355px;
+  left: 480px;
 }
     
 .popup__group-video {

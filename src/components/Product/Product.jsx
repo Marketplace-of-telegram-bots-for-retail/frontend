@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import './Product.css';
-import BreadCrumbs from '../BreadCrumbs/BreadCrumbs';
+import BreadCrumbs from '../navBreadCrumbs/BreadCrumbs/BreadCrumbs';
 import ProductTitle from './ProductTitle/ProductTitle';
 import PopupImage from '../PopupImage/PopupImage';
 import ProductDetail from './ProductDetail/ProductDetail';
@@ -33,6 +33,12 @@ const Product = () => {
   useEffect(() => {
     dispatch(getProductsReviews(id));
   }, [id, myReview]);
+
+  // // загружаем данные карточки
+  // useEffect(() => {
+  //   dispatch(getProductCard(id));
+  //   dispatch(getProductsReviews(id));
+  // }, [id, myReview]);
 
   const { executeScroll, elRef } = useScroll();
 

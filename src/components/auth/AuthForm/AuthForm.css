@@ -39,6 +39,7 @@
 }
 
 .modal__query-error {
+  display: block;
   color: var(--Error);
   font-size: 12px;
   font-weight: 400;

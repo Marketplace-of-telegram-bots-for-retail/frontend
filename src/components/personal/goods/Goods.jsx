@@ -12,9 +12,6 @@ const Goods = () => {
 
   return (
     <section className='goods'>
-      <div className='goods__head'>
-        <h2 className='goods__title'>Мои товары</h2>
-      </div>
       <button
         className='goods__add-button'
         type='button'

@@ -1,0 +1,116 @@
+.orders__dropdown {
+    margin: 32px 0;
+    z-index: 10;
+    display: block;
+    position: relative;
+}
+
+.dropdown {
+    z-index: 10;
+    display: block;
+    position: relative;
+    margin: 0 0 32px;
+  }
+  
+  .orders-dropdown__button {
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    width: 224px;
+    height: 36px;
+    margin: 0;
+    padding: 8px 8px 8px 12px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 8px;
+    border: 1px solid rgba(159, 161, 165, 1);
+    background: none;
+    color: #1e1e1e;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 19px;
+    cursor: pointer;
+  }
+  .orders-dropdown__button:hover {
+    border: 1px solid var(--Secondary-Accent-Blue-Dark);
+  }
+  .orders-dropdown__button-icon {
+    content: '';
+    margin: 0;
+    padding: o;
+    width: 24px;
+    height: 24px;
+    background: center no-repeat url(../../../../../images/ic_chevron-down-24.svg);
+    transform: rotateX(0);
+    transition: all 0.3s ease-out;
+  }
+  .orders-dropdown__button-icon_open {
+    /* transform: rotate(180deg); */
+    transform: rotateX(3.142rad);
+    transition: all 0.3s ease-out;
+  }
+  
+  .orders-dropdown__item-icon {
+    width: 24px;
+    height: 24px;
+    background: center no-repeat url(../../../../../images/ic_check-24.svg);
+  }
+  
+  .orders-dropdown__list {
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    width: 224px;
+    border-radius: 8px;
+    background: rgba(253, 253, 253, 1);
+    box-shadow: 4px 4px 20px 0px rgba(0, 0, 0, 0.15);
+    margin: 4px 0 0;
+    padding: 0;
+    position: absolute;
+  }
+  .orders-dropdown_is-open::after {
+    z-index: 5;
+    position: fixed;
+    content: '';
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+  .orders-dropdown__item {
+    z-index: 10;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: space-between;
+    width: 224px;
+    height: 36px;
+    margin: 0;
+    padding: 6px 8px 6px 16px;
+    align-items: center;
+    gap: 8px;
+    border-bottom: 1px solid var(--Gray-Light, #8e8e8e);
+    background: none;
+    color: #1e1e1e;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    cursor: pointer;
+  }
+  /* .orders-dropdown__item_active {
+    background-color: var(--Secondary-Purple-Light);
+  } */
+  .orders-dropdown__item:last-child {
+    border-bottom: none;
+    border-radius: 0px 0px 8px 8px;
+  }
+  .orders-dropdown__item:first-child {
+    border-top: none;
+    border-radius: 8px 8px 0px 0px;
+  }
+  
+  .orders-dropdown__item:hover {
+    background: rgba(178, 176, 255, 1);
+  }
+  

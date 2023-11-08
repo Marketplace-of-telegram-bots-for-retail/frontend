@@ -84,7 +84,7 @@ class Api {
   // В теле запроса нужно передать pay_method(принимает только два значения - “card” или “sbp”).
   //  Поле send_to в запросе можно не передавать, тогда email(кому слать бота)
   // подставится автоматически из поля email текущего юзера.
-  postOrders = () => this._makeRequest('/orders/', 'POST');
+  postOrders = (data) => this._makeRequest('/orders/', 'POST', data);
   // Получить заказ.
   getOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'GET');
   // Удалить заказ.

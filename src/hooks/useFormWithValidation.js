@@ -38,7 +38,7 @@ export const useFormWithValidation = () => {
 
   const _isValidName = (name) => {
     name = name.trim();
-    const nameRegex = /^[А-Яа-яё]+$/;
+    const nameRegex = /^[А-Яа-яё\s\-]+$/;
     if (!nameRegex.test(name)) return 'Только кириллица';
     if (name.length < 1 || name.length > 50) {
       return 'Имя должно содержать не меньше 1 и не больше 50 букв';
@@ -220,8 +220,11 @@ export const useFormWithValidation = () => {
   };
 
   const onBlur = (e) => {
-    const { value } = e.target;
-    value.trim();
+    const { name, value } = e.target;
+    if (name === 'email') {
+      e.target.value = '';
+    }
+    setValues({ ...values, [name]: value.trim() });
   };
 
   const resetForm = useCallback(

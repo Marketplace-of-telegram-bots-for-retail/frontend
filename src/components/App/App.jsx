@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useCallback, useEffect, useState } from 'react';
 import { Outlet, Route, Routes } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,6 +36,7 @@ import {
   setRegisterStep,
   setAuthErrorMessage,
 } from '../../store/dataAuthorisation';
+import { setIsEditing } from '../../store/userSlice';
 // import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../personal/user/ProfileForm';
 // import Goods from '../personal/goods/Goods';
@@ -47,6 +49,7 @@ import SellerPersonalData from '../personal/seller/SellerPersonalData';
 import MyGoods from '../personal/seller/MyGoods';
 import MyPromoCodes from '../personal/seller/MyPromoCodes';
 import Statistics from '../personal/seller/Statistics';
+import OrderAfter from '../Order/OrderAfter/OrderAfter';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -182,6 +185,7 @@ const App = () => {
     setPreloader(true);
     try {
       await api.postLogOut();
+      navigate('/');
     } catch (err) {
       console.log('cbRegister => err', err); // Консоль
     } finally {
@@ -219,6 +223,7 @@ const App = () => {
         new_password: data.new_password,
       });
       cbTokenCheck();
+      dispatch(setIsEditing(false));
     } catch (err) {
       console.log('cbUpdateProfile => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -247,6 +252,7 @@ const App = () => {
     try {
       await api.deleteUserMe();
       cbTokenCheck();
+      navigate('/');
     } catch (err) {
       console.log('cbDeleteUser => err', err); // Консоль
       const errMessage = Object.values(err)[0];
@@ -303,14 +309,10 @@ const App = () => {
           <Route path='*' element={<ErrorPage pageNotFound />} />
           <Route path='/favorites' element={<Favorites />} />
           <Route path='/cart' element={<Cart />} />
-          {isAuthorized && (
-            <Route
-              path='/order'
-              element={<Order cbUpdateEmail={cbUpdateEmail} />}
-            />
-          )}
+          {isAuthorized && <Route path='/order' element={<Order />} />}
+          <Route path='/orders/:id' element={<OrderAfter />} />
           <Route
-            path='/personal/'
+            path='/personal'
             element={
               <Profile
                 cbLogout={cbLogout}
@@ -323,33 +325,33 @@ const App = () => {
           >
             {/* 3 Уровень вложенности */}
             <Route
-              path='/personal/profile/'
+              path='/personal/profile'
               element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
             ></Route>
-            <Route path='/personal/orders/' element={<MyOrders />}></Route>
-            <Route path='/personal/refunds/' element={<MyRefunds />}></Route>
-            <Route path='/personal/reviews/' element={<MyReviews />}></Route>
-            <Route path='/personal/seller/' element={<Outlet />}>
+            <Route path='/personal/orders' element={<MyOrders />}></Route>
+            <Route path='/personal/refunds' element={<MyRefunds />}></Route>
+            <Route path='/personal/reviews' element={<MyReviews />}></Route>
+            <Route path='/personal/seller' element={<Outlet />}>
               {/* 4 Уровень вложенности */}
               <Route
                 index
-                path='/personal/seller/legal-data/'
+                path='/personal/seller/legal-data'
                 element={<SellerLegalData />}
               ></Route>
               <Route
-                path='/personal/seller/personal-data/'
+                path='/personal/seller/personal-data'
                 element={<SellerPersonalData />}
               ></Route>
               <Route
-                path='/personal/seller/goods/'
+                path='/personal/seller/goods'
                 element={<MyGoods />}
               ></Route>
               <Route
-                path='/personal/seller/promo-codes/'
+                path='/personal/seller/promo-codes'
                 element={<MyPromoCodes />}
               ></Route>
               <Route
-                path='/personal/seller/statistics/'
+                path='/personal/seller/statistics'
                 element={<Statistics />}
               ></Route>
             </Route>
