@@ -4,14 +4,14 @@ import { HashLink } from 'react-router-hash-link';
 
 import './Footer.css';
 import { FOOTER_LINKS } from '../../utils/constants';
-import Logo from '../../images/logo-white.png';
+import { ReactComponent as LogoSVG } from '../../images/BOTMARKET-white.svg';
 
 const Footer = () => {
   return (
     <footer className='page__footer footer'>
       <div className='footer__container'>
         <HashLink smooth className='footer__logo' to='/#'>
-          <img src={Logo} alt='лого' />
+          <LogoSVG />
         </HashLink>
         <div className='footer__nav-container'>
           {FOOTER_LINKS.map((item, i) => {
