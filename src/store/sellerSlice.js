@@ -23,5 +23,5 @@ const sellerSlice = createSlice({
   },
 });
 
-export const {} = sellerSlice.actions;
+export const { setSellerData } = sellerSlice.actions;
 export default sellerSlice.reducer;

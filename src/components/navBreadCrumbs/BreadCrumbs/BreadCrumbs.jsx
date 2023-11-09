@@ -2,6 +2,7 @@ import React from 'react';
 // import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import './BreadCrumbs.css';
+
 // import { ROUTER_LINKS } from '../../../utils/constants';
 // import {
 //   profileNavigationCustomer,
@@ -38,15 +39,15 @@ const BreadCrumbs = () => {
   // console.log(ArrLinks);
 
   return (
-    <div className='bread-crumbs'>
-      <ul className='product__bread-crumbs'>
-        <li className='product__bread-crumb'>
-          <Link className='product__bread-link' to='/'>
+    <div className='content__bread-crumbs bread-crumbs'>
+      <ul className='bread-crumbs__list'>
+        <li className='bread-crumbs__item'>
+          <Link className='bread-crumbs__link' to='/'>
             Каталог
           </Link>
         </li>
-        <li className='product__bread-crumb'>
-          <p className='product__bread-link'>Бот автоматизации заказов</p>
+        <li className='bread-crumbs__item'>
+          <p className='bread-crumbs__link'>Бот автоматизации заказов</p>
         </li>
       </ul>
     </div>

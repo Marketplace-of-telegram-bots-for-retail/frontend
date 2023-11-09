@@ -89,6 +89,8 @@ class Api {
   getOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'GET');
   // Удалить заказ.
   deleteOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'DELETE');
+  // временный эндпоинт для эмуляции оплаты заказа
+  payOrdersId = (id) => this._makeRequest(`/orders/${id}/is_paid/`, 'PATCH');
 
   // Обновить заказ (в разработке).
   putOrdersId = (id) => this._makeRequest(`/orders/${id}/`, 'PUT');
