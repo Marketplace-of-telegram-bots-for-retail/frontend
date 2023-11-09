@@ -172,7 +172,7 @@ function CartItem() {
               {discount === null && error}
             </span>
           </form>
-          <Link to='/order'>
+          <Link to='/cart/order'>
             <button type='button' className='cart-item__make-order'>
               К оформлению
             </button>

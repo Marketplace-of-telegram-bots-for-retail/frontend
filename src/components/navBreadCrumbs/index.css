@@ -1,0 +1,55 @@
+.bread-crumbs {
+  display: flex;
+  height: 32px;
+  flex-direction: row;
+  align-items: center;
+  padding: 0;
+}
+
+.bread-crumbs__list {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 12px;
+}
+
+.bread-crumbs__item {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  flex-direction: row;
+  gap: 12px;
+}
+
+.bread-crumbs__link {
+  display: flex;
+  margin: 0;
+  padding: 0;
+  color: #1e1e1e;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  text-decoration: none;
+  align-items: center;
+  padding-right: 36px;
+  background-image: url(../../images/ic_chevron-right-24.svg);
+  background-position: right;
+  background-repeat: no-repeat;
+}
+
+.product__bread-image {
+  margin: 0;
+  padding: 0;
+  width: 24px;
+  height: 24px;
+}
+
+.bread-crumbs__item:last-child .bread-crumbs__link {
+  background: none;
+}

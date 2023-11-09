@@ -6,8 +6,8 @@ const initialState = {
   allOrders: [],
   paidOrders: [],
   unpaidOrders: [],
-  currentOrder: [],
-  newOrder: [],
+  currentOrder: {},
+  newOrder: {},
   status: null,
   error: null,
   is_loading: false,
@@ -53,9 +53,9 @@ export const postOrder = createAsyncThunk(
     try {
       const res = await api.postOrders(data);
       // потом убрать
-      console.log('postOrder, id', id);
       console.log('postOrder => api.postOrder(data)=> res', res);
       dispatch(setNewOrder(res));
+      return res;
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -69,6 +69,39 @@ export const deleteOrder = createAsyncThunk(
       const res = await api.postOrders(id);
       // потом убрать
       console.log('deleteOrder => api.deleteOrder(id)=> id, res', id, res);
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const payOrdersId = createAsyncThunk(
+  'userOrdersData/payOrdersId',
+  async (id, { rejectWithValue }) => {
+    try {
+      const res = await api.payOrdersId(id);
+      // потом убрать
+      console.log('payOrdersId => api.payOrdersId(id)=> id, res', id, res);
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+export const placeAndPayOrder = createAsyncThunk(
+  'userOrdersData/placeAndPayOrder',
+  async (data, { rejectWithValue, dispatch }) => {
+    try {
+      const res = await api.postOrders(data);
+      // потом убрать
+      console.log('placeAndPayOrder => api.postOrders(data)=> res', res);
+      dispatch(setCurrentOrder(res));
+      const { id } = res;
+      const pay = await api.payOrdersId(id);
+      console.log(
+        'placeAndPayOrder => api.postOrders(data) => res =>  api.payOrdersId(id) => pay',
+        pay
+      );
+      dispatch(setCurrentOrder(pay));
     } catch (err) {
       return rejectWithValue(err);
     }

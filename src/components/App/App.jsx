@@ -308,7 +308,14 @@ const App = () => {
           <Route path='/products/:id' element={<Product />} />
           <Route path='*' element={<ErrorPage pageNotFound />} />
           <Route path='/favorites' element={<Favorites />} />
-          <Route path='/cart' element={<Cart />} />
+          {/* <Route path='/cart' element={<Cart />} />
+          {isAuthorized && <Route path='/order' element={<Order />} />}
+          <Route path='/orders/:id' element={<OrderAfter />} /> */}
+          <Route path='/cart' element={<Outlet />}>
+            <Route index element={<Cart />} />
+            <Route path='/cart/order' element={<Order />} />
+            <Route path='/cart/orders/:id' element={<OrderAfter />} />
+          </Route>
           {isAuthorized && <Route path='/order' element={<Order />} />}
           <Route path='/orders/:id' element={<OrderAfter />} />
           <Route

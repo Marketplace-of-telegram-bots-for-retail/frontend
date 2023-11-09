@@ -106,7 +106,7 @@ const OrderBefore = ({
             <div className='order__text-block'>
               <p className='order__final-text'>Итого:</p>
               <p className='order__summ'>
-                {`${total.toLocaleString('ru-RU')} ₽`}
+                {`${total?.toLocaleString('ru-RU')} ₽`}
               </p>
             </div>
             <p className='order__amount-text'>{`Бот x ${total_amount}`}</p>
