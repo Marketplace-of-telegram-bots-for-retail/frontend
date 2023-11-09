@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './index.css';
 import Input from '../../../Input';
 import ProfileFormButtons from '../ProfileFormButtons';
@@ -8,13 +8,26 @@ import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
 import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import getChangedData from '../../../../utils/getChangedData';
 import { getUserData } from '../../../../store';
+import { setIsEditing } from '../../../../store/userSlice';
 
 export default function ProfileForm(props) {
+  const dispatch = useDispatch();
   const currentUser = useContext(CurrentUserContext);
-  const { values, setValues, onBlur, handleChange, errors, resetForm } =
-    useFormWithValidation();
+  const {
+    values,
+    setValues,
+    onBlur,
+    handleChange,
+    errors,
+    resetForm,
+    isValid,
+  } = useFormWithValidation();
 
   const { isEditing, userPhoto, isPasswordExpanded } = useSelector(getUserData);
+
+  useEffect(() => {
+    return () => dispatch(setIsEditing(false));
+  }, []);
 
   useEffect(() => {
     resetForm();
@@ -138,8 +151,10 @@ export default function ProfileForm(props) {
             onChange={handleChange}
             onBlur={onBlur}
             inputName={!isEditing ? 'Пароль' : 'Старый пароль'}
-            disabled={!isEditing}
-            placeholder={isEditing && 'введите текущий пароль'}
+            disabled={!isPasswordExpanded}
+            placeholder={
+              isPasswordExpanded ? 'введите текущий пароль' : '••••••••'
+            }
           />
         </li>
         {isPasswordExpanded && (
@@ -155,6 +170,7 @@ export default function ProfileForm(props) {
                 inputName='Новый пароль'
                 disabled={!isEditing}
                 placeholder={isEditing && 'введите новый пароль'}
+                required
               />
             </li>
             <li>
@@ -167,6 +183,7 @@ export default function ProfileForm(props) {
                 onBlur={onBlur}
                 inputName='Новый пароль еще раз'
                 disabled={!isEditing}
+                required
               />
             </li>
           </>
@@ -175,6 +192,7 @@ export default function ProfileForm(props) {
       <ProfileFormButtons
         handleSubmit={handleSubmit}
         deleteProfile={deleteProfile}
+        isValid={isValid}
       />
     </form>
   );

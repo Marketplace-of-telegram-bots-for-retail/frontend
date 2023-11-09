@@ -28,7 +28,7 @@ const AuthButtons = (props) => {
   return !props.showAuthModal ? (
     !isAuthorized && (
       <div
-        className='auth-buttons page__modal modal'
+        className='auth-buttons page__modal use-modal'
         onClick={() => {
           props.setShowAuthButtons(true);
         }}

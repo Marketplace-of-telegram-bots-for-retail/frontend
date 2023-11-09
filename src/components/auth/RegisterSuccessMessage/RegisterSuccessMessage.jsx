@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import successMessage from '../../../images/letter.svg';
+import successMessage from '../../../images/success-paper.svg';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import './RegisterSuccessMessage.css';
 

@@ -18,6 +18,7 @@ export default function ProfileFormButtons(props) {
             type='submit'
             className='profile__form-button button button_color_blue'
             onClick={props.handleSubmit}
+            disabled={isEditing ? !props.isValid : false}
           >
             Сохранить
           </button>

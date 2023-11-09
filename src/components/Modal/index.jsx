@@ -7,7 +7,7 @@ import { ReactComponent as Close } from '../../images/close-icon.svg';
 // опционально принимает дополнительный класс крестика закрытия, в случае если изменился его размер/расположение
 export default function Modal({ children, onClose, closeButtonClass }) {
   return (
-    <div className='modal'>
+    <div className='modal use-modal'>
       <div className='modal__container'>
         {children}
         <Close
