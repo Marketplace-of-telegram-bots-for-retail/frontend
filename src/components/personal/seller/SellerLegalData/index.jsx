@@ -11,18 +11,28 @@ import ProfileAvatar from '../../user/ProfileAvatar';
 import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
 import ProfileLegalDropdown from '../ProfileLegalDropDown/ProfileLegalDropdown';
 import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
+import LegalDataEdit from './LegalDataEdit/LegalDataEdit';
+import Modal from '../../../Modal';
 
 function SellerLegalData() {
   const { user } = useSelector(getUserData);
-  const { values, setValues, onBlur, handleChange, errors, resetForm } =
-    useFormWithValidation();
+  const {
+    values,
+    setValues,
+    onBlur,
+    handleChange,
+    errors,
+    isValid,
+    resetForm,
+  } = useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
   const [userphoto, setUserphoto] = useState(null);
   const [isHint, setIsHint] = useState(false);
-  const [value, setValue] = useState('');
+  // const [value, setValue] = useState('');
   const [organization, setOrganization] = useState(false);
   const [indexTypeOfLegal, setIndexTypeOfLegal] = useState(0);
-  const location = useLocation();
+  const [legalEdit, setLegalEdit] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const handleIndexChange = (dropdownIndex) => {
     setIndexTypeOfLegal(dropdownIndex);
@@ -31,25 +41,23 @@ function SellerLegalData() {
   function handleAddProve() {
     console.log('добавить документы');
   }
-  function handleChangeList(evt) {
-    setValue(evt.target.values);
-  }
+  // function handleChangeList(evt) {
+  //   setValue(evt.target.values);
+  // }
 
   useEffect(() => {
     resetForm();
     setValues({
-      name: user.first_name,
-      surname: user.last_name,
-      email: user.email,
-      phone: user.phone,
-      user: user.username,
+      name: currentUser.first_name,
+      surname: currentUser.last_name,
     });
     if (!isEditing) localStorage.removeItem('avatar');
   }, [user, isEditing]);
 
   function handleSubmit(e) {
-    // resetForm();
     e.preventDefault();
+    setIsEditing(true);
+    setLegalEdit(true);
 
     const formData = {
       nameShop: values.nameShop,
@@ -68,12 +76,13 @@ function SellerLegalData() {
 
     // props.cbUpdateProfile(getChangedData(user, formData));
     // setIsEditing(false);
-    localStorage.removeItem('avatar');
+    localStorage.removeItem('legalAvatar');
     console.log(formData);
   }
 
-  function deleteProfile(e) {
-    e.preventDefault();
+  function handleResetForm() {
+    resetForm();
+    setTimeout(() => setShowModal(false), 500);
   }
 
   return (
@@ -85,8 +94,8 @@ function SellerLegalData() {
             hint={!isHint}
             organization={!organization}
             dropdown={typeOfLegal}
-            value={values.type}
-            setValue={handleChangeList}
+            // value={values.type}
+            // setValue={handleChangeList}
             inputName='Тип организации'
             text={textTooltip.typeLegal}
             onIndexChange={handleIndexChange}
@@ -103,7 +112,7 @@ function SellerLegalData() {
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Имя'
-                disabled={!isEditing}
+                disabled={isEditing}
                 hint={!isHint}
                 text={textTooltip.name}
               />
@@ -117,7 +126,7 @@ function SellerLegalData() {
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Фамилия'
-                disabled={!isEditing}
+                disabled={isEditing}
                 hint={!isHint}
                 text={textTooltip.name}
               />
@@ -171,9 +180,9 @@ function SellerLegalData() {
             hint={!isHint}
             organization={organization}
             dropdown={banks}
-            value={values.bank}
+            // value={values.bank}
             inputName='Название банка'
-            setValue={handleChangeList}
+            // setValue={handleChangeList}
             text={textTooltip.bank}
             onIndexChange={handleIndexChange}
           ></ProfileLegalDropdown>
@@ -268,42 +277,76 @@ function SellerLegalData() {
           />
         </li>
       </ul>
-      <button
-        className='profile__legal-add-button'
-        type='button'
-        onClick={handleAddProve}
-      >
-        <div className='profile__legal-add-image'></div>
-        <p className='profile__legal-add-text'>Загрузить документы</p>
-      </button>
-      <div className='profile__legal-container'>
-        <input
-          className='profile__legal-input'
-          type='checkbox'
-          id='legal-checkbox'
-          // checked={categoryValues[id] || false}
-          // checked={false}
-          // onChange={handleCheckboxChange}
-        ></input>
-        <div>
-          <label
-            htmlFor='legal-checkbox'
-            className='profile__legal-checkbox-label'
+      {legalEdit ? (
+        <LegalDataEdit></LegalDataEdit>
+      ) : (
+        <>
+          <button
+            className='profile__legal-add-button'
+            type='button'
+            onClick={handleAddProve}
           >
-            Я принимаю условия&nbsp;
-            <Link to='/contract' className='profile__legal-link'>
-              Договора-оферты
-            </Link>
-          </label>
-        </div>
-      </div>
-      <ProfileFormButtons
-        isEditing={!isEditing}
-        setIsEditing={setIsEditing}
-        handleSubmit={handleSubmit}
-        deleteProfile={deleteProfile}
-        resetForm={() => resetForm()}
-      />
+            <div className='profile__legal-add-image'></div>
+            <p className='profile__legal-add-text'>Загрузить документы</p>
+          </button>
+          <div className='profile__legal-container'>
+            <input
+              className='profile__legal-input'
+              type='checkbox'
+              id='legal-checkbox'
+              // checked={categoryValues[id] || false}
+              // checked={false}
+              // onChange={handleCheckboxChange}
+            ></input>
+            <div>
+              <label
+                htmlFor='legal-checkbox'
+                className='profile__legal-checkbox-label'
+              >
+                Я принимаю условия&nbsp;
+                <Link to='/contract' className='profile__legal-link'>
+                  Договора-оферты
+                </Link>
+              </label>
+            </div>
+          </div>
+          <ProfileFormButtons
+            isEditing={isEditing}
+            handleSubmit={handleSubmit}
+            resetForm={() => setShowModal(true)}
+            isValid={isValid}
+          />
+        </>
+      )}
+      {showModal && (
+        <Modal
+          onClose={() => {
+            setShowModal(false);
+          }}
+          closeButtonClass='modal__close-button modal__close-button_type_confirm'
+        >
+          <h2 className='modal__title modal__title_type_confirm-logout'>
+            Вы уверены, что хотите очистить форму?
+          </h2>
+          <span className='modal__query-error'></span>
+          <div className='modal__buttons-container modal__buttons-container_type_confirm'>
+            <button
+              type='button'
+              className='button button_color_transparent'
+              onClick={() => setShowModal(false)}
+            >
+              Выйти
+            </button>
+            <button
+              type='button'
+              className='button button_color_blue'
+              onClick={handleResetForm}
+            >
+              Очистить
+            </button>
+          </div>
+        </Modal>
+      )}
     </form>
   );
 }
