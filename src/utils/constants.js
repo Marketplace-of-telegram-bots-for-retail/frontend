@@ -293,3 +293,36 @@ export const ORDERS_SORTING = [
     labelName: 'Неоплаченные',
   },
 ];
+
+export const FILTER_GOODS = [
+  {
+    // id: 1,
+    value: '-created',
+    labelName: 'Сначала новые',
+    anotherName: 'Сначала новые',
+  },
+  {
+    // id: 1,
+    value: '-post',
+    labelName: 'Опубликованные',
+    anotherName: 'Опубликованные',
+  },
+  {
+    // id: 1,
+    value: 'post',
+    labelName: 'Приостановленные',
+    anotherName: 'Приостановленные',
+  },
+  {
+    // id: 1,
+    value: '-price',
+    labelName: 'Сначала дорогие',
+    anotherName: 'По возрастанию цены',
+  },
+  {
+    // id: 1,
+    value: 'price',
+    labelName: 'Сначала дешевые',
+    anotherName: 'По убыванию цены',
+  },
+];
