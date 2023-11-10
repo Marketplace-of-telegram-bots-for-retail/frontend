@@ -6,7 +6,7 @@ import info from '../../../../images/Help.svg';
 import plus from '../../../../images/ic_plus-16.svg';
 import { CATEGORY_OPTIONS } from '../../../../utils/constants';
 import { getSearchFormData } from '../../../../store';
-import { setCategories } from '../../../../store/searchFormDataSlice';
+import { setCategories } from '../../../../store/actions';
 import PopupCategory from '../../../popups/PopupCategory/PopupCategory';
 import PopupName from '../../../popups/PopupName/PopupName';
 import PopupDescription from '../../../popups/PopupDescription/PopupDescription';

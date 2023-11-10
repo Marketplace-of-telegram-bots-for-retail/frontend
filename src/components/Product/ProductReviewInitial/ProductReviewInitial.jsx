@@ -1,33 +1,29 @@
-import React, { useEffect, useState, useContext } from 'react';
+/* eslint-disable no-debugger */
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './ProductReviewInitial.css';
 import { Rating } from '../../Rating/Rating';
-import { CurrentUserContext } from '../../../contexts/currentUserContext';
 import { useForm } from '../../../hooks/useForm';
 import {
   changeProductReview,
   deleteProductReview,
   sendProductReview,
-} from '../../../store/productCardDataSlice';
-import { getAuthorisationData, getProductCardData } from '../../../store';
+} from '../../../store/actions';
+import { getProductCardData, getUserData } from '../../../store';
 import { ReactComponent as PolygonSVG } from '../../../images/Polygon-2.svg';
 
 const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
-  const currentUser = useContext(CurrentUserContext);
+  const { user, isAuthorized } = useSelector(getUserData);
   const [isShown, setIsShown] = useState(false);
   const { id } = useParams();
   const { values, setValues, handleChange } = useForm({});
   const [star, setStar] = useState(null);
-  const { isAuthorized } = useSelector(getAuthorisationData);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
   const { is_Bought } = useSelector(getProductCardData).productCard;
   // заменить на userID
-  const currentReview = reviews.filter(
-    (c) => c.user === currentUser.username
-  )[0];
-  // console.log(currentReview);
+  const currentReview = reviews.filter((c) => c.user.user_id === user.id)[0];
   const dispatch = useDispatch();
   // Функции работы с апи отзывов
   function sendFeedback(id, data) {
@@ -156,9 +152,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
       {isShown && (
         <div
           className='product__review-wrapper'
-          // style={{ outline: '1px solid gray' }}
           onClick={(e) => {
-            console.log(e.target, e.currentTarget);
             if (e.target === e.currentTarget) {
               setIsShown(false);
             }

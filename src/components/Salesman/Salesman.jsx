@@ -5,7 +5,7 @@ import Contacts from '../info/Contacts/Contacts';
 // import Register from '../auth/Register/Register';
 import AuthModal from '../auth/AuthModal/AuthModal';
 
-const Salesman = (props) => {
+const Salesman = () => {
   const [isPopupRegisterOpen, setIsPopupRegisterOpen] = useState(false);
   const handleRegister = () => {
     setIsPopupRegisterOpen(true);
@@ -18,13 +18,13 @@ const Salesman = (props) => {
     <div>
       <SellerInfo onRegister={handleRegister} />
       <Contacts />
-      <div className={`seller__popup ${isPopupRegisterOpen ? 'seller__popup_opened' : ''}`}>
+      <div
+        className={`seller__popup ${
+          isPopupRegisterOpen ? 'seller__popup_opened' : ''
+        }`}
+      >
         {/* <Register /> */}
-        <AuthModal
-          isLogin={false}
-          onClose={handleCloseModal}
-          cbRegister={props.cbRegister}
-        />
+        <AuthModal isLogin={false} onClose={handleCloseModal} />
       </div>
     </div>
   );

@@ -1,16 +1,14 @@
 /* eslint-disable no-unused-vars */
-import { React, useContext, useEffect } from 'react';
+import { React, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCartData, getUserOrdersData } from '../../../store/selectors';
 import { getOrder } from '../../../store/userOrdersDataSlice';
-import { CurrentUserContext } from '../../../contexts/currentUserContext';
 
 import OrderList from '../OrderList/OrderList';
 import { convertToLocaleStringRub } from '../../../utils/convertToLocaleStringRub';
 
 const OrderAfter = ({ payMethod, value }) => {
-  const currentUser = useContext(CurrentUserContext);
   const dispatch = useDispatch();
   const { total_cost, discount_amount } = useSelector(getCartData);
   const total = discount_amount || total_cost;

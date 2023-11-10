@@ -1,21 +1,22 @@
-import React, { useState, useContext } from 'react';
-import { useDispatch } from 'react-redux';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import './index.css';
 import avatar from '../../../../images/Avatar.png';
 import avatarEdit from '../../../../images/Avatar-edit.svg';
-import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import getBase64 from '../../../../utils/getBase64';
-import { setUserPhoto } from '../../../../store/userSlice';
+import { setUserPhoto } from '../../../../store/actions';
+import { getUserData } from '../../../../store';
 
 export default function ProfileAvatar(props) {
+  const { user } = useSelector(getUserData);
+
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
-  const currentUser = useContext(CurrentUserContext);
 
-  function setAvatar(currentUser, isEditing) {
+  function setAvatar(user, isEditing) {
     const userphoto = localStorage.getItem('avatar');
     if (userphoto) return userphoto;
-    if (currentUser.photo) return currentUser.photo;
+    if (user.photo) return user.photo;
     return isEditing ? avatarEdit : avatar;
   }
 
@@ -35,7 +36,7 @@ export default function ProfileAvatar(props) {
     >
       <img
         className='profile__avatar'
-        src={setAvatar(currentUser, props.isEditing)}
+        src={setAvatar(user, props.isEditing)}
         alt='avatar'
       />
       {props.isEditing && showModal && (
