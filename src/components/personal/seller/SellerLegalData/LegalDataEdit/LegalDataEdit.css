@@ -1,0 +1,32 @@
+.profile__legal-edit {
+  display: flex;
+  gap: 12px;
+  /* width: 396px; */
+}
+
+.profile__legal-edit-img {
+  width: 24px;
+  height: 24px;
+  background: no-repeat center url(../../../../../images/octicon_info-24.svg);
+  background-size: cover;
+}
+
+.profile__legal-edit-info {
+  color: var(--Primary-Black, #1E1E1E);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  width: 359px;
+  padding: 0;
+  margin: 0;
+}
+
+.profile__legal-edit-link {
+  color: var(--Primary-Accent, #726EFA);
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  text-decoration: none;
+}

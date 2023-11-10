@@ -26,7 +26,7 @@ export default function ProfileFormButtons(props) {
             type='button'
             className='profile__form-button button button_color_transparent'
             onClick={
-              location.pathname === '/personal/seller/legal-data/'
+              location.pathname === '/personal/seller'
                 ? () => props.resetForm()
                 : (e) => {
                   e.preventDefault();
@@ -35,7 +35,7 @@ export default function ProfileFormButtons(props) {
                 }
             }
           >
-            {location.pathname === '/personal/seller/legal-data/'
+            {location.pathname === '/personal/seller'
               ? 'Очистить'
               : 'Отменить'}
           </button>
