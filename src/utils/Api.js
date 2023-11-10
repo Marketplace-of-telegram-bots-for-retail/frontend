@@ -52,25 +52,19 @@ class Api {
 
   // Авторизация. Получить токен
   postLogIn = (data) => this._makeRequest('/auth/token/login/', 'POST', data);
-
   // Use this endpoint to logout user (remove user authentication token).
   postLogOut = () => this._makeRequest('/auth/token/logout/', 'POST');
 
   // Создать пользователя
   postUser = (data) => this._makeRequest('/users/', 'POST', data);
-
   // Получить данные пользователя
   getUserMe = () => this._makeRequest('/users/me/', 'GET');
-
   // Изменить пользователя
   putUserMe = (data) => this._makeRequest('/users/me/', 'PUT', data);
-
   // Изменить одно поле пользователя
   patchUserMe = (data) => this._makeRequest('/users/me/', 'PATCH', data);
-
   // Удалить пользователя
   deleteUserMe = () => this._makeRequest('/users/me/', 'DELETE');
-
   // Поменять пароль
   changePassword = (data) =>
     this._makeRequest('/users/set_password/', 'POST', data);
@@ -101,18 +95,15 @@ class Api {
   getProducts = (params) =>
     this._makeRequest('/products/', 'GET', undefined, params);
   // Добавить новый товар.
-  postProduct = () => this._makeRequest('/products/', 'POST');
+  postProduct = (data) => this._makeRequest('/products/', 'POST', data);
   // получить данные продукта по ID
   getProductId = (id) => this._makeRequest(`/products/${id}/`, 'GET');
-
   // Вьюсет для модели продуктов.
   putProductId = (id, data) =>
     this._makeRequest(`/products/${id}/`, 'PUT', data);
-
   // Вьюсет для модели продуктов.
   patchProductId = (id, data) =>
     this._makeRequest(`/products/${id}/`, 'PATCH', data);
-
   // Вьюсет для модели продуктов.
   deleteProductId = (id) => this._makeRequest(`/products/${id}/`, 'DELETE');
 
@@ -190,6 +181,32 @@ class Api {
       `/products/${product_id}/reviews/${review_id}/`,
       'DELETE'
     );
+
+  // получить данные
+  getBecomeSeller = () => this._makeRequest('/users/become_seller/', 'GET');
+  // Получить статус продавца
+  // {
+  //   "inn": "015420070683"
+  // }
+  postBecomeSeller = (data) =>
+    this._makeRequest('/users/become_seller/', 'POST', data);
+
+  // Изменить данные продавца целиком
+  putBecomeSeller = (data) =>
+    this._makeRequest('/users/become_seller/', 'PUT', data);
+
+  // Изменить данные продавца частично
+  patchBecomeSeller = (data) =>
+    this._makeRequest('/users/become_seller/', 'PATCH', data);
+
+  // Удалить данные продавца
+  deleteBecomeSeller = () =>
+    this._makeRequest('/users/become_seller/', 'DELETE');
+
+  // Удалить данные продавца
+  emailVerification = (params) =>
+    this._makeRequest('/users/email_verification/', 'GET', undefined, params);
+  //
 }
 
 const config = {
