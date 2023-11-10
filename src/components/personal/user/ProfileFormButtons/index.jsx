@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './index.css';
 import { useLocation } from 'react-router-dom';
-import { setIsEditing, setIsPasswordExpanded } from '../../../../store/userSlice';
+import { setIsEditing, setIsPasswordExpanded } from '../../../../store/actions';
 import { getUserData } from '../../../../store';
 
 export default function ProfileFormButtons(props) {

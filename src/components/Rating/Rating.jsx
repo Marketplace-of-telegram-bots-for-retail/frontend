@@ -1,5 +1,8 @@
+/* eslint-disable no-nested-ternary */
 import React, { useEffect, useState } from 'react';
 import './Rating.css';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../../store';
 // import { useLocation, useParams } from 'react-router-dom';
 
 export const Rating = ({
@@ -8,6 +11,7 @@ export const Rating = ({
   onClickLabel,
   feedbackStars,
 }) => {
+  const { isAuthorized } = useSelector(getUserData);
   const [rating, setRating] = useState(0);
   const [hover, setHover] = useState(0);
   useEffect(() => {
@@ -81,7 +85,11 @@ export const Rating = ({
           className='rating__feedback rating__feedback_big'
           onClick={() => onClickLabel()}
         >
-          {ratingCard?.[1] > 0 ? feedback(ratingCard?.[1]) : 'Оставить отзыв'}
+          {ratingCard?.[1] > 0
+            ? feedback(ratingCard?.[1])
+            : isAuthorized
+              ? 'Оставить отзыв'
+              : 'Нет отзывов'}
         </span>
       );
     }

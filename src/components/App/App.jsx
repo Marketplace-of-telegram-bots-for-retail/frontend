@@ -6,11 +6,20 @@ import {
   getProducts,
   getFavorites,
   cleanLike,
-} from '../../store/productsDataSlice';
-import { getMinMaxCost } from '../../store/searchFormDataSlice';
-import { clearCarts, getCart } from '../../store/cartDataSlice';
+  getMinMaxCost,
+  clearCarts,
+  getCart,
+  changePassword,
+  deleteUser,
+  getUserMe,
+  logIn,
+  logOut,
+  registerUser,
+  updateProfile,
+} from '../../store/actions';
+import { getUserData } from '../../store';
+
 import './App.css';
-import { api } from '../../utils/Api';
 import { checkToken } from '../../utils/tokenStorage';
 import { useQueryParameter } from '../../hooks/useQueryParameter';
 import Header from '../Header/Header';
@@ -26,29 +35,11 @@ import ErrorPage from '../ErrorPage/ErrorPage';
 import Favorites from '../Favorites/Favorites';
 import Preloader from '../Preloader/Preloader';
 import Main from '../Main/Main';
-import { CurrentUserContext } from '../../contexts/currentUserContext';
 import Showcase from '../showcase/Showcase/Showcase';
 import useModal from '../../hooks/useModal';
 import Promo from '../info/Promo/Promo';
 import Salesman from '../Salesman/Salesman';
-import {
-  setIsAuthorized,
-  setAuthErrorMessage,
-} from '../../store/dataAuthorisation';
-import {
-  changePassword,
-  deleteUser,
-  getUserMe,
-  logIn,
-  logOut,
-  registerUser,
-  setIsEditing,
-  updateProfile,
-} from '../../store/userSlice';
-// import Forgot from '../auth/ForgotPassword/ForgotPassword';
 import ProfileForm from '../personal/user/ProfileForm';
-// import Goods from '../personal/goods/Goods';
-import { getAuthorisationData, getUserData } from '../../store';
 import MyOrders from '../personal/user/MyOrders';
 import MyReviews from '../personal/user/MyReviews';
 import MyRefunds from '../personal/user/MyRefunds';
@@ -63,7 +54,6 @@ const App = () => {
   const { formRequest } = useQueryParameter();
   const navigate = useNavigate();
   const [isPreloader, setPreloader] = useState(false);
-  const [currentUser, setCurrentUser] = useState({});
   const { isAuthorized, isLoginModal } = useSelector(getUserData);
 
   const dispatch = useDispatch();
@@ -115,13 +105,8 @@ const App = () => {
     if (!checkToken()) {
       clearStates();
     } else {
-      // const userData = await api.getUserMe();
-      // if (userData) {
-      //   setCurrentUser(userData);
-      //   dispatch(setIsAuthorized(true));
       dispatch(getUserMe());
     }
-
     cbGetInitialsData();
     setPreloader(false);
   }, [clearStates, cbGetInitialsData]);
@@ -206,111 +191,106 @@ const App = () => {
   //     password: 'Qwe123Asd456',
 
   return (
-    <CurrentUserContext.Provider value={currentUser}>
-      {isPreloader && <Preloader />}
-      {showAuthButtons && (
-        <AuthButtons
-          cbLogIn={cbLogIn}
-          cbRegister={cbRegister}
-          showAuthButtons={showAuthButtons}
-          setShowAuthButtons={setShowAuthButtons}
-          showAuthModal={showAuthModal}
-          setShowAuthModal={setShowAuthModal}
-        />
-      )}
-      <Routes>
-        {/* 1 Уровень вложенности */}
+    <Routes>
+      {/* 1 Уровень вложенности */}
+      <Route
+        path='/'
+        element={
+          <>
+            <Header
+              setShowAuthButtons={setShowAuthButtons}
+              isPreloader={isPreloader}
+            />
+            <Main>
+              <Outlet />
+            </Main>
+            <Footer />
+            {isPreloader && <Preloader />}
+            {showAuthButtons && (
+              <AuthButtons
+                cbLogIn={cbLogIn}
+                cbRegister={cbRegister}
+                showAuthButtons={showAuthButtons}
+                setShowAuthButtons={setShowAuthButtons}
+                showAuthModal={showAuthModal}
+                setShowAuthModal={setShowAuthModal}
+              />
+            )}
+          </>
+        }
+      >
+        {/* 2 Уровень вложенности */}
         <Route
-          path='/'
+          index
           element={
             <>
-              <Header
-                setShowAuthButtons={setShowAuthButtons}
-                isPreloader={isPreloader}
-              />
-              <Main>
-                <Outlet />
-              </Main>
-              <Footer />
+              <Poster />
+              <Showcase />
             </>
           }
-        >
-          {/* 2 Уровень вложенности */}
-          <Route
-            index
-            element={
-              <>
-                <Poster />
-                <Showcase />
-              </>
-            }
-          />
-          <Route path='/products/:id' element={<Product />} />
-          <Route path='*' element={<ErrorPage pageNotFound />} />
-          <Route path='/favorites' element={<Favorites />} />
-          {/* <Route path='/cart' element={<Cart />} />
+        />
+        <Route path='/products/:id' element={<Product />} />
+        <Route path='*' element={<ErrorPage pageNotFound />} />
+        <Route path='/favorites' element={<Favorites />} />
+        {/* <Route path='/cart' element={<Cart />} />
           {isAuthorized && <Route path='/order' element={<Order />} />}
           <Route path='/orders/:id' element={<OrderAfter />} /> */}
-          <Route path='/cart' element={<Outlet />}>
-            <Route index element={<Cart />} />
-            <Route path='/cart/order' element={<Order />} />
-            <Route path='/cart/orders/:id' element={<OrderAfter />} />
-          </Route>
-          {isAuthorized && <Route path='/order' element={<Order />} />}
-          <Route path='/orders/:id' element={<OrderAfter />} />
-          <Route
-            path='/personal'
-            element={
-              <Profile
-                cbLogout={cbLogout}
-                cbUpdateProfile={cbUpdateProfile}
-                cbDeleteUser={cbDeleteUser}
-              >
-                <Outlet />
-              </Profile>
-            }
-          >
-            {/* 3 Уровень вложенности */}
-            <Route
-              // path='/personal/profile'
-              index
-              element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
-            ></Route>
-            <Route path='/personal/orders' element={<MyOrders />}></Route>
-            <Route path='/personal/refunds' element={<MyRefunds />}></Route>
-            <Route path='/personal/reviews' element={<MyReviews />}></Route>
-            <Route path='/personal/seller' element={<Outlet />}>
-              {/* 4 Уровень вложенности */}
-              <Route
-                index
-                // path='/personal/seller/legal-data'
-                element={<SellerLegalData />}
-              ></Route>
-              <Route
-                path='/personal/seller/personal-data'
-                element={<SellerPersonalData />}
-              ></Route>
-              <Route
-                path='/personal/seller/goods'
-                element={<MyGoods />}
-              ></Route>
-              <Route
-                path='/personal/seller/promo-codes'
-                element={<MyPromoCodes />}
-              ></Route>
-              <Route
-                path='/personal/seller/statistics'
-                element={<Statistics />}
-              ></Route>
-            </Route>
-          </Route>
-
-          <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-          <Route path='/salesman' element={<Salesman />} />
-          <Route path='/promo' element={<Promo />} />
+        <Route path='/cart' element={<Outlet />}>
+          <Route index element={<Cart />} />
+          <Route path='/cart/order' element={<Order />} />
+          <Route path='/cart/orders/:id' element={<OrderAfter />} />
         </Route>
-      </Routes>
-    </CurrentUserContext.Provider>
+        {isAuthorized && <Route path='/order' element={<Order />} />}
+        <Route path='/orders/:id' element={<OrderAfter />} />
+        <Route
+          path='/personal'
+          element={
+            <Profile
+              cbLogout={cbLogout}
+              cbUpdateProfile={cbUpdateProfile}
+              cbDeleteUser={cbDeleteUser}
+            >
+              <Outlet />
+            </Profile>
+          }
+        >
+          {/* 3 Уровень вложенности */}
+          <Route
+            // path='/personal/profile'
+            index
+            element={<ProfileForm cbUpdateProfile={cbUpdateProfile} />}
+          ></Route>
+          <Route path='/personal/orders' element={<MyOrders />}></Route>
+          <Route path='/personal/refunds' element={<MyRefunds />}></Route>
+          <Route path='/personal/reviews' element={<MyReviews />}></Route>
+          <Route path='/personal/seller' element={<Outlet />}>
+            {/* 4 Уровень вложенности */}
+            <Route
+              index
+              // path='/personal/seller/legal-data'
+              element={<SellerLegalData />}
+            ></Route>
+            <Route
+              path='/personal/seller/personal-data'
+              element={<SellerPersonalData />}
+            ></Route>
+            <Route path='/personal/seller/goods' element={<MyGoods />}></Route>
+            <Route
+              path='/personal/seller/promo-codes'
+              element={<MyPromoCodes />}
+            ></Route>
+            <Route
+              path='/personal/seller/statistics'
+              element={<Statistics />}
+            ></Route>
+          </Route>
+        </Route>
+
+        <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+        <Route path='/salesman' element={<Salesman />} />
+        <Route path='/promo' element={<Promo />} />
+      </Route>
+    </Routes>
   );
 };
 

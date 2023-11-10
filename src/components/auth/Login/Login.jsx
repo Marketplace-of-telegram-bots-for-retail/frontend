@@ -5,7 +5,7 @@ import AuthForm from '../AuthForm/AuthForm';
 import Input from '../../Input';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
-import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
+import { setAuthErrorMessage } from '../../../store/actions';
 
 const Login = (props) => {
   const dispatch = useDispatch();

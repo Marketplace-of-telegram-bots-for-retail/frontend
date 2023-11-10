@@ -4,14 +4,14 @@ import './index.css';
 import Modal from '..';
 import Input from '../../Input';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
-import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
-import { getAuthorisationData } from '../../../store';
+import { setAuthErrorMessage } from '../../../store/actions';
+import { getUserData } from '../../../store';
 
 export default function ConfirmDeleteProfileModal({ onClose, deleteProfile }) {
   const dispatch = useDispatch();
   const { values, onBlur, handleChange, errors, isValid } =
     useFormWithValidation();
-  const { authErrorMessage } = useSelector(getAuthorisationData);
+  const { authErrorMessage } = useSelector(getUserData);
 
   const handleInput = (e) => {
     handleChange(e);

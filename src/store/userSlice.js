@@ -21,6 +21,7 @@ const initialState = {
   is_loading: false,
   resStatus: null,
   resStatusText: null,
+  emailCheck: null,
 };
 
 // Авторизация
@@ -60,6 +61,20 @@ export const registerUser = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       await api.postUser(data);
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+// Регистрация
+export const emailVerification = createAsyncThunk(
+  'user/emailVerification',
+  async (email, { rejectWithValue }) => {
+    const data = `?email=${email}`;
+    console.log(data);
+    try {
+      return await api.emailVerification(data);
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -116,7 +131,6 @@ export const deleteUser = createAsyncThunk(
 export const getUserMe = createAsyncThunk(
   'user/getUserMe',
   async (data, { rejectWithValue, dispatch }) => {
-    debugger;
     try {
       if (!checkToken()) {
         return rejectWithValue(err);
@@ -138,21 +152,42 @@ export const becomeSeller = createAsyncThunk(
   async (data, { rejectWithValue }) => {
     try {
       const res = await api.postBecomeSeller(data);
-      // потом убрать
-      console.log('becomeSeller, res', res);
       return res;
     } catch (err) {
       return rejectWithValue(err);
     }
   }
 );
-// получить продавцом
+// получить данные продавца
 export const getSeller = createAsyncThunk(
   'user/getSeller',
   async (data, { rejectWithValue }) => {
     try {
       const res = await api.getBecomeSeller(data);
-      console.log('getSeller, res', res);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+// получить данные продавца
+export const changeSellerDetails = createAsyncThunk(
+  'user/changeSellerDetails',
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await api.putBecomeSeller(data);
+      return res;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+// получить данные продавца
+export const changeSomeSellerDetails = createAsyncThunk(
+  'user/changeSomeSellerDetails',
+  async (data, { rejectWithValue }) => {
+    try {
+      const res = await api.patchBecomeSeller(data);
       return res;
     } catch (err) {
       return rejectWithValue(err);
@@ -216,7 +251,6 @@ const userSlice = createSlice({
       state.isAuthChecked = true;
     },
     setIsAuthorized(state, action) {
-      console.log(action.payload);
       state.isAuthorized = action.payload;
     },
     setRegisterStep(state, action) {
@@ -290,7 +324,6 @@ const userSlice = createSlice({
         setFulfilled(state, action);
         state.user = action.payload;
         state.isAuthorized = true;
-        console.log(action.payload);
       })
       .addCase(getUserMe.rejected, (state, action) => {
         setError(state, action);
@@ -299,27 +332,54 @@ const userSlice = createSlice({
         sessionStorage.clear();
       })
 
-      // стать продавцом данных профиля
+      // стать продавцом
       .addCase(becomeSeller.pending, setPending)
       .addCase(becomeSeller.fulfilled, (state, action) => {
         setFulfilled(state, action);
-        console.log(action.payload);
       })
       .addCase(becomeSeller.rejected, (state, action) => {
         setError(state, action);
-        console.log(action.payload);
       })
-
-      // стать продавцом данных профиля
+      // получение данных продавца
       .addCase(getSeller.pending, setPending)
       .addCase(getSeller.fulfilled, (state, action) => {
         setFulfilled(state, action);
         state.seller = action.payload;
-        console.log(action.payload);
       })
       .addCase(getSeller.rejected, (state, action) => {
         setError(state, action);
-        console.log(action.payload);
+      })
+      // изменить данные продавца
+      .addCase(changeSellerDetails.pending, setPending)
+      .addCase(changeSellerDetails.fulfilled, (state, action) => {
+        setFulfilled(state, action);
+        state.seller = action.payload;
+      })
+      .addCase(changeSellerDetails.rejected, (state, action) => {
+        setError(state, action);
+      })
+
+      // изменить данные продавца
+      .addCase(changeSomeSellerDetails.pending, setPending)
+      .addCase(changeSomeSellerDetails.fulfilled, (state, action) => {
+        setFulfilled(state, action);
+        state.seller = action.payload;
+      })
+      .addCase(changeSomeSellerDetails.rejected, (state, action) => {
+        setError(state, action);
+      })
+
+      // изменить данные продавца
+      .addCase(emailVerification.pending, setPending)
+      .addCase(emailVerification.fulfilled, (state, action) => {
+        setFulfilled(state, action);
+        state.emailCheck = action.payload;
+        console.log(action.payload.email);
+      })
+      .addCase(emailVerification.rejected, (state, action) => {
+        setError(state, action);
+        state.emailCheck = action.payload;
+        console.log(action.payload.email[0]);
       });
   },
 });

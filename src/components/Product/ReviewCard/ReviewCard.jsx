@@ -18,8 +18,12 @@ const ReviewCard = ({ review }) => {
     <li className='product__review'>
       <div className='review__row'>
         <div className='review__set'>
-          <img className='review__avatar' src={avatar} alt='аватар' />
-          <span className='review__author'>{review.user}</span>
+          <img
+            className='review__avatar'
+            src={review.user.photo || avatar}
+            alt='аватар'
+          />
+          <span className='review__author'>{review?.user?.username}</span>
         </div>
         <div className='review__set'>
           <span className='review__date'>{formattedDate}</span>

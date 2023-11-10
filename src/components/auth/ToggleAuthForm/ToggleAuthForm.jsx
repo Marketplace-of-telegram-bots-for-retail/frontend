@@ -1,10 +1,10 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import './ToggleAuthForm.css';
-import { getAuthorisationData } from '../../../store';
+import { getUserData } from '../../../store';
 
 const ToggleAuthForm = (props) => {
-  const { isLoginModal } = useSelector(getAuthorisationData);
+  const { isLoginModal } = useSelector(getUserData);
   return (
     <div className='modal__toggle-form'>
       <span className='modal__span'>

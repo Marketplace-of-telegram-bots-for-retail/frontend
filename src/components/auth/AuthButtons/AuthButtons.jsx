@@ -4,13 +4,13 @@ import { useNavigate } from 'react-router-dom';
 import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
 import { ReactComponent as Triangle } from '../../../images/triangle.svg';
-import { setIsLoginModal } from '../../../store/dataAuthorisation';
-import { getAuthorisationData } from '../../../store';
+import { setIsLoginModal } from '../../../store/actions';
+import { getUserData } from '../../../store';
 
 const AuthButtons = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { isAuthorized } = useSelector(getAuthorisationData);
+  const { isAuthorized } = useSelector(getUserData);
 
   const handleCloseModal = () => {
     props.setShowAuthButtons(false);

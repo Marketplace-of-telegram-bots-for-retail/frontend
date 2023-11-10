@@ -1,18 +1,19 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect, useContext, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../../../../store';
 import './index.css';
 import Input from '../../../Input';
 import ProfileFormButtons from '../../user/ProfileFormButtons';
 import ProfileAvatar from '../../user/ProfileAvatar';
 import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
-import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import ProfileLegalDropdown from '../ProfileLegalDropDown/ProfileLegalDropdown';
 import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
 
 function SellerLegalData() {
-  const currentUser = useContext(CurrentUserContext);
+  const { user } = useSelector(getUserData);
   const { values, setValues, onBlur, handleChange, errors, resetForm } =
     useFormWithValidation();
   const [isEditing, setIsEditing] = useState(false);
@@ -37,14 +38,14 @@ function SellerLegalData() {
   useEffect(() => {
     resetForm();
     setValues({
-      name: currentUser.first_name,
-      surname: currentUser.last_name,
-      email: currentUser.email,
-      phone: currentUser.phone,
-      user: currentUser.username,
+      name: user.first_name,
+      surname: user.last_name,
+      email: user.email,
+      phone: user.phone,
+      user: user.username,
     });
     if (!isEditing) localStorage.removeItem('avatar');
-  }, [currentUser, isEditing]);
+  }, [user, isEditing]);
 
   function handleSubmit(e) {
     // resetForm();
@@ -65,7 +66,7 @@ function SellerLegalData() {
 
     if (userphoto) formData.photo = userphoto;
 
-    // props.cbUpdateProfile(getChangedData(currentUser, formData));
+    // props.cbUpdateProfile(getChangedData(user, formData));
     // setIsEditing(false);
     localStorage.removeItem('avatar');
     console.log(formData);

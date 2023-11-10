@@ -19,8 +19,6 @@ export const getOrdersList = createAsyncThunk(
   async (_, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.getOrders();
-      // потом убрать
-      console.log('getOrdersList => api.getOrders(data)=> res', res);
       dispatch(setAllOrders(res));
     } catch (err) {
       return rejectWithValue(err);
@@ -33,9 +31,6 @@ export const getOrder = createAsyncThunk(
   async (id, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.getOrdersId(id);
-      // потом убрать
-      console.log('getOrder, id', id);
-      console.log('getOrder => api.getOrder(data)=> res', res);
       dispatch(setCurrentOrder(res));
     } catch (err) {
       return rejectWithValue(err);
@@ -52,8 +47,6 @@ export const postOrder = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.postOrders(data);
-      // потом убрать
-      console.log('postOrder => api.postOrder(data)=> res', res);
       dispatch(setNewOrder(res));
       return res;
     } catch (err) {
@@ -92,8 +85,6 @@ export const placeAndPayOrder = createAsyncThunk(
   async (data, { rejectWithValue, dispatch }) => {
     try {
       const res = await api.postOrders(data);
-      // потом убрать
-      console.log('placeAndPayOrder => api.postOrders(data)=> res', res);
       dispatch(setCurrentOrder(res));
       const { id } = res;
       const pay = await api.payOrdersId(id);

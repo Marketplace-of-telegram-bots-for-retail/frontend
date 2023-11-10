@@ -203,7 +203,7 @@ class Api {
   deleteBecomeSeller = () =>
     this._makeRequest('/users/become_seller/', 'DELETE');
 
-  // Удалить данные продавца
+  // Проверка Емайл
   emailVerification = (params) =>
     this._makeRequest('/users/email_verification/', 'GET', undefined, params);
   //

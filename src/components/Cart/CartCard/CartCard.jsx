@@ -9,7 +9,7 @@ import LightCross from '../../../images/ic_cross-20.svg';
 import {
   selectProductCart,
   deleteProductCart,
-} from '../../../store/cartDataSlice';
+} from '../../../store/actions';
 import PreviewImage from '../../PreviewImage/PreviewImage';
 import { convertToLocaleStringRub } from '../../../utils/convertToLocaleStringRub';
 

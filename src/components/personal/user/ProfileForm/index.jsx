@@ -1,18 +1,18 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './index.css';
 import Input from '../../../Input';
 import ProfileFormButtons from '../ProfileFormButtons';
 import ProfileAvatar from '../ProfileAvatar';
 import { useFormWithValidation } from '../../../../hooks/useFormWithValidation';
-import { CurrentUserContext } from '../../../../contexts/currentUserContext';
 import getChangedData from '../../../../utils/getChangedData';
 import { getUserData } from '../../../../store';
-import { setIsEditing } from '../../../../store/userSlice';
+import { setIsEditing } from '../../../../store/actions';
 
 export default function ProfileForm(props) {
   const dispatch = useDispatch();
-  const currentUser = useContext(CurrentUserContext);
+  const { user } = useSelector(getUserData);
+
   const {
     values,
     setValues,
@@ -32,14 +32,14 @@ export default function ProfileForm(props) {
   useEffect(() => {
     resetForm();
     setValues({
-      name: currentUser.first_name,
-      surname: currentUser.last_name,
-      email: currentUser.email,
-      phone: currentUser.phone,
-      user: currentUser.username,
+      name: user.first_name,
+      surname: user.last_name,
+      email: user.email,
+      phone: user.phone,
+      user: user.username,
     });
     if (!isEditing) localStorage.removeItem('avatar');
-  }, [currentUser, isEditing]);
+  }, [user, isEditing]);
 
   function definePasswordInputName(isEditing, isPasswordExpanded) {
     if (!isEditing) {
@@ -69,7 +69,7 @@ export default function ProfileForm(props) {
       formData.current_password = values.password;
     }
 
-    props.cbUpdateProfile(getChangedData(currentUser, formData));
+    props.cbUpdateProfile(getChangedData(user, formData));
     localStorage.removeItem('avatar');
   }
 

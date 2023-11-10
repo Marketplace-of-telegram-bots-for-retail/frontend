@@ -1,11 +1,10 @@
 import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { setSearch } from '../../../store/searchFormDataSlice';
+import { setSearch, getProducts } from '../../../store/actions';
 import { useQueryParameter } from '../../../hooks/useQueryParameter';
 import { useForm } from '../../../hooks/useForm';
 import './SearchInputBox.css';
-import { getProducts } from '../../../store/productsDataSlice';
 
 const SearchInputBox = () => {
   const locatoin = useLocation();

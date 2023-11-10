@@ -5,7 +5,7 @@ import AuthInput from '../AuthInput/AuthInput';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import RegisterSuccessMessage from '../RegisterSuccessMessage/RegisterSuccessMessage';
-import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
+import { setAuthErrorMessage } from '../../../store/actions';
 
 const Forgot = (props) => {
   const dispatch = useDispatch();
