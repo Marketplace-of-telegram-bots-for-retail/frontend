@@ -7,7 +7,7 @@ import award from '../../../images/Pixel-36.svg';
 import ProductDescription from '../ProductDescription/ProductDescription';
 import ProductReviews from '../ProductReviews/ProductReviews';
 import { getProductCardData } from '../../../store';
-import { setShowDescription } from '../../../store/productCardDataSlice';
+import { setShowDescription } from '../../../store/actions';
 
 const ProductDetail = ({ scrollRef }) => {
   const { productReviews, isShowDescription } = useSelector(getProductCardData);

@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import RegisterStepsScale from '../RegisterStepsScale/RegisterStepsScale';
 import AuthCheckbox from '../AuthCheckbox/AuthCheckbox';
 import './AuthForm.css';
-import { getAuthorisationData } from '../../../store';
-import { setAuthErrorMessage } from '../../../store/dataAuthorisation';
+import { getUserData } from '../../../store';
+import { setAuthErrorMessage } from '../../../store/actions';
 
 const AuthForm = ({ children, ...props }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,7 @@ const AuthForm = ({ children, ...props }) => {
 
   const location = useLocation();
   const { registerStep, isLoginModal, authErrorMessage } =
-    useSelector(getAuthorisationData);
+    useSelector(getUserData);
 
   const buttonSubmitText = isLoginModal
     ? 'Войти'

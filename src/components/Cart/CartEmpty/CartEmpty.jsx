@@ -3,11 +3,11 @@
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import './CartEmpty.css';
-import { getAuthorisationData } from '../../../store';
+import { getUserData } from '../../../store';
 import CartEmptyImg from '../../../images/shopping_basket 2.svg';
 
 const CartEmpty = () => {
-  const { isAuthorized } = useSelector(getAuthorisationData);
+  const { isAuthorized } = useSelector(getUserData);
   return (
     <div className='cart-empty'>
       <img

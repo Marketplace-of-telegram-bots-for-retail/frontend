@@ -2,7 +2,7 @@ import './index.css';
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrdersData } from '../../../../store/selectors';
-import { getOrdersList } from '../../../../store/userOrdersDataSlice';
+import { getOrdersList } from '../../../../store/actions';
 
 import OrdersList from './OrdersList/OrdersList';
 import Dropdown from './Dropdown/Dropdown';

@@ -9,7 +9,7 @@ import { AftPoster } from '../../posters';
 import Title from '../../Title/Title';
 import Filters from '../../form-items/Filters/Filters';
 import { useScroll } from '../../../hooks/useScroll';
-import { getMoreProducts } from '../../../store/productsDataSlice';
+import { getMoreProducts } from '../../../store/actions';
 import { getProductsData } from '../../../store';
 
 const Showcase = () => {

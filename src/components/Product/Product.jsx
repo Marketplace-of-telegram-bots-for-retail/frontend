@@ -14,7 +14,7 @@ import {
   getProductCard,
   getProductsReviews,
   setShowDescription,
-} from '../../store/productCardDataSlice';
+} from '../../store/actions';
 import { useScroll } from '../../hooks/useScroll';
 import { getProductCardData } from '../../store';
 import ErrorPage from '../ErrorPage/ErrorPage';

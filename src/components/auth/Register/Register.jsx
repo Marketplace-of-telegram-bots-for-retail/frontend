@@ -5,16 +5,13 @@ import Input from '../../Input';
 import ToggleAuthForm from '../ToggleAuthForm/ToggleAuthForm';
 import RegisterSuccessMessage from '../RegisterSuccessMessage/RegisterSuccessMessage';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
-import {
-  setRegisterStep,
-  setAuthErrorMessage,
-} from '../../../store/dataAuthorisation';
-import { getAuthorisationData } from '../../../store';
+import { setRegisterStep, setAuthErrorMessage } from '../../../store/actions';
+import { getUserData } from '../../../store';
 
 const Register = (props) => {
   const [isCheckboxChecked, setIsCheckboxChecked] = useState(false);
   const dispatch = useDispatch();
-  const { registerStep } = useSelector(getAuthorisationData);
+  const { registerStep } = useSelector(getUserData);
 
   const { values, onBlur, handleChange, errors, isValid } =
     useFormWithValidation();

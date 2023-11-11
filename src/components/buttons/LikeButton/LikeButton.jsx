@@ -2,14 +2,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { unwrapResult } from '@reduxjs/toolkit';
-import { onLike } from '../../../store/productsDataSlice';
+import { onLike } from '../../../store/actions';
 import './LikeButton.css';
-import { getAuthorisationData } from '../../../store';
+import { getUserData } from '../../../store';
 
 const LikeButton = ({ parentClass, card }) => {
   const [isLiked, setLiked] = useState(card?.is_favorited);
   const dispatch = useDispatch();
-  const { isAuthorized } = useSelector(getAuthorisationData);
+  const { isAuthorized } = useSelector(getUserData);
   useEffect(() => {
     setLiked(card?.is_favorited);
   }, [card?.is_favorited]);

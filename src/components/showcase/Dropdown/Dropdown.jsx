@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 import './Dropdown.css';
 import { SORTING_OPTIONS, FILTER_GOODS } from '../../../utils/constants';
-import { setSorting } from '../../../store/searchFormDataSlice';
+import { setSorting } from '../../../store/actions';
 
 const Dropdown = () => {
   const [dropdown, setDropdown] = useState(0);

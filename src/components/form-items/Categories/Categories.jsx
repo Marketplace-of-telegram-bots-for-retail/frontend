@@ -2,7 +2,7 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CATEGORY_OPTIONS } from '../../../utils/constants';
-import { setCategories } from '../../../store/searchFormDataSlice';
+import { setCategories } from '../../../store/actions';
 import './Categories.css';
 import { getSearchFormData } from '../../../store';
 
