@@ -17,7 +17,8 @@ import {
   registerUser,
   updateProfile,
 } from '../../store/actions';
-import { getUserData } from '../../store';
+import { getUserData, getModals } from '../../store';
+import { setShowAuthButtons, setShowAuthModal } from '../../store/modalsSlice';
 
 import './App.css';
 import { checkToken } from '../../utils/tokenStorage';
@@ -56,14 +57,9 @@ const App = () => {
   const navigate = useNavigate();
   const [isPreloader, setPreloader] = useState(false);
   const { isAuthorized, isLoginModal } = useSelector(getUserData);
+  const { showAuthButtons } = useSelector(getModals);
 
   const dispatch = useDispatch();
-
-  const [showAuthButtons, setShowAuthButtons] = useState(false);
-  useModal(showAuthButtons, setShowAuthButtons);
-
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  useModal(showAuthModal, setShowAuthModal);
 
   useHookUpModals();
 
@@ -132,8 +128,8 @@ const App = () => {
   // закрыть модалки авторизации
   useEffect(() => {
     if (isAuthorized && isLoginModal) {
-      setShowAuthButtons(false);
-      setShowAuthModal(false);
+      dispatch(setShowAuthButtons(false));
+      dispatch(setShowAuthModal(false));
       cbTokenCheck();
     }
   }, [isAuthorized, isLoginModal]);
@@ -200,10 +196,7 @@ const App = () => {
         path='/'
         element={
           <>
-            <Header
-              setShowAuthButtons={setShowAuthButtons}
-              isPreloader={isPreloader}
-            />
+            <Header isPreloader={isPreloader} />
             <Main>
               <Outlet />
             </Main>
@@ -213,10 +206,6 @@ const App = () => {
               <AuthButtons
                 cbLogIn={cbLogIn}
                 cbRegister={cbRegister}
-                showAuthButtons={showAuthButtons}
-                setShowAuthButtons={setShowAuthButtons}
-                showAuthModal={showAuthModal}
-                setShowAuthModal={setShowAuthModal}
               />
             )}
           </>
