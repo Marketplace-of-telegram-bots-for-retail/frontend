@@ -1,7 +1,7 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './EmptyPage.css';
-import HeartIcon from '../../images/heart-1.svg';
+import HeartIcon from '../../images/Like-illustration.png';
 
 const EmptyPage = () => {
   return (

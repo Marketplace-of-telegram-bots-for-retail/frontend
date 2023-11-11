@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import './PopupImage.css';
-import { setShowProductImagesPopup } from '../../store/productCardDataSlice';
+import { setShowProductImagesPopup } from '../../store/actions';
 import testPhoto from '../../images/Picture.jpg';
 
 function PopupImage({ card }) {

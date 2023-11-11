@@ -8,17 +8,17 @@ import Login from '../Login/Login';
 import Register from '../Register/Register';
 import './AuthModal.css';
 import Forgot from '../ForgotPassword/ForgotPassword';
-import { getAuthorisationData } from '../../../store';
+import { getUserData } from '../../../store';
 import {
-  setRegisterStep,
-  setIsLoginModal,
   setAuthErrorMessage,
-} from '../../../store/dataAuthorisation';
+  setIsLoginModal,
+  setRegisterStep,
+} from '../../../store/actions';
 
 const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { registerStep, isLoginModal } = useSelector(getAuthorisationData);
+  const { registerStep, isLoginModal } = useSelector(getUserData);
 
   function handleToggleFormClick() {
     dispatch(setIsLoginModal(false));
@@ -41,7 +41,7 @@ const AuthModal = ({ onClose, cbLogIn, cbRegister }) => {
   );
 
   return (
-    <div className='auth-modal__container modal'>
+    <div className='auth-modal__container use-modal'>
       <div
         className={`modal__content ${
           !isLoginModal ? 'modal__content_type_register' : ''

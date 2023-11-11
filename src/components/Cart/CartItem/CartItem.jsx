@@ -13,7 +13,7 @@ import {
   unselectAllProductsCart,
   deleteSelectedProductsCart,
   addPromocodeCart,
-} from '../../../store/cartDataSlice';
+} from '../../../store/actions';
 import { useFormWithValidation } from '../../../hooks/useFormWithValidation';
 import { getCartData } from '../../../store';
 import { convertToLocaleStringRub } from '../../../utils/convertToLocaleStringRub';
@@ -172,7 +172,7 @@ function CartItem() {
               {discount === null && error}
             </span>
           </form>
-          <Link to='/order'>
+          <Link to='/cart/order'>
             <button type='button' className='cart-item__make-order'>
               К оформлению
             </button>

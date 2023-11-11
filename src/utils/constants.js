@@ -107,7 +107,8 @@ export const profileNavigationCustomer = [
     links: [
       {
         name: 'Персональные данные',
-        link: '/personal/profile',
+        // link: '/personal/profile',
+        link: '/personal',
       },
     ],
   },
@@ -150,7 +151,8 @@ export const profileNavigationSeller = [
     links: [
       {
         name: 'Юридическая информация',
-        link: '/personal/seller/legal-data',
+        // link: '/personal/seller/legal-data',
+        link: '/personal/seller',
       },
       {
         name: 'Персональные данные',
@@ -289,5 +291,38 @@ export const ORDERS_SORTING = [
     id: 3,
     value: 'unpaid',
     labelName: 'Неоплаченные',
+  },
+];
+
+export const FILTER_GOODS = [
+  {
+    // id: 1,
+    value: '-created',
+    labelName: 'Сначала новые',
+    anotherName: 'Сначала новые',
+  },
+  {
+    // id: 1,
+    value: '-post',
+    labelName: 'Опубликованные',
+    anotherName: 'Опубликованные',
+  },
+  {
+    // id: 1,
+    value: 'post',
+    labelName: 'Приостановленные',
+    anotherName: 'Приостановленные',
+  },
+  {
+    // id: 1,
+    value: '-price',
+    labelName: 'Сначала дорогие',
+    anotherName: 'По возрастанию цены',
+  },
+  {
+    // id: 1,
+    value: 'price',
+    labelName: 'Сначала дешевые',
+    anotherName: 'По убыванию цены',
   },
 ];

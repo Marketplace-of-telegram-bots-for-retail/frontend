@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './index.css';
 import { useLocation } from 'react-router-dom';
-import { setIsEditing, setIsPasswordExpanded } from '../../../../store/userSlice';
+import { setIsEditing, setIsPasswordExpanded } from '../../../../store/actions';
 import { getUserData } from '../../../../store';
 
 export default function ProfileFormButtons(props) {
@@ -18,6 +18,7 @@ export default function ProfileFormButtons(props) {
             type='submit'
             className='profile__form-button button button_color_blue'
             onClick={props.handleSubmit}
+            disabled={isEditing ? !props.isValid : false}
           >
             Сохранить
           </button>
@@ -25,7 +26,7 @@ export default function ProfileFormButtons(props) {
             type='button'
             className='profile__form-button button button_color_transparent'
             onClick={
-              location.pathname === '/personal/seller/legal-data/'
+              location.pathname === '/personal/seller'
                 ? () => props.resetForm()
                 : (e) => {
                   e.preventDefault();
@@ -34,7 +35,7 @@ export default function ProfileFormButtons(props) {
                 }
             }
           >
-            {location.pathname === '/personal/seller/legal-data/'
+            {location.pathname === '/personal/seller'
               ? 'Очистить'
               : 'Отменить'}
           </button>

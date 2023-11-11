@@ -2,10 +2,10 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Modal from '..';
 import './index.css';
-import { getAuthorisationData } from '../../../store';
+import { getUserData } from '../../../store';
 
 export default function ConfirmLogoutModal({ onClose, logout }) {
-  const { authErrorMessage } = useSelector(getAuthorisationData);
+  const { authErrorMessage } = useSelector(getUserData);
   return (
     <Modal
       onClose={onClose}

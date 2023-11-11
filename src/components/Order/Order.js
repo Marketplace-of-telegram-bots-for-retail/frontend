@@ -1,66 +1,81 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable space-infix-ops */
-import { React, useContext, useState } from 'react';
+import { React, useContext, useEffect, useState } from 'react';
 import './Order.css';
-import { useParams, Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import icon from '../../images/order_chevron.svg';
-import { CurrentUserContext } from '../../contexts/currentUserContext';
-import { getCartData, getUserOrdersData } from '../../store/selectors';
-import { postOrder } from '../../store/userOrdersDataSlice';
-
-import { deleteSelectedProductsCart } from '../../store/cartDataSlice';
-
 import PopupWithEmail from './PopupWithEmail/PopupWithEmail';
 import OrderBefore from './OrderBefore/OrderBefore';
 import OrderAfter from './OrderAfter/OrderAfter';
-import OrderList from './OrderList/OrderList';
+import {
+  getCartData,
+  getUserData,
+  getUserOrdersData,
+} from '../../store/selectors';
+import {
+  getCart,
+  placeAndPayOrder,
+  setCurrentOrder,
+} from '../../store/actions';
 
 function Order() {
   const dispatch = useDispatch();
-  const currentUser = useContext(CurrentUserContext);
-  const [isPaid, setIsPaid] = useState(false);
+  const { currentOrder } = useSelector(getUserOrdersData);
+  const { itemsForOrder } = useSelector(getCartData);
+  const { user } = useSelector(getUserData);
+
   const [payMethod, setPayMethod] = useState('card');
   const [isPopupEmailOpen, setIsPopupEmailOpen] = useState(false);
-  const [value, setValue] = useState(currentUser.email);
-
+  const [value, setValue] = useState(user.email);
   // // данные для компонентов в заказе
-  // const { itemsForOrder } =
-  //   useSelector(getCartData);
-  const { newOrder } = useSelector(getUserOrdersData);
-
+  const { is_paid } = currentOrder;
   const handleClickInput = () => {
     setIsPopupEmailOpen(!isPopupEmailOpen);
   };
-
   const handleChangeEmail = () => {
     setValue(value);
   };
-
+  const navigate = useNavigate();
   // функциональность оплаты
-  const handlePay = () => {
+  const handlePay = async () => {
     // пост-запрос на создание заказа, передать пей_метод и сенд_ту
     // console.log('pay method final -', payMethod, typeof payMethod);
-    dispatch(postOrder({
-      pay_method: payMethod,
-      send_to: value,
-    }));
-    setIsPaid(true);
-    // dispatch(deleteSelectedProductsCart());
+    await dispatch(
+      placeAndPayOrder({
+        pay_method: payMethod,
+        send_to: value,
+      })
+    );
+    currentOrder && dispatch(getCart());
   };
-
+  useEffect(() => {
+    dispatch(setCurrentOrder({}));
+    itemsForOrder.length === 0 && navigate('/cart');
+  }, []);
   return (
     <section className='order'>
       <div className='order__header'>
-        <Link to="/cart" className='order__text order__text_type_link'>Корзина</Link>
-        <img src={icon} alt="Иконка" className='order__chevron' />
+        <Link to='/cart' className='order__text order__text_type_link'>
+          Корзина
+        </Link>
+        <img src={icon} alt='Иконка' className='order__chevron' />
         <p className='order__text'>Оформление заказа</p>
       </div>
-      <h1 className="order__title">{!isPaid ? 'Оформление заказа' : 'Заказ оплачен'}</h1>
-      {!isPaid
-        ? <OrderBefore value={value} onClickInput={handleClickInput} onPay={handlePay} payMethod={payMethod} setPayMethod={setPayMethod} />
-        : <OrderAfter payMethod={payMethod} value={value} />}
-      {/* <OrderList items={itemsForOrder} /> */}
+      <h1 className='order__title'>
+        {!is_paid ? 'Оформление заказа' : 'Заказ оплачен'}
+      </h1>
+      {!is_paid ? (
+        <OrderBefore
+          value={value}
+          onClickInput={handleClickInput}
+          onPay={handlePay}
+          payMethod={payMethod}
+          setPayMethod={setPayMethod}
+        />
+      ) : (
+        <OrderAfter payMethod={payMethod} value={value} />
+      )}
       <PopupWithEmail
         isOpen={isPopupEmailOpen}
         onClose={() => setIsPopupEmailOpen(false)}

@@ -16,6 +16,7 @@
   height: 100vh;
   position: relative;
   font-feature-settings: 'liga' 0;
+  word-wrap: break-word;
 }
 .page__header {
   margin: 0 auto;

@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 
 export default function useModal(showModal, setShowModal) {
   const _handleOverlay = (evt) => {
-    if (evt.target.classList.contains('modal')) {
+    if (evt.target.classList.contains('use-modal')) {
       setShowModal(false);
     }
   };

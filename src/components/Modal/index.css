@@ -45,3 +45,24 @@
   display: flex;
   gap: 20px;
 }
+
+.modal__title_type_confirm-post {
+  color: var(--Primary-Black, #1E1E1E);
+  text-align: center;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: normal;
+  width: 198px;
+  padding-top: 8px;
+}
+
+.modal__image_type_add {
+  background: no-repeat center url(../../images/iconoir_pc-check\ \(1\).svg);
+  width: 28px;
+  height: 28px;
+}
+
+.modal__image_type_remove {
+  background: no-repeat center url(../../images/iconoir_pc-check.svg); 
+}
