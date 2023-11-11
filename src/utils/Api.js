@@ -96,15 +96,20 @@ class Api {
     this._makeRequest('/products/', 'GET', undefined, params);
   // Добавить новый товар.
   postProduct = (data) => this._makeRequest('/products/', 'POST', data);
-  // получить данные продукта по ID
+  // Получить данные конкретного товара по ID
   getProductId = (id) => this._makeRequest(`/products/${id}/`, 'GET');
-  // Вьюсет для модели продуктов.
+  // Получить мои продукты.
+  getMyProducts = (params) =>
+    this._makeRequest('/my_products/', 'GET', undefined, params);
+  // Получить мой продукт по ID
+  getMyProductsId = (id) => this._makeRequest(`/my_products/${id}/`, 'GET');
+  // Обновить данные товара целиком.
   putProductId = (id, data) =>
     this._makeRequest(`/products/${id}/`, 'PUT', data);
-  // Вьюсет для модели продуктов.
+  // Обновить данные товара частично.
   patchProductId = (id, data) =>
     this._makeRequest(`/products/${id}/`, 'PATCH', data);
-  // Вьюсет для модели продуктов.
+  // Удалить товар.
   deleteProductId = (id) => this._makeRequest(`/products/${id}/`, 'DELETE');
 
   // добавить в избранное
