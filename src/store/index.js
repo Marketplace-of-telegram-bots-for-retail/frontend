@@ -7,7 +7,6 @@ import userOrdersDataReducer from './userOrdersDataSlice';
 import userDataReducer from './userSlice';
 import sellersProductsReducer from './sellersProductsSlice';
 
-
 export default configureStore({
   reducer: {
     searchFormData: searchFormDataReducer,

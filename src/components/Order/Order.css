@@ -395,3 +395,46 @@
   cursor: pointer;
   outline: none;
 }
+
+.order-modal__title {
+  margin: 30px auto;
+  font-size: 20px;
+  color: var(--Primary-Black);
+  text-align: center;
+  font-weight: 500;
+}
+
+.order-modal__subtitle {
+  margin: 10px auto 30px;
+  font-size: 16px;
+  color: var(--Primary-Black);
+  text-align: center;
+  max-width: 300px;
+}
+
+.order-modal__buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.order-modal__button {
+  border-radius: 8px;
+  height: 50px;
+  outline: none;
+  width: 100px;
+  cursor: pointer;
+}
+
+.order-modal__button_type_pay {
+  background-color: var(--Primary-Accent);
+  color: white;
+  width: 150px;
+  border: none;
+}
+
+.order-modal__button_type_back {
+  background-color: var(--Primary-White);
+  border: 2px solid var(--Primary-Accent);
+  color: var(--Primary-Accent);
+}
