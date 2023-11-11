@@ -2,14 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import Modal from '..';
 import './index.css';
-import { getUserData } from '../../../store';
+import { getUserData, getModals } from '../../../store';
 
 export default function ConfirmLogoutModal({ onClose, logout }) {
   const { authErrorMessage } = useSelector(getUserData);
+  const { showLogoutModal } = useSelector(getModals);
   return (
     <Modal
       onClose={onClose}
       closeButtonClass='modal__close-button modal__close-button_type_confirm'
+      showModal={showLogoutModal}
+      showCloseButton
     >
       <h2 className='modal__title modal__title_type_confirm-logout'>
         Вы уверены, что хотите выйти из аккаунта?

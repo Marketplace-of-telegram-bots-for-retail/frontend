@@ -49,6 +49,7 @@ import MyGoods from '../personal/seller/MyGoods';
 import MyPromoCodes from '../personal/seller/MyPromoCodes';
 import Statistics from '../personal/seller/Statistics';
 import OrderAfter from '../Order/OrderAfter/OrderAfter';
+import useHookUpModals from '../../hooks/useHookUpModals';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
@@ -63,6 +64,8 @@ const App = () => {
 
   const [showAuthModal, setShowAuthModal] = useState(false);
   useModal(showAuthModal, setShowAuthModal);
+
+  useHookUpModals();
 
   // очистить очистить хранилище
   const clearStorage = () => {
