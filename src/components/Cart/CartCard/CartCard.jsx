@@ -12,10 +12,12 @@ import {
 } from '../../../store/actions';
 import PreviewImage from '../../PreviewImage/PreviewImage';
 import { convertToLocaleStringRub } from '../../../utils/convertToLocaleStringRub';
+import Modal from '../../Modal';
 
 function CartCard({ item, setIsShown }) {
   const dispatch = useDispatch();
   const [postButton, setPostButton] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const location = useLocation();
 
@@ -29,7 +31,14 @@ function CartCard({ item, setIsShown }) {
   function handlePostBot() {
     console.log('опубликовать бота');
     setPostButton(!postButton);
-    console.log(postButton);
+    setShowModal(true);
+    setTimeout(() => setShowModal(false), 1000);
+  }
+  function handlePauseBot() {
+    console.log('приостановить бота');
+    setPostButton(!postButton);
+    setShowModal(true);
+    setTimeout(() => setShowModal(false), 1000);
   }
   const cartPrice = `${convertToLocaleStringRub(item.price)}/шт.`;
   const cartCost = convertToLocaleStringRub(item.cost);
@@ -111,13 +120,26 @@ function CartCard({ item, setIsShown }) {
                 postButton === true ? 'cart__favourite-button_active' : ''
               }`}
               type='button'
-              onClick={handlePostBot}
+              onClick={postButton === false ? handlePostBot : handlePauseBot}
             >
               {postButton === false ? 'Опубликовать' : 'Приостановить'}
             </button>
           </div>
         )}
       </div>
+      {showModal && (
+        <Modal
+          onClose={() => {
+            setShowModal(false);
+          }}
+          showModal={() => setShowModal(true)}
+        >
+          <span className={`modal__image_type_add ${postButton ? 'modal__image_type_remove' : ''}`}></span>
+          <h2 className='modal__title modal__title_type_confirm-post'>
+            {postButton ? 'Товар опубликован в Каталоге' : 'Товар снят с публикации в Каталоге'}
+          </h2>
+        </Modal>
+      )}
     </li>
   );
 }
