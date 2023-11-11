@@ -195,19 +195,19 @@ export const changeSomeSellerDetails = createAsyncThunk(
   }
 );
 
-// добавить товар
-export const postProduct = createAsyncThunk(
-  'user/postProduct',
-  async (data, { rejectWithValue }) => {
-    try {
-      const res = await api.postProduct(data);
-      // потом убрать
-      console.log('postProduct, data, res', data, res);
-    } catch (err) {
-      return rejectWithValue(err);
-    }
-  }
-);
+// // добавить товар
+// export const postProduct = createAsyncThunk(
+//   'user/postProduct',
+//   async (data, { rejectWithValue }) => {
+//     try {
+//       const res = await api.postProduct(data);
+//       // потом убрать
+//       console.log('postProduct, data, res', data, res);
+//     } catch (err) {
+//       return rejectWithValue(err);
+//     }
+//   }
+// );
 
 const setError = (state, action) => {
   const errMessage = Object.values(action.payload)[0];
