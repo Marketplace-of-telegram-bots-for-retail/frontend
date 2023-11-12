@@ -59,7 +59,8 @@ export const deleteOrder = createAsyncThunk(
   'userOrdersData/deleteOrder',
   async (id, { rejectWithValue }) => {
     try {
-      const res = await api.postOrders(id);
+      // const res = await api.postOrders(id); - было, но не работало
+      const res = await api.deleteOrdersId(id);
       // потом убрать
       console.log('deleteOrder => api.deleteOrder(id)=> id, res', id, res);
     } catch (err) {

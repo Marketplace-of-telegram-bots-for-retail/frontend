@@ -4,10 +4,13 @@ import { React, useContext, useEffect, useState } from 'react';
 import './Order.css';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import useModal from '../../hooks/useModal';
+import Modal from '../Modal/index';
 import icon from '../../images/order_chevron.svg';
 import PopupWithEmail from './PopupWithEmail/PopupWithEmail';
 import OrderBefore from './OrderBefore/OrderBefore';
 import OrderAfter from './OrderAfter/OrderAfter';
+import { getModals } from '../../store';
 import {
   getCartData,
   getUserData,
@@ -17,7 +20,9 @@ import {
   getCart,
   placeAndPayOrder,
   setCurrentOrder,
+  postOrder,
 } from '../../store/actions';
+import { setShowOrderModal } from '../../store/modalsSlice';
 
 function Order() {
   const dispatch = useDispatch();
@@ -28,6 +33,11 @@ function Order() {
   const [payMethod, setPayMethod] = useState('card');
   const [isPopupEmailOpen, setIsPopupEmailOpen] = useState(false);
   const [value, setValue] = useState(user.email);
+
+  // const [showModal, setShowModal] = useState(false);
+  // useModal(showModal, setShowModal);
+  const { showOrderModal } = useSelector(getModals);
+
   // // данные для компонентов в заказе
   const { is_paid } = currentOrder;
   const handleClickInput = () => {
@@ -39,8 +49,10 @@ function Order() {
   const navigate = useNavigate();
   // функциональность оплаты
   const handlePay = async () => {
-    // пост-запрос на создание заказа, передать пей_метод и сенд_ту
-    // console.log('pay method final -', payMethod, typeof payMethod);
+    dispatch(setShowOrderModal(true));
+  };
+  // оплатить
+  const handleNext = async () => {
     await dispatch(
       placeAndPayOrder({
         pay_method: payMethod,
@@ -48,6 +60,21 @@ function Order() {
       })
     );
     currentOrder && dispatch(getCart());
+    console.log('заказ оплачен');
+    dispatch(setShowOrderModal(false));
+  };
+  // на главную с сохранением заказа в неоплаченные
+  const handleBack = async () => {
+    await dispatch(
+      postOrder({
+        pay_method: payMethod,
+        send_to: value,
+      })
+    );
+    currentOrder && dispatch(getCart());
+    console.log('заказ не оплачен');
+    dispatch(setShowOrderModal(false));
+    navigate('/');
   };
   useEffect(() => {
     dispatch(setCurrentOrder({}));
@@ -83,6 +110,33 @@ function Order() {
         value={value}
         setValue={setValue}
       />
+      <Modal
+        showModal={showOrderModal}
+        onClose={() => dispatch(setShowOrderModal(false))}
+        showCloseButton
+        closeButtonClass='modal__close-button modal__close-button_type_confirm'
+      >
+        <p className='order-modal__title'>Оплатить сейчас?</p>
+        <p className='order-modal__subtitle'>
+          Вы можете вернуться к оплате позже в Личном кабинете покупателя.
+        </p>
+        <div className='order-modal__buttons'>
+          <button
+            type='button'
+            className='order-modal__button order-modal__button_type_back'
+            onClick={handleBack}
+          >
+            Нет, позже
+          </button>
+          <button
+            type='button'
+            className='order-modal__button order-modal__button_type_pay'
+            onClick={handleNext}
+          >
+            Да, сейчас
+          </button>
+        </div>
+      </Modal>
     </section>
   );
 }

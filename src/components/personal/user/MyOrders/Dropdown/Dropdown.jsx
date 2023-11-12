@@ -1,5 +1,5 @@
 import './Dropdown.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserOrdersData } from '../../../../../store/selectors';
 import { ORDERS_SORTING } from '../../../../../utils/constants';
@@ -16,10 +16,15 @@ const Dropdown = ({ setOrders }) => {
     setOpen(!open);
   };
 
+  useEffect(() => {
+    setOrders(allOrders);
+  }, []);
+
   const dropdownListClick = (index) => {
     setDropdown(index);
     if (index === 0) {
       setOrders(allOrders);
+      console.log(allOrders, 'дропдаун');
     } else if (index === 1) {
       const filteredOrders = allOrders.filter((order) => order.is_paid === true);
       setOrders(filteredOrders);

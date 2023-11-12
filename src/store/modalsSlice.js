@@ -7,6 +7,7 @@ const initialState = {
   showResetSellerDataFormModal: false,
   showAuthButtons: false,
   showAuthModal: false,
+  showOrderModal: false,
 };
 
 const modalsSlice = createSlice({
@@ -28,6 +29,9 @@ const modalsSlice = createSlice({
     setShowAuthModal(state, action) {
       state.showAuthModal = action.payload;
     },
+    setShowOrderModal(state, action) {
+      state.showOrderModal = action.payload;
+    },
   },
 });
 
@@ -37,5 +41,6 @@ export const {
   setShowResetSellerDataFormModal,
   setShowAuthButtons,
   setShowAuthModal,
+  setShowOrderModal,
 } = modalsSlice.actions;
 export default modalsSlice.reducer;

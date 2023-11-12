@@ -16,6 +16,7 @@ import {
   logOut,
   registerUser,
   updateProfile,
+  getOrdersList
 } from '../../store/actions';
 import { getUserData, getModals } from '../../store';
 import { setShowAuthButtons, setShowAuthModal } from '../../store/modalsSlice';
@@ -109,6 +110,10 @@ const App = () => {
     cbGetInitialsData();
     setPreloader(false);
   }, [clearStates, cbGetInitialsData]);
+
+  useEffect(() => {
+    dispatch(getOrdersList());
+  }, []);
 
   // Выполнить первичную проверку по токену и загрузить данные
   useEffect(() => {
