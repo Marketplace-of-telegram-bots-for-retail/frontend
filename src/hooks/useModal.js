@@ -1,15 +1,19 @@
 import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+
+// 1 аргумент - стейт из store, 2 аргумент - action из store
 
 export default function useModal(showModal, setShowModal) {
+  const dispatch = useDispatch();
   const _handleOverlay = (evt) => {
     if (evt.target.classList.contains('use-modal')) {
-      setShowModal(false);
+      dispatch(setShowModal(false));
     }
   };
 
   const _handleEscape = (evt) => {
     if (evt.key === 'Escape') {
-      setShowModal(false);
+      dispatch(setShowModal(false));
     }
   };
 

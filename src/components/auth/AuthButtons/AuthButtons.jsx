@@ -5,32 +5,37 @@ import './AuthButtons.css';
 import AuthModal from '../AuthModal/AuthModal';
 import { ReactComponent as Triangle } from '../../../images/triangle.svg';
 import { setIsLoginModal } from '../../../store/actions';
-import { getUserData } from '../../../store';
+import { getUserData, getModals } from '../../../store';
+import {
+  setShowAuthButtons,
+  setShowAuthModal,
+} from '../../../store/modalsSlice';
 
 const AuthButtons = (props) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { isAuthorized } = useSelector(getUserData);
+  const { showAuthModal } = useSelector(getModals);
 
   const handleCloseModal = () => {
-    props.setShowAuthButtons(false);
-    props.setShowAuthModal(false);
+    dispatch(setShowAuthButtons(false));
+    dispatch(setShowAuthModal(false));
     navigate('/', { replace: true });
   };
   const handleClickButton = (stateButton) => {
     // stateButton - true for login, false for signup
     dispatch(setIsLoginModal(stateButton));
-    props.setShowAuthModal(true);
+    dispatch(setShowAuthModal(true));
     // закрываем предыдущий попап
-    props.setShowAuthButtons(false);
+    dispatch(setShowAuthButtons(false));
   };
 
-  return !props.showAuthModal ? (
+  return !showAuthModal ? (
     !isAuthorized && (
       <div
         className='auth-buttons page__modal use-modal'
         onClick={() => {
-          props.setShowAuthButtons(true);
+          dispatch(setShowAuthButtons(true));
         }}
       >
         <div className='auth-buttons__container'>

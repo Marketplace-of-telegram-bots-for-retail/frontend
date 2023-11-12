@@ -18,7 +18,8 @@ import {
   updateProfile,
   getOrdersList
 } from '../../store/actions';
-import { getUserData } from '../../store';
+import { getUserData, getModals } from '../../store';
+import { setShowAuthButtons, setShowAuthModal } from '../../store/modalsSlice';
 
 import './App.css';
 import { checkToken } from '../../utils/tokenStorage';
@@ -50,20 +51,18 @@ import MyGoods from '../personal/seller/MyGoods';
 import MyPromoCodes from '../personal/seller/MyPromoCodes';
 import Statistics from '../personal/seller/Statistics';
 import OrderAfter from '../Order/OrderAfter/OrderAfter';
+import useHookUpModals from '../../hooks/useHookUpModals';
 
 const App = () => {
   const { formRequest } = useQueryParameter();
   const navigate = useNavigate();
   const [isPreloader, setPreloader] = useState(false);
   const { isAuthorized, isLoginModal } = useSelector(getUserData);
+  const { showAuthButtons } = useSelector(getModals);
 
   const dispatch = useDispatch();
 
-  const [showAuthButtons, setShowAuthButtons] = useState(false);
-  useModal(showAuthButtons, setShowAuthButtons);
-
-  const [showAuthModal, setShowAuthModal] = useState(false);
-  useModal(showAuthModal, setShowAuthModal);
+  useHookUpModals();
 
   // очистить очистить хранилище
   const clearStorage = () => {
@@ -134,8 +133,8 @@ const App = () => {
   // закрыть модалки авторизации
   useEffect(() => {
     if (isAuthorized && isLoginModal) {
-      setShowAuthButtons(false);
-      setShowAuthModal(false);
+      dispatch(setShowAuthButtons(false));
+      dispatch(setShowAuthModal(false));
       cbTokenCheck();
     }
   }, [isAuthorized, isLoginModal]);
@@ -181,14 +180,16 @@ const App = () => {
   // };
 
   // Удаление пользователя
-  const cbDeleteUser = async () => {
-    dispatch(deleteUser()).then(() => {
-      navigate('/');
-      clearStates();
-      // загрузить данные пользователя и чекнуть jwt
-      cbTokenCheck();
-      getInitialData();
-      setPreloader(false);
+  const cbDeleteUser = async (password) => {
+    dispatch(deleteUser(password)).then((res) => {
+      if (res.payload === 204) {
+        navigate('/');
+        clearStates();
+        // загрузить данные пользователя и чекнуть jwt
+        cbTokenCheck();
+        getInitialData();
+        setPreloader(false);
+      }
     });
   };
 
@@ -202,24 +203,14 @@ const App = () => {
         path='/'
         element={
           <>
-            <Header
-              setShowAuthButtons={setShowAuthButtons}
-              isPreloader={isPreloader}
-            />
+            <Header isPreloader={isPreloader} />
             <Main>
               <Outlet />
             </Main>
             <Footer />
             {isPreloader && <Preloader />}
             {showAuthButtons && (
-              <AuthButtons
-                cbLogIn={cbLogIn}
-                cbRegister={cbRegister}
-                showAuthButtons={showAuthButtons}
-                setShowAuthButtons={setShowAuthButtons}
-                showAuthModal={showAuthModal}
-                setShowAuthModal={setShowAuthModal}
-              />
+              <AuthButtons cbLogIn={cbLogIn} cbRegister={cbRegister} />
             )}
           </>
         }

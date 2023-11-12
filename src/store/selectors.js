@@ -5,3 +5,4 @@ export const getSearchFormData = (state) => state.searchFormData;
 export const getUserOrdersData = (state) => state.userOrdersData;
 export const getUserData = (state) => state.userData;
 export const getSellersProducts = (state) => state.sellersProducts;
+export const getModals = (state) => state.modals;

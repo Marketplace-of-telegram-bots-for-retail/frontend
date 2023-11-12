@@ -10,6 +10,7 @@ import icon from '../../images/order_chevron.svg';
 import PopupWithEmail from './PopupWithEmail/PopupWithEmail';
 import OrderBefore from './OrderBefore/OrderBefore';
 import OrderAfter from './OrderAfter/OrderAfter';
+import { getModals } from '../../store';
 import {
   getCartData,
   getUserData,
@@ -21,6 +22,7 @@ import {
   setCurrentOrder,
   postOrder,
 } from '../../store/actions';
+import { setShowOrderModal } from '../../store/modalsSlice';
 
 function Order() {
   const dispatch = useDispatch();
@@ -32,8 +34,9 @@ function Order() {
   const [isPopupEmailOpen, setIsPopupEmailOpen] = useState(false);
   const [value, setValue] = useState(user.email);
 
-  const [showModal, setShowModal] = useState(false);
-  useModal(showModal, setShowModal);
+  // const [showModal, setShowModal] = useState(false);
+  // useModal(showModal, setShowModal);
+  const { showOrderModal } = useSelector(getModals);
 
   // // данные для компонентов в заказе
   const { is_paid } = currentOrder;
@@ -46,7 +49,7 @@ function Order() {
   const navigate = useNavigate();
   // функциональность оплаты
   const handlePay = async () => {
-    setShowModal(true);
+    dispatch(setShowOrderModal(true));
   };
   // оплатить
   const handleNext = async () => {
@@ -58,7 +61,7 @@ function Order() {
     );
     currentOrder && dispatch(getCart());
     console.log('заказ оплачен');
-    setShowModal(false);
+    dispatch(setShowOrderModal(false));
   };
   // на главную с сохранением заказа в неоплаченные
   const handleBack = async () => {
@@ -70,7 +73,7 @@ function Order() {
     );
     currentOrder && dispatch(getCart());
     console.log('заказ не оплачен');
-    setShowModal(false);
+    dispatch(setShowOrderModal(false));
     navigate('/');
   };
   useEffect(() => {
@@ -107,33 +110,33 @@ function Order() {
         value={value}
         setValue={setValue}
       />
-      {showModal && (
-        <Modal
-          onClose={() => setShowModal(false)}
-          closeButtonClass='modal__close-button modal__close-button_type_confirm'
-        >
-          <p className='order-modal__title'>Оплатить сейчас?</p>
-          <p className='order-modal__subtitle'>
-            Вы можете вернуться к оплате позже в Личном кабинете покупателя.
-          </p>
-          <div className='order-modal__buttons'>
-            <button
-              type='button'
-              className='order-modal__button order-modal__button_type_back'
-              onClick={handleBack}
-            >
-              Нет, позже
-            </button>
-            <button
-              type='button'
-              className='order-modal__button order-modal__button_type_pay'
-              onClick={handleNext}
-            >
-              Да, сейчас
-            </button>
-          </div>
-        </Modal>
-      )}
+      <Modal
+        showModal={showOrderModal}
+        onClose={() => dispatch(setShowOrderModal(false))}
+        showCloseButton
+        closeButtonClass='modal__close-button modal__close-button_type_confirm'
+      >
+        <p className='order-modal__title'>Оплатить сейчас?</p>
+        <p className='order-modal__subtitle'>
+          Вы можете вернуться к оплате позже в Личном кабинете покупателя.
+        </p>
+        <div className='order-modal__buttons'>
+          <button
+            type='button'
+            className='order-modal__button order-modal__button_type_back'
+            onClick={handleBack}
+          >
+            Нет, позже
+          </button>
+          <button
+            type='button'
+            className='order-modal__button order-modal__button_type_pay'
+            onClick={handleNext}
+          >
+            Да, сейчас
+          </button>
+        </div>
+      </Modal>
     </section>
   );
 }
