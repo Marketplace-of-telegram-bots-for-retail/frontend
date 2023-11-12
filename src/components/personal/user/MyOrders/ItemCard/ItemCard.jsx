@@ -11,7 +11,7 @@ import remove from '../../../../../images/myordersDelete.svg';
 
 // одна строка бота в списке заказов
 
-function ItemCard({ element, firstItem, lastItem, isPaid, orderId, onDelete }) {
+function ItemCard({ element, firstItem, lastItem, isPaid, orderId, onDelete, onClickPay }) {
   const navigate = useNavigate();
   return (
     <li className='item' key={element.id}>
@@ -55,7 +55,7 @@ function ItemCard({ element, firstItem, lastItem, isPaid, orderId, onDelete }) {
       )}
       {!isPaid && firstItem && (
         <div className='item__functions'>
-          <button type="button" onClick={() => navigate(`/orders/${orderId}`)} className='item__function'>
+          <button type="button" onClick={onClickPay} className='item__function'>
             <img className='item__icon' src={pay} alt='Иконка ссылки' />
             <p className='item__todo'>Оплатить</p>
           </button>

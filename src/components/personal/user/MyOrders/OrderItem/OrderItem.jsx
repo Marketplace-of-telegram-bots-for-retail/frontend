@@ -3,7 +3,8 @@ import { React, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ItemCard from '../ItemCard/ItemCard';
 import {
-  deleteOrder
+  deleteOrder,
+  payOrdersId
 } from '../../../../../store/actions';
 
 import down from '../../../../../images/orders_down.svg';
@@ -35,12 +36,15 @@ function OrderItem({ item }) {
     return false;
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async () => {
     console.log('тут будет удаление заказа');
     await dispatch(deleteOrder(item.id));
   };
 
-  console.log(item.id);
+  const handleOrderPay = () => {
+    // console.log('pay', item.id);
+    dispatch(payOrdersId(item.id));
+  };
 
   return (
     <li className='orders__item' key={item.id}>
@@ -79,7 +83,7 @@ function OrderItem({ item }) {
       <ul className={`orders__product-list ${isOpen ? 'orders__product-list_visible' : ''}`}>
         {item.product_list.map((element) => {
           return (
-            <ItemCard element={element} firstItem={checkFirstItem(element)} lastItem={checkLastItem(element)} isPaid={item.is_paid} orderId={item.id} onDelete={() => handleDelete(item.id)} />
+            <ItemCard element={element} firstItem={checkFirstItem(element)} lastItem={checkLastItem(element)} isPaid={item.is_paid} orderId={item.id} onDelete={() => handleDelete(item.id)} onClickPay={handleOrderPay} />
           );
         })}
       </ul>

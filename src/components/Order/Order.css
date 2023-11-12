@@ -422,14 +422,13 @@
   border-radius: 8px;
   height: 50px;
   outline: none;
-  width: 100px;
   cursor: pointer;
+  width: 150px;
 }
 
 .order-modal__button_type_pay {
   background-color: var(--Primary-Accent);
   color: white;
-  width: 150px;
   border: none;
 }
 

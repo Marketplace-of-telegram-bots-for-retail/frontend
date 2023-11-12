@@ -93,6 +93,7 @@
   border: none;
   background-color: transparent;
   outline: none;
+  cursor: pointer;
 }
 
 .item__icon {

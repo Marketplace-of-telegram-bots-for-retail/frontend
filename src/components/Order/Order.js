@@ -46,18 +46,9 @@ function Order() {
   const navigate = useNavigate();
   // функциональность оплаты
   const handlePay = async () => {
-    // пост-запрос на создание заказа, передать пей_метод и сенд_ту
-    // console.log('pay method final -', payMethod, typeof payMethod);
     setShowModal(true);
-    // await dispatch(
-    //   placeAndPayOrder({
-    //     pay_method: payMethod,
-    //     send_to: value,
-    //   })
-    // );
-    // currentOrder && dispatch(getCart());
   };
-
+  // оплатить
   const handleNext = async () => {
     await dispatch(
       placeAndPayOrder({
@@ -69,7 +60,7 @@ function Order() {
     console.log('заказ оплачен');
     setShowModal(false);
   };
-
+  // на главную с сохранением заказа в неоплаченные
   const handleBack = async () => {
     await dispatch(
       postOrder({
@@ -77,12 +68,11 @@ function Order() {
         send_to: value,
       })
     );
-    // currentOrder && dispatch(getCart()); - если не скрыть, данные заказа не отобразятся
+    currentOrder && dispatch(getCart());
     console.log('заказ не оплачен');
     setShowModal(false);
-    // тут будет навигейт на страницу заново созданного заказа!
+    navigate('/');
   };
-
   useEffect(() => {
     dispatch(setCurrentOrder({}));
     itemsForOrder.length === 0 && navigate('/cart');
@@ -133,7 +123,7 @@ function Order() {
               Оплатить
             </button>
             <button type='button' className='order-modal__button order-modal__button_type_back' onClick={handleBack}>
-              Назад
+              На главную
             </button>
           </div>
         </Modal>
