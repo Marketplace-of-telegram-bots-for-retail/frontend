@@ -10,7 +10,7 @@ import {
 import down from '../../../../../images/orders_down.svg';
 import up from '../../../../../images/orders_up.svg';
 
-function OrderItem({ item }) {
+function OrderItem({ item, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -37,8 +37,8 @@ function OrderItem({ item }) {
   };
 
   const handleDelete = async () => {
-    console.log('тут будет удаление заказа');
     await dispatch(deleteOrder(item.id));
+    onDelete(item);
   };
 
   const handleOrderPay = () => {

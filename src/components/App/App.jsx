@@ -16,6 +16,7 @@ import {
   logOut,
   registerUser,
   updateProfile,
+  getOrdersList
 } from '../../store/actions';
 import { getUserData } from '../../store';
 
@@ -110,6 +111,10 @@ const App = () => {
     cbGetInitialsData();
     setPreloader(false);
   }, [clearStates, cbGetInitialsData]);
+
+  useEffect(() => {
+    dispatch(getOrdersList());
+  }, []);
 
   // Выполнить первичную проверку по токену и загрузить данные
   useEffect(() => {

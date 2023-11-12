@@ -19,7 +19,7 @@ import {
   getCart,
   placeAndPayOrder,
   setCurrentOrder,
-  postOrder
+  postOrder,
 } from '../../store/actions';
 
 function Order() {
@@ -112,18 +112,24 @@ function Order() {
           onClose={() => setShowModal(false)}
           closeButtonClass='modal__close-button modal__close-button_type_confirm'
         >
-          <p className='order-modal__title'>Желаете провести оплату сейчас?</p>
-          <p className='order-modal__subtitle'>Вернуться к оплате заказа можно через личный кабинет.</p>
+          <p className='order-modal__title'>Оплатить сейчас?</p>
+          <p className='order-modal__subtitle'>
+            Вы можете вернуться к оплате позже в Личном кабинете покупателя.
+          </p>
           <div className='order-modal__buttons'>
+            <button
+              type='button'
+              className='order-modal__button order-modal__button_type_back'
+              onClick={handleBack}
+            >
+              Нет, позже
+            </button>
             <button
               type='button'
               className='order-modal__button order-modal__button_type_pay'
               onClick={handleNext}
             >
-              Оплатить
-            </button>
-            <button type='button' className='order-modal__button order-modal__button_type_back' onClick={handleBack}>
-              На главную
+              Да, сейчас
             </button>
           </div>
         </Modal>
