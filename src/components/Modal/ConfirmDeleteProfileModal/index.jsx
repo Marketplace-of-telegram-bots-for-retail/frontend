@@ -49,7 +49,9 @@ export default function ConfirmDeleteProfileModal({ onClose, deleteProfile }) {
             type='button'
             className='button button_color_transparent-red'
             disabled={!isValid}
-            onClick={() => deleteProfile()}
+            onClick={() => {
+              deleteProfile(values.password);
+            }}
           >
             Удалить
           </button>

@@ -104,7 +104,7 @@ export default function ProfileNavigation(props) {
         onClose={() => {
           dispatch(setShowDeleteProfileModal(false));
         }}
-        deleteProfile={() => props.cbDeleteUser()}
+        deleteProfile={props.cbDeleteUser}
       />
     </nav>
   );

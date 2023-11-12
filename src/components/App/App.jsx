@@ -175,14 +175,16 @@ const App = () => {
   // };
 
   // Удаление пользователя
-  const cbDeleteUser = async () => {
-    dispatch(deleteUser()).then(() => {
-      navigate('/');
-      clearStates();
-      // загрузить данные пользователя и чекнуть jwt
-      cbTokenCheck();
-      getInitialData();
-      setPreloader(false);
+  const cbDeleteUser = async (password) => {
+    dispatch(deleteUser(password)).then((res) => {
+      if (res.payload === 204) {
+        navigate('/');
+        clearStates();
+        // загрузить данные пользователя и чекнуть jwt
+        cbTokenCheck();
+        getInitialData();
+        setPreloader(false);
+      }
     });
   };
 
@@ -203,10 +205,7 @@ const App = () => {
             <Footer />
             {isPreloader && <Preloader />}
             {showAuthButtons && (
-              <AuthButtons
-                cbLogIn={cbLogIn}
-                cbRegister={cbRegister}
-              />
+              <AuthButtons cbLogIn={cbLogIn} cbRegister={cbRegister} />
             )}
           </>
         }

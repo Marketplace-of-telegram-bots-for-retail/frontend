@@ -4,6 +4,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { api } from '../utils/Api';
 import { checkToken, setToken } from '../utils/tokenStorage';
+import { setShowLogoutModal, setShowDeleteProfileModal } from './modalsSlice';
 
 const initialState = {
   user: {},
@@ -46,9 +47,10 @@ export const logIn = createAsyncThunk(
 // Выход
 export const logOut = createAsyncThunk(
   'user/logOut',
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, dispatch }) => {
     try {
       await api.postLogOut();
+      dispatch(setShowLogoutModal(false));
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -117,10 +119,11 @@ export const updateProfile = createAsyncThunk(
 // Удаление пользователя
 export const deleteUser = createAsyncThunk(
   'user/deleteUser',
-  async (_, { rejectWithValue }) => {
+  async (password, { rejectWithValue, dispatch }) => {
     try {
-      const res = await api.deleteUserMe();
-      return res;
+      const res = await api.deleteUserMe({ current_password: password });
+      dispatch(setShowDeleteProfileModal(false));
+      return res.status;
     } catch (err) {
       return rejectWithValue(err);
     }
