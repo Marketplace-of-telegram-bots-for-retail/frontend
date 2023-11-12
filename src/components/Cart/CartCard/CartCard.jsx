@@ -6,10 +6,7 @@ import './CartCard.css';
 import LikeButton from '../../buttons/LikeButton/LikeButton';
 import CartButton from '../../buttons/CartButton/CartButton';
 import LightCross from '../../../images/ic_cross-20.svg';
-import {
-  selectProductCart,
-  deleteProductCart,
-} from '../../../store/actions';
+import { selectProductCart, deleteProductCart } from '../../../store/actions';
 import PreviewImage from '../../PreviewImage/PreviewImage';
 import { convertToLocaleStringRub } from '../../../utils/convertToLocaleStringRub';
 import Modal from '../../Modal';
@@ -127,19 +124,23 @@ function CartCard({ item, setIsShown }) {
           </div>
         )}
       </div>
-      {showModal && (
-        <Modal
-          onClose={() => {
-            setShowModal(false);
-          }}
-          showModal={() => setShowModal(true)}
-        >
-          <span className={`modal__image_type_add ${postButton ? 'modal__image_type_remove' : ''}`}></span>
-          <h2 className='modal__title modal__title_type_confirm-post'>
-            {postButton ? 'Товар опубликован в Каталоге' : 'Товар снят с публикации в Каталоге'}
-          </h2>
-        </Modal>
-      )}
+      <Modal
+        onClose={() => {
+          setShowModal(false);
+        }}
+        showModal={showModal}
+      >
+        <span
+          className={`modal__image_type_add ${
+            postButton ? 'modal__image_type_remove' : ''
+          }`}
+        ></span>
+        <h2 className='modal__title modal__title_type_confirm-post'>
+          {postButton
+            ? 'Товар опубликован в Каталоге'
+            : 'Товар снят с публикации в Каталоге'}
+        </h2>
+      </Modal>
     </li>
   );
 }

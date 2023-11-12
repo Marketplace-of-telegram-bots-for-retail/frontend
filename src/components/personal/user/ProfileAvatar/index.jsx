@@ -12,9 +12,11 @@ export default function ProfileAvatar(props) {
 
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
+  const [photoToUpload, setPhotoToUpload] = useState(null);
 
   function setAvatar(user, isEditing) {
-    const userphoto = localStorage.getItem('avatar');
+    // const userphoto = localStorage.getItem('avatar');
+    const userphoto = photoToUpload;
     if (userphoto) return userphoto;
     if (user.photo) return user.photo;
     return isEditing ? avatarEdit : avatar;
@@ -24,7 +26,8 @@ export default function ProfileAvatar(props) {
     const file = e.target.files[0];
     getBase64(file, (result) => {
       dispatch(setUserPhoto(result));
-      localStorage.setItem('avatar', result);
+      // localStorage.setItem('avatar', result);
+      setPhotoToUpload(result);
       setShowModal(false);
     });
   }

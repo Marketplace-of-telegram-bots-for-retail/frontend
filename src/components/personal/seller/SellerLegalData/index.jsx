@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getUserData } from '../../../../store';
+import { getUserData, getModals } from '../../../../store';
 import { setIsEditing } from '../../../../store/actions';
 import Input from '../../../Input';
 import ProfileFormButtons from '../../user/ProfileFormButtons';
@@ -13,6 +13,7 @@ import ProfileLegalDropdown from '../ProfileLegalDropDown/ProfileLegalDropdown';
 import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
 import LegalDataEdit from './LegalDataEdit/LegalDataEdit';
 import Modal from '../../../Modal';
+import { setShowResetSellerDataFormModal } from '../../../../store/modalsSlice';
 
 import './index.css';
 
@@ -30,12 +31,12 @@ function SellerLegalData() {
   } = useFormWithValidation();
 
   const { isEditing, userPhoto } = useSelector(getUserData);
+  const { showResetSellerDataFormModal } = useSelector(getModals);
   const [isHint, setIsHint] = useState(false);
   // const [value, setValue] = useState('');
   const [organization, setOrganization] = useState(false);
   const [indexTypeOfLegal, setIndexTypeOfLegal] = useState(0);
   const [legalEdit, setLegalEdit] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const handleIndexChange = (dropdownIndex) => {
     setIndexTypeOfLegal(dropdownIndex);
@@ -87,7 +88,7 @@ function SellerLegalData() {
 
   function handleResetForm() {
     resetForm();
-    setTimeout(() => setShowModal(false), 500);
+    setTimeout(() => dispatch(setShowResetSellerDataFormModal(false)), 500);
   }
 
   return (
@@ -318,40 +319,44 @@ function SellerLegalData() {
           </div>
           <ProfileFormButtons
             handleSubmit={handleSubmit}
-            resetForm={() => setShowModal(true)}
+            resetForm={() => {
+              dispatch(setShowResetSellerDataFormModal(true));
+            }}
             isValid={isValid}
           />
         </>
       )}
-      {showModal && (
-        <Modal
-          onClose={() => {
-            setShowModal(false);
-          }}
-          closeButtonClass='modal__close-button modal__close-button_type_confirm'
-        >
-          <h2 className='modal__title modal__title_type_confirm-logout'>
-            Вы уверены, что хотите очистить форму?
-          </h2>
-          <span className='modal__query-error'></span>
-          <div className='modal__buttons-container modal__buttons-container_type_confirm'>
-            <button
-              type='button'
-              className='button button_color_transparent'
-              onClick={() => setShowModal(false)}
-            >
-              Выйти
-            </button>
-            <button
-              type='button'
-              className='button button_color_blue'
-              onClick={handleResetForm}
-            >
-              Очистить
-            </button>
-          </div>
-        </Modal>
-      )}
+      <Modal
+        showModal={showResetSellerDataFormModal}
+        onClose={() => {
+          dispatch(setShowResetSellerDataFormModal(false));
+        }}
+        showCloseButton
+        closeButtonClass='modal__close-button modal__close-button_type_confirm'
+      >
+        <h2 className='modal__title modal__title_type_confirm-logout'>
+          Вы уверены, что хотите очистить форму?
+        </h2>
+        <span className='modal__query-error'></span>
+        <div className='modal__buttons-container modal__buttons-container_type_confirm'>
+          <button
+            type='button'
+            className='button button_color_transparent'
+            onClick={() => {
+              dispatch(setShowResetSellerDataFormModal(false));
+            }}
+          >
+            Выйти
+          </button>
+          <button
+            type='button'
+            className='button button_color_blue'
+            onClick={handleResetForm}
+          >
+            Очистить
+          </button>
+        </div>
+      </Modal>
     </form>
   );
 }

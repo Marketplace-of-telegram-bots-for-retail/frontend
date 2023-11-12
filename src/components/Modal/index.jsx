@@ -3,18 +3,34 @@ import './index.css';
 import { ReactComponent as Close } from '../../images/close-icon.svg';
 
 // модалка с затемненным фоном.
-// принимает вложенные в нее элементы и изменение стейта открытия модального окна на false (например setShowModal(false))
-// опционально принимает дополнительный класс крестика закрытия, в случае если изменился его размер/расположение
-export default function Modal({ children, onClose, closeButtonClass, showModal }) {
+// children - вложенные элементы
+// showModal - стейт модалки
+// onClose - что происходит при закрытии модалки
+// опциональный пропс, если true то отрисуется крестик закрытия
+// опциональный пропс, принимает класс кнопки (если отличается по размерам итд)
+
+export default function Modal({
+  children,
+  showModal,
+  onClose,
+  showCloseButton,
+  closeButtonClass,
+}) {
   return (
-    <div className='modal use-modal'>
-      <div className='modal__container'>
-        {children}
-        {!showModal && <Close
-          className={`modal__close-button ${closeButtonClass !== undefined ? closeButtonClass : ''}`}
-          onClick={onClose}
-        />}
+    showModal && (
+      <div className='modal use-modal'>
+        <div className='modal__container'>
+          {children}
+          {showCloseButton && (
+            <Close
+              className={`modal__close-button ${
+                closeButtonClass !== undefined ? closeButtonClass : ''
+              }`}
+              onClick={onClose}
+            />
+          )}
+        </div>
       </div>
-    </div>
+    )
   );
 }

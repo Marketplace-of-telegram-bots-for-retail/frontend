@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { HashLink } from 'react-router-hash-link';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import './Header.css';
 import { ARR_NAV } from '../../utils/constants';
 import SearchInputBox from '../form-items/SearchInputBox/SearchInputBox';
 import { useScroll } from '../../hooks/useScroll';
 import { getCartData, getProductsData, getUserData } from '../../store';
 import { ReactComponent as LogoColorSVG } from '../../images/BOTMARKET-color.svg';
+import { setShowAuthButtons } from '../../store/modalsSlice';
 
-const Header = ({ setShowAuthButtons }) => {
+const Header = () => {
+  const dispatch = useDispatch();
   const { scrollPosition } = useScroll();
   const { favoritesCount } = useSelector(getProductsData);
   const { total_quantity } = useSelector(getCartData);
@@ -18,7 +20,7 @@ const Header = ({ setShowAuthButtons }) => {
   const [isLogin, setLogin] = useState(false);
   const handleLogin = () => {
     setLogin(!isLogin);
-    setShowAuthButtons(true);
+    dispatch(setShowAuthButtons(true));
   };
   const headerMenuFixed = scrollPosition >= 108;
 

@@ -64,7 +64,7 @@ class Api {
   // Изменить одно поле пользователя
   patchUserMe = (data) => this._makeRequest('/users/me/', 'PATCH', data);
   // Удалить пользователя
-  deleteUserMe = () => this._makeRequest('/users/me/', 'DELETE');
+  deleteUserMe = (data) => this._makeRequest('/users/me/', 'DELETE', data);
   // Поменять пароль
   changePassword = (data) =>
     this._makeRequest('/users/set_password/', 'POST', data);
