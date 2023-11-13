@@ -37,7 +37,7 @@ const Goods = () => {
         <>
           <Dropdown />
           {results?.map((item) => {
-            return <div key={item.id}>тут карточка </div>;
+            return <div key={item.id}></div>;
           })}
         </>
       )}
