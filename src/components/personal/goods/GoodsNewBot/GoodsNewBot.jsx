@@ -33,10 +33,10 @@ const GoodsNewBot = () => {
     isValid,
     errors,
   } = useFormAndValid({});
-  const [isFirstFunctionShown, setIsFirstFunctionShown] = useState(false);
-  const [isSecondFunctionShown, setIsSecondFunctionShown] = useState(false);
-  const [isThirdFunctionShown, setIsThirdFunctionShown] = useState(false);
-  const [isFourthFunctionShown, setIsFourthFunctionShown] = useState(false);
+  // const [isFirstFunctionShown, setIsFirstFunctionShown] = useState(false);
+  // const [isSecondFunctionShown, setIsSecondFunctionShown] = useState(false);
+  // const [isThirdFunctionShown, setIsThirdFunctionShown] = useState(false);
+  // const [isFourthFunctionShown, setIsFourthFunctionShown] = useState(false);
 
   useEffect(() => {
     setFormValue('');
@@ -54,9 +54,9 @@ const GoodsNewBot = () => {
     setShowDescriptionPopup(true);
   }
 
-  function handleFunctionPopupClick() {
-    setShowFunctionPopup(true);
-  }
+  // function handleFunctionPopupClick() {
+  //   setShowFunctionPopup(true);
+  // }
 
   function handlePricePopupClick() {
     setShowPricePopup(true);
@@ -80,21 +80,21 @@ const GoodsNewBot = () => {
     setShowVideoPopup(false);
   }
 
-  function handleFirstFunctionClick() {
-    setIsFirstFunctionShown(!isFirstFunctionShown);
-  }
+  // function handleFirstFunctionClick() {
+  //   setIsFirstFunctionShown(!isFirstFunctionShown);
+  // }
 
-  function handleSecondFunctionClick() {
-    setIsSecondFunctionShown(!isSecondFunctionShown);
-  }
+  // function handleSecondFunctionClick() {
+  //   setIsSecondFunctionShown(!isSecondFunctionShown);
+  // }
 
-  function handleThirdFunctionClick() {
-    setIsThirdFunctionShown(!isThirdFunctionShown);
-  }
+  // function handleThirdFunctionClick() {
+  //   setIsThirdFunctionShown(!isThirdFunctionShown);
+  // }
 
-  function handleFourthFunctionClick() {
-    setIsFourthFunctionShown(!isFourthFunctionShown);
-  }
+  // function handleFourthFunctionClick() {
+  //   setIsFourthFunctionShown(!isFourthFunctionShown);
+  // }
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -201,7 +201,7 @@ const GoodsNewBot = () => {
           >
             {errors.name}
           </span>
-          <span className='new-bot__span'>{`${inputCount || 0}/70`}</span>
+          <span className='new-bot__span'>{`${inputCount || 0}/60`}</span>
         </div>
         <div className='new-bot__row new-bot__margin_type_twelve'>
           <h3 className='new-bot__title'>Описание бота</h3>
@@ -219,7 +219,7 @@ const GoodsNewBot = () => {
           name='description'
           value={formValue.description || ''}
           onChange={handleChange}
-          placeholder='Описание может содержать от 50 до 500 символов. Только строчные буквы.'
+          placeholder='Описание может содержать от 50 до 1500 символов. Только строчные буквы.'
           autoComplete='off'
           minLength={50}
           maxLength={1500}
@@ -235,7 +235,7 @@ const GoodsNewBot = () => {
           </span>
           <span className='new-bot__span'>{`${inputsCount.description || 0}/1500`}</span>
         </div>
-        <div className='new-bot__row new-bot__margin_type_twelve'>
+        {/* <div className='new-bot__row new-bot__margin_type_twelve'>
           <h3 className='new-bot__title'>Функции</h3>
           <img
             className='new-bot__icon'
@@ -384,7 +384,7 @@ const GoodsNewBot = () => {
             />
             <span className='new-bot__span'>{`${inputsCount.function || 0}/200`}</span>
           </>
-        )}
+        )} */}
         <div className='new-bot__row'>
           <h3 className='new-bot__title'>Цена</h3>
           <img
