@@ -37,8 +37,9 @@
 
 .new-bot__input-container {
   display: flex;
-  align-items: center;
-  height: 32px;
+  flex-direction: column;
+  align-items: flex-start;
+  /*height: 32px;*/
   margin: 0;
   padding: 0;
 }
