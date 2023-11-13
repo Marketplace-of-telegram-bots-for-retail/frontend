@@ -41,13 +41,12 @@ function OrderItem({ item, onDelete }) {
     onDelete(item);
   };
 
-  const handleOrderPay = () => {
-    // console.log('pay', item.id);
-    dispatch(payOrdersId(item.id));
+  const handleOrderPay = async () => {
+    await dispatch(payOrdersId(item.id));
   };
 
   return (
-    <li className='orders__item' key={item.id}>
+    <li className='orders__item'>
       <div className='orders__up-block'>
         <div className='orders__left-part'>
           <p className='orders__item-title'>
@@ -83,7 +82,7 @@ function OrderItem({ item, onDelete }) {
       <ul className={`orders__product-list ${isOpen ? 'orders__product-list_visible' : ''}`}>
         {item.product_list.map((element) => {
           return (
-            <ItemCard element={element} firstItem={checkFirstItem(element)} lastItem={checkLastItem(element)} isPaid={item.is_paid} orderId={item.id} onDelete={() => handleDelete(item.id)} onClickPay={handleOrderPay} />
+            <ItemCard key={element.id} element={element} firstItem={checkFirstItem(element)} lastItem={checkLastItem(element)} isPaid={item.is_paid} orderId={item.id} onDelete={() => handleDelete(item.id)} onClickPay={handleOrderPay} />
           );
         })}
       </ul>

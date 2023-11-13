@@ -21,12 +21,13 @@ import {
   placeAndPayOrder,
   setCurrentOrder,
   postOrder,
+  setAllOrders
 } from '../../store/actions';
 import { setShowOrderModal } from '../../store/modalsSlice';
 
 function Order() {
   const dispatch = useDispatch();
-  const { currentOrder } = useSelector(getUserOrdersData);
+  const { currentOrder, allOrders } = useSelector(getUserOrdersData);
   const { itemsForOrder } = useSelector(getCartData);
   const { user } = useSelector(getUserData);
 
@@ -58,11 +59,12 @@ function Order() {
         pay_method: payMethod,
         send_to: value,
       })
-    );
+    ).then((currentOrder) => setAllOrders([...allOrders, currentOrder]));
     currentOrder && dispatch(getCart());
     console.log('заказ оплачен');
     dispatch(setShowOrderModal(false));
   };
+
   // на главную с сохранением заказа в неоплаченные
   const handleBack = async () => {
     await dispatch(
