@@ -18,6 +18,8 @@
   font-weight: 400;
   line-height: 20px;
   letter-spacing: 0.4px;
+  max-width: 100%;
+  word-wrap: normal;
   white-space: pre-wrap;
 }
 

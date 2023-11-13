@@ -9,7 +9,7 @@ const ReviewCard = ({ review }) => {
     month: 'long',
     year: 'numeric',
   };
-  const date = new Date(review.modified)
+  const date = new Date(review.modified || review.created)
     .toLocaleString('ru-RU', options)
     .replace(/\s*г\./, '');
   const formattedDate = `${date}`;
