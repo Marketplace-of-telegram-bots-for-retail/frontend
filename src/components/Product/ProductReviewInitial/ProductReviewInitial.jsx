@@ -21,7 +21,8 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
   const [star, setStar] = useState(null);
   const limit = count < reviews.length;
   const [isDataChanged, setIsDataChanged] = useState(false);
-  const { is_Bought } = useSelector(getProductCardData).productCard;
+  const { is_buying } = useSelector(getProductCardData).productCard;
+  console.log(is_buying);
   // заменить на userID
   const currentReview = reviews.filter((c) => c.user.user_id === user.id)[0];
   const dispatch = useDispatch();
@@ -101,7 +102,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
       <p className='popover__text'>
         {!isAuthorized
           ? 'Сначала авторизуйтесь'
-          : !is_Bought && 'Отзыв можно оставить только после покупки бота'}
+          : !is_buying && 'Отзыв можно оставить только после покупки бота'}
       </p>
       <PolygonSVG className='popover__svg' />
     </div>
@@ -120,8 +121,8 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
                 type='button'
                 onClick={() => handleFeedbackClick()}
                 aria-label='Оставить отзыв'
-                // disabled={!isAuthorized || !is_Bought}
-                disabled={!isAuthorized}
+                disabled={!isAuthorized || !is_buying}
+                // disabled={!isAuthorized}
               >
                 Оставить отзыв
               </button>
