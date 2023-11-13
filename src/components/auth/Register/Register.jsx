@@ -42,7 +42,7 @@ const Register = (props) => {
     formData.phone = phone;
     formData.password = password;
     formData.re_password = confirmPassword;
-    console.log(formData);
+    // console.log(formData);
     props.cbRegister(formData);
   };
 

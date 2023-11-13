@@ -5,6 +5,8 @@ export function useFormAndValid() {
   const [errors, setErrors] = useState({});
   const [isValid, setValid] = useState(false);
   const [inputCount, setInputCount] = useState(0);
+  const [inputsCount, setInputsCount] = useState({});
+
   const [checked, setChecked] = useState(false);
   // эти 3 строки ниже можно убрать, если не будем делать через formValue
   const [file, setFile] = useState([]);
@@ -36,6 +38,9 @@ export function useFormAndValid() {
         return { ...state, [name]: value };
       });
     }
+    setInputsCount((state) => {
+      return { ...state, [name]: value.length };
+    });
     setInputCount(event.target.value.length);
     setChecked(!checked);
     setErrors({ ...errors, [name]: event.target.validationMessage });
@@ -59,6 +64,7 @@ export function useFormAndValid() {
     isValid,
     setValid,
     inputCount,
+    inputsCount,
     setInputCount,
     file,
     setFile,
