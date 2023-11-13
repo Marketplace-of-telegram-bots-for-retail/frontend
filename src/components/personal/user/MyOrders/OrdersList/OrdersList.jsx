@@ -17,7 +17,7 @@ function OrdersList({ orders, setOrders }) {
   return (
     <ul className='orders__list'>
       {orders.map((item) => (
-        <OrderItem item={item} onDelete={handleDelete} />
+        <OrderItem item={item} key={item.id} onDelete={handleDelete} />
       ))}
     </ul>
   );
