@@ -12,7 +12,7 @@ import PopupPhoto from '../../../popups/PopupPhoto/PopupPhoto';
 import PopupVideo from '../../../popups/PopupVideo/PopupVideo';
 import PopupPriceBot from '../../../popups/PopupPrice/PopupPriceBot';
 import { useFormAndValid } from '../../../../hooks/useFormAndValid';
-import { postProduct } from '../../../../store/sellersProductsSlice';
+import { postProduct } from '../../../../store/actions';
 
 const GoodsNewBot = () => {
   const dispatch = useDispatch();
@@ -23,14 +23,19 @@ const GoodsNewBot = () => {
   const [showPricePopup, setShowPricePopup] = useState(false);
   const [showPhotoPopup, setShowPhotoPopup] = useState(false);
   const [showVideoPopup, setShowVideoPopup] = useState(false);
-  const { formValue, setFormValue, handleChange, inputCount, checked, file, isValid, errors } = useFormAndValid({});
+  const {
+    formValue,
+    setFormValue,
+    handleChange,
+    inputCount,
+    checked,
+    isValid,
+    errors,
+  } = useFormAndValid({});
   const [isFirstFunctionShown, setIsFirstFunctionShown] = useState(false);
   const [isSecondFunctionShown, setIsSecondFunctionShown] = useState(false);
   const [isThirdFunctionShown, setIsThirdFunctionShown] = useState(false);
   const [isFourthFunctionShown, setIsFourthFunctionShown] = useState(false);
-  // если берем formData, file можно раскомментировать
-  // const [file, setFile] = useState([]);
-  console.log(file);
 
   useEffect(() => {
     setFormValue('');
@@ -89,37 +94,22 @@ const GoodsNewBot = () => {
   function handleFourthFunctionClick() {
     setIsFourthFunctionShown(!isFourthFunctionShown);
   }
-  // эту функцию нужно раскоментировать и добавить в onClick фото
-  /*
-  function handleSelectPhoto(e) {
-    console.log(e.target.files[0]);
-    const reader = new FileReader();
-    reader.readAsDataURL(e.target.files[0]);
-    reader.onloadend = () => {
-      setFile(file.push(reader.result));
-    };
-    // setFile(e.target.files[0]);
-  }
-*/
-  function handleSubmit() {
-    /*
-    const data = new FormData();
-    data.append('category', 1);
-    data.append('name', formValue.name);
-    data.append('description', formValue.description);
-    data.append('price', formValue.price);
-    data.append('images', [file]);
-    // eslint-disable-next-line no-restricted-syntax
-    for (const [key, value] of data.entries()) {
-      console.log(key, value);
-    }
-    */
+
+  function handleSubmit(e) {
+    e.preventDefault();
     dispatch(postProduct(formValue));
+    // Нужно добавить функцию для сброса формы или перехода на страницу со своими ботами
   }
 
   return (
     <section className='new-bot'>
-      <form className='new-bot__form' id='form' method='post' encType='multipart/form-data'>
+      <form
+        className='new-bot__form'
+        id='form'
+        method='post'
+        encType='multipart/form-data'
+        onSubmit={handleSubmit}
+      >
         <div className='new-bot__row'>
           <h3 className='new-bot__title'>Категория бота</h3>
           <img
@@ -203,7 +193,11 @@ const GoodsNewBot = () => {
           required
         />
         <div className='new-bot__span-row'>
-          <span className={`new-bot__name-error name-input-error ${isValid ? '' : 'new-bot__error_visible'}`}>
+          <span
+            className={`new-bot__name-error name-input-error ${
+              isValid ? '' : 'new-bot__error_visible'
+            }`}
+          >
             {errors.name}
           </span>
           <span className='new-bot__span'>{`${inputCount}/70`}</span>
@@ -231,7 +225,11 @@ const GoodsNewBot = () => {
           required
         />
         <div className='new-bot__span-row'>
-          <span className={`new-bot__description-error description-input-error ${isValid ? '' : 'new-bot__error_visible'}`}>
+          <span
+            className={`new-bot__description-error description-input-error ${
+              isValid ? '' : 'new-bot__error_visible'
+            }`}
+          >
             {errors.description}
           </span>
           <span className='new-bot__span'>{`${inputCount}/500`}</span>
@@ -257,7 +255,11 @@ const GoodsNewBot = () => {
           maxLength={200}
         />
         <div className='new-bot__span-row'>
-          <span className={`new-bot__function-error function-input-error ${isValid ? '' : 'new-bot__error_visible'}`}>
+          <span
+            className={`new-bot__function-error function-input-error ${
+              isValid ? '' : 'new-bot__error_visible'
+            }`}
+          >
             {errors.function}
           </span>
           <span className='new-bot__span'>{`${inputCount}/200`}</span>
@@ -288,15 +290,19 @@ const GoodsNewBot = () => {
             />
             <span className='new-bot__span'>{`${inputCount}/200`}</span>
             {!isSecondFunctionShown && (
-            <button
-              className='new-bot__button-add new-bot__button-add_type_function'
-              type='button'
-              onClick={handleSecondFunctionClick}
-              aria-label='Добавить функцию'
-            >
-              <img className='new-bot__icon-16' src={plus} alt='плюс добавить' />
-              <p className='new-bot__add'>Добавить</p>
-            </button>
+              <button
+                className='new-bot__button-add new-bot__button-add_type_function'
+                type='button'
+                onClick={handleSecondFunctionClick}
+                aria-label='Добавить функцию'
+              >
+                <img
+                  className='new-bot__icon-16'
+                  src={plus}
+                  alt='плюс добавить'
+                />
+                <p className='new-bot__add'>Добавить</p>
+              </button>
             )}
           </>
         )}
@@ -315,15 +321,19 @@ const GoodsNewBot = () => {
             />
             <span className='new-bot__span'>{`${inputCount}/200`}</span>
             {!isThirdFunctionShown && (
-            <button
-              className='new-bot__button-add new-bot__button-add_type_function'
-              type='button'
-              onClick={handleThirdFunctionClick}
-              aria-label='Добавить функцию'
-            >
-              <img className='new-bot__icon-16' src={plus} alt='плюс добавить' />
-              <p className='new-bot__add'>Добавить</p>
-            </button>
+              <button
+                className='new-bot__button-add new-bot__button-add_type_function'
+                type='button'
+                onClick={handleThirdFunctionClick}
+                aria-label='Добавить функцию'
+              >
+                <img
+                  className='new-bot__icon-16'
+                  src={plus}
+                  alt='плюс добавить'
+                />
+                <p className='new-bot__add'>Добавить</p>
+              </button>
             )}
           </>
         )}
@@ -342,15 +352,19 @@ const GoodsNewBot = () => {
             />
             <span className='new-bot__span'>{`${inputCount}/200`}</span>
             {!isFourthFunctionShown && (
-            <button
-              className='new-bot__button-add new-bot__button-add_type_function'
-              type='button'
-              onClick={handleFourthFunctionClick}
-              aria-label='Добавить функцию'
-            >
-              <img className='new-bot__icon-16' src={plus} alt='плюс добавить' />
-              <p className='new-bot__add'>Добавить</p>
-            </button>
+              <button
+                className='new-bot__button-add new-bot__button-add_type_function'
+                type='button'
+                onClick={handleFourthFunctionClick}
+                aria-label='Добавить функцию'
+              >
+                <img
+                  className='new-bot__icon-16'
+                  src={plus}
+                  alt='плюс добавить'
+                />
+                <p className='new-bot__add'>Добавить</p>
+              </button>
             )}
           </>
         )}
@@ -391,7 +405,11 @@ const GoodsNewBot = () => {
           required
         />
         <div className='new-bot__span-row'>
-          <span className={`new-bot__price-error price-input-error ${isValid ? '' : 'new-bot__error_visible'}`}>
+          <span
+            className={`new-bot__price-error price-input-error ${
+              isValid ? '' : 'new-bot__error_visible'
+            }`}
+          >
             {errors.price}
           </span>
         </div>
@@ -406,13 +424,16 @@ const GoodsNewBot = () => {
         </div>
         <div>
           <input
-            className="new-bot__input-photo"
-            type="file"
-            id="image-file"
+            className='new-bot__input-photo'
+            type='file'
+            id='image-file'
             name='images'
             onChange={handleChange}
           />
-          <label className="new-bot__button-add new-bot__button-add_type_photo" for="image-file">
+          <label
+            className='new-bot__button-add new-bot__button-add_type_photo'
+            for='image-file'
+          >
             <img className='new-bot__icon-16' src={plus} alt='плюс добавить' />
             <p className='new-bot__add'>Добавить</p>
           </label>
@@ -439,9 +460,9 @@ const GoodsNewBot = () => {
         <div className='new-bot__buttons-row'>
           <button
             className='new-bot__save-button'
-            type='button'
+            type='submit'
             aria-label='Добавить товар'
-            onClick={handleSubmit}
+            // onClick={handleSubmit}
           >
             Сохранить
           </button>
@@ -456,7 +477,10 @@ const GoodsNewBot = () => {
       </form>
       <PopupCategory isOpen={showCategoryPopup} onClose={closeAllPopups} />
       <PopupName isOpen={showNamePopup} onClose={closeAllPopups} />
-      <PopupDescription isOpen={showDescriptionPopup} onClose={closeAllPopups} />
+      <PopupDescription
+        isOpen={showDescriptionPopup}
+        onClose={closeAllPopups}
+      />
       <PopupFunction isOpen={showFunctionPopup} onClose={closeAllPopups} />
       <PopupPhoto isOpen={showPhotoPopup} onClose={closeAllPopups} />
       <PopupVideo isOpen={showVideoPopup} onClose={closeAllPopups} />

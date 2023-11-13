@@ -10,44 +10,49 @@ export function useFormAndValid() {
   const [file, setFile] = useState([]);
   const reader = new FileReader();
   const image = document.getElementById('image-file');
-
+  // console.log(reader);
   const handleChange = (event) => {
     const { value, name } = event.target;
-    // условие if тоже можно убрать, оно тут не срабатывет
-    if (event.target === image) {
-      value === file;
-      console.log(value);
-      console.log(file);
-    }
-    setFormValue({ ...formValue, [name]: value });
-    setInputCount(event.target.value.length);
-    setChecked(!checked);
     // в этой конструкции if определяю если картинка, то делаем файл и массив
     // с массивом чувствую можно проще
     if (event.target === image) {
+      console.log('(event.target === image)', event.target.files);
+
       reader.readAsDataURL(event.target.files[0]);
       reader.onloadend = () => {
-        setFile(file.push(reader.result));
-        console.log(file);
+        setFile((state) => state.concat(reader.result));
+        setFormValue((state) => {
+          console.log(state[name]);
+          return {
+            ...state,
+            [name]: !state[name]
+              ? Array(reader.result)
+              : state[name].concat(reader.result),
+          };
+        });
       };
+    } else {
+      setFormValue((state) => {
+        return { ...state, [name]: value };
+      });
     }
+    setInputCount(event.target.value.length);
+    setChecked(!checked);
     setErrors({ ...errors, [name]: event.target.validationMessage });
     setValid(event.target.closest('form').checkValidity());
-    console.log(event);
-    console.log(event.target);
-    console.log(event.target === image);
-    console.log(value);
-    console.log(event.target.value);
-    console.log(file);
   };
   console.log(formValue);
 
-  const resetForm = useCallback((newFormValue = {}, newErrors = {}, newIsValid = false) => {
-    setFormValue(newFormValue);
-    setErrors(newErrors);
-    setValid(newIsValid);
-  }, [setFormValue, setErrors, setValid]);
-  return { formValue,
+  const resetForm = useCallback(
+    (newFormValue = {}, newErrors = {}, newIsValid = false) => {
+      setFormValue(newFormValue);
+      setErrors(newErrors);
+      setValid(newIsValid);
+    },
+    [setFormValue, setErrors, setValid]
+  );
+  return {
+    formValue,
     handleChange,
     setFormValue,
     errors,
@@ -57,5 +62,6 @@ export function useFormAndValid() {
     setInputCount,
     file,
     setFile,
-    resetForm };
+    resetForm,
+  };
 }

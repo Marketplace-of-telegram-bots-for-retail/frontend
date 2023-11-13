@@ -19,6 +19,7 @@ const initialState = {
 export const postProduct = createAsyncThunk(
   'sellersProducts/postProduct',
   async (data, { rejectWithValue }) => {
+    console.log(data);
     try {
       const res = await api.postProduct(data);
       // потом убрать
@@ -141,6 +142,7 @@ const sellersProductsSlice = createSlice({
     builder
       .addCase(postProduct.pending, setPending)
       .addCase(postProduct.fulfilled, (state, action) => {
+        console.log(postProduct);
         state.newProduct = action.payload;
         setFulfilled(state);
       })
