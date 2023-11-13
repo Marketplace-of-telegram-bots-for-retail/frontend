@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { NavLink, useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import './index.css';
 import {
   profileNavigationCustomer,
   profileNavigationSeller,
 } from '../../../utils/constants';
-import useModal from '../../../hooks/useModal';
 import ConfirmLogoutModal from '../../Modal/ConfirmLogoutModal';
 import ConfirmDeleteProfileModal from '../../Modal/ConfirmDeleteProfileModal';
 import { ReactComponent as ArrowSVG } from '../../../images/heroicons_arrow-path-20-solid.svg';
 import { ReactComponent as ArrowSellerSVG } from '../../../images/heroicons_arrow-path-20-solid-orange.svg';
+import {
+  setShowLogoutModal,
+  setShowDeleteProfileModal,
+} from '../../../store/modalsSlice';
 
 export default function ProfileNavigation(props) {
   const [userType, setUserType] = useState(null);
@@ -17,11 +21,7 @@ export default function ProfileNavigation(props) {
 
   const navigate = useNavigate();
   const location = useLocation();
-  const [showLogoutModal, setShowLogoutModal] = useState(false);
-  useModal(showLogoutModal, setShowLogoutModal);
-
-  const [showDeleteProfileModal, setShowDeleteProfileModal] = useState(false);
-  useModal(showDeleteProfileModal, setShowDeleteProfileModal);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (location.pathname.search('/personal/seller') === 0) {
@@ -78,7 +78,7 @@ export default function ProfileNavigation(props) {
           type='button'
           className='profile__nav-button profile__nav-button_type_logout button'
           onClick={() => {
-            setShowLogoutModal(true);
+            dispatch(setShowLogoutModal(true));
           }}
         >
           Выйти из аккаунта
@@ -87,30 +87,25 @@ export default function ProfileNavigation(props) {
           type='button'
           className='profile__nav-button profile__nav-button_type_delete-profile button'
           onClick={() => {
-            setShowDeleteProfileModal(true);
+            dispatch(setShowDeleteProfileModal(true));
           }}
         >
           Удалить аккаунт
         </button>
       </div>
 
-      {showLogoutModal && (
-        <ConfirmLogoutModal
-          onClose={() => {
-            setShowLogoutModal(false);
-          }}
-          logout={() => props.cbLogout()}
-        />
-      )}
-
-      {showDeleteProfileModal && (
-        <ConfirmDeleteProfileModal
-          onClose={() => {
-            setShowDeleteProfileModal(false);
-          }}
-          deleteProfile={() => props.cbDeleteUser()}
-        />
-      )}
+      <ConfirmLogoutModal
+        onClose={() => {
+          dispatch(setShowLogoutModal(false));
+        }}
+        logout={() => props.cbLogout()}
+      />
+      <ConfirmDeleteProfileModal
+        onClose={() => {
+          dispatch(setShowDeleteProfileModal(false));
+        }}
+        deleteProfile={props.cbDeleteUser}
+      />
     </nav>
   );
 }

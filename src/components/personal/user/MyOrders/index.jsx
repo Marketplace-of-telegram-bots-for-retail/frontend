@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './index.css';
 import { React, useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,9 +7,6 @@ import { getOrdersList } from '../../../../store/actions';
 
 import OrdersList from './OrdersList/OrdersList';
 import Dropdown from './Dropdown/Dropdown';
-
-// блок "мои заказы" в лк пользователя
-// данные из корзины при нажатии "к оформлению" - массив itemsForOrder
 
 function MyOrders() {
   const dispatch = useDispatch();

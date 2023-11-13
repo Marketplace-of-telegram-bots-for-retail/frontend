@@ -2,11 +2,15 @@
 import { React, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import ItemCard from '../ItemCard/ItemCard';
+import {
+  deleteOrder,
+  payOrdersId
+} from '../../../../../store/actions';
 
 import down from '../../../../../images/orders_down.svg';
 import up from '../../../../../images/orders_up.svg';
 
-function OrderItem({ item }) {
+function OrderItem({ item, onDelete }) {
   const [isOpen, setIsOpen] = useState(false);
   const dispatch = useDispatch();
 
@@ -20,10 +24,26 @@ function OrderItem({ item }) {
     .replace(/\s*г\./, '');
   const formattedDate = `${date}`;
 
+  const checkFirstItem = (element) => {
+    const first = item.product_list[0];
+    if (first === element) return true;
+    return false;
+  };
+
   const checkLastItem = (element) => {
     const last = item.product_list[item.product_list.length - 1];
     if (last === element) return true;
     return false;
+  };
+
+  const handleDelete = async () => {
+    await dispatch(deleteOrder(item.id));
+    onDelete(item);
+  };
+
+  const handleOrderPay = () => {
+    // console.log('pay', item.id);
+    dispatch(payOrdersId(item.id));
   };
 
   return (
@@ -63,7 +83,7 @@ function OrderItem({ item }) {
       <ul className={`orders__product-list ${isOpen ? 'orders__product-list_visible' : ''}`}>
         {item.product_list.map((element) => {
           return (
-            <ItemCard element={element} lastItem={checkLastItem(element)} />
+            <ItemCard element={element} firstItem={checkFirstItem(element)} lastItem={checkLastItem(element)} isPaid={item.is_paid} orderId={item.id} onDelete={() => handleDelete(item.id)} onClickPay={handleOrderPay} />
           );
         })}
       </ul>
