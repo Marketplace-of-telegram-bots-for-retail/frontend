@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MyPromoCodes = () => {
-  return <div>MyPromoCodes</div>;
+  return <div></div>;
 };
 
 export default MyPromoCodes;
