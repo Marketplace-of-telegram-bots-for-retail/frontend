@@ -28,6 +28,7 @@ const GoodsNewBot = () => {
     setFormValue,
     handleChange,
     inputCount,
+    inputsCount,
     checked,
     isValid,
     errors,
@@ -200,7 +201,7 @@ const GoodsNewBot = () => {
           >
             {errors.name}
           </span>
-          <span className='new-bot__span'>{`${inputCount}/70`}</span>
+          <span className='new-bot__span'>{`${inputCount || 0}/70`}</span>
         </div>
         <div className='new-bot__row new-bot__margin_type_twelve'>
           <h3 className='new-bot__title'>Описание бота</h3>
@@ -221,7 +222,7 @@ const GoodsNewBot = () => {
           placeholder='Описание может содержать от 50 до 500 символов. Только строчные буквы.'
           autoComplete='off'
           minLength={50}
-          maxLength={500}
+          maxLength={1500}
           required
         />
         <div className='new-bot__span-row'>
@@ -232,7 +233,7 @@ const GoodsNewBot = () => {
           >
             {errors.description}
           </span>
-          <span className='new-bot__span'>{`${inputCount}/500`}</span>
+          <span className='new-bot__span'>{`${inputsCount.description || 0}/1500`}</span>
         </div>
         <div className='new-bot__row new-bot__margin_type_twelve'>
           <h3 className='new-bot__title'>Функции</h3>
@@ -262,7 +263,7 @@ const GoodsNewBot = () => {
           >
             {errors.function}
           </span>
-          <span className='new-bot__span'>{`${inputCount}/200`}</span>
+          <span className='new-bot__span'>{`${inputCount || 0}/200`}</span>
         </div>
         {!isFirstFunctionShown && (
           <button
@@ -288,7 +289,7 @@ const GoodsNewBot = () => {
               autoComplete='off'
               maxLength={200}
             />
-            <span className='new-bot__span'>{`${inputCount}/200`}</span>
+            <span className='new-bot__span'>{`${inputsCount.function || 0 || 0}/200`}</span>
             {!isSecondFunctionShown && (
               <button
                 className='new-bot__button-add new-bot__button-add_type_function'
@@ -319,7 +320,7 @@ const GoodsNewBot = () => {
               autoComplete='off'
               maxLength={200}
             />
-            <span className='new-bot__span'>{`${inputCount}/200`}</span>
+            <span className='new-bot__span'>{`${inputsCount.function || 0}/200`}</span>
             {!isThirdFunctionShown && (
               <button
                 className='new-bot__button-add new-bot__button-add_type_function'
@@ -350,7 +351,7 @@ const GoodsNewBot = () => {
               autoComplete='off'
               maxLength={200}
             />
-            <span className='new-bot__span'>{`${inputCount}/200`}</span>
+            <span className='new-bot__span'>{`${inputsCount.function || 0}/200`}</span>
             {!isFourthFunctionShown && (
               <button
                 className='new-bot__button-add new-bot__button-add_type_function'
@@ -381,7 +382,7 @@ const GoodsNewBot = () => {
               autoComplete='off'
               maxLength={200}
             />
-            <span className='new-bot__span'>{`${inputCount}/200`}</span>
+            <span className='new-bot__span'>{`${inputsCount.function || 0}/200`}</span>
           </>
         )}
         <div className='new-bot__row'>
