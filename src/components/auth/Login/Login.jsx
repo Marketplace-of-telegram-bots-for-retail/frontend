@@ -26,7 +26,7 @@ const Login = (props) => {
       password,
       rememberMe: isCheckboxChecked,
     };
-    console.log(formData);
+    // console.log(formData);
     props.cbLogIn(formData);
   };
 

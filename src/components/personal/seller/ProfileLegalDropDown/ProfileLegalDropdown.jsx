@@ -36,12 +36,12 @@ function ProfileLegalDropdown(props) {
     <div className='profile-legal-form__dropdown'>
       <span className='profile-legal-form__dropdown-input input__name'>{props.inputName}</span>
       <div className='profile-legal-form__dropdown-container' onClick={() => handleOpen()}>
-        <button
+        <input
+          value={props.dropdown[dropdown].title}
           type='button'
           className='profile-legal-form__dropdown-button'
-        >
-          {props.dropdown[dropdown].title}
-        </button>
+          disabled={props.isEditing}
+        ></input>
         <div className='profile-legal-form__dropdown-button-container'>
           <div className='profile-legal-form__dropdown-button-icon'></div>
           {props.hint && <div className='profile-legal-form__dropdown-button-hint' onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>

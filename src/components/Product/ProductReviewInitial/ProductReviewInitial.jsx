@@ -74,14 +74,14 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
     if (currentReview) {
       const reviewId = currentReview.id;
       editFeedback(id, reviewId, {
-        modified: new Date().toJSON(),
+        // modified: new Date().toJSON(),
         rating: star,
         text: values.text,
       });
       setValues('');
     } else {
       sendFeedback(id, {
-        modified: new Date().toJSON(),
+        // modified: new Date().toJSON(),
         rating: star,
         text: values.text,
       });
@@ -162,7 +162,7 @@ const ProductReviewInitial = ({ reviews, count, onShowAllReviews }) => {
             <Rating
               feedbackStars={currentReview?.rating || 0}
               onClickStar={(i) => {
-                console.log(i);
+                // console.log(i);
                 setStar(i);
               }}
             />

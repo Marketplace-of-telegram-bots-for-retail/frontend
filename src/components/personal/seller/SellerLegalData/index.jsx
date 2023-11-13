@@ -1,10 +1,10 @@
-/* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
+/* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { getUserData } from '../../../../store';
-import './index.css';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserData, getModals } from '../../../../store';
+import { setIsEditing } from '../../../../store/actions';
 import Input from '../../../Input';
 import ProfileFormButtons from '../../user/ProfileFormButtons';
 import ProfileAvatar from '../../user/ProfileAvatar';
@@ -13,8 +13,12 @@ import ProfileLegalDropdown from '../ProfileLegalDropDown/ProfileLegalDropdown';
 import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
 import LegalDataEdit from './LegalDataEdit/LegalDataEdit';
 import Modal from '../../../Modal';
+import { setShowResetSellerDataFormModal } from '../../../../store/modalsSlice';
+
+import './index.css';
 
 function SellerLegalData() {
+  const dispatch = useDispatch();
   const { user } = useSelector(getUserData);
   const {
     values,
@@ -25,14 +29,14 @@ function SellerLegalData() {
     isValid,
     resetForm,
   } = useFormWithValidation();
-  const [isEditing, setIsEditing] = useState(false);
-  const [userphoto, setUserphoto] = useState(null);
+
+  const { isEditing, userPhoto } = useSelector(getUserData);
+  const { showResetSellerDataFormModal } = useSelector(getModals);
   const [isHint, setIsHint] = useState(false);
   // const [value, setValue] = useState('');
   const [organization, setOrganization] = useState(false);
   const [indexTypeOfLegal, setIndexTypeOfLegal] = useState(0);
   const [legalEdit, setLegalEdit] = useState(false);
-  const [showModal, setShowModal] = useState(false);
 
   const handleIndexChange = (dropdownIndex) => {
     setIndexTypeOfLegal(dropdownIndex);
@@ -41,22 +45,24 @@ function SellerLegalData() {
   function handleAddProve() {
     console.log('добавить документы');
   }
-  // function handleChangeList(evt) {
-  //   setValue(evt.target.values);
-  // }
 
   useEffect(() => {
-    resetForm();
+    return () => dispatch(setIsEditing(false));
+  }, []);
+
+  useEffect(() => {
+    // resetForm();
+    // setLegalEdit(true);
     setValues({
-      name: currentUser.first_name,
-      surname: currentUser.last_name,
+      name: user.first_name,
+      surname: user.last_name,
     });
-    if (!isEditing) localStorage.removeItem('avatar');
-  }, [user, isEditing]);
+    if (!isEditing) localStorage.removeItem('LegalAvatar');
+  }, [user, isEditing, legalEdit]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    setIsEditing(true);
+    // dispatch(setIsEditing(false));
     setLegalEdit(true);
 
     const formData = {
@@ -72,7 +78,7 @@ function SellerLegalData() {
       bic: values.bic,
     };
 
-    if (userphoto) formData.photo = userphoto;
+    if (userPhoto) formData.photo = userPhoto;
 
     // props.cbUpdateProfile(getChangedData(user, formData));
     // setIsEditing(false);
@@ -82,23 +88,24 @@ function SellerLegalData() {
 
   function handleResetForm() {
     resetForm();
-    setTimeout(() => setShowModal(false), 500);
+    setTimeout(() => dispatch(setShowResetSellerDataFormModal(false)), 500);
   }
 
   return (
     <form className='profile__form' noValidate>
-      <ProfileAvatar isEditing={isEditing} setUserphoto={setUserphoto} />
+      <ProfileAvatar isEditing={isEditing} />
       <ul className='profile__inputs-list'>
         <li>
           <ProfileLegalDropdown
             hint={!isHint}
             organization={!organization}
             dropdown={typeOfLegal}
-            // value={values.type}
-            // setValue={handleChangeList}
+            value={values.type ?? ''}
             inputName='Тип организации'
             text={textTooltip.typeLegal}
             onIndexChange={handleIndexChange}
+            // disabled={!isEditing}
+            isEditing={!isEditing}
           ></ProfileLegalDropdown>
         </li>
         {indexTypeOfLegal === 1 && (
@@ -112,7 +119,7 @@ function SellerLegalData() {
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Имя'
-                disabled={isEditing}
+                disabled={!isEditing}
                 hint={!isHint}
                 text={textTooltip.name}
               />
@@ -126,7 +133,7 @@ function SellerLegalData() {
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Фамилия'
-                disabled={isEditing}
+                disabled={!isEditing}
                 hint={!isHint}
                 text={textTooltip.name}
               />
@@ -140,7 +147,7 @@ function SellerLegalData() {
                 onChange={handleChange}
                 onBlur={onBlur}
                 inputName='Отчество'
-                disabled={isEditing}
+                disabled={!isEditing}
               />
             </li>
           </>
@@ -154,7 +161,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Название магазина'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             text={textTooltip.nameShop}
             requared
@@ -169,7 +176,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Название организации'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             text={textTooltip.nameLegal}
             required
@@ -180,11 +187,11 @@ function SellerLegalData() {
             hint={!isHint}
             organization={organization}
             dropdown={banks}
-            // value={values.bank}
+            value={values.bank ?? ''}
             inputName='Название банка'
-            // setValue={handleChangeList}
             text={textTooltip.bank}
             onIndexChange={handleIndexChange}
+            // disabled={!isEditing}
           ></ProfileLegalDropdown>
         </li>
         <li>
@@ -196,7 +203,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='ИНН'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             required
             text={textTooltip.inn}
@@ -211,7 +218,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='КПП'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             text={textTooltip.kpp}
           />
@@ -225,7 +232,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='ОГРН'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             text={textTooltip.ogrn}
             required
@@ -240,7 +247,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Расчетный счет'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             required
             text={textTooltip.bankAccount}
@@ -255,7 +262,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Корреспондентский счет'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             required
             text={textTooltip.korrAccount}
@@ -270,7 +277,7 @@ function SellerLegalData() {
             onChange={handleChange}
             onBlur={onBlur}
             inputName='БИК'
-            disabled={isEditing}
+            disabled={!isEditing}
             hint={!isHint}
             text={textTooltip.bic}
             required
@@ -311,42 +318,45 @@ function SellerLegalData() {
             </div>
           </div>
           <ProfileFormButtons
-            isEditing={isEditing}
             handleSubmit={handleSubmit}
-            resetForm={() => setShowModal(true)}
+            resetForm={() => {
+              dispatch(setShowResetSellerDataFormModal(true));
+            }}
             isValid={isValid}
           />
         </>
       )}
-      {showModal && (
-        <Modal
-          onClose={() => {
-            setShowModal(false);
-          }}
-          closeButtonClass='modal__close-button modal__close-button_type_confirm'
-        >
-          <h2 className='modal__title modal__title_type_confirm-logout'>
-            Вы уверены, что хотите очистить форму?
-          </h2>
-          <span className='modal__query-error'></span>
-          <div className='modal__buttons-container modal__buttons-container_type_confirm'>
-            <button
-              type='button'
-              className='button button_color_transparent'
-              onClick={() => setShowModal(false)}
-            >
-              Выйти
-            </button>
-            <button
-              type='button'
-              className='button button_color_blue'
-              onClick={handleResetForm}
-            >
-              Очистить
-            </button>
-          </div>
-        </Modal>
-      )}
+      <Modal
+        showModal={showResetSellerDataFormModal}
+        onClose={() => {
+          dispatch(setShowResetSellerDataFormModal(false));
+        }}
+        showCloseButton
+        closeButtonClass='modal__close-button modal__close-button_type_confirm'
+      >
+        <h2 className='modal__title modal__title_type_confirm-logout'>
+          Вы уверены, что хотите очистить форму?
+        </h2>
+        <span className='modal__query-error'></span>
+        <div className='modal__buttons-container modal__buttons-container_type_confirm'>
+          <button
+            type='button'
+            className='button button_color_transparent'
+            onClick={() => {
+              dispatch(setShowResetSellerDataFormModal(false));
+            }}
+          >
+            Выйти
+          </button>
+          <button
+            type='button'
+            className='button button_color_blue'
+            onClick={handleResetForm}
+          >
+            Очистить
+          </button>
+        </div>
+      </Modal>
     </form>
   );
 }

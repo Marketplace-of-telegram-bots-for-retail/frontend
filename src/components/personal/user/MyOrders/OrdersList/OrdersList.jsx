@@ -8,16 +8,16 @@ function OrdersList({ orders, setOrders }) {
 
   useEffect(() => {
     setOrders(orders);
-  }, []);
-
-  useEffect(() => {
-    setOrders(orders);
   }, [orders]);
+
+  const handleDelete = (item) => {
+    setOrders((orders) => orders.filter((m) => m.id !== item.id));
+  };
 
   return (
     <ul className='orders__list'>
       {orders.map((item) => (
-        <OrderItem item={item} />
+        <OrderItem item={item} onDelete={handleDelete} />
       ))}
     </ul>
   );
