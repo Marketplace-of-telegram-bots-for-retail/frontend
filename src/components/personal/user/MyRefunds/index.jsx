@@ -1,7 +1,7 @@
 import React from 'react';
 
 const MyRefunds = () => {
-  return <div>MyRefunds</div>;
+  return <div></div>;
 };
 
 export default MyRefunds;
