@@ -1,29 +1,26 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getCartData, getSellersProducts } from '../../../store';
+import { getSellersProducts } from '../../../store';
 import './Goods.css';
 import GoodsNewBot from './GoodsNewBot/GoodsNewBot';
-import CartCard from '../../Cart/CartCard/CartCard';
 import Dropdown from '../../showcase/Dropdown/Dropdown';
 import { getMyProducts } from '../../../store/actions';
 
 const Goods = () => {
   const [isShown, setIsShown] = useState(false);
   const [isShownGoods, setIsShownGoods] = useState(true);
-  const { items } = useSelector(getCartData);
   const dispatch = useDispatch();
   const { goods } = useSelector(getSellersProducts);
+  const { results } = goods;
+
+  console.log(goods);
   function handleAddClick() {
     setIsShown(!isShown);
     setIsShownGoods(!isShownGoods);
   }
-  function handleEditBot() {
-    setIsShown(true);
-    setIsShownGoods(false);
-  }
   useEffect(() => {
     dispatch(getMyProducts());
-    console.log(goods);
+    console.log(results);
   }, []);
   return (
     <section className='goods'>
@@ -36,13 +33,14 @@ const Goods = () => {
         Добавить новый
       </button>
       {isShown && <GoodsNewBot />}
-      {isShownGoods && <Dropdown></Dropdown>}
-      {isShownGoods &&
-        items.map((item) => {
-          return (
-            <CartCard key={item.id} item={item} setIsShown={handleEditBot} />
-          );
-        })}
+      {isShownGoods && results && (
+        <>
+          <Dropdown />
+          {results?.map((item) => {
+            return <div key={item.id}>тут карточка </div>;
+          })}
+        </>
+      )}
     </section>
   );
 };
