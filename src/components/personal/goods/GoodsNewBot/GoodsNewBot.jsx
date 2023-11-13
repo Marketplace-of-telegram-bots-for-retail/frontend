@@ -1,12 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import './GoodsNewBot.css';
 import info from '../../../../images/Help.svg';
 import plus from '../../../../images/ic_plus-16.svg';
-import { CATEGORY_OPTIONS } from '../../../../utils/constants';
-import { getSearchFormData } from '../../../../store';
-import { setCategories } from '../../../../store/actions';
 import PopupCategory from '../../../popups/PopupCategory/PopupCategory';
 import PopupName from '../../../popups/PopupName/PopupName';
 import PopupDescription from '../../../popups/PopupDescription/PopupDescription';
@@ -15,15 +12,10 @@ import PopupPhoto from '../../../popups/PopupPhoto/PopupPhoto';
 import PopupVideo from '../../../popups/PopupVideo/PopupVideo';
 import PopupPriceBot from '../../../popups/PopupPrice/PopupPriceBot';
 import { useFormAndValid } from '../../../../hooks/useFormAndValid';
-import getBase64 from '../../../../utils/getBase64';
+import { postProduct } from '../../../../store/sellersProductsSlice';
 
 const GoodsNewBot = () => {
   const dispatch = useDispatch();
-  const { categories } = useSelector(getSearchFormData);
-  const handleCheckboxChange = (event) => {
-    const { id, checked } = event.target;
-    dispatch(setCategories({ [id]: checked }));
-  };
   const [showCategoryPopup, setShowCategoryPopup] = useState(false);
   const [showNamePopup, setShowNamePopup] = useState(false);
   const [showDescriptionPopup, setShowDescriptionPopup] = useState(false);
@@ -31,11 +23,14 @@ const GoodsNewBot = () => {
   const [showPricePopup, setShowPricePopup] = useState(false);
   const [showPhotoPopup, setShowPhotoPopup] = useState(false);
   const [showVideoPopup, setShowVideoPopup] = useState(false);
-  const { formValue, setFormValue, handleChange, inputCount, isValid, errors } = useFormAndValid({});
+  const { formValue, setFormValue, handleChange, inputCount, checked, file, isValid, errors } = useFormAndValid({});
   const [isFirstFunctionShown, setIsFirstFunctionShown] = useState(false);
   const [isSecondFunctionShown, setIsSecondFunctionShown] = useState(false);
   const [isThirdFunctionShown, setIsThirdFunctionShown] = useState(false);
   const [isFourthFunctionShown, setIsFourthFunctionShown] = useState(false);
+  // если берем formData, file можно раскомментировать
+  // const [file, setFile] = useState([]);
+  console.log(file);
 
   useEffect(() => {
     setFormValue('');
@@ -94,10 +89,37 @@ const GoodsNewBot = () => {
   function handleFourthFunctionClick() {
     setIsFourthFunctionShown(!isFourthFunctionShown);
   }
+  // эту функцию нужно раскоментировать и добавить в onClick фото
+  /*
+  function handleSelectPhoto(e) {
+    console.log(e.target.files[0]);
+    const reader = new FileReader();
+    reader.readAsDataURL(e.target.files[0]);
+    reader.onloadend = () => {
+      setFile(file.push(reader.result));
+    };
+    // setFile(e.target.files[0]);
+  }
+*/
+  function handleSubmit() {
+    /*
+    const data = new FormData();
+    data.append('category', 1);
+    data.append('name', formValue.name);
+    data.append('description', formValue.description);
+    data.append('price', formValue.price);
+    data.append('images', [file]);
+    // eslint-disable-next-line no-restricted-syntax
+    for (const [key, value] of data.entries()) {
+      console.log(key, value);
+    }
+    */
+    dispatch(postProduct(formValue));
+  }
 
   return (
     <section className='new-bot'>
-      <form className='new-bot__form'>
+      <form className='new-bot__form' id='form' method='post' encType='multipart/form-data'>
         <div className='new-bot__row'>
           <h3 className='new-bot__title'>Категория бота</h3>
           <img
@@ -108,23 +130,56 @@ const GoodsNewBot = () => {
             id='category'
           />
         </div>
-        {CATEGORY_OPTIONS.map((input, i) => {
-          const { id, labelName } = input;
-          return (
-            <div key={i} className='new-bot__input-container'>
-              <input
-                className='new-bot__input-radio'
-                type='radio'
-                id={id}
-                checked={categories[id]}
-                onChange={handleCheckboxChange}
-              ></input>
-              <label htmlFor={id} className='new-bot__label-radio'>
-                {labelName}
-              </label>
-            </div>
-          );
-        })}
+        <div className='new-bot__input-container'>
+          <input
+            className='new-bot__input-radio'
+            type='radio'
+            id={1}
+            name='category'
+            value={1}
+            checked={checked}
+            onChange={handleChange}
+          ></input>
+          <label htmlFor={1} className='new-bot__label-radio'>
+            Автоматизация заказов
+          </label>
+          <input
+            className='new-bot__input-radio'
+            type='radio'
+            id={2}
+            name='category'
+            value={2}
+            checked={checked}
+            onChange={handleChange}
+          ></input>
+          <label htmlFor={2} className='new-bot__label-radio'>
+            Управление запасами
+          </label>
+          <input
+            className='new-bot__input-radio'
+            type='radio'
+            id={3}
+            name='category'
+            value={3}
+            checked={checked}
+            onChange={handleChange}
+          ></input>
+          <label htmlFor={3} className='new-bot__label-radio'>
+            Улучшение обслуживания
+          </label>
+          <input
+            className='new-bot__input-radio'
+            type='radio'
+            id={4}
+            name='category'
+            value={4}
+            checked={checked}
+            onChange={handleChange}
+          ></input>
+          <label htmlFor={4} className='new-bot__label-radio'>
+            Персонализация акций
+          </label>
+        </div>
         <div className='new-bot__row'>
           <h3 className='new-bot__title'>Название бота</h3>
           <img
@@ -141,10 +196,10 @@ const GoodsNewBot = () => {
           name='name'
           value={formValue.name || ''}
           onChange={handleChange}
-          placeholder='Название может содержать от 20 до 70 символов. Только строчные буквы.'
+          placeholder='Название может содержать от 20 до 60 символов. Только строчные буквы.'
           autoComplete='off'
           minLength={20}
-          maxLength={70}
+          maxLength={60}
           required
         />
         <div className='new-bot__span-row'>
@@ -349,18 +404,19 @@ const GoodsNewBot = () => {
             onClick={handlePhotoPopupClick}
           />
         </div>
-        <form>
+        <div>
           <input
             className="new-bot__input-photo"
             type="file"
             id="image-file"
-            onChange={getBase64}
+            name='images'
+            onChange={handleChange}
           />
           <label className="new-bot__button-add new-bot__button-add_type_photo" for="image-file">
             <img className='new-bot__icon-16' src={plus} alt='плюс добавить' />
             <p className='new-bot__add'>Добавить</p>
           </label>
-        </form>
+        </div>
         <div className='new-bot__row'>
           <h3 className='new-bot__title'>Видео</h3>
           <img
@@ -385,6 +441,7 @@ const GoodsNewBot = () => {
             className='new-bot__save-button'
             type='button'
             aria-label='Добавить товар'
+            onClick={handleSubmit}
           >
             Сохранить
           </button>

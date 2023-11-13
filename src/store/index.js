@@ -27,6 +27,7 @@ export {
   getSearchFormData,
   getUserOrdersData,
   getUserData,
+  getSellersProducts,
   getModals,
 } from './selectors';
 export * as selectors from './selectors';
