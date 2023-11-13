@@ -283,7 +283,7 @@ const App = () => {
         </Route>
 
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-        <Route path='/salesman' element={<Salesman />} />
+        <Route path='/salesman' element={<Salesman cbLogIn={cbLogIn} cbRegister={cbRegister} />} />
         <Route path='/promo' element={<Promo />} />
       </Route>
     </Routes>

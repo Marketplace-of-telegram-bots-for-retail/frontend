@@ -10,8 +10,7 @@
     max-width: 737px;
     margin: 0;
     padding: 0;
-    line-height: 60px;
-    letter-spacing: 0.034em;
+    line-height: 50px;
 }
 
 .seller__text {
@@ -22,8 +21,7 @@
     padding: 0;
     padding-left: 8px;
     margin: 24px 0 49px;
-    line-height: 29px;
-    letter-spacing: 0.032em;
+    line-height: 26px;
 }
 
 .seller__button {
@@ -125,10 +123,8 @@
     font-size: 40px;
     font-weight: 700;
     max-width: 456px;
-    margin: 38px auto 40px 88px;
-    letter-spacing: 0.043em;
-    line-height: 60px;
-    /* адаптив: line-height, размер шрифта, марджины */
+    margin: 51px auto 70px;
+    line-height: 50px;
 }
 
 .seller__banner-illustrations {
