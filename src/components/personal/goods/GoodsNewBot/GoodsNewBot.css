@@ -6,13 +6,14 @@
 .new-bot__form {
   display: flex;
   flex-direction: column;
-  margin: 32px 0 80px;
+  margin: -16px 0 80px;
 }
 
 .new-bot__row {
   display: flex;
   flex-direction: row;
   align-items: center;
+  position: relative;
   margin: 0 0 8px;
   gap: 8px;
 }
@@ -205,7 +206,7 @@
 }
 
 .new-bot__button-add_type_function {
-  margin-top: 0;
+  margin-top: -14px;
 }
 
 .new-bot__button-add_type_photo {
@@ -326,4 +327,105 @@
 
 .new-bot__input-photo {
   display: none;
+}
+
+.new-bot__tooltip {
+  width: 341px;
+  box-shadow: 2px 3px 20px 1px rgba(0, 0, 0, 0.17);
+  background-color: #FDFDFD;
+  position: absolute;
+  left: 170px;
+  top: -11px;
+  border-radius: 8px;
+  padding: 11px;
+  z-index: 3;
+}
+
+.new-bot__tooltip_type_category {
+  top: -53px;
+}
+
+.new-bot__tooltip_type_description {
+  top: -56px;
+}
+
+.new-bot__tooltip_type_function {
+  width: 372px;
+  left: 120px;
+  top: -130px;
+}
+
+.new-bot__tooltip_type_price {
+  left: 100px;
+}
+
+.new-bot__tooltip_type_photo {
+  left: 100px;
+  top: -23px;
+}
+
+.new-bot__tooltip_type_video {
+  left: 100px;
+  top: -30px;
+}
+
+.new-bot__tooltip::before {
+  content: ""; 
+  border: 10px solid transparent;
+  position: absolute;
+  right: 100%;
+  top: 13px;
+  border-right-color: #fff;
+  border-width: 8px;
+}
+
+.new-bot__tooltip_type_category::before {
+  top: 53px;
+}
+
+.new-bot__tooltip_type_description::before {
+  top: 56px;
+}
+
+.new-bot__tooltip_type_function::before {
+  top: 130px;
+}
+
+.new-bot__tooltip_type_photo::before {
+  top: 23px;
+}
+
+.new-bot__tooltip_type_video::before {
+  top: 33px;
+}
+
+.new-bot__text {
+  margin: 0;
+  padding: 0;
+  width: 288px;
+  color: var(--Primary-Black, #1E1E1E);
+  font-family: 'Inter';
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px; 
+  z-index: 3;
+}
+
+.new-bot__text_type_span {
+  color: var(--Primary-Accent, #726EFA);
+}
+
+.new-bot__text_type_description {
+  width: 292px;
+}
+
+.new-bot__text_type_function {
+  width: 308px;
+}
+
+.new-bot__img-function {
+  width: 240px;
+  height: 177px;
+  margin-top:11px;
 }
