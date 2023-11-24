@@ -70,8 +70,8 @@ export const useFormWithValidation = () => {
     return korrAccount;
   };
 
-  const _addBic = (bic) => {
-    return bic;
+  const _addBik = (bik) => {
+    return bik;
   };
 
   const _isValidInn = (inn) => {
@@ -114,10 +114,10 @@ export const useFormWithValidation = () => {
     return '';
   };
 
-  const _isValidBic = (bic) => {
-    const bicRegex = /\d{9}/;
-    if (!bicRegex.test(bic) || bic.length > 9) {
-      return 'КПП должен содержать 9-значный номер';
+  const _isValidBik = (bik) => {
+    const bikRegex = /\d{9}/;
+    if (!bikRegex.test(bik) || bik.length > 9) {
+      return 'БИК должен содержать 9-значный номер';
     }
     return '';
   };
@@ -198,17 +198,17 @@ export const useFormWithValidation = () => {
         value = _addOgrn(value);
         validationMessage = _isValidOgrn(value);
       }
-      if (name === 'bankAccount') {
+      if (name === 'payment_account') {
         value = _addBankAccount(value);
         validationMessage = _isValidBankAccount(value);
       }
-      if (name === 'korrAccount') {
+      if (name === 'correspondent_account') {
         value = _addKorrAccount(value);
         validationMessage = _isValidKorrAccount(value);
       }
-      if (name === 'bic') {
-        value = _addBic(value);
-        validationMessage = _isValidBic(value);
+      if (name === 'bik') {
+        value = _addBik(value);
+        validationMessage = _isValidBik(value);
       }
     }
 

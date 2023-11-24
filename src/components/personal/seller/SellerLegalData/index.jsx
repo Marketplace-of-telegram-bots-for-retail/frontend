@@ -1,10 +1,9 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserData, getModals } from '../../../../store';
-import { setIsEditing } from '../../../../store/actions';
+import { setIsEditing, changeSomeSellerDetails, getSeller } from '../../../../store/actions';
 import Input from '../../../Input';
 import ProfileFormButtons from '../../user/ProfileFormButtons';
 import ProfileAvatar from '../../user/ProfileAvatar';
@@ -14,12 +13,15 @@ import { typeOfLegal, banks, textTooltip } from '../../../../utils/constants';
 import LegalDataEdit from './LegalDataEdit/LegalDataEdit';
 import Modal from '../../../Modal';
 import { setShowResetSellerDataFormModal } from '../../../../store/modalsSlice';
+import LegalDocumentButton from './LegalDocumentButton/LegalDocumentButton';
+import LegalCheckboxAgreement from './LegalCheckboxAgreement/LegalCheckboxAgreement';
 
 import './index.css';
 
 function SellerLegalData() {
   const dispatch = useDispatch();
   const { user } = useSelector(getUserData);
+  const { seller } = useSelector(getUserData);
   const {
     values,
     setValues,
@@ -33,13 +35,16 @@ function SellerLegalData() {
   const { isEditing, userPhoto } = useSelector(getUserData);
   const { showResetSellerDataFormModal } = useSelector(getModals);
   const [isHint, setIsHint] = useState(false);
-  // const [value, setValue] = useState('');
   const [organization, setOrganization] = useState(false);
   const [indexTypeOfLegal, setIndexTypeOfLegal] = useState(0);
+  const [indexBank, setIndexBank] = useState(0);
   const [legalEdit, setLegalEdit] = useState(false);
 
-  const handleIndexChange = (dropdownIndex) => {
+  const handleIndexTypeOfLegal = (dropdownIndex) => {
     setIndexTypeOfLegal(dropdownIndex);
+  };
+  const handleIndexBank = (dropdownIndex) => {
+    setIndexBank(dropdownIndex);
   };
 
   function handleAddProve() {
@@ -51,38 +56,47 @@ function SellerLegalData() {
   }, []);
 
   useEffect(() => {
-    // resetForm();
-    // setLegalEdit(true);
+    setLegalEdit(true);
     setValues({
       name: user.first_name,
       surname: user.last_name,
+      inn: seller.inn,
+      store_name: seller.store_name,
+      organization_type: seller.organization_type,
+      organization_name: seller.organization_name,
+      bank_name: seller.bank_name,
+      kpp: seller.kpp,
+      ogrn: seller.ogrn,
+      payment_account: seller.payment_account,
+      correspondent_account: seller.correspondent_account,
+      bik: seller.bik,
     });
     if (!isEditing) localStorage.removeItem('LegalAvatar');
   }, [user, isEditing, legalEdit]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    // dispatch(setIsEditing(false));
+    dispatch(setIsEditing(false));
     setLegalEdit(true);
 
     const formData = {
-      nameShop: values.nameShop,
-      typeLegal: values.typeLegal,
-      nameLegal: values.nameLegal,
-      bank: values.bank,
+      store_name: values.store_name,
+      organization_type: typeOfLegal[indexTypeOfLegal].title,
+      organization_name: values.organization_name,
+      bank_name: banks[indexBank].title,
       inn: values.inn,
       kpp: values.kpp,
       ogrn: values.ogrn,
-      bankAccount: values.bankAccount,
-      korrAccount: values.korrAccount,
-      bic: values.bic,
+      payment_account: values.payment_account,
+      correspondent_account: values.correspondent_account,
+      bik: values.bik,
     };
 
     if (userPhoto) formData.photo = userPhoto;
 
-    // props.cbUpdateProfile(getChangedData(user, formData));
-    // setIsEditing(false);
-    localStorage.removeItem('legalAvatar');
+    dispatch(changeSomeSellerDetails(formData));
+    setIsEditing(false);
+    // localStorage.removeItem('legalAvatar');
     console.log(formData);
   }
 
@@ -100,15 +114,12 @@ function SellerLegalData() {
             hint={!isHint}
             organization={!organization}
             dropdown={typeOfLegal}
-            value={values.type ?? ''}
             inputName='Тип организации'
             text={textTooltip.typeLegal}
-            onIndexChange={handleIndexChange}
-            // disabled={!isEditing}
-            isEditing={!isEditing}
+            onIndexChange={handleIndexTypeOfLegal}
           ></ProfileLegalDropdown>
         </li>
-        {indexTypeOfLegal === 1 && (
+        {(indexTypeOfLegal === 1 || indexTypeOfLegal === 2) && (
           <>
             <li>
               <Input
@@ -154,10 +165,10 @@ function SellerLegalData() {
         )}
         <li>
           <Input
-            name='nameShop'
+            name='store_name'
             type='text'
-            error={errors.nameShop}
-            value={values.nameShop ?? ''}
+            error={errors.store_name}
+            value={values.store_name ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Название магазина'
@@ -169,10 +180,10 @@ function SellerLegalData() {
         </li>
         <li>
           <Input
-            name='nameLegal'
+            name='organization_name'
             type='text'
-            error={errors.nameLegal}
-            value={values.nameLegal ?? ''}
+            error={errors.organization_name}
+            value={values.organization_name ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Название организации'
@@ -187,11 +198,10 @@ function SellerLegalData() {
             hint={!isHint}
             organization={organization}
             dropdown={banks}
-            value={values.bank ?? ''}
+            value={values.bank_name ?? ''}
             inputName='Название банка'
             text={textTooltip.bank}
-            onIndexChange={handleIndexChange}
-            // disabled={!isEditing}
+            onIndexChange={handleIndexBank}
           ></ProfileLegalDropdown>
         </li>
         <li>
@@ -240,40 +250,40 @@ function SellerLegalData() {
         </li>
         <li>
           <Input
-            name='bankAccount'
+            name='payment_account'
             type='text'
-            error={errors.bankAccount}
-            value={values.bankAccount ?? ''}
+            error={errors.payment_account}
+            value={values.payment_account ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Расчетный счет'
             disabled={!isEditing}
             hint={!isHint}
             required
-            text={textTooltip.bankAccount}
+            text={textTooltip.payment_account}
           />
         </li>
         <li>
           <Input
-            name='korrAccount'
+            name='correspondent_account'
             type='text'
-            error={errors.korrAccount}
-            value={values.korrAccount ?? ''}
+            error={errors.correspondent_account}
+            value={values.correspondent_account ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
             inputName='Корреспондентский счет'
             disabled={!isEditing}
             hint={!isHint}
             required
-            text={textTooltip.korrAccount}
+            text={textTooltip.correspondent_account}
           />
         </li>
         <li>
           <Input
-            name='bic'
+            name='bik'
             type='text'
-            error={errors.bic}
-            value={values.bic ?? ''}
+            error={errors.bik}
+            value={values.bik ?? ''}
             onChange={handleChange}
             onBlur={onBlur}
             inputName='БИК'
@@ -288,35 +298,8 @@ function SellerLegalData() {
         <LegalDataEdit></LegalDataEdit>
       ) : (
         <>
-          <button
-            className='profile__legal-add-button'
-            type='button'
-            onClick={handleAddProve}
-          >
-            <div className='profile__legal-add-image'></div>
-            <p className='profile__legal-add-text'>Загрузить документы</p>
-          </button>
-          <div className='profile__legal-container'>
-            <input
-              className='profile__legal-input'
-              type='checkbox'
-              id='legal-checkbox'
-              // checked={categoryValues[id] || false}
-              // checked={false}
-              // onChange={handleCheckboxChange}
-            ></input>
-            <div>
-              <label
-                htmlFor='legal-checkbox'
-                className='profile__legal-checkbox-label'
-              >
-                Я принимаю условия&nbsp;
-                <Link to='/contract' className='profile__legal-link'>
-                  Договора-оферты
-                </Link>
-              </label>
-            </div>
-          </div>
+          <LegalDocumentButton isEditing={!isEditing} handleAddProve={handleAddProve} />
+          <LegalCheckboxAgreement isEditing={!isEditing} />
           <ProfileFormButtons
             handleSubmit={handleSubmit}
             resetForm={() => {
