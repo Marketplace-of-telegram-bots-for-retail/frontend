@@ -1,10 +1,13 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { getUserData } from '../../../../store';
 
 import './ProfileLegalDropdown.css';
 
 function ProfileLegalDropdown(props) {
+  const { isEditing } = useSelector(getUserData);
   const [open, setOpen] = useState(false);
   const [dropdown, setDropdown] = useState(0);
   const [showToolTip, setShowToolTip] = useState(false);
@@ -35,13 +38,13 @@ function ProfileLegalDropdown(props) {
   return (
     <div className='profile-legal-form__dropdown'>
       <span className='profile-legal-form__dropdown-input input__name'>{props.inputName}</span>
-      <div className='profile-legal-form__dropdown-container' onClick={() => handleOpen()}>
-        <input
-          value={props.dropdown[dropdown].title}
-          type='button'
-          className='profile-legal-form__dropdown-button'
-          disabled={props.isEditing}
-        ></input>
+      <button
+        className='profile-legal-form__dropdown-container'
+        onClick={() => handleOpen()}
+        type='button'
+        disabled={!isEditing}
+      >
+        {props.dropdown[dropdown].title}
         <div className='profile-legal-form__dropdown-button-container'>
           <div className='profile-legal-form__dropdown-button-icon'></div>
           {props.hint && <div className='profile-legal-form__dropdown-button-hint' onMouseEnter={onMouseEnterHandler} onMouseLeave={onMouseLeaveHandler}>
@@ -57,20 +60,20 @@ function ProfileLegalDropdown(props) {
           >
             {props.organization ?
               props.dropdown.map((type, i) => (
-                <li className='profile-legal-form__dropdown-list-item' key={i} onClick={() => dropdownListClick(i)} value={type.title}>
+                <li className='profile-legal-form__dropdown-list-item' key={i} onClick={() => dropdownListClick(i)} data-value={type.title}>
                   <div className='profile-legal-form__dropdown-list-item-title'>{type.title}</div>
                   <span className='profile-legal-form__dropdown-list-item-subtitle'>{type.fullTitle}</span>
                   {props.dropdown[dropdown].title === type.title && <span className='profile-legal-form__dropdown-list-item-icon'></span>}
                 </li>))
               :
               props.dropdown.map((bank, i) => (
-                <li className='profile-legal-form__dropdown-list-item' key={i} onClick={() => dropdownListClick(i)} value={bank.title}>
+                <li className='profile-legal-form__dropdown-list-item' key={i} onClick={() => dropdownListClick(i)} data-value={bank.title}>
                   <div className='profile-legal-form__dropdown-list-item-title'>{bank.title}</div>
                   {props.dropdown[dropdown].title === bank.title && <span className='profile-legal-form__dropdown-list-item-icon'></span>}
                 </li>))}
           </ul>
           : null}
-      </div>
+      </button>
     </div>
   );
 }
