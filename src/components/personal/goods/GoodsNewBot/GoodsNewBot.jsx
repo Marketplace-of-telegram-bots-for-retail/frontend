@@ -4,15 +4,11 @@ import { useDispatch } from 'react-redux';
 import './GoodsNewBot.css';
 import info from '../../../../images/Help.svg';
 import plus from '../../../../images/ic_plus-16.svg';
-import PopupCategory from '../../../popups/PopupCategory/PopupCategory';
-import PopupName from '../../../popups/PopupName/PopupName';
-import PopupDescription from '../../../popups/PopupDescription/PopupDescription';
-import PopupFunction from '../../../popups/PopupFunction/PopupFunction';
-import PopupPhoto from '../../../popups/PopupPhoto/PopupPhoto';
-import PopupVideo from '../../../popups/PopupVideo/PopupVideo';
-import PopupPriceBot from '../../../popups/PopupPrice/PopupPriceBot';
+import img from '../../../../images/image 28.png';
+import PopupHint from '../../../popups/PopupHint';
 import { useFormAndValid } from '../../../../hooks/useFormAndValid';
 import { postProduct } from '../../../../store/actions';
+import { goodsHint } from '../../../../utils/constants';
 
 const GoodsNewBot = () => {
   const dispatch = useDispatch();
@@ -32,11 +28,12 @@ const GoodsNewBot = () => {
     checked,
     isValid,
     errors,
+    resetForm,
   } = useFormAndValid({});
-  // const [isFirstFunctionShown, setIsFirstFunctionShown] = useState(false);
-  // const [isSecondFunctionShown, setIsSecondFunctionShown] = useState(false);
-  // const [isThirdFunctionShown, setIsThirdFunctionShown] = useState(false);
-  // const [isFourthFunctionShown, setIsFourthFunctionShown] = useState(false);
+  const [isFirstFunctionShown, setIsFirstFunctionShown] = useState(false);
+  const [isSecondFunctionShown, setIsSecondFunctionShown] = useState(false);
+  const [isThirdFunctionShown, setIsThirdFunctionShown] = useState(false);
+  const [isFourthFunctionShown, setIsFourthFunctionShown] = useState(false);
 
   useEffect(() => {
     setFormValue('');
@@ -54,9 +51,9 @@ const GoodsNewBot = () => {
     setShowDescriptionPopup(true);
   }
 
-  // function handleFunctionPopupClick() {
-  //   setShowFunctionPopup(true);
-  // }
+  function handleFunctionPopupClick() {
+    setShowFunctionPopup(true);
+  }
 
   function handlePricePopupClick() {
     setShowPricePopup(true);
@@ -80,26 +77,31 @@ const GoodsNewBot = () => {
     setShowVideoPopup(false);
   }
 
-  // function handleFirstFunctionClick() {
-  //   setIsFirstFunctionShown(!isFirstFunctionShown);
-  // }
+  function handleFirstFunctionClick() {
+    setIsFirstFunctionShown(!isFirstFunctionShown);
+  }
 
-  // function handleSecondFunctionClick() {
-  //   setIsSecondFunctionShown(!isSecondFunctionShown);
-  // }
+  function handleSecondFunctionClick() {
+    setIsSecondFunctionShown(!isSecondFunctionShown);
+  }
 
-  // function handleThirdFunctionClick() {
-  //   setIsThirdFunctionShown(!isThirdFunctionShown);
-  // }
+  function handleThirdFunctionClick() {
+    setIsThirdFunctionShown(!isThirdFunctionShown);
+  }
 
-  // function handleFourthFunctionClick() {
-  //   setIsFourthFunctionShown(!isFourthFunctionShown);
-  // }
+  function handleFourthFunctionClick() {
+    setIsFourthFunctionShown(!isFourthFunctionShown);
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postProduct(formValue));
     // Нужно добавить функцию для сброса формы или перехода на страницу со своими ботами
+  }
+
+  function handleClearForm(e) {
+    e.preventDefault();
+    resetForm();
   }
 
   return (
@@ -119,7 +121,21 @@ const GoodsNewBot = () => {
             alt='информация'
             onClick={handleCategoryPopupClick}
             id='category'
+            onMouseEnter={handleCategoryPopupClick}
+            onMouseLeave={closeAllPopups}
           />
+          {showCategoryPopup && (
+            <PopupHint isOpen={showCategoryPopup} onClose={closeAllPopups}>
+              <div className='new-bot__tooltip new-bot__tooltip_type_category'>
+                <p className='new-bot__text'>
+                  {goodsHint.requiredField}
+                  <br />
+                  {goodsHint.category}
+                  <span className='new-bot__text new-bot__text_type_span'>{goodsHint.categorySpan}</span>
+                </p>
+              </div>
+            </PopupHint>
+          )}
         </div>
         <div className='new-bot__input-container'>
           <input
@@ -178,7 +194,18 @@ const GoodsNewBot = () => {
             src={info}
             alt='информация'
             onClick={handleNamePopupClick}
+            onMouseEnter={handleNamePopupClick}
+            onMouseLeave={closeAllPopups}
           />
+          {showNamePopup && (
+            <PopupHint isOpen={showNamePopup} onClose={closeAllPopups}>
+              <div className='new-bot__tooltip'>
+                <p className='new-bot__text'>
+                  {goodsHint.requiredField}
+                </p>
+              </div>
+            </PopupHint>
+          )}
         </div>
         <input
           className='new-bot__name'
@@ -210,7 +237,22 @@ const GoodsNewBot = () => {
             src={info}
             alt='информация'
             onClick={handleDescriptionPopupClick}
+            onMouseEnter={handleDescriptionPopupClick}
+            onMouseLeave={closeAllPopups}
           />
+          {showDescriptionPopup && (
+            <PopupHint isOpen={showDescriptionPopup} onClose={closeAllPopups}>
+              <div className='new-bot__tooltip new-bot__tooltip_type_description'>
+                <p className='new-bot__text new-bot__text_type_description'>
+                  {goodsHint.requiredField}
+                  <br />
+                  {goodsHint.descriptionFirst}
+                  <br />
+                  {goodsHint.descriptionSecond}
+                </p>
+              </div>
+            </PopupHint>
+          )}
         </div>
         <textarea
           className='new-bot__description'
@@ -235,14 +277,30 @@ const GoodsNewBot = () => {
           </span>
           <span className='new-bot__span'>{`${inputsCount.description || 0}/1500`}</span>
         </div>
-        {/* <div className='new-bot__row new-bot__margin_type_twelve'>
+        <div className='new-bot__row new-bot__margin_type_twelve'>
           <h3 className='new-bot__title'>Функции</h3>
           <img
             className='new-bot__icon'
             src={info}
             alt='информация'
             onClick={handleFunctionPopupClick}
+            onMouseEnter={handleFunctionPopupClick}
+            onMouseLeave={closeAllPopups}
           />
+          {showFunctionPopup && (
+            <PopupHint isOpen={showFunctionPopup} onClose={closeAllPopups}>
+              <div className='new-bot__tooltip new-bot__tooltip_type_function'>
+                <p className='new-bot__text new-bot__text_type_description'>
+                  {goodsHint.function}
+                </p>
+                <img
+                  className='new-bot__img-function'
+                  src={img}
+                  alt='описание функционала'
+                />
+              </div>
+            </PopupHint>
+          )}
         </div>
         <input
           className='new-bot__function'
@@ -384,7 +442,7 @@ const GoodsNewBot = () => {
             />
             <span className='new-bot__span'>{`${inputsCount.function || 0}/200`}</span>
           </>
-        )} */}
+        )}
         <div className='new-bot__row'>
           <h3 className='new-bot__title'>Цена</h3>
           <img
@@ -392,7 +450,18 @@ const GoodsNewBot = () => {
             src={info}
             alt='информация'
             onClick={handlePricePopupClick}
+            onMouseEnter={handlePricePopupClick}
+            onMouseLeave={closeAllPopups}
           />
+          {showPricePopup && (
+            <PopupHint isOpen={showPricePopup} onClose={closeAllPopups}>
+              <div className='new-bot__tooltip new-bot__tooltip_type_price'>
+                <p className='new-bot__text'>
+                  {goodsHint.requiredField}
+                </p>
+              </div>
+            </PopupHint>
+          )}
         </div>
         <input
           className='new-bot__price'
@@ -421,7 +490,18 @@ const GoodsNewBot = () => {
             src={info}
             alt='информация'
             onClick={handlePhotoPopupClick}
+            onMouseEnter={handlePhotoPopupClick}
+            onMouseLeave={closeAllPopups}
           />
+          {showPhotoPopup && (
+            <PopupHint isOpen={showPhotoPopup} onClose={closeAllPopups}>
+              <div className='new-bot__tooltip new-bot__tooltip_type_photo'>
+                <p className='new-bot__text'>
+                  {goodsHint.photo}
+                </p>
+              </div>
+            </PopupHint>
+          )}
         </div>
         <div>
           <input
@@ -446,7 +526,20 @@ const GoodsNewBot = () => {
             src={info}
             alt='информация'
             onClick={handleVideoPopupClick}
+            onMouseEnter={handleVideoPopupClick}
+            onMouseLeave={closeAllPopups}
           />
+          {showVideoPopup && (
+            <PopupHint isOpen={showVideoPopup} onClose={closeAllPopups}>
+              <div className='new-bot__tooltip new-bot__tooltip_type_video'>
+                <p className='new-bot__text'>
+                  {goodsHint.videoFirst}
+                  <br />
+                  {goodsHint.videoSecond}
+                </p>
+              </div>
+            </PopupHint>
+          )}
         </div>
         <input
           className='new-bot__video'
@@ -471,21 +564,12 @@ const GoodsNewBot = () => {
             className='new-bot__cancel-button'
             type='button'
             aria-label='Добавить товар'
+            onClick={handleClearForm}
           >
             Отменить
           </button>
         </div>
       </form>
-      <PopupCategory isOpen={showCategoryPopup} onClose={closeAllPopups} />
-      <PopupName isOpen={showNamePopup} onClose={closeAllPopups} />
-      <PopupDescription
-        isOpen={showDescriptionPopup}
-        onClose={closeAllPopups}
-      />
-      <PopupFunction isOpen={showFunctionPopup} onClose={closeAllPopups} />
-      <PopupPhoto isOpen={showPhotoPopup} onClose={closeAllPopups} />
-      <PopupVideo isOpen={showVideoPopup} onClose={closeAllPopups} />
-      <PopupPriceBot isOpen={showPricePopup} onClose={closeAllPopups} />
     </section>
   );
 };
