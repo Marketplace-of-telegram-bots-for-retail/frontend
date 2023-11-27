@@ -10,7 +10,7 @@ import { useFormAndValid } from '../../../../hooks/useFormAndValid';
 import { postProduct } from '../../../../store/actions';
 import { goodsHint } from '../../../../utils/constants';
 
-const GoodsNewBot = () => {
+const GoodsNewBot = (props) => {
   const dispatch = useDispatch();
   const [showCategoryPopup, setShowCategoryPopup] = useState(false);
   const [showNamePopup, setShowNamePopup] = useState(false);
@@ -96,6 +96,7 @@ const GoodsNewBot = () => {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postProduct(formValue));
+    props.shownNewBot();
     // Нужно добавить функцию для сброса формы или перехода на страницу со своими ботами
   }
 
