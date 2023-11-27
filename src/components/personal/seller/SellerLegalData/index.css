@@ -3,6 +3,10 @@
   gap: 13px;
 }
 
+.profile__legal-container_hidden {
+  display: none;
+}
+
 .profile__legal-input {
   width: 16px;
   height: 16px;
@@ -16,6 +20,10 @@
   display: flex;
   cursor: pointer;
   padding: 0;
+}
+
+.profile__legal-add-button_hidden {
+  display: none;
 }
 
 .profile__legal-add-image {

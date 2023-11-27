@@ -1,8 +1,10 @@
 .popup__name {
   position: absolute;
   display: flex;
-  top: 715px;
-  left: 550px;
+  /*top: 715px;*/
+  /*left: 550px;*/
+  top: -50px;
+  left: 130px;
 }
   
 .popup__group-name {

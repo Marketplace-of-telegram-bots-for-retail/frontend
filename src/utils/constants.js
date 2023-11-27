@@ -203,6 +203,10 @@ export const typeOfLegal = [
     fullTitle: 'Индивидуальный предприниматель',
   },
   {
+    title: 'Самозанятый',
+    fullTitle: 'Самозанятый',
+  },
+  {
     title: 'ОАО',
     fullTitle: 'Открытое акционерное общество',
   },

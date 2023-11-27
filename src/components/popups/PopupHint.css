@@ -1,5 +1,17 @@
 .popup {
-  
+  /*
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  visibility: hidden;
+  opacity: 0;
+  transition: visability 0.2s, opacity 0.2s ease-in;
+  z-index: 3;
+  border: 3px solid red;
+  */
 }
 
 .popup_opened {
