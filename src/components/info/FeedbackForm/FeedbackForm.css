@@ -29,8 +29,10 @@
   flex-direction: column;
   width: 500px;
   height: 652px;
-  padding: 104px 52px 164px;
-  border: 1px solid rebeccapurple;
+  padding: 48px 52px 52px;
+  /* border: 1px solid rebeccapurple; */
+  border-radius: 16px;
+  box-shadow: 0px 0px 20px 4px rgba(0, 0, 0, 0.10);
 }
 
 .feedback-form__title {
@@ -49,12 +51,15 @@
 
 .feedback-form__text {
   max-width: 396px;
-  margin: 14px 0 0;
   font-weight: 400;
   font-size: 12px;
   line-height: 15px;
   color: #8B8B8B;
   letter-spacing: 0.04em;
+}
+
+.feedback-form__checkbox {
+  margin-right: 12px;
 }
 
 .feedback-form__button_type_submit {
@@ -74,7 +79,7 @@
   font-weight: 400;
   line-height: 22px;
   box-sizing: border-box;
-  margin-bottom: 24px;
+  margin-top: 16px;
 }
 
 .modal__button_type_submit:disabled {
