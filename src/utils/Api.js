@@ -215,7 +215,7 @@ class Api {
 }
 
 const config = {
-  baseUrl: 'https://bugaton2.acceleratorpracticum.ru/api',
+  baseUrl: 'https://bugaton3.acceleratorpracticum.ru/api',
   headers: {
     'Content-Type': 'application/json',
   },
