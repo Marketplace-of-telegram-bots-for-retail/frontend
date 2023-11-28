@@ -215,7 +215,7 @@ class Api {
 }
 
 const config = {
-  baseUrl: 'https://bugaton5.acceleratorpracticum.ru/api',
+  baseUrl: 'https://botmarketplace.ru/api',
   headers: {
     'Content-Type': 'application/json',
   },
