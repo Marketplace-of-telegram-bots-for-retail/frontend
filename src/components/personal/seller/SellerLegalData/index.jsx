@@ -3,7 +3,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getUserData, getModals } from '../../../../store';
-import { setIsEditing, changeSomeSellerDetails, getSeller } from '../../../../store/actions';
+import { setIsEditing, changeSomeSellerDetails } from '../../../../store/actions';
 import Input from '../../../Input';
 import ProfileFormButtons from '../../user/ProfileFormButtons';
 import ProfileAvatar from '../../user/ProfileAvatar';
@@ -20,8 +20,7 @@ import './index.css';
 
 function SellerLegalData() {
   const dispatch = useDispatch();
-  const { user } = useSelector(getUserData);
-  const { seller } = useSelector(getUserData);
+  const { user, seller } = useSelector(getUserData);
   const {
     values,
     setValues,
@@ -56,7 +55,11 @@ function SellerLegalData() {
   }, []);
 
   useEffect(() => {
-    setLegalEdit(true);
+    if (localStorage.getItem('sellerData')) {
+      setLegalEdit(true);
+    } else {
+      setLegalEdit(false);
+    }
     setValues({
       name: user.first_name,
       surname: user.last_name,
@@ -72,7 +75,7 @@ function SellerLegalData() {
       bik: seller.bik,
     });
     if (!isEditing) localStorage.removeItem('LegalAvatar');
-  }, [user, isEditing, legalEdit]);
+  }, [user, seller, isEditing, legalEdit]);
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -91,8 +94,9 @@ function SellerLegalData() {
       correspondent_account: values.correspondent_account,
       bik: values.bik,
     };
+    localStorage.setItem('sellerData', true);
 
-    if (userPhoto) formData.photo = userPhoto;
+    // if (userPhoto) formData.photo = userPhoto;
 
     dispatch(changeSomeSellerDetails(formData));
     setIsEditing(false);
@@ -298,8 +302,16 @@ function SellerLegalData() {
         <LegalDataEdit></LegalDataEdit>
       ) : (
         <>
-          <LegalDocumentButton isEditing={!isEditing} handleAddProve={handleAddProve} />
-          <LegalCheckboxAgreement isEditing={!isEditing} />
+          <LegalDocumentButton
+            isEditing={!isEditing}
+            handleAddProve={handleAddProve}
+          />
+          <LegalCheckboxAgreement
+            isEditing={!isEditing}
+            onChange={handleChange}
+            name='checkbox'
+            error={errors.checkbox ?? ''}
+          />
           <ProfileFormButtons
             handleSubmit={handleSubmit}
             resetForm={() => {

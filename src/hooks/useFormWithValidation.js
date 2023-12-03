@@ -148,10 +148,18 @@ export const useFormWithValidation = () => {
   };
 
   const handleChange = (e) => {
-    let { value } = e.target;
-    const { name } = e.target;
-    let { validationMessage } = e.target;
-    if (e.target.required && value === '') {
+    const { target } = e;
+    let { value } = target;
+    const { required, name, type } = target;
+    let { validationMessage } = target;
+    if (type === 'checkbox') {
+      value = target.checked;
+      if (required && !value) {
+        validationMessage = 'Необходимо согласие с условиями Договора-оферты';
+      } else {
+        validationMessage = '';
+      }
+    } else if (required && value === '') {
       validationMessage = 'Поле ввода не может быть пустым';
     } else {
       if (name === 'email') {
