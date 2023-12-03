@@ -49,3 +49,21 @@
   cursor: pointer;
   text-decoration: none;
 }
+
+.profile__legal-message {
+  height: 32px;
+}
+
+.profile__legal-message_type_hint {
+  color: var(--Gray-Medium);
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.profile__legal-message_type_error {
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 20px;
+  color: var(--Error);
+}
