@@ -215,7 +215,7 @@ class Api {
 }
 
 const config = {
-  baseUrl: 'http://botmarketplace.ddns.net/api',
+  baseUrl: 'https://botmarketplace.ru/api',
   headers: {
     'Content-Type': 'application/json',
   },
