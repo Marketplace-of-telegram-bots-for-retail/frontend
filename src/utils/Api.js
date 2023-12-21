@@ -211,7 +211,12 @@ class Api {
   // Проверка Емайл
   emailVerification = (params) =>
     this._makeRequest('/users/email_verification/', 'GET', undefined, params);
-  //
+
+  // Получить список категорий
+  getCategories = () => this._makeRequest('/categories/', 'GET');
+
+  // Получить данные конкретной категории по ID
+  getCategoriesID = (id) => this._makeRequest(`/categories/${id}/`, 'GET');
 }
 
 const config = {

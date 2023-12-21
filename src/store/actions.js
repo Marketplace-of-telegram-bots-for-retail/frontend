@@ -5,3 +5,4 @@ export * from './searchFormDataSlice';
 export * from './userOrdersDataSlice';
 export * from './userSlice';
 export * from './sellersProductsSlice';
+export * from './categories/actions';
