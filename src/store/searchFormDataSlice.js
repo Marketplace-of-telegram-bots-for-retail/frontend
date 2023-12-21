@@ -5,7 +5,7 @@ import { api } from '../utils/Api';
 
 const initialState = {
   search: null,
-  categories: { 1: false, 2: false, 3: false, 4: false },
+  categories: {},
   prices: [0, 0],
   sorting: null,
   min_max: {
@@ -62,7 +62,7 @@ const searchFormDataSlice = createSlice({
     },
     ressetFiltersState(state) {
       state.prices = [state.min_max.price__min, state.min_max.price__max];
-      state.categories = { 1: false, 2: false, 3: false, 4: false };
+      state.categories = {};
     },
     setMinMaxCost(state, action) {
       state.min_max = action.payload;

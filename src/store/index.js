@@ -7,6 +7,7 @@ import userOrdersDataReducer from './userOrdersDataSlice';
 import userDataReducer from './userSlice';
 import sellersProductsReducer from './sellersProductsSlice';
 import modalsReducer from './modalsSlice';
+import categoriesReducer from './categories/slice';
 
 export default configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export default configureStore({
     userData: userDataReducer,
     sellersProducts: sellersProductsReducer,
     modals: modalsReducer,
+    categories: categoriesReducer,
   },
 });
 export {
@@ -30,4 +32,5 @@ export {
   getSellersProducts,
   getModals,
 } from './selectors';
-export * as selectors from './selectors';
+
+// export * as selectors from './selectors';

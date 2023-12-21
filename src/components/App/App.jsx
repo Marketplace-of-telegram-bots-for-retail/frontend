@@ -16,7 +16,8 @@ import {
   logOut,
   registerUser,
   updateProfile,
-  getOrdersList
+  getOrdersList,
+  getCategories,
 } from '../../store/actions';
 import { getUserData, getModals } from '../../store';
 import { setShowAuthButtons, setShowAuthModal } from '../../store/modalsSlice';
@@ -82,6 +83,7 @@ const App = () => {
   };
   // Загрузить начальные данные
   const getInitialData = useCallback(() => {
+    dispatch(getCategories());
     dispatch(getMinMaxCost());
     dispatch(getProducts(formRequest));
   }, [dispatch, formRequest]);
@@ -283,7 +285,10 @@ const App = () => {
         </Route>
 
         <Route path='/privacy-policy' element={<PrivacyPolicy />} />
-        <Route path='/salesman' element={<Salesman cbLogIn={cbLogIn} cbRegister={cbRegister} />} />
+        <Route
+          path='/salesman'
+          element={<Salesman cbLogIn={cbLogIn} cbRegister={cbRegister} />}
+        />
         <Route path='/promo' element={<Promo />} />
       </Route>
     </Routes>
